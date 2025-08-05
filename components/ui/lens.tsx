@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import React, { useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 
 interface LensProps {
   children: React.ReactNode;
@@ -40,6 +40,7 @@ export const Lens: React.FC<LensProps> = ({
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+
     setMousePosition({ x, y });
   };
 
@@ -58,11 +59,10 @@ export const Lens: React.FC<LensProps> = ({
       {isStatic ? (
         <div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.58 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
             className="absolute inset-0 overflow-hidden"
+            exit={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.58 }}
             style={{
               maskImage: `radial-gradient(circle ${lensSize / 2}px at ${
                 position.x
@@ -72,6 +72,7 @@ export const Lens: React.FC<LensProps> = ({
               }px ${position.y}px, black 100%, transparent 100%)`,
               transformOrigin: `${position.x}px ${position.y}px`,
             }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <div
               className="absolute inset-0"
@@ -89,23 +90,21 @@ export const Lens: React.FC<LensProps> = ({
           {isHovering && (
             <div>
               <motion.div
-                initial={{ opacity: 0, scale: 0.58 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
                 className="absolute inset-0 overflow-hidden"
+                exit={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.58 }}
                 style={{
                   maskImage: `radial-gradient(circle ${lensSize / 2}px at ${
                     mousePosition.x
                   }px ${mousePosition.y}px, black 100%, transparent 100%)`,
                   WebkitMaskImage: `radial-gradient(circle ${
                     lensSize / 2
-                  }px at ${mousePosition.x}px ${
-                    mousePosition.y
-                  }px, black 100%, transparent 100%)`,
+                  }px at ${mousePosition.x}px ${mousePosition.y}px, black 100%, transparent 100%)`,
                   transformOrigin: `${mousePosition.x}px ${mousePosition.y}px`,
                   zIndex: 50,
                 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
               >
                 <div
                   className="absolute inset-0"

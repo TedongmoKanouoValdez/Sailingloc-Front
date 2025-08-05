@@ -1,13 +1,7 @@
-export default function SupportMessagesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SupportMessagesLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </section>
   );
 }

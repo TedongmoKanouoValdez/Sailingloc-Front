@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @layer base {
   :root {
@@ -76,8 +76,7 @@
   }
   .theme {
     --animate-rippling: rippling var(--duration) ease-out;
-    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
-      alternate;
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
     --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   }
 }
@@ -92,7 +91,7 @@
 }
 
 * {
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -168,9 +167,7 @@
   color: #fff;
 }
 
-.contentFormHome
-  .inputformhome
-  div[class="group flex flex-col data-[hidden=true]:hidden w-full"] {
+.contentFormHome .inputformhome div[class='group flex flex-col data-[hidden=true]:hidden w-full'] {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -179,7 +176,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.contentFormHome .inputformhome div[class="group flex flex-col group w-full"] {
+.contentFormHome .inputformhome div[class='group flex flex-col group w-full'] {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -209,7 +206,7 @@
 }
 
 .cardcategoriecontent::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -326,7 +323,7 @@
 }
 
 .carddestinationshome::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -441,7 +438,7 @@
   background-color: #17c964;
 }
 
-div[data-slot="content"].bg-content1 {
+div[data-slot='content'].bg-content1 {
   min-width: 1rem;
 }
 
@@ -500,7 +497,7 @@ div[data-slot="content"].bg-content1 {
 }
 
 .bannerpagedevenirpartenaire::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

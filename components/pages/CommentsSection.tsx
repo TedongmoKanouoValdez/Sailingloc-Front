@@ -1,10 +1,11 @@
-"use client";
-import React, { useState } from "react";
-import { FaThumbsUp, FaThumbsDown, FaPaperPlane } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+'use client';
+import React, { useState } from 'react';
+import { FaPaperPlane } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 
 export default function CommentsSection() {
   const [rating, setRating] = useState(0);
+
   return (
     <div className="max-w-6xl mx-auto p-6 px-0 mb-4">
       {/* Titre */}
@@ -14,22 +15,22 @@ export default function CommentsSection() {
       <div className="bg-white rounded-lg shadow p-4 mb-6 w-[40rem]">
         <textarea
           className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:ring focus:ring-blue-200 resize-none"
-          rows={3}
           placeholder="Enter your comment..."
+          rows={3}
         />
         <div className="flex items-center justify-between mt-2">
           <div className="flex space-x-1 items-center">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
-                type="button"
-                onClick={() => setRating(star)}
                 aria-label={`${star} star`}
                 className="focus:outline-none"
+                type="button"
+                onClick={() => setRating(star)}
               >
                 <svg
                   className={`w-5 h-5 cursor-pointer transition ${
-                    star <= rating ? "fill-orange-400" : "fill-gray-300"
+                    star <= rating ? 'fill-orange-400' : 'fill-gray-300'
                   }`}
                   viewBox="0 0 24 24"
                 >
@@ -50,18 +51,8 @@ export default function CommentsSection() {
         <p className="text-gray-600 font-medium">12 Commentaire</p>
         <button className="text-gray-500 text-sm flex items-center space-x-1">
           <span>Plus</span>
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M19 9l-7 7-7-7"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
           </svg>
         </button>
       </div>
@@ -76,11 +67,11 @@ export default function CommentsSection() {
           </div>
         </div>
         <p className="text-gray-800 text-sm mb-3">
-          Just watched the latest Bollywood blockbuster! The songs were so
-          catchy, and the dance numbers were breathtaking...
+          Just watched the latest Bollywood blockbuster! The songs were so catchy, and the dance
+          numbers were breathtaking...
         </p>
         <div className="flex items-center justify-between text-gray-500 text-xs">
-          <div className="flex items-center space-x-4"></div>
+          <div className="flex items-center space-x-4" />
           <div className="flex flex-row space-x-2">
             <FaStar className="text-amber-400" />
             <FaStar className="text-amber-400" />
@@ -101,11 +92,11 @@ export default function CommentsSection() {
           </div>
         </div>
         <p className="text-gray-800 text-sm mb-3">
-          Bollywood romance movies have a special charm that transports viewers
-          into a world of love, passion, and emotion...
+          Bollywood romance movies have a special charm that transports viewers into a world of
+          love, passion, and emotion...
         </p>
         <div className="flex items-center justify-between text-gray-500 text-xs">
-          <div className="flex items-center space-x-4"></div>
+          <div className="flex items-center space-x-4" />
           <div className="flex flex-row space-x-2">
             <FaStar className="text-amber-400" />
             <FaStar className="text-amber-400" />
@@ -126,11 +117,11 @@ export default function CommentsSection() {
           </div>
         </div>
         <p className="text-gray-800 text-sm mb-3">
-          These films are renowned for their hilarious antics, witty dialogue,
-          and comedic timing that keep audiences laughing non-stop...
+          These films are renowned for their hilarious antics, witty dialogue, and comedic timing
+          that keep audiences laughing non-stop...
         </p>
         <div className="flex items-center justify-between text-gray-500 text-xs">
-          <div className="flex items-center space-x-4"></div>
+          <div className="flex items-center space-x-4" />
           <div className="flex flex-row space-x-2">
             <FaStar className="text-amber-400" />
             <FaStar className="text-amber-400" />

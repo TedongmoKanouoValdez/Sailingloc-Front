@@ -1,31 +1,15 @@
-"use client";
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Button as Buttonheroui } from "@heroui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { User } from "@heroui/user";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Chip } from "@heroui/chip";
-import { FaUserEdit } from "react-icons/fa";
-import { FaCcVisa } from "react-icons/fa6";
-import { FaCcMastercard } from "react-icons/fa6";
-import { SiAmericanexpress } from "react-icons/si";
-import { FaCcPaypal } from "react-icons/fa";
-import { Alert } from "@heroui/alert";
-import { ElementType } from "react";
-import { RippleButton } from "@/components/magicui/ripple-button";
+'use client';
+import * as React from 'react';
+import { Button as Buttonheroui } from '@heroui/button';
+import { User } from '@heroui/user';
+import { Chip } from '@heroui/chip';
+import { FaUserEdit } from 'react-icons/fa';
+import { FaCcVisa } from 'react-icons/fa6';
+import { FaCcMastercard } from 'react-icons/fa6';
+import { SiAmericanexpress } from 'react-icons/si';
+import { FaCcPaypal } from 'react-icons/fa';
+import { Alert } from '@heroui/alert';
+import { ElementType } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -37,17 +21,24 @@ import {
   SortingState,
   useReactTable,
   VisibilityState,
-} from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@tanstack/react-table';
+import { MoreHorizontal } from 'lucide-react';
+import { Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from '@heroui/drawer';
+import { useDisclosure } from '@heroui/modal';
+import { BsCreditCard2FrontFill } from 'react-icons/bs';
+import { FaChevronDown } from 'react-icons/fa';
+import { Tooltip } from '@heroui/tooltip';
+import { Image } from '@heroui/image';
+import { Avatar } from '@heroui/avatar';
+import { Link } from '@heroui/link';
+import { Steps } from 'antd';
+import { Divider as Dividerhenoui } from '@heroui/divider';
+
+import { BateauPrefere } from '@/components/pages/bateauprefere';
+import { NotificationsUsers } from '@/components/pages/notificationUser';
+import { ZonesFavorites } from '@/components/pages/zonesfavorites';
+import { FaqUser } from '@/components/pages/faquser';
+import ChatUI from '@/components/pages/chatui';
 import {
   Table,
   TableBody,
@@ -55,28 +46,31 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-} from "@heroui/drawer";
-import { useDisclosure } from "@heroui/modal";
-import { BsCreditCard2FrontFill } from "react-icons/bs";
-import { FaChevronDown } from "react-icons/fa";
-import { Tooltip } from "@heroui/tooltip";
-import { Image } from "@heroui/image";
-import { Avatar, AvatarGroup, AvatarIcon } from "@heroui/avatar";
-import { Link } from "@heroui/link";
-import { Divider, Steps } from "antd";
-import { BateauPrefere } from "@/components/pages/bateauprefere";
-import { NotificationsUsers } from "@/components/pages/notificationUser";
-import { ZonesFavorites } from "@/components/pages/zonesfavorites";
-import { FaqUser } from "@/components/pages/faquser";
-import ChatUI from "@/components/pages/chatui";
-import { Divider as Dividerhenoui } from "@heroui/divider";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RippleButton } from '@/components/magicui/ripple-button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 type MoyenDePaimentIconProps = {
   icon: ElementType<{ size?: number | string; color?: string }>;
@@ -88,10 +82,10 @@ type MoyenDePaimentIconProps = {
 const MoyenDePaimentIcon = ({
   icon: Icon,
   size = 24,
-  color = "currentColor",
+  color = 'currentColor',
   className,
 }: MoyenDePaimentIconProps) => {
-  return <Icon size={size} color={color} className={className} />;
+  return <Icon className={className} color={color} size={size} />;
 };
 
 export type Reservation = {
@@ -101,156 +95,151 @@ export type Reservation = {
   sailingDates: string; // ex: "1–7 août 2025"
   destination: string; // ex: "Côte d’Azur"
   boatName: string; // ex: "Lagoon 42"
-  status: "Confirmée" | "Annulée" | "En attente";
+  status: 'Confirmée' | 'Annulée' | 'En attente';
 };
 
 export const data: Reservation[] = [
   {
-    id: "1",
+    id: '1',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg",
-    bookingDate: "12 juin 2025",
-    sailingDates: "1–7 août 2025",
-    destination: "Côte d’Azur",
-    boatName: "Lagoon 42",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg',
+    bookingDate: '12 juin 2025',
+    sailingDates: '1–7 août 2025',
+    destination: 'Côte d’Azur',
+    boatName: 'Lagoon 42',
+    status: 'Confirmée',
   },
   {
-    id: "2",
+    id: '2',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "1 mars 2025",
-    sailingDates: "20–27 avril 2025",
-    destination: "Sardaigne",
-    boatName: "Sun Odyssey",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '1 mars 2025',
+    sailingDates: '20–27 avril 2025',
+    destination: 'Sardaigne',
+    boatName: 'Sun Odyssey',
+    status: 'Annulée',
   },
   {
-    id: "3",
+    id: '3',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "5 février 2025",
-    sailingDates: "15–22 mai 2025",
-    destination: "Baléares",
-    boatName: "Bavaria Cruiser",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '5 février 2025',
+    sailingDates: '15–22 mai 2025',
+    destination: 'Baléares',
+    boatName: 'Bavaria Cruiser',
+    status: 'Confirmée',
   },
   {
-    id: "4",
+    id: '4',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "10 janvier 2025",
-    sailingDates: "10–17 juillet 2025",
-    destination: "Croatie",
-    boatName: "Beneteau Oceanis",
-    status: "En attente",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '10 janvier 2025',
+    sailingDates: '10–17 juillet 2025',
+    destination: 'Croatie',
+    boatName: 'Beneteau Oceanis',
+    status: 'En attente',
   },
   {
-    id: "5",
+    id: '5',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "22 mars 2025",
-    sailingDates: "5–12 août 2025",
-    destination: "Grèce",
-    boatName: "Jeanneau 54",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '22 mars 2025',
+    sailingDates: '5–12 août 2025',
+    destination: 'Grèce',
+    boatName: 'Jeanneau 54',
+    status: 'Confirmée',
   },
   {
-    id: "6",
+    id: '6',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "3 avril 2025",
-    sailingDates: "12–19 juin 2025",
-    destination: "Sicile",
-    boatName: "Dufour 520",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '3 avril 2025',
+    sailingDates: '12–19 juin 2025',
+    destination: 'Sicile',
+    boatName: 'Dufour 520',
+    status: 'Annulée',
   },
   {
-    id: "7",
+    id: '7',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "17 mai 2025",
-    sailingDates: "1–8 septembre 2025",
-    destination: "Ibiza",
-    boatName: "Fountaine Pajot",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '17 mai 2025',
+    sailingDates: '1–8 septembre 2025',
+    destination: 'Ibiza',
+    boatName: 'Fountaine Pajot',
+    status: 'Confirmée',
   },
   {
-    id: "8",
+    id: '8',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "8 février 2025",
-    sailingDates: "18–25 juillet 2025",
-    destination: "Canaries",
-    boatName: "Hanse 458",
-    status: "En attente",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '8 février 2025',
+    sailingDates: '18–25 juillet 2025',
+    destination: 'Canaries',
+    boatName: 'Hanse 458',
+    status: 'En attente',
   },
   {
-    id: "9",
+    id: '9',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "25 mars 2025",
-    sailingDates: "2–9 août 2025",
-    destination: "Sardaigne",
-    boatName: "Sunreef 50",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '25 mars 2025',
+    sailingDates: '2–9 août 2025',
+    destination: 'Sardaigne',
+    boatName: 'Sunreef 50',
+    status: 'Confirmée',
   },
   {
-    id: "10",
+    id: '10',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "12 avril 2025",
-    sailingDates: "22–29 juin 2025",
-    destination: "Côte Amalfitaine",
-    boatName: "Lagoon 450",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '12 avril 2025',
+    sailingDates: '22–29 juin 2025',
+    destination: 'Côte Amalfitaine',
+    boatName: 'Lagoon 450',
+    status: 'Annulée',
   },
   {
-    id: "11",
+    id: '11',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "12 avril 2025",
-    sailingDates: "22–29 juin 2025",
-    destination: "Côte Amalfitaine",
-    boatName: "Lagoon 450",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '12 avril 2025',
+    sailingDates: '22–29 juin 2025',
+    destination: 'Côte Amalfitaine',
+    boatName: 'Lagoon 450',
+    status: 'Annulée',
   },
 ];
 
 export const columns: ColumnDef<Reservation>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
+        aria-label="Tout sélectionner"
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Tout sélectionner"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
+        aria-label="Sélectionner la réservation"
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Sélectionner la réservation"
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "photo",
-    header: "🛥️",
+    accessorKey: 'photo',
+    header: '🛥️',
     cell: ({ row }) => (
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
-          <img
-            src={row.original.photo}
-            alt="Bateau"
-            className="w-full h-full object-cover"
-          />
+          <img alt="Bateau" className="w-full h-full object-cover" src={row.original.photo} />
         ) : (
           <span className="text-xl">🛥️</span>
         )}
@@ -260,45 +249,42 @@ export const columns: ColumnDef<Reservation>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "bookingDate",
-    header: "Date de réservation",
+    accessorKey: 'bookingDate',
+    header: 'Date de réservation',
     cell: ({ row }) => <div>{row.original.bookingDate}</div>,
   },
   {
-    accessorKey: "sailingDates",
-    header: "Dates de navigation",
+    accessorKey: 'sailingDates',
+    header: 'Dates de navigation',
     cell: ({ row }) => <div>{row.original.sailingDates}</div>,
   },
   {
-    accessorKey: "destination",
-    header: "Destination",
+    accessorKey: 'destination',
+    header: 'Destination',
     cell: ({ row }) => <div>{row.original.destination}</div>,
   },
   {
-    accessorKey: "boatName",
-    header: "Nom du bateau",
+    accessorKey: 'boatName',
+    header: 'Nom du bateau',
     cell: ({ row }) => <div>{row.original.boatName}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Statut",
+    accessorKey: 'status',
+    header: 'Statut',
     cell: ({ row }) => {
       const status = row.original.status;
       const color =
-        status === "Confirmée"
-          ? "success"
-          : status === "Annulée"
-            ? "danger"
-            : "warning";
+        status === 'Confirmée' ? 'success' : status === 'Annulée' ? 'danger' : 'warning';
+
       return (
-        <Chip color={`${color}`} variant="shadow" className="text-white">
+        <Chip className="text-white" color={`${color}`} variant="shadow">
           {status}
         </Chip>
       );
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const reservation = row.original;
@@ -308,22 +294,18 @@ export const columns: ColumnDef<Reservation>[] = [
         <>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
+              <Button className="h-8 w-8 p-0" variant="ghost">
                 <span className="sr-only">Ouvrir le menu</span>
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onSelect={onOpen}>
-                Voir détails
-              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={onOpen}>Voir détails</DropdownMenuItem>
               <DropdownMenuItem>Voir contrat</DropdownMenuItem>
-              {reservation.status !== "Annulée" && (
+              {reservation.status !== 'Annulée' && (
                 <DropdownMenuItem
-                  onClick={() =>
-                    console.log(`Annuler réservation ${reservation.id}`)
-                  }
+                  onClick={() => console.log(`Annuler réservation ${reservation.id}`)}
                 >
                   Annuler
                 </DropdownMenuItem>
@@ -334,7 +316,7 @@ export const columns: ColumnDef<Reservation>[] = [
             hideCloseButton
             backdrop="blur"
             classNames={{
-              base: "data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium",
+              base: 'data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium',
             }}
             isOpen={isOpen}
             onOpenChange={onOpenChange}
@@ -478,7 +460,7 @@ export const columns: ColumnDef<Reservation>[] = [
                         Informations principales
                       </h2>
                       <div className="text-sm text-default-500">
-                        <span>Type de bateau : </span>{" "}
+                        <span>Type de bateau : </span>{' '}
                         <Chip color="warning" variant="dot">
                           catamaran
                         </Chip>
@@ -497,9 +479,7 @@ export const columns: ColumnDef<Reservation>[] = [
                             <p className="text-medium text-foreground font-medium">
                               Tuesday, November 19
                             </p>
-                            <p className="text-small text-default-500">
-                              5:00 PM - 9:00 PM PST
-                            </p>
+                            <p className="text-small text-default-500">5:00 PM - 9:00 PM PST</p>
                           </div>
                         </div>
                         <div className="flex gap-3 items-center">
@@ -550,72 +530,58 @@ export const columns: ColumnDef<Reservation>[] = [
                             >
                               555 California St suite 500
                             </Link>
-                            <p className="text-small text-default-500">
-                              San Francisco, California
-                            </p>
+                            <p className="text-small text-default-500">San Francisco, California</p>
                           </div>
                         </div>
                         <div className="flex flex-col mt-4 gap-3 items-start">
                           <h2 className="text-lg text-gray-600 underline underline-offset-8">
                             Détails de la réservation
                           </h2>
-                          <span className="text-medium font-medium">
-                            About the event
-                          </span>
+                          <span className="text-medium font-medium">About the event</span>
                           <div className="text-medium text-default-500 flex flex-col gap-2">
                             <p>
-                              Hey Bay Area! We are excited to announce our next
-                              meetup on Tuesday, November 19th.
+                              Hey Bay Area! We are excited to announce our next meetup on Tuesday,
+                              November 19th.
                             </p>
                             <div>
-                              <span>Numéro de réservation : </span>{" "}
+                              <span>Numéro de réservation : </span>{' '}
                               <Chip color="warning" variant="bordered">
                                 NGT-TFR785JUY
                               </Chip>
                             </div>
                             <div>
-                              <span>
-                                Date à laquelle la réservation a été faite
-                                :{" "}
-                              </span>{" "}
+                              <span>Date à laquelle la réservation a été faite : </span>{' '}
                               <Chip color="warning" variant="faded">
                                 18/06/2025
                               </Chip>
                             </div>
 
                             <div>
-                              <span>
-                                Date à laquelle la réservation a été faite
-                                :{" "}
-                              </span>{" "}
-                              <Chip
-                                color="warning"
-                                variant="shadow"
-                                className="text-white"
-                              >
+                              <span>Date à laquelle la réservation a été faite : </span>{' '}
+                              <Chip className="text-white" color="warning" variant="shadow">
                                 En attente
                               </Chip>
                             </div>
 
                             <div>
-                              <span>Récapitulatif des options choisies : </span>{" "}
+                              <span>Récapitulatif des options choisies : </span>{' '}
                               <Steps
                                 progressDot
                                 current={2}
                                 direction="vertical"
                                 items={[
                                   {
-                                    title: "skipper",
+                                    title: 'skipper',
                                     // description:
                                     //   "This is a description. This is a description.",
                                   },
                                   {
-                                    title: "hôtesse",
+                                    title: 'hôtesse',
                                     // description:
                                     //   "This is a description. This is a description.",
                                   },
                                   {
-                                    title: "matériel",
+                                    title: 'matériel',
                                     // description:
                                     //   "This is a description. This is a description.",
                                   },
@@ -630,33 +596,20 @@ export const columns: ColumnDef<Reservation>[] = [
                             <div>
                               <div>
                                 <div>Prix total : </div>
-                                <div className="text-black font-medium">
-                                  650.00€
-                                </div>
+                                <div className="text-black font-medium">650.00€</div>
                               </div>
                               <div>
                                 <div>Montant restant à payer : </div>
-                                <div className="text-black font-medium">
-                                  0.00€
-                                </div>
+                                <div className="text-black font-medium">0.00€</div>
                               </div>
                               <div>
-                                <div>
-                                  Moyens de paiement utilisés ou prévus :{" "}
-                                </div>
-                                <div className="text-black font-medium">
-                                  PayPal
-                                </div>
+                                <div>Moyens de paiement utilisés ou prévus : </div>
+                                <div className="text-black font-medium">PayPal</div>
                               </div>
                               <div>
+                                <div>Téléchargement de la facture ou du reçu : </div>
                                 <div>
-                                  Téléchargement de la facture ou du reçu :{" "}
-                                </div>
-                                <div>
-                                  <Link
-                                    className="text-default-700 font-medium"
-                                    href="/"
-                                  >
+                                  <Link className="text-default-700 font-medium" href="/">
                                     SailingLocFacture
                                   </Link>
                                 </div>
@@ -664,11 +617,8 @@ export const columns: ColumnDef<Reservation>[] = [
                             </div>
 
                             <div className="mt-4">
-                              Voir le bateau{" "}
-                              <Link
-                                className="text-default-700"
-                                href="https://heroui.com"
-                              >
+                              Voir le bateau{' '}
+                              <Link className="text-default-700" href="https://heroui.com">
                                 SF Bay Area Meetup in November
                               </Link>
                               .
@@ -680,20 +630,17 @@ export const columns: ColumnDef<Reservation>[] = [
                         </h2>
                         <div>
                           <div>
-                            <span className="font-medium">
-                              Politique d&apos;annulation :
-                            </span>{" "}
-                            Annulation gratuite jusqu&apos;à 30 jours avant le
-                            départ. 50% remboursé entre 29 et 15 jours. Aucun
-                            remboursement si moins de 15 jours. Cas de force
-                            majeure et météo extrême pris en compte.
+                            <span className="font-medium">Politique d&apos;annulation :</span>{' '}
+                            Annulation gratuite jusqu&apos;à 30 jours avant le départ. 50% remboursé
+                            entre 29 et 15 jours. Aucun remboursement si moins de 15 jours. Cas de
+                            force majeure et météo extrême pris en compte.
                           </div>
                           <div>
-                            Montant de la caution demandée :{" "}
+                            Montant de la caution demandée :{' '}
                             <span className="font-medium">Aucun</span>
                           </div>
                           <div>
-                            Conditions spécifiques :{" "}
+                            Conditions spécifiques :{' '}
                             <span>interdit de fumer, animaux acceptés</span>
                           </div>
                         </div>
@@ -701,18 +648,14 @@ export const columns: ColumnDef<Reservation>[] = [
                           Contacts utiles
                         </h2>
                         <div className="flex flex-col mt-4 gap-3 items-start">
-                          <span className="text-small text-default-500">
-                            Propiètaire
-                          </span>
+                          <span className="text-small text-default-500">Propiètaire</span>
                           <div className="flex gap-2 items-center">
                             <Avatar
                               name="HeroUI"
                               size="sm"
                               src="https://heroui.com/android-chrome-192x192.png"
                             />
-                            <span className="text-small text-default-500">
-                              John Doe
-                            </span>
+                            <span className="text-small text-default-500">John Doe</span>
                           </div>
                         </div>
                         <div className="flex flex-col mt-4 gap-3 items-start">
@@ -725,28 +668,20 @@ export const columns: ColumnDef<Reservation>[] = [
                               size="sm"
                               src="https://heroui.com/android-chrome-192x192.png"
                             />
-                            <span className="text-small text-default-500">
-                              John Doe
-                            </span>
+                            <span className="text-small text-default-500">John Doe</span>
                           </div>
                         </div>
                         <div>
                           <div>
-                            Contact du support client :{" "}
-                            <span className="font-medium">
-                              +33 7 85 89 04 45
-                            </span>
+                            Contact du support client :{' '}
+                            <span className="font-medium">+33 7 85 89 04 45</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </DrawerBody>
                   <DrawerFooter className="flex flex-col gap-1">
-                    <Link
-                      className="text-default-400"
-                      href="mailto:hello@heroui.com"
-                      size="sm"
-                    >
+                    <Link className="text-default-400" href="mailto:hello@heroui.com" size="sm">
                       Télécharger le contrat de location
                     </Link>
                     {/* <Link
@@ -769,11 +704,8 @@ export const columns: ColumnDef<Reservation>[] = [
 
 export default function ProfilPage() {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data,
@@ -795,7 +727,7 @@ export default function ProfilPage() {
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("opaque");
+  const [backdrop, setBackdrop] = React.useState('opaque');
 
   const handleBackdropChange = (backdrop: string) => {
     setBackdrop(backdrop);
@@ -809,11 +741,11 @@ export default function ProfilPage() {
           className="absolute top-0"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751093328/9551504_v1w9w0.jpg)",
-            height: "56vh",
-            backgroundSize: "100%",
-            backgroundRepeat: "no-repeat",
-            width: "100%",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751093328/9551504_v1w9w0.jpg)',
+            height: '56vh',
+            backgroundSize: '100%',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
           }}
         >
           <div className="mx-auto max-w-6xl mt-48 text-white font-bold text-5xl">
@@ -826,40 +758,36 @@ export default function ProfilPage() {
           className="pb-10 pt-[21rem]"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751362027/4847236_rplbu1.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751362027/4847236_rplbu1.jpg)',
           }}
         >
           <div>
-            <Tabs defaultValue="account" className="w-[87rem]">
+            <Tabs className="w-[87rem]" defaultValue="account">
               <div className="bg-glacev2 flex justify-between w-[77rem] p-4 ml-[9rem] items-center rounded-lg">
                 <div>
                   <div>
                     <User
                       avatarProps={{
-                        src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                        src: 'https://i.pravatar.cc/150?u=a04258114e29026702d',
                       }}
                       // description="Product Designer"
-                      name="Jane Doe"
                       className="avatarProfil"
+                      name="Jane Doe"
                     />
                   </div>
                 </div>
 
                 <TabsList>
-                  <TabsTrigger value="account">
-                    Présentation & Informations
-                  </TabsTrigger>
+                  <TabsTrigger value="account">Présentation & Informations</TabsTrigger>
                   <TabsTrigger value="chat">chat</TabsTrigger>
-                  <TabsTrigger value="parametre">
-                    Paramètres du compte
-                  </TabsTrigger>
+                  <TabsTrigger value="parametre">Paramètres du compte</TabsTrigger>
                 </TabsList>
               </div>
               <div className="ml-[9rem]">
                 <TabsContent value="account">
                   <div className="flex flex-col space-y-8 mt-8">
                     <div>
-                      <Chip variant="dot" className="border-none contenttitresectionprofile mb-4">
+                      <Chip className="border-none contenttitresectionprofile mb-4" variant="dot">
                         <div className="text-lg font-bold">Profil & bateau favori</div>
                       </Chip>
                       <div className="flex flex-row space-x-3">
@@ -877,53 +805,39 @@ export default function ProfilPage() {
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                   <DialogHeader>
-                                    <DialogTitle>
-                                      Modifier votre profile
-                                    </DialogTitle>
+                                    <DialogTitle>Modifier votre profile</DialogTitle>
                                     <DialogDescription>
-                                      Modifiez vos informations personnelles
-                                      pour garder votre profil à jour et
-                                      améliorer votre expérience sur notre
-                                      plateforme. Vous pouvez changer votre nom,
-                                      votre adresse ou vos coordonnées de
-                                      contact.
+                                      Modifiez vos informations personnelles pour garder votre
+                                      profil à jour et améliorer votre expérience sur notre
+                                      plateforme. Vous pouvez changer votre nom, votre adresse ou
+                                      vos coordonnées de contact.
                                     </DialogDescription>
                                   </DialogHeader>
                                   <div className="grid gap-4">
                                     <div className="grid gap-3">
                                       <Label htmlFor="nom">Nom</Label>
-                                      <Input
-                                        id="nom"
-                                        name="nom"
-                                        defaultValue="Doe"
-                                      />
+                                      <Input defaultValue="Doe" id="nom" name="nom" />
                                     </div>
                                     <div className="grid gap-3">
                                       <Label htmlFor="prenom">Prénom</Label>
-                                      <Input
-                                        id="prenom"
-                                        name="prenom"
-                                        defaultValue="John"
-                                      />
+                                      <Input defaultValue="John" id="prenom" name="prenom" />
                                     </div>
                                     <div className="grid gap-3">
                                       <Label htmlFor="Email">E-mail</Label>
                                       <Input
+                                        defaultValue="johndoe@exemple.com"
                                         id="Email"
                                         name="email"
                                         type="email"
-                                        defaultValue="johndoe@exemple.com"
                                       />
                                     </div>
                                     <div className="grid gap-3">
-                                      <Label htmlFor="password">
-                                        Mot de passe
-                                      </Label>
+                                      <Label htmlFor="password">Mot de passe</Label>
                                       <Input
+                                        defaultValue="************"
                                         id="password"
                                         name="motDePasse"
                                         type="email"
-                                        defaultValue="************"
                                       />
                                     </div>
                                   </div>
@@ -940,24 +854,19 @@ export default function ProfilPage() {
 
                           <div className="flex flex-col space-y-2">
                             <span>
-                              <span className="text-gray-500">
-                                Nom complet :
-                              </span>{" "}
+                              <span className="text-gray-500">Nom complet :</span>{' '}
                               <span>Jane Doe</span>
                             </span>
                             <span>
-                              <span className="text-gray-500">Email :</span>{" "}
+                              <span className="text-gray-500">Email :</span>{' '}
                               <span>janedoe@gmail.com</span>
                             </span>
                             <span>
-                              <span className="text-gray-500">
-                                Mot de passe :
-                              </span>{" "}
+                              <span className="text-gray-500">Mot de passe :</span>{' '}
                               <span>*************</span>
                             </span>
                             <span>
-                              <span className="text-gray-500">Statut :</span>{" "}
-                              <span>Client</span>
+                              <span className="text-gray-500">Statut :</span> <span>Client</span>
                             </span>
                             <span className="flex justify-end w-full">
                               <Chip color="success" variant="dot">
@@ -980,7 +889,7 @@ export default function ProfilPage() {
                     </div>
 
                     <div>
-                      <Chip variant="dot" className="border-none contenttitresectionprofile mb-4">
+                      <Chip className="border-none contenttitresectionprofile mb-4" variant="dot">
                         <div className="text-lg font-bold">Mes préférences et alertes</div>
                       </Chip>
 
@@ -1010,7 +919,7 @@ export default function ProfilPage() {
                     </div>
 
                     <div>
-                      <Chip variant="dot" className="border-none contenttitresectionprofile mb-4">
+                      <Chip className="border-none contenttitresectionprofile mb-4" variant="dot">
                         <div className="text-lg font-bold">Aide & Paiements enregistrés</div>
                       </Chip>
 
@@ -1025,32 +934,25 @@ export default function ProfilPage() {
                                 <form>
                                   <DialogTrigger asChild>
                                     <Button variant="outline">
-                                      <BsCreditCard2FrontFill /> Ajouter un
-                                      moyens de paiement
+                                      <BsCreditCard2FrontFill /> Ajouter un moyens de paiement
                                     </Button>
                                   </DialogTrigger>
                                   <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
-                                      <DialogTitle>
-                                        Ajouter un moyens de paiement
-                                      </DialogTitle>
+                                      <DialogTitle>Ajouter un moyens de paiement</DialogTitle>
                                       <DialogDescription>
-                                        Ajoutez un nouveau moyen de paiement
-                                        pour simplifier vos prochaines
-                                        réservations et régler facilement vos
-                                        locations. Vos informations resteront
-                                        confidentielles et sécurisées.
+                                        Ajoutez un nouveau moyen de paiement pour simplifier vos
+                                        prochaines réservations et régler facilement vos locations.
+                                        Vos informations resteront confidentielles et sécurisées.
                                       </DialogDescription>
                                     </DialogHeader>
                                     <div className="grid gap-4">
                                       <div className="grid gap-3">
-                                        <Label htmlFor="ncarte">
-                                          Numéro de carte
-                                        </Label>
+                                        <Label htmlFor="ncarte">Numéro de carte</Label>
                                         <Input
+                                          defaultValue="4111 1111 1111 1111"
                                           id="ncarte"
                                           name="numerodecarte"
-                                          defaultValue="4111 1111 1111 1111"
                                         />
                                       </div>
                                       <div className="grid grid-cols-2 gap-1">
@@ -1059,9 +961,9 @@ export default function ProfilPage() {
                                             Nom du titulaire de la carte
                                           </Label>
                                           <Input
+                                            defaultValue="John Doe"
                                             id="nomtitulairecarte"
                                             name="nomtitulairecarte"
-                                            defaultValue="John Doe"
                                           />
                                         </div>
                                         <div className="grid gap-3">
@@ -1069,30 +971,26 @@ export default function ProfilPage() {
                                             Date d&apos;expiration
                                           </Label>
                                           <Input
+                                            defaultValue="12/26"
                                             id="datexpiration"
                                             name="username"
-                                            defaultValue="12/26"
                                           />
                                         </div>
                                       </div>
 
                                       <div className="grid gap-3">
-                                        <Label htmlFor="cryptogramme">
-                                          Cryptogramme (CVC/CVV)
-                                        </Label>
+                                        <Label htmlFor="cryptogramme">Cryptogramme (CVC/CVV)</Label>
                                         <Input
+                                          className="w-[4rem]"
+                                          defaultValue="123"
                                           id="cryptogramme"
                                           name="cryptogramme"
-                                          defaultValue="123"
-                                          className="w-[4rem]"
                                         />
                                       </div>
                                     </div>
                                     <DialogFooter>
                                       <DialogClose asChild>
-                                        <Button variant="outline">
-                                          Annuler
-                                        </Button>
+                                        <Button variant="outline">Annuler</Button>
                                       </DialogClose>
                                       <Button type="submit">Enregistrer</Button>
                                     </DialogFooter>
@@ -1104,8 +1002,8 @@ export default function ProfilPage() {
 
                           <div className="flex flex-col space-y-2">
                             <Alert
-                              icon={<MoyenDePaimentIcon icon={FaCcVisa} />}
                               color="primary"
+                              icon={<MoyenDePaimentIcon icon={FaCcVisa} />}
                               variant="faded"
                             >
                               <div className="flex justify-between w-full">
@@ -1115,13 +1013,11 @@ export default function ProfilPage() {
                                   </div>
                                   <div className="flex flex-row space-x-2">
                                     <div>
-                                      <span>Titulaire :</span>{" "}
-                                      <span>Jane Doe</span>
+                                      <span>Titulaire :</span> <span>Jane Doe</span>
                                     </div>
                                     <div>|</div>
                                     <div>
-                                      <span>Expire le :</span>{" "}
-                                      <span>08/25</span>
+                                      <span>Expire le :</span> <span>08/25</span>
                                     </div>
                                   </div>
                                 </div>
@@ -1129,17 +1025,11 @@ export default function ProfilPage() {
                                   <RippleButton rippleColor="#ADD8E6">
                                     Retirer comme principale
                                   </RippleButton>
-                                  <RippleButton rippleColor="#ADD8E6">
-                                    Supprimer
-                                  </RippleButton>
+                                  <RippleButton rippleColor="#ADD8E6">Supprimer</RippleButton>
                                 </div>
                               </div>
                             </Alert>
-                            <Alert
-                              icon={
-                                <MoyenDePaimentIcon icon={FaCcMastercard} />
-                              }
-                            >
+                            <Alert icon={<MoyenDePaimentIcon icon={FaCcMastercard} />}>
                               <div className="flex justify-between w-full">
                                 <div>
                                   <div>
@@ -1147,13 +1037,11 @@ export default function ProfilPage() {
                                   </div>
                                   <div className="flex flex-row space-x-2">
                                     <div>
-                                      <span>Titulaire :</span>{" "}
-                                      <span>Jane Doe</span>
+                                      <span>Titulaire :</span> <span>Jane Doe</span>
                                     </div>
                                     <div>|</div>
                                     <div>
-                                      <span>Expire le :</span>{" "}
-                                      <span>08/25</span>
+                                      <span>Expire le :</span> <span>08/25</span>
                                     </div>
                                   </div>
                                 </div>
@@ -1161,17 +1049,11 @@ export default function ProfilPage() {
                                   <RippleButton rippleColor="#ADD8E6">
                                     Définir comme principale
                                   </RippleButton>
-                                  <RippleButton rippleColor="#ADD8E6">
-                                    Supprimer
-                                  </RippleButton>
+                                  <RippleButton rippleColor="#ADD8E6">Supprimer</RippleButton>
                                 </div>
                               </div>
                             </Alert>
-                            <Alert
-                              icon={
-                                <MoyenDePaimentIcon icon={SiAmericanexpress} />
-                              }
-                            >
+                            <Alert icon={<MoyenDePaimentIcon icon={SiAmericanexpress} />}>
                               <div className="flex justify-between w-full">
                                 <div>
                                   <div>
@@ -1179,13 +1061,11 @@ export default function ProfilPage() {
                                   </div>
                                   <div className="flex flex-row space-x-2">
                                     <div>
-                                      <span>Titulaire :</span>{" "}
-                                      <span>Jane Doe</span>
+                                      <span>Titulaire :</span> <span>Jane Doe</span>
                                     </div>
                                     <div>|</div>
                                     <div>
-                                      <span>Expire le :</span>{" "}
-                                      <span>08/25</span>
+                                      <span>Expire le :</span> <span>08/25</span>
                                     </div>
                                   </div>
                                 </div>
@@ -1193,15 +1073,11 @@ export default function ProfilPage() {
                                   <RippleButton rippleColor="#ADD8E6">
                                     Définir comme principale
                                   </RippleButton>
-                                  <RippleButton rippleColor="#ADD8E6">
-                                    Supprimer
-                                  </RippleButton>
+                                  <RippleButton rippleColor="#ADD8E6">Supprimer</RippleButton>
                                 </div>
                               </div>
                             </Alert>
-                            <Alert
-                              icon={<MoyenDePaimentIcon icon={FaCcPaypal} />}
-                            >
+                            <Alert icon={<MoyenDePaimentIcon icon={FaCcPaypal} />}>
                               <div className="flex justify-between w-full">
                                 <div>
                                   <div>
@@ -1209,13 +1085,11 @@ export default function ProfilPage() {
                                   </div>
                                   <div className="flex flex-row space-x-2">
                                     <div>
-                                      <span>Titulaire :</span>{" "}
-                                      <span>Jane Doe</span>
+                                      <span>Titulaire :</span> <span>Jane Doe</span>
                                     </div>
                                     <div>|</div>
                                     <div>
-                                      <span>Expire le :</span>{" "}
-                                      <span>08/25</span>
+                                      <span>Expire le :</span> <span>08/25</span>
                                     </div>
                                   </div>
                                 </div>
@@ -1223,9 +1097,7 @@ export default function ProfilPage() {
                                   <RippleButton rippleColor="#ADD8E6">
                                     Définir comme principale
                                   </RippleButton>
-                                  <RippleButton rippleColor="#ADD8E6">
-                                    Supprimer
-                                  </RippleButton>
+                                  <RippleButton rippleColor="#ADD8E6">Supprimer</RippleButton>
                                 </div>
                               </div>
                             </Alert>
@@ -1246,7 +1118,7 @@ export default function ProfilPage() {
                     </div>
 
                     <div>
-                      <Chip variant="dot" className="border-none contenttitresectionprofile mb-4">
+                      <Chip className="border-none contenttitresectionprofile mb-4" variant="dot">
                         <div className="text-lg font-bold">Vos réservations</div>
                       </Chip>
 
@@ -1261,22 +1133,18 @@ export default function ProfilPage() {
                           <div className="w-full">
                             <div className="flex items-center py-4">
                               <Input
+                                className="max-w-sm"
                                 placeholder="Filter emails..."
                                 value={
-                                  (table
-                                    .getColumn("destination")
-                                    ?.getFilterValue() as string) ?? ""
+                                  (table.getColumn('destination')?.getFilterValue() as string) ?? ''
                                 }
                                 onChange={(event) =>
-                                  table
-                                    .getColumn("destination")
-                                    ?.setFilterValue(event.target.value)
+                                  table.getColumn('destination')?.setFilterValue(event.target.value)
                                 }
-                                className="max-w-sm"
                               />
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="outline" className="ml-auto">
+                                  <Button className="ml-auto" variant="outline">
                                     Columns <FaChevronDown />
                                   </Button>
                                 </DropdownMenuTrigger>
@@ -1288,8 +1156,8 @@ export default function ProfilPage() {
                                       return (
                                         <DropdownMenuCheckboxItem
                                           key={column.id}
-                                          className="capitalize"
                                           checked={column.getIsVisible()}
+                                          className="capitalize"
                                           onCheckedChange={(value) =>
                                             column.toggleVisibility(!!value)
                                           }
@@ -1304,34 +1172,29 @@ export default function ProfilPage() {
                             <div className="rounded-md border">
                               <Table>
                                 <TableHeader>
-                                  {table
-                                    .getHeaderGroups()
-                                    .map((headerGroup) => (
-                                      <TableRow key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => {
-                                          return (
-                                            <TableHead key={header.id}>
-                                              {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef
-                                                      .header,
-                                                    header.getContext()
-                                                  )}
-                                            </TableHead>
-                                          );
-                                        })}
-                                      </TableRow>
-                                    ))}
+                                  {table.getHeaderGroups().map((headerGroup) => (
+                                    <TableRow key={headerGroup.id}>
+                                      {headerGroup.headers.map((header) => {
+                                        return (
+                                          <TableHead key={header.id}>
+                                            {header.isPlaceholder
+                                              ? null
+                                              : flexRender(
+                                                  header.column.columnDef.header,
+                                                  header.getContext()
+                                                )}
+                                          </TableHead>
+                                        );
+                                      })}
+                                    </TableRow>
+                                  ))}
                                 </TableHeader>
                                 <TableBody>
                                   {table.getRowModel().rows?.length ? (
                                     table.getRowModel().rows.map((row) => (
                                       <TableRow
                                         key={row.id}
-                                        data-state={
-                                          row.getIsSelected() && "selected"
-                                        }
+                                        data-state={row.getIsSelected() && 'selected'}
                                       >
                                         {row.getVisibleCells().map((cell) => (
                                           <TableCell key={cell.id}>
@@ -1346,8 +1209,8 @@ export default function ProfilPage() {
                                   ) : (
                                     <TableRow>
                                       <TableCell
-                                        colSpan={columns.length}
                                         className="h-24 text-center"
+                                        colSpan={columns.length}
                                       >
                                         No results.
                                       </TableCell>
@@ -1358,27 +1221,23 @@ export default function ProfilPage() {
                             </div>
                             <div className="flex items-center justify-end space-x-2 py-4">
                               <div className="text-muted-foreground flex-1 text-sm">
-                                {
-                                  table.getFilteredSelectedRowModel().rows
-                                    .length
-                                }{" "}
-                                of {table.getFilteredRowModel().rows.length}{" "}
-                                row(s) selected.
+                                {table.getFilteredSelectedRowModel().rows.length} of{' '}
+                                {table.getFilteredRowModel().rows.length} row(s) selected.
                               </div>
                               <div className="space-x-2">
                                 <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => table.previousPage()}
                                   disabled={!table.getCanPreviousPage()}
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => table.previousPage()}
                                 >
                                   Previous
                                 </Button>
                                 <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => table.nextPage()}
                                   disabled={!table.getCanNextPage()}
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => table.nextPage()}
                                 >
                                   Next
                                 </Button>
@@ -1396,26 +1255,22 @@ export default function ProfilPage() {
                 <TabsContent value="parametre">
                   <div className="h-[20rem] bg-glacev2 p-4 rounded-lg">
                     <div className="space-y-1">
-                      <h4 className="text-medium font-medium">
-                        Paramètres du compte
-                      </h4>
+                      <h4 className="text-medium font-medium">Paramètres du compte</h4>
                       <p className="text-small text-default-400">
-                        Gérez les options liées à votre compte. Cette section
-                        vous permet de désactiver temporairement votre compte si
-                        vous ne souhaitez plus l'utiliser pour le moment, ou de
-                        le supprimer définitivement si vous ne souhaitez plus
-                        bénéficier de nos services. Veuillez noter que la
-                        suppression est irréversible.
+                        Gérez les options liées à votre compte. Cette section vous permet de
+                        désactiver temporairement votre compte si vous ne souhaitez plus
+                        l&apos;utiliser pour le moment, ou de le supprimer définitivement si vous ne
+                        souhaitez plus bénéficier de nos services. Veuillez noter que la suppression
+                        est irréversible.
                       </p>
                     </div>
                     <Dividerhenoui className="my-4" />
                     <div className="flex h-5 items-center space-x-4 text-small">
                       <div>
                         <p className="pt-24">
-                          En désactivant votre compte, vous ne pourrez plus
-                          accéder à votre profil ni effectuer de réservations.
-                          Vous pourrez réactiver votre compte ultérieurement en
-                          vous reconnectant.{" "}
+                          En désactivant votre compte, vous ne pourrez plus accéder à votre profil
+                          ni effectuer de réservations. Vous pourrez réactiver votre compte
+                          ultérieurement en vous reconnectant.{' '}
                         </p>
                         <RippleButton className="mt-4 bg-gray-700 text-white font-medium">
                           Désactiver mon compte
@@ -1424,9 +1279,8 @@ export default function ProfilPage() {
                       <Dividerhenoui orientation="vertical" />
                       <div>
                         <p className="pt-24">
-                          Attention: cette action est irréversible. Toutes vos
-                          données, réservations et préférences seront
-                          définitivement supprimées.
+                          Attention: cette action est irréversible. Toutes vos données, réservations
+                          et préférences seront définitivement supprimées.
                         </p>
                         <RippleButton className="mt-4 bg-red-700 text-white font-medium">
                           Supprimer mon compte définitivement

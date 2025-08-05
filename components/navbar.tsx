@@ -1,5 +1,5 @@
-"use client";
-import * as React from "react";
+'use client';
+import * as React from 'react';
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -8,21 +8,18 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@heroui/navbar";
-import { Button } from "@heroui/button";
-import { Kbd } from "@heroui/kbd";
-import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
-import { link as linkStyles } from "@heroui/theme";
-import NextLink from "next/link";
-import clsx from "clsx";
-import { RiLoginCircleFill } from "react-icons/ri";
-import { GiArchiveRegister } from "react-icons/gi";
-import { siteConfig } from "@/config/site";
-import { FaUser } from "react-icons/fa";
-import { SearchIcon, Logo } from "@/components/icons";
-import { useState } from "react";
-
+} from '@heroui/navbar';
+import { Button } from '@heroui/button';
+import { Kbd } from '@heroui/kbd';
+import { Link } from '@heroui/link';
+import { Input } from '@heroui/input';
+import { link as linkStyles } from '@heroui/theme';
+import NextLink from 'next/link';
+import clsx from 'clsx';
+import { RiLoginCircleFill } from 'react-icons/ri';
+import { GiArchiveRegister } from 'react-icons/gi';
+import { FaUser } from 'react-icons/fa';
+import { useState } from 'react';
 import {
   Modal,
   ModalContent,
@@ -30,13 +27,16 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from "@heroui/modal";
-import { Checkbox } from "@heroui/checkbox";
+} from '@heroui/modal';
+import { Checkbox } from '@heroui/checkbox';
 // import { Select, SelectSection, SelectItem } from "@heroui/select";
-import { Select, Space } from "antd";
+import { Select } from 'antd';
+
+import { SearchIcon, Logo } from '@/components/icons';
+import { siteConfig } from '@/config/site';
 
 export const Iconlang = ({ url }: { url: string }) => {
-  return <img src={url} className="w-[1.6rem]" alt="iconeSailingTime" />;
+  return <img alt="iconeSailingTime" className="w-[1.6rem]" src={url} />;
 };
 
 const handleChange = (value: string) => {
@@ -99,11 +99,11 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
+        inputWrapper: 'bg-default-100',
+        input: 'text-sm',
       }}
       endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
+        <Kbd className="hidden lg:inline-block" keys={['command']}>
           K
         </Kbd>
       }
@@ -116,49 +116,55 @@ export const Navbar = () => {
     />
   );
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-   const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  
- const handleRegister = async (onClose: () => void) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
+
+  const handleRegister = async (onClose: () => void) => {
     try {
-      const response = await fetch("https://sailingloc-back.vercel.app/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nom, prenom, email, password, role: "CLIENT" }),
+      const response = await fetch('https://sailingloc-back.vercel.app/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nom,
+          prenom,
+          email,
+          password,
+          role: 'CLIENT',
+        }),
       });
 
-      
       const data = await response.json();
+
       if (response.ok) {
-        alert("Inscription réussie !");
-        onClose(); 
+        alert('Inscription réussie !');
+        onClose();
       } else {
-        alert(data.message || "Une erreur est survenue.");
+        alert(data.message || 'Une erreur est survenue.');
       }
     } catch (err) {
       alert("Erreur lors de l'inscription.");
       console.error(err);
     }
   };
-    
+
   const handleLogin = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
       const response = await fetch('https://sailingloc-back.vercel.app/api/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         alert('Connexion réussie !');
-        localStorage.setItem('token', data.token); 
+        localStorage.setItem('token', data.token);
       } else {
         alert(data.message || 'Erreur de connexion');
       }
@@ -167,18 +173,17 @@ export const Navbar = () => {
       console.error('Erreur lors de la connexion :', err);
     }
   };
-  
 
   return (
     <HeroUINavbar
+      className="fixed top-0 left-0 w-full bg-black text-white shadow z-50"
       maxWidth="xl"
       position="sticky"
       onMenuOpenChange={setIsMenuOpen}
-      className="fixed top-0 left-0 w-full bg-black text-white shadow z-50"
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           className="sm:hidden"
         />
         <NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -192,8 +197,8 @@ export const Navbar = () => {
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium text-white"
+                  linkStyles({ color: 'foreground' }),
+                  'data-[active=true]:text-primary data-[active=true]:font-medium text-white'
                 )}
                 color="foreground"
                 href={item.href}
@@ -205,147 +210,139 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
+      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         <NavbarItem className="space-x-3">
           <Select
-            defaultValue="FR"
-            // style={{ width: 120 }}
-            onChange={handleChange}
             options={[
               {
-                value: "US",
+                value: 'US',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/united-kingdom_1_gihox0.png" />
                 ),
               },
               {
-                value: "CN",
+                value: 'CN',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751228300/china_1_nzkdzd.png" />
                 ),
               },
               {
-                value: "IN",
+                value: 'IN',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/india_kwbcea.png" />
                 ),
               },
               {
-                value: "ES",
+                value: 'ES',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_sbnixy.png" />
                 ),
               },
               {
-                value: "FR",
+                value: 'FR',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/france_gaq5eo.png" />
                 ),
               },
               {
-                value: "SA",
+                value: 'SA',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_1_qa5odr.png" />
                 ),
               },
               {
-                value: "BD",
+                value: 'BD',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/bangladesh_tae0eb.png" />
                 ),
               },
               {
-                value: "RU",
+                value: 'RU',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/russia_dyvhrz.png" />
                 ),
               },
               {
-                value: "PT",
+                value: 'PT',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/portugal_kwbylu.png" />
                 ),
               },
               {
-                value: "ID",
+                value: 'ID',
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/indonesia_tg0x1c.png" />
                 ),
               },
             ]}
+            defaultValue="FR"
+            // style={{ width: 120 }}
+            onChange={handleChange}
           />
         </NavbarItem>
         <NavbarItem className="space-x-3">
           <Button
             // as={Link}
+            startContent={<RiLoginCircleFill />}
+            variant="flat"
             className="text-sm font-normal text-default-600 bg-default-100"
             // href="/login"
             onPress={onOpen}
-            startContent={<RiLoginCircleFill />}
-            variant="flat"
           >
             Connexion
           </Button>
-          <Modal
-            isOpen={isOpen}
-            backdrop="blur"
-            placement="top-center"
-            onOpenChange={onOpenChange}
-          >
+          <Modal backdrop="blur" isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
             <ModalContent>
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
                     Bienvenue sur votre espace
                   </ModalHeader>
-                   <form onSubmit={handleLogin}>
-                  <ModalBody>
-                    <Input
-                      endContent={
-                        <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
-                      variant="bordered"
-                    />
-                    <Input
-                      endContent={
-                        <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
-                      type="password"
-                      variant="bordered"
-                    />
-                    <div className="flex py-2 px-1 justify-between">
-                      <Checkbox
-                        classNames={{
-                          label: "text-small",
-                        }}
-                      >
-                        Souviens-toi de moi
-                      </Checkbox>
-                      <Link color="primary" href="#" size="sm">
-                        Mot de passe oublié ?
-                      </Link>
-                    </div>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                      Fermer
-                    </Button>
-                    <Button color="primary" onPress={onClose} type="submit">
-                      Se connecter
-                    </Button>
-                  </ModalFooter>
-                   </form>
+                  <form onSubmit={handleLogin}>
+                    <ModalBody>
+                      <Input
+                        endContent={
+                          <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                        }
+                        label="Email"
+                        placeholder="Enter your email"
+                        value={email}
+                        variant="bordered"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <Input
+                        endContent={
+                          <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                        }
+                        label="Password"
+                        placeholder="Enter your password"
+                        type="password"
+                        value={password}
+                        variant="bordered"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="flex py-2 px-1 justify-between">
+                        <Checkbox
+                          classNames={{
+                            label: 'text-small',
+                          }}
+                        >
+                          Souviens-toi de moi
+                        </Checkbox>
+                        <Link color="primary" href="#" size="sm">
+                          Mot de passe oublié ?
+                        </Link>
+                      </div>
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button color="danger" variant="flat" onPress={onClose}>
+                        Fermer
+                      </Button>
+                      <Button color="primary" type="submit" onPress={onClose}>
+                        Se connecter
+                      </Button>
+                    </ModalFooter>
+                  </form>
                 </>
               )}
             </ModalContent>
@@ -354,59 +351,57 @@ export const Navbar = () => {
         <NavbarItem className="space-x-3">
           <Button
             // as={Link}
+            startContent={<GiArchiveRegister />}
+            variant="flat"
             className="text-sm font-normal text-default-600 bg-default-100"
             // href="/register"
             onPress={onOpenRegister}
-            startContent={<GiArchiveRegister />}
-            variant="flat"
           >
             Inscription
           </Button>
           <Modal
-            isOpen={isOpenRegister}
             backdrop="blur"
+            isOpen={isOpenRegister}
             placement="top-center"
             onOpenChange={onOpenRegisterChange}
           >
             <ModalContent>
               {(onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1">
-                    Créez votre compte
-                  </ModalHeader>
+                  <ModalHeader className="flex flex-col gap-1">Créez votre compte</ModalHeader>
                   <ModalBody>
                     <Input
                       endContent={
                         <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                       }
                       label="Nom"
+                      placeholder="Veuillez saisir votre nom"
                       type="text"
                       value={nom}
-                     onChange={(e) => setNom(e.target.value)}
-                      placeholder="Veuillez saisir votre nom"
                       variant="bordered"
+                      onChange={(e) => setNom(e.target.value)}
                     />
                     <Input
                       endContent={
                         <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                       }
                       label="Prénom"
+                      placeholder="Veuillez saisir votre prénom"
                       type="text"
                       value={prenom}
-                      onChange={(e) => setPrenom(e.target.value)}
-                      placeholder="Veuillez saisir votre prénom"
                       variant="bordered"
+                      onChange={(e) => setPrenom(e.target.value)}
                     />
                     <Input
                       endContent={
                         <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                       }
                       label="Email"
+                      placeholder="Veuillez saisir votre email"
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Veuillez saisir votre email"
                       variant="bordered"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <Input
                       endContent={
@@ -416,19 +411,19 @@ export const Navbar = () => {
                       placeholder="Enter your password"
                       type="password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       variant="bordered"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <div className="flex py-2 px-1 justify-between">
                       <div className="space-x-1">
                         <Checkbox
                           classNames={{
-                            label: "text-small",
+                            label: 'text-small',
                           }}
                         >
                           J'accepte la
                         </Checkbox>
-                        <Link href="/" className="text-[#00ced1]">
+                        <Link className="text-[#00ced1]" href="/">
                           politique de confidentialité
                         </Link>
                       </div>
@@ -457,10 +452,10 @@ export const Navbar = () => {
               <Link
                 color={
                   index === 2
-                    ? "primary"
+                    ? 'primary'
                     : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                      ? 'danger'
+                      : 'foreground'
                 }
                 href="#"
                 size="lg"

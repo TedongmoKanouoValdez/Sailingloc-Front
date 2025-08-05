@@ -1,16 +1,9 @@
-import { TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { IoTicketSharp } from 'react-icons/io5';
+import { BiSolidMessageRoundedDetail } from 'react-icons/bi';
+import { Link } from '@heroui/link';
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { IoTicketSharp } from "react-icons/io5";
-import { BiSolidMessageRoundedDetail } from "react-icons/bi";
-import { Link } from "@heroui/link";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export function SectionCards() {
   return (
@@ -23,10 +16,7 @@ export function SectionCards() {
               0
             </CardTitle>
             <div className="absolute right-4 top-4">
-              <Badge
-                variant="outline"
-                className="flex gap-1 rounded-lg text-xs"
-              >
+              <Badge className="flex gap-1 rounded-lg text-xs" variant="outline">
                 <IoTicketSharp className="size-10" />
               </Badge>
             </div>
@@ -36,10 +26,9 @@ export function SectionCards() {
               Suivi des demandes d'assistance
             </div>
             <div className="text-muted-foreground">
-              Consultez l'état des tickets de support envoyés par les
-              utilisateurs. Suivez facilement les demandes en attente, en cours
-              de traitement ou déjà résolues, pour assurer une gestion rapide et
-              efficace du service client.
+              Consultez l&apos;état des tickets de support envoyés par les utilisateurs. Suivez
+              facilement les demandes en attente, en cours de traitement ou déjà résolues, pour
+              assurer une gestion rapide et efficace du service client.
             </div>
           </CardFooter>
         </Card>
@@ -52,10 +41,7 @@ export function SectionCards() {
               0
             </CardTitle>
             <div className="absolute right-4 top-4">
-              <Badge
-                variant="outline"
-                className="flex gap-1 rounded-lg text-xs"
-              >
+              <Badge className="flex gap-1 rounded-lg text-xs" variant="outline">
                 <BiSolidMessageRoundedDetail className="size-10" />
               </Badge>
             </div>
@@ -65,10 +51,9 @@ export function SectionCards() {
               Centre de messagerie utilisateur
             </div>
             <div className="text-muted-foreground">
-              Accédez à tous les messages envoyés par les utilisateurs, qu'il
-              s'agisse de demandes de contact, de retours ou de communications
-              internes. Gardez une vue centralisée pour ne manquer aucune
-              interaction importante.
+              Accédez à tous les messages envoyés par les utilisateurs, qu'il s'agisse de demandes
+              de contact, de retours ou de communications internes. Gardez une vue centralisée pour
+              ne manquer aucune interaction importante.
             </div>
           </CardFooter>
         </Card>

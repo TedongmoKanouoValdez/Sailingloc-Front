@@ -1,53 +1,54 @@
-"use client";
-import React, { useState, useRef } from "react";
-import { FlipWords } from "@/components/ui/flip-words";
-import { PiSunDimFill } from "react-icons/pi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { DatePicker } from "@heroui/date-picker";
-import { RippleButton } from "@/components/magicui/ripple-button";
-import { NumberInput } from "@heroui/number-input";
-import { BoxReveal } from "@/components/magicui/box-reveal";
-import { Input } from "@heroui/input";
-import { BiSolidBookmark } from "react-icons/bi";
-import { BsCloudSunFill } from "react-icons/bs";
-import { FaStar } from "react-icons/fa";
-import { Badge, Space } from "antd";
-import { Chip } from "@heroui/chip";
-import { BsCheckCircleFill } from "react-icons/bs";
-import { BsFillCreditCard2FrontFill } from "react-icons/bs";
-import { BsTelephoneFill } from "react-icons/bs";
-import { BsShieldFill } from "react-icons/bs";
-import { FaQuoteLeft } from "react-icons/fa";
-import { GrNext } from "react-icons/gr";
-import { GrPrevious } from "react-icons/gr";
-import { Form } from "@heroui/form";
-import { Button, ButtonGroup } from "@heroui/button";
+'use client';
+import React, { useState, useRef } from 'react';
+
+import { FlipWords } from '@/components/ui/flip-words';
+
+import { PiSunDimFill } from 'react-icons/pi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { DatePicker } from '@heroui/date-picker';
+import { NumberInput } from '@heroui/number-input';
+import { Input } from '@heroui/input';
+import { BiSolidBookmark } from 'react-icons/bi';
+import { BsCloudSunFill } from 'react-icons/bs';
+import { FaStar } from 'react-icons/fa';
+import { Badge, Space } from 'antd';
+import { Chip } from '@heroui/chip';
+import { BsCheckCircleFill } from 'react-icons/bs';
+import { BsFillCreditCard2FrontFill } from 'react-icons/bs';
+import { BsTelephoneFill } from 'react-icons/bs';
+import { BsShieldFill } from 'react-icons/bs';
+import { FaQuoteLeft } from 'react-icons/fa';
+import { GrNext } from 'react-icons/gr';
+import { GrPrevious } from 'react-icons/gr';
+import { Form } from '@heroui/form';
+import { Button } from '@heroui/button';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { TbMailFilled } from "react-icons/tb";
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { TbMailFilled } from 'react-icons/tb';
 // import required modules
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
-import Link from "next/link";
+import { FreeMode, Pagination, Navigation } from 'swiper/modules';
+import Link from 'next/link';
+
+import { BoxReveal } from '@/components/magicui/box-reveal';
+import { RippleButton } from '@/components/magicui/ripple-button';
 
 export const LogoSecondaire: React.FC = () => {
   return (
     <svg
-      version="1.0"
-      xmlns="http://www.w3.org/2000/svg"
       className="w-20 h-20"
-      viewBox="0 0 964.000000 1280.000000"
       preserveAspectRatio="xMidYMid meet"
+      version="1.0"
+      viewBox="0 0 964.000000 1280.000000"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <metadata>
-        Created by potrace 1.15, written by Peter Selinger 2001-2017
-      </metadata>
+      <metadata>Created by potrace 1.15, written by Peter Selinger 2001-2017</metadata>
       <g
-        transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
         fill="#fff"
         stroke="none"
+        transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
       >
         <path
           d="M4665 12791 c-198 -32 -420 -142 -587 -290 -111 -98 -223 -282 -271
@@ -183,21 +184,19 @@ m7256 -261 c67 -105 227 -447 305 -654 125 -331 213 -667 267 -1020 26 -170
 export const LogoPartenaire = () => {
   return (
     <svg
-      version="1.0"
-      xmlns="http://www.w3.org/2000/svg"
-      width="986.000000pt"
-      height="1280.000000pt"
       className="w-24 h-24"
-      viewBox="0 0 986.000000 1280.000000"
+      height="1280.000000pt"
       preserveAspectRatio="xMidYMid meet"
+      version="1.0"
+      viewBox="0 0 986.000000 1280.000000"
+      width="986.000000pt"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <metadata>
-        Created by potrace 1.15, written by Peter Selinger 2001-2017
-      </metadata>
+      <metadata>Created by potrace 1.15, written by Peter Selinger 2001-2017</metadata>
       <g
-        transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
         fill="#192a67"
         stroke="none"
+        transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
       >
         <path
           d="M5503 12794 c-8 -4 -10 -22 -8 -52 3 -26 7 -129 9 -229 l5 -181 -175
@@ -846,38 +845,41 @@ c-22 0 -46 -3 -53 -6z"
 
 export const LogoBoar = () => {
   let boar =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png";
-  return <img src={boar} className="allogo" alt="iconeBoar" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
+
+  return <img alt="iconeBoar" className="allogo" src={boar} />;
 };
 
 export const LogoCatamarans = () => {
   let catamarans =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png";
-  return <img src={catamarans} className="allogo" alt="iconeCatamarans" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
+
+  return <img alt="iconeCatamarans" className="allogo" src={catamarans} />;
 };
 
 export const LogoCap = () => {
-  let cap =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png";
-  return <img src={cap} className="allogo" alt="iconeCap" />;
+  let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
+
+  return <img alt="iconeCap" className="allogo" src={cap} />;
 };
 
 export const LogoMap = () => {
-  let map =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png";
-  return <img src={map} className="allogo" alt="iconeMap" />;
+  let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
+
+  return <img alt="iconeMap" className="allogo" src={map} />;
 };
 
 export const LogoZeus = () => {
-  let zeus =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png";
-  return <img src={zeus} className="allogo" alt="iconeZeus" />;
+  let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
+
+  return <img alt="iconeZeus" className="allogo" src={zeus} />;
 };
 
 export const LogoSailingTime = () => {
   let sailingtime =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png";
-  return <img src={sailingtime} className="allogo" alt="iconeSailingTime" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
+
+  return <img alt="iconeSailingTime" className="allogo" src={sailingtime} />;
 };
 
 type Props = {
@@ -886,24 +888,22 @@ type Props = {
 
 export const MonTexte = ({ texte }: Props) => {
   const maxChars = 10; // Limite à 100 caractères
-  const courtTexte =
-    texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export const Descritpion = ({ texte }: Props) => {
   const maxChars = 90; // Limite à 100 caractères
-  const courtTexte =
-    texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export default function Home() {
   const [showControls, setShowControls] = useState(false);
-  const words = ["aventure", "voyage", "périple", "épopée", "exploration"];
-  const [color] = useState("#E6FF00");
+  const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
+  const [color] = useState('#E6FF00');
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -915,6 +915,7 @@ export default function Home() {
     e.preventDefault();
 
     const data = Object.fromEntries(new FormData(e.currentTarget));
+
     setSubmitted(data);
   };
 
@@ -924,14 +925,14 @@ export default function Home() {
         <div className="relative">
           <div className="contentvideohome">
             <video
-              muted
               autoPlay
               loop
+              muted
               playsInline
-              controls={false}
-              style={{ objectFit: "cover" }}
               className="w-full h-[170vh] md:h-[100vh]"
+              controls={false}
               src="https://res.cloudinary.com/dluqkutu8/video/upload/v1750331153/14637966-uhd_2560_1440_60fps_tli0wh.mp4"
+              style={{ objectFit: 'cover' }}
             />
           </div>
           <div className="absolute left-[1rem] md:left-[10rem] top-[14rem]">
@@ -940,25 +941,23 @@ export default function Home() {
                 <LogoSecondaire />
               </div>
               <div className="Textheader text-white">
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <h1 className="w-[20rem] text-[2.9rem] text-center md:text-6xl font-bold md:w-[46rem] md:text-left">
                     Votre prochaine
-                    <FlipWords words={words} className="text-white" />
+                    <FlipWords className="text-white" words={words} />
                     commence ici
                   </h1>
                 </BoxReveal>
 
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <p className="text-lg mt-4 w-[20rem] text-center md:w-full md:text-left">
                     Louez ou proposez un bateau en quelques clics.
                   </p>
                 </BoxReveal>
 
                 <div className="mt-6 flex justify-center md:block">
-                  <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-                    <RippleButton rippleColor="#ADD8E6">
-                      Trouver mon bateau
-                    </RippleButton>
+                  <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                    <RippleButton rippleColor="#ADD8E6">Trouver mon bateau</RippleButton>
                   </BoxReveal>
                 </div>
               </div>
@@ -969,36 +968,23 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="inputformhome">
                   <Input
+                    color="secondary"
                     label="Veuillez saisire votre destination"
                     type="text"
                     variant="bordered"
-                    color="secondary"
                   />
                 </div>
                 <div className="inputformhome">
-                  <Input
-                    label="Type de bateau"
-                    type="text"
-                    variant="bordered"
-                    color="secondary"
-                  />
+                  <Input color="secondary" label="Type de bateau" type="text" variant="bordered" />
                 </div>
                 <div className="inputformhome">
-                  <DatePicker
-                    label={"Dates de navigation"}
-                    variant="bordered"
-                    color="secondary"
-                  />
+                  <DatePicker color="secondary" label={'Dates de navigation'} variant="bordered" />
                 </div>
                 <div className="inputformhome">
-                  <NumberInput
-                    label="Nombre de passagers"
-                    variant="bordered"
-                    color="secondary"
-                  />
+                  <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
                 </div>
                 <div className="flex justify-center md:block">
-                  <RippleButton rippleColor="#ADD8E6" className="py-3.5">
+                  <RippleButton className="py-3.5" rippleColor="#ADD8E6">
                     Rechercher mon bateau
                   </RippleButton>
                 </div>
@@ -1013,26 +999,24 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">
-                EXPLOREZ LA MER À VOTRE RYTHME
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">EXPLOREZ LA MER À VOTRE RYTHME</h2>
             </div>
             <div>
               <p className="w-[20rem] md:w-[35rem] text-center">
-                Trouvez facilement le bateau ou l&apos;expérience qui vous
-                correspond. Catamarans spacieux, voiliers authentiques ou
-                sorties avec skipper, choisissez en toute liberté.
+                Trouvez facilement le bateau ou l&apos;expérience qui vous correspond. Catamarans
+                spacieux, voiliers authentiques ou sorties avec skipper, choisissez en toute
+                liberté.
               </p>
             </div>
           </div>
           <div className="flex justify-center md:justify-end mx-auto max-w-6xl w-full mb-10">
             <div>
-              <Link href="/categorie" passHref>
+              <Link passHref href="/categorie">
                 <RippleButton className="bg-black text-white font-bold">
                   Voir toutes nos catégories
                 </RippleButton>
@@ -1049,14 +1033,14 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Voiliers</div>
                     <div>
-                      Naviguez à l&apos;ancienne et ressentez chaque brise pour
-                      une expérience authentique.
+                      Naviguez à l&apos;ancienne et ressentez chaque brise pour une expérience
+                      authentique.
                     </div>
                     <div>
                       <RippleButton
@@ -1077,14 +1061,13 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Catamarans</div>
                     <div>
-                      Stables et confortables, parfaits pour les familles ou les
-                      longs séjours.
+                      Stables et confortables, parfaits pour les familles ou les longs séjours.
                     </div>
                     <div>
                       <RippleButton
@@ -1105,16 +1088,14 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Excursions avec Skipper
-                    </div>
+                    <div className="text-xl font-bold">Excursions avec Skipper</div>
                     <div>
-                      Partez sans permis : un professionnel vous accompagne tout
-                      au long de votre navigation.
+                      Partez sans permis : un professionnel vous accompagne tout au long de votre
+                      navigation.
                     </div>
                     <div>
                       <RippleButton
@@ -1135,16 +1116,14 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Destinations Populaires
-                    </div>
+                    <div className="text-xl font-bold">Destinations Populaires</div>
                     <div>
-                      Explorez les spots les plus réservés par nos utilisateurs,
-                      testés et approuvés.
+                      Explorez les spots les plus réservés par nos utilisateurs, testés et
+                      approuvés.
                     </div>
                     <div>
                       <RippleButton
@@ -1165,14 +1144,12 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Bateaux à Moteur</div>
-                    <div>
-                      Vitesse, liberté et adrénaline pour vos journées en mer.
-                    </div>
+                    <div>Vitesse, liberté et adrénaline pour vos journées en mer.</div>
                     <div>
                       <RippleButton
                         className="rounded-full bg-glace text-white font-medium"
@@ -1192,13 +1169,11 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Location à la Journée
-                    </div>
+                    <div className="text-xl font-bold">Location à la Journée</div>
                     <div>Idéal pour une escapade rapide sans engagement</div>
                     <div>
                       <RippleButton
@@ -1221,14 +1196,12 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">
-                NAVIGUEZ VERS DE NOUVEAUX HORIZONS
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">NAVIGUEZ VERS DE NOUVEAUX HORIZONS</h2>
             </div>
             <div>
               <p className="w-[20rem] md:w-[35rem] text-center">
@@ -1239,14 +1212,6 @@ export default function Home() {
           <div className="contentdestinationshome mx-auto max-w-6xl">
             <div>
               <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
-                freeMode={true}
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[FreeMode, Pagination, Navigation]}
                 breakpoints={{
                   320: {
                     slidesPerView: 1,
@@ -1266,13 +1231,21 @@ export default function Home() {
                   },
                 }}
                 className="mySwiper"
+                freeMode={true}
+                modules={[FreeMode, Pagination, Navigation]}
+                navigation={true}
+                pagination={{
+                  clickable: true,
+                }}
+                slidesPerView={3}
+                spaceBetween={30}
               >
                 <SwiperSlide>
                   <div
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750717340/belle-vue-avec-des-bateaux_o1f6jj.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750717340/belle-vue-avec-des-bateaux_o1f6jj.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1281,8 +1254,7 @@ export default function Home() {
                           <PiSunDimFill className="text-yellow-400 w-6 h-6" />
                         </div>
                         <div className="text-white text-base">
-                          25°C en été -{" "}
-                          <span className="font-bold">France</span>
+                          25°C en été - <span className="font-bold">France</span>
                         </div>
                       </div>
                       <div className="cursor-pointer z-10">
@@ -1293,28 +1265,28 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Croisières le long de la Côte d'Azur."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Excursions à bord de voiliers traditionnels."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Sports nautiques (planche à voile, plongée)."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Sports nautiques (planche à voile, plongée)."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
                             Côtes méditerranéennes et atlantiques
@@ -1341,7 +1313,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1365,7 +1337,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750790401/femme-pleine-de-coups-regardant-des-bateaux_cnc6td.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750790401/femme-pleine-de-coups-regardant-des-bateaux_cnc6td.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1374,8 +1346,7 @@ export default function Home() {
                           <PiSunDimFill className="text-yellow-400 w-6 h-6" />
                         </div>
                         <div className="text-white text-base">
-                          28°C en été -{" "}
-                          <span className="font-bold">Espagne</span>
+                          28°C en été - <span className="font-bold">Espagne</span>
                         </div>
                       </div>
                       <div className="cursor-pointer z-10">
@@ -1386,28 +1357,28 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Détente à bord d'un catamaran tout confort."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Plongée dans les eaux cristallines."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Visite des petits ports méditerranéens."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Visite des petits ports méditerranéens."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
                             Costa Brava et Costa Blanca
@@ -1434,7 +1405,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1458,7 +1429,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750791884/beaux-paysages-varies_1_hs3dsu.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750791884/beaux-paysages-varies_1_hs3dsu.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1467,8 +1438,7 @@ export default function Home() {
                           <PiSunDimFill className="text-yellow-400 w-6 h-6" />
                         </div>
                         <div className="text-white text-base">
-                          30°C en été -{" "}
-                          <span className="font-bold">Italie</span>
+                          30°C en été - <span className="font-bold">Italie</span>
                         </div>
                       </div>
                       <div className="cursor-pointer z-10">
@@ -1479,28 +1449,28 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Visites culturelles à Palerme et Cagliari."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Croisières autour des îles volcaniques."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Pêche en mer et exploration des grottes marines."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Pêche en mer et exploration des grottes marines."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
                             Îles de Sardaigne et de Sicile
@@ -1528,7 +1498,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1552,7 +1522,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792646/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_oeb0mh.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792646/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_oeb0mh.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1561,8 +1531,7 @@ export default function Home() {
                           <BsCloudSunFill className="text-gray-500 w-6 h-6" />
                         </div>
                         <div className="text-white text-base">
-                          22°C toute l'année -{" "}
-                          <span className="font-bold">Portugal</span>
+                          22°C toute l&apos;année - <span className="font-bold">Portugal</span>
                         </div>
                       </div>
                       <div className="cursor-pointer z-10">
@@ -1573,31 +1542,31 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Exploration des grottes marines."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Pêche en mer, sports nautiques."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Croisières et détente à bord d'un voilier."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Croisières et détente à bord d'un voilier."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
-                            Région côtière de l'Algarve
+                            Région côtière de l&apos;Algarve
                           </Chip>
                         </div>
                         <div className="text-white py-1 text-sm rounded-full">
@@ -1618,7 +1587,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1642,7 +1611,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792723/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_atfsw2.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792723/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_atfsw2.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1662,28 +1631,28 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Croisières autour de Santorin et Mykonos."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Découverte des sites historiques."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Plongée dans les eaux cristallines et baignades."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Plongée dans les eaux cristallines et baignades."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
                             Îles des Cyclades et Crète
@@ -1707,7 +1676,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1731,7 +1700,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792785/pin-francais_1_i81dpt.jpg)",
+                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792785/pin-francais_1_i81dpt.jpg)',
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1740,8 +1709,7 @@ export default function Home() {
                           <PiSunDimFill className="text-yellow-400 w-6 h-6" />
                         </div>
                         <div className="text-white text-base">
-                          26°C en été -{" "}
-                          <span className="font-bold">Croatie</span>
+                          26°C en été - <span className="font-bold">Croatie</span>
                         </div>
                       </div>
                       <div className="cursor-pointer z-10">
@@ -1752,28 +1720,28 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: "100%", gap: "2rem" }}
+                        style={{ width: '100%', gap: '2rem' }}
                       >
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Croisières autour de Split et Dubrovnik."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
+                          className="bg-glacev2"
                           text="Découverte des îles de Hvar et Korčula."
-                          className="bg-glacev2"
-                        ></Badge.Ribbon>
+                        />
                         <Badge.Ribbon
-                          text="Activités nautiques et plongée."
                           className="bg-glacev2"
-                        ></Badge.Ribbon>
+                          text="Activités nautiques et plongée."
+                        />
                       </Space>
                     </div>
                     <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
                       <div className="space-y-2 px-2">
                         <div>
                           <Chip
-                            color="warning"
                             className="text-white text-lg font-medium mt-2 border-none"
+                            color="warning"
                             variant="dot"
                           >
                             Côte dalmate
@@ -1797,7 +1765,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: "1rem" }}
+                          style={{ marginBottom: '1rem' }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1827,14 +1795,12 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">
-                POURQUOI NOUS CHOISIR ?
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">POURQUOI NOUS CHOISIR ?</h2>
             </div>
             <div>
               <p className="w-[20rem] md:w-[35rem] text-center">
@@ -1852,8 +1818,8 @@ export default function Home() {
                 <div className="bg-glace contentcardpourquoi px-8 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Bateaux vérifiés</div>
                   <div className="text-sm">
-                    Tous nos bateaux sont inspectés et vérifiés pour garantir
-                    votre sécurité et confort.
+                    Tous nos bateaux sont inspectés et vérifiés pour garantir votre sécurité et
+                    confort.
                   </div>
                 </div>
               </div>
@@ -1864,8 +1830,8 @@ export default function Home() {
                 <div className="bg-glace contentcardpourquoi px-4 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Paiement sécurisé</div>
                   <div className="text-sm">
-                    Toutes vos transactions sont protégées par un système de
-                    paiement sécurisé, pour une expérience sans souci.
+                    Toutes vos transactions sont protégées par un système de paiement sécurisé, pour
+                    une expérience sans souci.
                   </div>
                 </div>
               </div>
@@ -1876,8 +1842,8 @@ export default function Home() {
                 <div className="bg-glace contentcardpourquoi px-4 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Assistance 24/7</div>
                   <div className="text-sm">
-                    Notre équipe est disponible à toute heure pour répondre à
-                    vos questions ou besoins d&apos;assistance.
+                    Notre équipe est disponible à toute heure pour répondre à vos questions ou
+                    besoins d&apos;assistance.
                   </div>
                 </div>
               </div>
@@ -1888,8 +1854,8 @@ export default function Home() {
                 <div className="bg-glace contentcardpourquoi px-4 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Assurance incluse</div>
                   <div className="text-sm">
-                    Tous nos bateaux sont couverts par une assurance complète
-                    pour vous protéger lors de votre navigation.
+                    Tous nos bateaux sont couverts par une assurance complète pour vous protéger
+                    lors de votre navigation.
                   </div>
                 </div>
               </div>
@@ -1903,14 +1869,12 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
             <div>
-              <h2 className="text-5xl font-medium mb-5">
-                TRANSFORMEZ VOTRE BATEAU EN REVENUS
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">TRANSFORMEZ VOTRE BATEAU EN REVENUS</h2>
             </div>
             <div>
               <p className="w-[20rem] md:w-[35rem] text-center">
@@ -1926,28 +1890,23 @@ export default function Home() {
                   <LogoPartenaire />
                 </div>
                 <img
-                  src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750811534/lire-avant-signe_1_puxlzw.jpg"
                   alt="imagedecouverturepourdevenirpartenaire"
+                  src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750811534/lire-avant-signe_1_puxlzw.jpg"
                 />
               </div>
               <div>
                 <div className="space-y-5">
                   <div>
-                    <h2 className="text-lg font-bold">
-                      Propriétaire - Louez votre bateau
-                    </h2>
+                    <h2 className="text-lg font-bold">Propriétaire - Louez votre bateau</h2>
                   </div>
                   <div>
                     <p className="w-[39rem]">
-                      Rentabilisez facilement votre voilier ou bateau à moteur
-                      en le mettant en location sur notre plateforme, en toute
-                      sécurité.
+                      Rentabilisez facilement votre voilier ou bateau à moteur en le mettant en
+                      location sur notre plateforme, en toute sécurité.
                     </p>
                   </div>
                   <div>
-                    <RippleButton className="bg-black text-white">
-                      Proposer mon bateau
-                    </RippleButton>
+                    <RippleButton className="bg-black text-white">Proposer mon bateau</RippleButton>
                   </div>
                 </div>
               </div>
@@ -1961,14 +1920,12 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
             <div>
-              <h2 className="px-[1rem] md:px-0 text-center">
-                FAITES NOUS CONFIANCE
-              </h2>
+              <h2 className="px-[1rem] md:px-0 text-center">FAITES NOUS CONFIANCE</h2>
             </div>
             <div>
               <p className="descriptionallsectionhome text-center">
@@ -1998,26 +1955,23 @@ export default function Home() {
             </div>
             <div>
               <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
+                className="mySwiper"
                 freeMode={true}
+                modules={[FreeMode, Pagination, Navigation]}
+                navigation={{}}
                 pagination={{
                   clickable: true,
                 }}
-                navigation={{}}
+                slidesPerView={3}
+                spaceBetween={30}
                 onInit={(swiper) => {
-                  if (
-                    swiper.params.navigation &&
-                    typeof swiper.params.navigation === "object"
-                  ) {
+                  if (swiper.params.navigation && typeof swiper.params.navigation === 'object') {
                     swiper.params.navigation.prevEl = prevRef.current;
                     swiper.params.navigation.nextEl = nextRef.current;
                     swiper.navigation.init();
                     swiper.navigation.update();
                   }
                 }}
-                modules={[FreeMode, Pagination, Navigation]}
-                className="mySwiper"
               >
                 <SwiperSlide>
                   <div className="relative bg-glace p-4 rounded-xl space-y-3">
@@ -2025,9 +1979,9 @@ export default function Home() {
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
                           <img
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/african-cafe-beautiful-american-black_o0hpby.jpg"
-                            className="rounded-full"
                             alt="avis1"
+                            className="rounded-full"
+                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/african-cafe-beautiful-american-black_o0hpby.jpg"
                           />
                         </div>
                         <div>
@@ -2036,9 +1990,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location
-                          inégalée. Nos clients témoignent d'une satisfaction
-                          élevée grâce à notre
+                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
+                          clients témoignent d'une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2060,9 +2013,9 @@ export default function Home() {
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
                           <img
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/business-woman-posing-professionally-outdoors_ewfamm.jpg"
+                            alt="avis2"
                             className="rounded-full"
-                            alt="avis1"
+                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/business-woman-posing-professionally-outdoors_ewfamm.jpg"
                           />
                         </div>
                         <div>
@@ -2071,9 +2024,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location
-                          inégalée. Nos clients témoignent d'une satisfaction
-                          élevée grâce à notre
+                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
+                          clients témoignent d'une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2095,9 +2047,9 @@ export default function Home() {
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
                           <img
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834889/t%C3%A9l%C3%A9chargement_yjipk7.jpg"
+                            alt="avis3"
                             className="rounded-full"
-                            alt="avis1"
+                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834889/t%C3%A9l%C3%A9chargement_yjipk7.jpg"
                           />
                         </div>
                         <div>
@@ -2106,9 +2058,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location
-                          inégalée. Nos clients témoignent d'une satisfaction
-                          élevée grâce à notre
+                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
+                          clients témoignent d'une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2130,9 +2081,9 @@ export default function Home() {
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
                           <img
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750835092/8a32b6a93ee5f980398ca1c89c5abdc5_vo72oz.jpg"
+                            alt="avis4"
                             className="rounded-full"
-                            alt="avis1"
+                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750835092/8a32b6a93ee5f980398ca1c89c5abdc5_vo72oz.jpg"
                           />
                         </div>
                         <div>
@@ -2141,9 +2092,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location
-                          inégalée. Nos clients témoignent d'une satisfaction
-                          élevée grâce à notre
+                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
+                          clients témoignent d'une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2170,7 +2120,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
@@ -2191,23 +2141,21 @@ export default function Home() {
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
                       <img
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842746/des-personnes-portant-des-gilets-de-sauvetage-lors-d-une-crise-migratoire_vknlz3.jpg"
-                        className="w-[89%] rounded-lg"
                         alt="imagebloc"
+                        className="w-[89%] rounded-lg"
+                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842746/des-personnes-portant-des-gilets-de-sauvetage-lors-d-une-crise-migratoire_vknlz3.jpg"
                       />
                     </div>
                     <div className="px-4">
-                      <div className="text-gray-600 text-sm mb-2">
-                        10 Feb 2025 | John Doe
-                      </div>
+                      <div className="text-gray-600 text-sm mb-2">10 Feb 2025 | John Doe</div>
                       <div className="text-lg font-bold w-[16rem]">
                         5 conseils pour naviguer en toute sécurité
                       </div>
                     </div>
                     <hr className="my-3" />
                     <div className="px-4 text-sm mb-12">
-                      Découvrez les indispensables à bord pour éviter tout
-                      imprévu lors de vos sorties en mer.
+                      Découvrez les indispensables à bord pour éviter tout imprévu lors de vos
+                      sorties en mer.
                     </div>
                   </div>
                 </div>
@@ -2215,23 +2163,21 @@ export default function Home() {
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
                       <img
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842743/vue-arriere-de-l-homme-a-la-marina_lxekoo.jpg"
+                        alt="imagebloc2"
                         className="w-[89%] rounded-lg"
-                        alt="imagebloc"
+                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842743/vue-arriere-de-l-homme-a-la-marina_lxekoo.jpg"
                       />
                     </div>
                     <div className="px-4">
-                      <div className="text-gray-600 text-sm mb-2">
-                        10 Feb 2025 | John Doe
-                      </div>
+                      <div className="text-gray-600 text-sm mb-2">10 Feb 2025 | John Doe</div>
                       <div className="text-lg font-bold w-[16rem]">
                         Comment choisir son premier voilier ?
                       </div>
                     </div>
                     <hr className="my-3" />
                     <div className="px-4 text-sm mb-12">
-                      Budget, équipement, entretien… Nos experts vous guident
-                      dans le choix du bateau idéal.
+                      Budget, équipement, entretien… Nos experts vous guident dans le choix du
+                      bateau idéal.
                     </div>
                   </div>
                 </div>
@@ -2239,23 +2185,21 @@ export default function Home() {
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
                       <img
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842797/un-homme-dans-le-port-prepare-le-yacht-pour-le-voyage_1_lrhbis.jpg"
+                        alt="imagebloc3"
                         className="w-[89%] rounded-lg"
-                        alt="imagebloc"
+                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842797/un-homme-dans-le-port-prepare-le-yacht-pour-le-voyage_1_lrhbis.jpg"
                       />
                     </div>
                     <div className="px-4">
-                      <div className="text-gray-600 text-sm mb-2">
-                        10 Feb 2025 | John Doe
-                      </div>
+                      <div className="text-gray-600 text-sm mb-2">10 Feb 2025 | John Doe</div>
                       <div className="text-lg font-bold w-[16rem]">
                         Événements nautiques à ne pas manquer en 2025
                       </div>
                     </div>
                     <hr className="my-3" />
                     <div className="px-4 text-sm mb-12">
-                      Salons, régates, festivals marins : le calendrier des
-                      incontournables de l&apos;année.
+                      Salons, régates, festivals marins : le calendrier des incontournables de
+                      l&apos;année.
                     </div>
                   </div>
                 </div>
@@ -2275,7 +2219,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
@@ -2295,20 +2239,16 @@ export default function Home() {
                 <Input
                   isRequired
                   errorMessage="Please enter a valid email"
-                  startContent={
-                    <TbMailFilled className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                  }
                   labelPlacement="outside"
                   name="email"
                   placeholder="Veuillez saisir votre mail"
+                  startContent={
+                    <TbMailFilled className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                  }
                   type="email"
                 />
                 <div className="flex justify-center items-center w-full mt-5">
-                  <Button
-                    type="submit"
-                    className="bg-black text-white"
-                    variant="bordered"
-                  >
+                  <Button className="bg-black text-white" type="submit" variant="bordered">
                     Je m&apos;inscris
                   </Button>
                 </div>

@@ -1,20 +1,14 @@
-"use client";
-import { Calendar, Badge, message } from "antd";
-import React, { useEffect, useRef, useState } from "react";
-import type { CalendarProps } from "antd";
-import { AiOutlineSync } from "react-icons/ai";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@heroui/modal";
-import { Button, ButtonGroup } from "@heroui/button";
-import { addToast, ToastProvider } from "@heroui/toast";
-import { useDateRange } from "@/context/DateRangeContext";
+'use client';
+import type { Dayjs } from 'dayjs';
+
+import { Calendar, Badge } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { AiOutlineSync } from 'react-icons/ai';
+import dayjs from 'dayjs';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal';
+import { Button } from '@heroui/button';
+
+import { useDateRange } from '@/context/DateRangeContext';
 
 export const CalendarSingleBoat = () => {
   //   const disabledDates = [
@@ -52,10 +46,10 @@ export const CalendarSingleBoat = () => {
   };
 
   const disabledDate = (currentDate: Dayjs) => {
-    const today = dayjs().startOf("day");
+    const today = dayjs().startOf('day');
 
     // Désactiver toutes les dates avant aujourd'hui
-    if (currentDate.isBefore(today, "day")) {
+    if (currentDate.isBefore(today, 'day')) {
       return true;
     }
 
@@ -75,24 +69,20 @@ export const CalendarSingleBoat = () => {
   };
 
   const fullCellRender = (current: Dayjs, info: any) => {
-    if (info.type !== "date") return info.originNode;
+    if (info.type !== 'date') return info.originNode;
 
     const isDisabled = disabledDate(current);
-    const isSelected = selectedDates.some((d) => d.isSame(current, "day"));
+    const isSelected = selectedDates.some((d) => d.isSame(current, 'day'));
 
     return (
       <div
         style={{
-          textAlign: "center",
+          textAlign: 'center',
           opacity: isDisabled ? 0.4 : 1,
-          backgroundColor: isSelected
-            ? "#bae7ff"
-            : isDisabled
-              ? "#f5f5f5"
-              : undefined,
-          borderRadius: "4px",
-          height: "100%",
-          lineHeight: "38px",
+          backgroundColor: isSelected ? '#bae7ff' : isDisabled ? '#f5f5f5' : undefined,
+          borderRadius: '4px',
+          height: '100%',
+          lineHeight: '38px',
         }}
       >
         {current.date()}
@@ -102,12 +92,12 @@ export const CalendarSingleBoat = () => {
   };
 
   const handlePanelChange = (date: Dayjs, mode: string) => {
-    setCurrentMonth(date.startOf("month")); // toujours comparer à début de mois
+    setCurrentMonth(date.startOf('month')); // toujours comparer à début de mois
   };
 
   const handleSelect = (date: Dayjs) => {
     // Vérifie si la date sélectionnée correspond au mois affiché
-    if (!date.isSame(currentMonth, "month")) {
+    if (!date.isSame(currentMonth, 'month')) {
       return; // sélection automatique: on ignore
     }
 
@@ -123,7 +113,7 @@ export const CalendarSingleBoat = () => {
         let end = firstDate.isAfter(date) ? firstDate : date;
 
         // Vérifier si un jour désactivé existe dans l'intervalle
-        let cursor = start.clone().add(1, "day");
+        let cursor = start.clone().add(1, 'day');
         let hasDisabledInRange = false;
 
         while (cursor.isBefore(end)) {
@@ -131,13 +121,14 @@ export const CalendarSingleBoat = () => {
             hasDisabledInRange = true;
             break;
           }
-          cursor = cursor.add(1, "day");
+          cursor = cursor.add(1, 'day');
         }
 
         if (hasDisabledInRange) {
           // Forcer le reset puis réouvrir le modal
           setIsModalOpen(false);
           setTimeout(() => setIsModalOpen(true), 0);
+
           return [start]; // recommencer à partir de la première date valide
         }
 
@@ -146,7 +137,7 @@ export const CalendarSingleBoat = () => {
         let start = prev[0].isBefore(date) ? prev[0] : date;
         let end = prev[0].isAfter(date) ? prev[0] : date;
 
-        let cursor = start.clone().add(1, "day");
+        let cursor = start.clone().add(1, 'day');
         let hasDisabledInRange = false;
 
         while (cursor.isBefore(end)) {
@@ -154,12 +145,13 @@ export const CalendarSingleBoat = () => {
             hasDisabledInRange = true;
             break;
           }
-          cursor = cursor.add(1, "day");
+          cursor = cursor.add(1, 'day');
         }
 
         if (hasDisabledInRange) {
           setIsModalOpen(false);
           setTimeout(() => setIsModalOpen(true), 0);
+
           return [start]; // recommencer à partir de la nouvelle date valide
         }
 
@@ -171,7 +163,10 @@ export const CalendarSingleBoat = () => {
   return (
     <>
       <div className="flex items-center space-x-4 mt-4">
-        <Button onClick={handleReset} className="flex space-x-2 items-center bg-black text-white mb-4">
+        <Button
+          className="flex space-x-2 items-center bg-black text-white mb-4"
+          onClick={handleReset}
+        >
           <span>Réinitialiser la sélection</span>
           <AiOutlineSync />
         </Button>
@@ -187,28 +182,22 @@ export const CalendarSingleBoat = () => {
         <h4>Dates sélectionnées :</h4>
         <ul className="flex flex-row space-x-4">
           {selectedDates.map((d, idx) => (
-            <li key={`${d.format("YYYY-MM-DD")}-${idx}`} id={`${idx + 1}`}>
-              Date {idx + 1} : {d.format("YYYY-MM-DD")}
+            <li key={`${d.format('YYYY-MM-DD')}-${idx}`} id={`${idx + 1}`}>
+              Date {idx + 1} : {d.format('YYYY-MM-DD')}
             </li>
           ))}
         </ul>
       </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        backdrop="blur"
-        onClose={() => setIsModalOpen(false)}
-      >
+      <Modal backdrop="blur" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Plage invalide
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Plage invalide</ModalHeader>
               <ModalBody>
                 <p>
-                  La plage sélectionnée contient au moins un jour indisponible.
-                  Merci de choisir une plage sans dates désactivées.
+                  La plage sélectionnée contient au moins un jour indisponible. Merci de choisir une
+                  plage sans dates désactivées.
                 </p>
               </ModalBody>
               <ModalFooter>

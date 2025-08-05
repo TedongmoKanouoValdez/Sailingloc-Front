@@ -1,13 +1,7 @@
-export default function ProfilLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ProfilLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </section>
   );
 }

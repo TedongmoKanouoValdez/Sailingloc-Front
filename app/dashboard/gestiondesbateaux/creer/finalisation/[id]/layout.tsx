@@ -1,15 +1,10 @@
-"use client";
-import { ToastProvider } from "@heroui/toast";
+'use client';
 
-export default function BateauxfinityLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function BateauxfinityLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
       {/* <ToastProvider placement="top-right" maxVisibleToasts={8}> */}
-        {children}
+      {children}
       {/* </ToastProvider> */}
     </section>
   );

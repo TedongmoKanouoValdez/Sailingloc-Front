@@ -1,44 +1,18 @@
-import { useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@heroui/modal";
-import {
-  CheckCircle2Icon,
-  CheckCircleIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-  ColumnsIcon,
-  GripVerticalIcon,
-  LoaderIcon,
-  MoreVerticalIcon,
-  PlusIcon,
-  TrendingUpIcon,
-} from "lucide-react";
+import { useState } from 'react';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal';
+import { MoreVerticalIcon } from 'lucide-react';
+import { Link as LinkHeroui } from '@heroui/link';
+import { Button } from '@heroui/button';
+
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Link as LinkHeroui } from "@heroui/link";
-import { Button, ButtonGroup } from "@heroui/button";
+} from '@/components/ui/dropdown-menu';
 
-const ActionsCell = ({
-  row,
-  refreshTable,
-}: {
-  row: any;
-  refreshTable: () => void;
-}) => {
+const ActionsCell = ({ row, refreshTable }: { row: any; refreshTable: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = async () => {
@@ -46,7 +20,7 @@ const ActionsCell = ({
       const res = await fetch(
         `https://sailingloc-back.vercel.app/api/bateaux/slug/${row.original.slug}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
         }
       );
 
@@ -56,11 +30,11 @@ const ActionsCell = ({
         refreshTable(); // à définir dans ton composant parent pour recharger les données
         setIsOpen(false);
       } else {
-        alert("Erreur : " + data.error);
+        alert('Erreur : ' + data.error);
       }
     } catch (error) {
-      console.error("Erreur de suppression :", error);
-      alert("Échec de la suppression.");
+      console.error('Erreur de suppression :', error);
+      alert('Échec de la suppression.');
     }
   };
 
@@ -69,9 +43,9 @@ const ActionsCell = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
             className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
             size="icon"
+            variant="ghost"
           >
             <MoreVerticalIcon />
             <span className="sr-only">Open menu</span>
@@ -97,23 +71,18 @@ const ActionsCell = ({
             </LinkHeroui>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsOpen(true)}>
-            Supprimer
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsOpen(true)}>Supprimer</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} backdrop="blur">
+      <Modal backdrop="blur" isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <ModalContent>
           {() => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Confirmer la suppression
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Confirmer la suppression</ModalHeader>
               <ModalBody>
                 <p>
-                  Voulez-vous vraiment supprimer le bateau{" "}
-                  <strong>{row.original.nom}</strong> ?
+                  Voulez-vous vraiment supprimer le bateau <strong>{row.original.nom}</strong> ?
                 </p>
                 <p>Cette action est irréversible.</p>
               </ModalBody>

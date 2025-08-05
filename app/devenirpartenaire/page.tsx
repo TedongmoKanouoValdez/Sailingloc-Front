@@ -1,23 +1,18 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { GrSecure } from "react-icons/gr";
-import { IoTimeSharp } from "react-icons/io5";
-import { FaGlobe } from "react-icons/fa";
-import { Steps } from "antd";
-import { SlNote } from "react-icons/sl";
-import { IoMailUnread } from "react-icons/io5";
-import { TfiStatsUp } from "react-icons/tfi";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+'use client';
+import React, { useState } from 'react';
+import { GrSecure } from 'react-icons/gr';
+import { IoTimeSharp } from 'react-icons/io5';
+import { FaGlobe } from 'react-icons/fa';
+import { Steps } from 'antd';
+import { SlNote } from 'react-icons/sl';
+import { IoMailUnread } from 'react-icons/io5';
+import { TfiStatsUp } from 'react-icons/tfi';
+import { Checkbox } from '@heroui/checkbox';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -26,11 +21,11 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from "@/components/ui/select";
-import { Checkbox } from "@heroui/checkbox";
+} from '@/components/ui/select';
 
 export default function DevenirPartenairePage() {
   const [isAccepted, setIsAccepted] = useState(false);
+
   return (
     <>
       <main>
@@ -39,11 +34,11 @@ export default function DevenirPartenairePage() {
             className="absolute top-0 bannerpagedevenirpartenaire"
             style={{
               backgroundImage:
-                "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751644473/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_sxogkd.jpg)",
-              height: "56vh",
-              backgroundSize: "100%",
-              backgroundRepeat: "no-repeat",
-              width: "100%",
+                'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751644473/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_sxogkd.jpg)',
+              height: '56vh',
+              backgroundSize: '100%',
+              backgroundRepeat: 'no-repeat',
+              width: '100%',
             }}
           >
             <div className="relative mx-auto max-w-6xl mt-48 text-white font-bold z-10">
@@ -54,10 +49,9 @@ export default function DevenirPartenairePage() {
               </div>
               <div>
                 <p>
-                  Rejoignez notre réseau de propriétaires et augmentez vos
-                  revenus en louant votre bateau aux passionnés de navigation.
-                  Notre plateforme vous permet de gérer vos annonces facilement,
-                  en toute sécurité.
+                  Rejoignez notre réseau de propriétaires et augmentez vos revenus en louant votre
+                  bateau aux passionnés de navigation. Notre plateforme vous permet de gérer vos
+                  annonces facilement, en toute sécurité.
                 </p>
               </div>
             </div>
@@ -80,7 +74,7 @@ export default function DevenirPartenairePage() {
                 <div className="bg-glace contentcardpourquoi px-8 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Augmentez vos revenus</div>
                   <div className="text-sm">
-                    Rentabilisez votre bateau même quand vous ne l'utilisez pas.
+                    Rentabilisez votre bateau même quand vous ne l&apos;utilisez pas.
                   </div>
                 </div>
               </div>
@@ -90,9 +84,7 @@ export default function DevenirPartenairePage() {
                 </div>
                 <div className="bg-glace contentcardpourquoi px-4 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Sécurité assurée</div>
-                  <div className="text-sm">
-                    Assurances adaptées et vérification des locataires.
-                  </div>
+                  <div className="text-sm">Assurances adaptées et vérification des locataires.</div>
                 </div>
               </div>
               <div className="relative">
@@ -101,9 +93,7 @@ export default function DevenirPartenairePage() {
                 </div>
                 <div className="bg-glace contentcardpourquoi px-4 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Gestion simplifiée</div>
-                  <div className="text-sm">
-                    Planning, réservations et paiements centralisés.
-                  </div>
+                  <div className="text-sm">Planning, réservations et paiements centralisés.</div>
                 </div>
               </div>
               <div className="relative">
@@ -130,23 +120,21 @@ export default function DevenirPartenairePage() {
             <Steps
               items={[
                 {
-                  title: "Inscrivez votre bateau",
-                  description: "Remplissez le formulaire en quelques minutes.",
-                  status: "finish",
+                  title: 'Inscrivez votre bateau',
+                  description: 'Remplissez le formulaire en quelques minutes.',
+                  status: 'finish',
                   icon: <SlNote />,
                 },
                 {
-                  title: "Recevez vos réservations",
-                  description:
-                    "Les clients réservent directement sur la plateforme.",
-                  status: "finish",
+                  title: 'Recevez vos réservations',
+                  description: 'Les clients réservent directement sur la plateforme.',
+                  status: 'finish',
                   icon: <IoMailUnread />,
                 },
                 {
-                  title: "Naviguez vers le succès",
-                  description:
-                    "Générez des revenus pendant que votre bateau est au port.",
-                  status: "finish",
+                  title: 'Naviguez vers le succès',
+                  description: 'Générez des revenus pendant que votre bateau est au port.',
+                  status: 'finish',
                   icon: <TfiStatsUp />,
                 },
               ]}
@@ -155,9 +143,7 @@ export default function DevenirPartenairePage() {
 
           <div>
             <div>
-              <h2 className="text-4xl font-medium mb-5">
-                Formulaire de contact{" "}
-              </h2>
+              <h2 className="text-4xl font-medium mb-5">Formulaire de contact </h2>
             </div>
           </div>
 
@@ -169,32 +155,17 @@ export default function DevenirPartenairePage() {
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="nomcomplet">Nom complet</Label>
-                        <Input
-                          id="nomcomplet"
-                          type="text"
-                          placeholder="John Doe"
-                          required
-                        />
+                        <Input required id="nomcomplet" placeholder="John Doe" type="text" />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="m@example.com"
-                          required
-                        />
+                        <Input required id="email" placeholder="m@example.com" type="email" />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="phone">Téléphone</Label>
-                        <Input
-                          id="phone"
-                          type="text"
-                          placeholder="+33 07 11 11 11 11"
-                          required
-                        />
+                        <Input required id="phone" placeholder="+33 07 11 11 11 11" type="text" />
                       </div>
                       <div className="grid gap-2">
                         <Label>Type de bateau à louer</Label>
@@ -206,21 +177,11 @@ export default function DevenirPartenairePage() {
                             <SelectGroup>
                               <SelectLabel>Type de bateau à louer</SelectLabel>
                               <SelectItem value="voilier">Voilier</SelectItem>
-                              <SelectItem value="catamaran">
-                                Catamaran
-                              </SelectItem>
-                              <SelectItem value="yacht à voile">
-                                Yacht à voile
-                              </SelectItem>
-                              <SelectItem value="yacht à moteur">
-                                Yacht à moteur
-                              </SelectItem>
-                              <SelectItem value="bateau à moteur">
-                                Bateau à moteur
-                              </SelectItem>
-                              <SelectItem value="semi-rigide">
-                                Semi-rigide
-                              </SelectItem>
+                              <SelectItem value="catamaran">Catamaran</SelectItem>
+                              <SelectItem value="yacht à voile">Yacht à voile</SelectItem>
+                              <SelectItem value="yacht à moteur">Yacht à moteur</SelectItem>
+                              <SelectItem value="bateau à moteur">Bateau à moteur</SelectItem>
+                              <SelectItem value="semi-rigide">Semi-rigide</SelectItem>
                               <SelectItem value="Goelétte">Goélette</SelectItem>
                               <SelectItem value="trimaran">Trimaran</SelectItem>
                               <SelectItem value="péniche">Péniche</SelectItem>
@@ -228,18 +189,10 @@ export default function DevenirPartenairePage() {
                               <SelectItem value="houseboat (péniche habitable)">
                                 Houseboat (péniche habitable)
                               </SelectItem>
-                              <SelectItem value="bateau de pêche">
-                                Bateau de pêche
-                              </SelectItem>
-                              <SelectItem value="vedette rapide">
-                                Vedette rapide
-                              </SelectItem>
-                              <SelectItem value="catamaran à moteur">
-                                Catamaran à moteur
-                              </SelectItem>
-                              <SelectItem value="dinghy / annexe">
-                                Dinghy / Annexe
-                              </SelectItem>
+                              <SelectItem value="bateau de pêche">Bateau de pêche</SelectItem>
+                              <SelectItem value="vedette rapide">Vedette rapide</SelectItem>
+                              <SelectItem value="catamaran à moteur">Catamaran à moteur</SelectItem>
+                              <SelectItem value="dinghy / annexe">Dinghy / Annexe</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -249,54 +202,40 @@ export default function DevenirPartenairePage() {
                       <div className="grid gap-2">
                         <Label htmlFor="marqueetmodele">Marque et modèle</Label>
                         <Input
-                          id="marqueetmodele"
-                          type="text"
-                          placeholder="Jeanneau Sun Odyssey 45"
                           required
+                          id="marqueetmodele"
+                          placeholder="Jeanneau Sun Odyssey 45"
+                          type="text"
                         />
                       </div>
                       <div className="grid gap-2">
-                        <Label htmlFor="anneedeconstruction">
-                          Année de construction
-                        </Label>
+                        <Label htmlFor="anneedeconstruction">Année de construction</Label>
                         <Input
-                          id="anneedeconstruction"
-                          type="anneedeconstruction"
-                          placeholder="18/08/2025"
                           required
+                          id="anneedeconstruction"
+                          placeholder="18/08/2025"
+                          type="anneedeconstruction"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="longueur">Longueur (en mètres)</Label>
-                        <Input
-                          id="longueur"
-                          type="text"
-                          placeholder="12,5m"
-                          required
-                        />
+                        <Input required id="longueur" placeholder="12,5m" type="text" />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="largeur">Largeur (en mètres)</Label>
-                        <Input
-                          id="largeur"
-                          type="text"
-                          placeholder="4,2 m"
-                          required
-                        />
+                        <Input required id="largeur" placeholder="4,2 m" type="text" />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
-                        <Label htmlFor="portdattacheprincipal">
-                          Port d'attache principal
-                        </Label>
+                        <Label htmlFor="portdattacheprincipal">Port d'attache principal</Label>
                         <Input
-                          id="portdattacheprincipal"
-                          type="text"
-                          placeholder="Le port où le bateau est le plus souvent disponible."
                           required
+                          id="portdattacheprincipal"
+                          placeholder="Le port où le bateau est le plus souvent disponible."
+                          type="text"
                         />
                       </div>
                       <div className="grid gap-2">
@@ -304,10 +243,10 @@ export default function DevenirPartenairePage() {
                           Capacité maximale (nombre de passagers autorisés)
                         </Label>
                         <Input
-                          id="capacitemaximale"
-                          type="text"
-                          placeholder="8 personnes"
                           required
+                          id="capacitemaximale"
+                          placeholder="8 personnes"
+                          type="text"
                         />
                       </div>
                     </div>
@@ -317,27 +256,23 @@ export default function DevenirPartenairePage() {
                           Zones de navigation autorisées
                         </Label>
                         <Input
-                          id="zonedenavigationautorisee"
-                          type="text"
-                          placeholder="Méditerranée, Atlantique, Manche…"
                           required
+                          id="zonedenavigationautorisee"
+                          placeholder="Méditerranée, Atlantique, Manche…"
+                          type="text"
                         />
                       </div>
                     </div>
                     <div>
-                      <Checkbox
-                        isSelected={isAccepted}
-                        onValueChange={setIsAccepted}
-                      >
-                        J'accepte la politique de confidentialité et les
-                        conditions d'utilisation.
+                      <Checkbox isSelected={isAccepted} onValueChange={setIsAccepted}>
+                        J'accepte la politique de confidentialité et les conditions d'utilisation.
                       </Checkbox>
                     </div>
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex-col gap-2">
-                <Button type="submit" disabled={!isAccepted} className="w-full">
+                <Button className="w-full" disabled={!isAccepted} type="submit">
                   Devenir partenaire maintenant
                 </Button>
               </CardFooter>

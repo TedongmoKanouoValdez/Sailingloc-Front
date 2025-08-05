@@ -1,13 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive } from "@/components/chart-area-interactive";
-import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
-import { SiteHeader } from "@/components/site-header";
-import { schema } from "@/components/data-table";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { z } from "zod";
+'use client';
+import { useEffect, useState } from 'react';
+import { z } from 'zod';
+
+import { AppSidebar } from '@/components/app-sidebar';
+import { DataTable } from '@/components/data-table';
+import { SiteHeader } from '@/components/site-header';
+import { schema } from '@/components/data-table';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 // import data from "../data.json";
 
 export default function GestionDesBateauxPage() {
@@ -16,25 +15,26 @@ export default function GestionDesBateauxPage() {
 
   const refetch = () => {
     setLoading(true);
-    fetch("https://sailingloc-back.vercel.app/api/bateaux")
+    fetch('https://sailingloc-back.vercel.app/api/bateaux')
       .then((res) => res.json())
       .then((json) => {
         if (!json || !Array.isArray(json.bateaux)) {
-          console.error("Format de données inattendu :", json);
+          console.error('Format de données inattendu :', json);
           setLoading(false);
+
           return;
         }
 
         setData(
           json.bateaux.map((bateau: any) => ({
             id: bateau.id,
-            header: bateau.nom ?? "Nom inconnu",
+            header: bateau.nom ?? 'Nom inconnu',
             slug: bateau.slug ?? 0,
-            type: bateau.modele ?? "Modèle inconnu",
-            port: bateau.portdefault ?? "Port inconnu",
-            target: bateau.prix ?? "0",
+            type: bateau.modele ?? 'Modèle inconnu',
+            port: bateau.portdefault ?? 'Port inconnu',
+            target: bateau.prix ?? '0',
             detail: bateau.details ?? [],
-            description: bateau.description ?? "",
+            description: bateau.description ?? '',
             datesIndisponibles: bateau.datesIndisponibles ?? [],
             proprietaireId: bateau.proprietaireId ?? 0,
           }))
@@ -42,7 +42,7 @@ export default function GestionDesBateauxPage() {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Erreur lors du rafraîchissement :", err);
+        console.error('Erreur lors du rafraîchissement :', err);
         setLoading(false);
       });
   };

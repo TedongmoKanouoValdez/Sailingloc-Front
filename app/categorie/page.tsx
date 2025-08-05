@@ -1,201 +1,193 @@
-import { title } from "@/components/primitives";
-import { BoxReveal } from "@/components/magicui/box-reveal";
-import { RippleButton } from "@/components/magicui/ripple-button";
-import { Input } from "@heroui/input";
-import { DatePicker } from "@heroui/date-picker";
-import { NumberInput } from "@heroui/number-input";
-import { FlipWords } from "@/components/ui/flip-words";
-import {Image} from "@heroui/image";
-import NextImage from "next/image";
-import {Select, SelectSection, SelectItem} from "@heroui/select";
+import { Input } from '@heroui/input';
+import { DatePicker } from '@heroui/date-picker';
+import { NumberInput } from '@heroui/number-input';
+
+import { BoxReveal } from '@/components/magicui/box-reveal';
+import { RippleButton } from '@/components/magicui/ripple-button';
 
 export const animals = [
-  {key: "cat", label: "Cat"},
-  {key: "dog", label: "Dog"},
-  {key: "elephant", label: "Elephant"},
-  {key: "lion", label: "Lion"},
-  {key: "tiger", label: "Tiger"},
-  {key: "giraffe", label: "Giraffe"},
-  {key: "dolphin", label: "Dolphin"},
-  {key: "penguin", label: "Penguin"},
-  {key: "zebra", label: "Zebra"},
-  {key: "shark", label: "Shark"},
-  {key: "whale", label: "Whale"},
-  {key: "otter", label: "Otter"},
-  {key: "crocodile", label: "Crocodile"},
+  { key: 'cat', label: 'Cat' },
+  { key: 'dog', label: 'Dog' },
+  { key: 'elephant', label: 'Elephant' },
+  { key: 'lion', label: 'Lion' },
+  { key: 'tiger', label: 'Tiger' },
+  { key: 'giraffe', label: 'Giraffe' },
+  { key: 'dolphin', label: 'Dolphin' },
+  { key: 'penguin', label: 'Penguin' },
+  { key: 'zebra', label: 'Zebra' },
+  { key: 'shark', label: 'Shark' },
+  { key: 'whale', label: 'Whale' },
+  { key: 'otter', label: 'Otter' },
+  { key: 'crocodile', label: 'Crocodile' },
 ];
 export const LogoBoar = () => {
   let boar =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png";
-  return <img src={boar} className="allogo" alt="iconeBoar" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
+
+  return <img alt="iconeBoar" className="allogo" src={boar} />;
 };
 
 export const LogoCatamarans = () => {
   let catamarans =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png";
-  return <img src={catamarans} className="allogo" alt="iconeCatamarans" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
+
+  return <img alt="iconeCatamarans" className="allogo" src={catamarans} />;
 };
 
 export const LogoCap = () => {
-  let cap =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png";
-  return <img src={cap} className="allogo" alt="iconeCap" />;
+  let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
+
+  return <img alt="iconeCap" className="allogo" src={cap} />;
 };
 
 export const LogoMap = () => {
-  let map =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png";
-  return <img src={map} className="allogo" alt="iconeMap" />;
+  let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
+
+  return <img alt="iconeMap" className="allogo" src={map} />;
 };
 
 export const LogoZeus = () => {
-  let zeus =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png";
-  return <img src={zeus} className="allogo" alt="iconeZeus" />;
+  let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
+
+  return <img alt="iconeZeus" className="allogo" src={zeus} />;
 };
 
 export const LogoSailingTime = () => {
   let sailingtime =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png";
-  return <img src={sailingtime} className="allogo" alt="iconeSailingTime" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
+
+  return <img alt="iconeSailingTime" className="allogo" src={sailingtime} />;
 };
 
 export const LogoBateauSansPermis = () => {
   let bateauSansPermis =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686483/small_zcmu0m.png";
-  return <img src={bateauSansPermis} className="allogo" alt="iconebateauSansPermis" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686483/small_zcmu0m.png';
+
+  return <img alt="iconebateauSansPermis" className="allogo" src={bateauSansPermis} />;
 };
 
 export const LogoBateauSale = () => {
-  let bateauSale =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png";
-  return <img src={bateauSale} className="allogo" alt="iconebateauSale" />;
+  let bateauSale = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png';
+
+  return <img alt="iconebateauSale" className="allogo" src={bateauSale} />;
 };
 
 export const LogoIdealFamille = () => {
   let idealFamille =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/family_fb9ymr.png"
-  return <img src={idealFamille} className="allogo" alt="iconeidealFamille" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/family_fb9ymr.png';
+
+  return <img alt="iconeidealFamille" className="allogo" src={idealFamille} />;
 };
 
 export const LogoSoleil = () => {
-  let soleil =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png"
-  return <img src={soleil} className="allogo" alt="iconesoleil" />;
+  let soleil = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png';
+
+  return <img alt="iconesoleil" className="allogo" src={soleil} />;
 };
 export const LogoSeminaire = () => {
   let seminaire =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png"
-  return <img src={seminaire} className="allogo" alt="iconeseminaire" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png';
+
+  return <img alt="iconeseminaire" className="allogo" src={seminaire} />;
 };
 export const LogoPMR = () => {
   let PMR =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png"
-  return <img src={PMR} className="allogo" alt="iconePMR" />;
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png';
+
+  return <img alt="iconePMR" className="allogo" src={PMR} />;
 };
 export default function CategoriesPage() {
-   const words = ["aventure", "voyage", "périple", "épopée", "exploration"];
+  const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
 
   return (
     <>
       <section className="">
-             <div className="relative">
-               <div className="contentvideohome" style={{backgroundImage: "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)", width: "100%", height:"100vh", objectFit:"cover", backgroundRepeat: "no-repeat", backgroundSize: "97rem"}} >
+        <div className="relative">
+          <div
+            className="contentvideohome"
+            style={{
+              backgroundImage:
+                'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)',
+              width: '100%',
+              height: '100vh',
+              objectFit: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '97rem',
+            }}
+          />
+          <div className="contenttext">
+            <div className="flex flex-row space-x-2">
+              <div className="Textheader text-white">
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                  <h1 className="text-6xl font-bold">Nos Categories de navigation</h1>
+                </BoxReveal>
 
-               </div>
-               <div className="contenttext">
-                 <div className="flex flex-row space-x-2">
-                   <div className="Textheader text-white">
-                     <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-                       <h1 className="text-6xl font-bold">
-                         Nos Categories de navigation
-                       </h1>
-                     </BoxReveal>
-     
-                     <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-                       <p className="text-lg mt-4">
-                         Choisissez la categorie de bateau ou de service <br/> qui vous  
-                         convient le mieux
-                         pour vivre <br/> une experience en mer  inoubliable.
-                       </p>
-                     </BoxReveal>
-
-                   </div>
-                 </div>
-               </div>
-               <div className="contentFormHome">
-                 <form action="">
-                   <div className="grid grid-cols-5 gap-4">
-                     <div className="inputformhome">
-                       <Input
-                         label="Veuillez saisire votre destination"
-                         type="text"
-                         variant="bordered"
-                         color="secondary"
-                       />
-                     </div>
-                     <div className="inputformhome">
-                       <Input
-                         label="Type de bateau"
-                         type="text"
-                         variant="bordered"
-                         color="secondary"
-                       />
-                     </div>
-                     <div className="inputformhome">
-                       <DatePicker
-                         label={"Dates de navigation"}
-                         variant="bordered"
-                         color="secondary"
-                       />
-                     </div>
-                     <div className="inputformhome">
-                  <NumberInput
-                         label="Nombre de passagers"
-                         variant="bordered"
-                         color="secondary"
-                       />
-                     </div>
-                     <div>
-                       <RippleButton rippleColor="#ADD8E6" className="py-3.5">
-                         Trouver mon bateau
-                       </RippleButton>
-                     </div>
-                   </div>
-                 </form>
-               </div>
-             </div>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                  <p className="text-lg mt-4">
+                    Choisissez la categorie de bateau ou de service <br /> qui vous convient le
+                    mieux pour vivre <br /> une experience en mer inoubliable.
+                  </p>
+                </BoxReveal>
+              </div>
+            </div>
+          </div>
+          <div className="contentFormHome">
+            <form action="">
+              <div className="grid grid-cols-5 gap-4">
+                <div className="inputformhome">
+                  <Input
+                    color="secondary"
+                    label="Veuillez saisire votre destination"
+                    type="text"
+                    variant="bordered"
+                  />
+                </div>
+                <div className="inputformhome">
+                  <Input color="secondary" label="Type de bateau" type="text" variant="bordered" />
+                </div>
+                <div className="inputformhome">
+                  <DatePicker color="secondary" label={'Dates de navigation'} variant="bordered" />
+                </div>
+                <div className="inputformhome">
+                  <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
+                </div>
+                <div>
+                  <RippleButton className="py-3.5" rippleColor="#ADD8E6">
+                    Trouver mon bateau
+                  </RippleButton>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
 
-        <section>
+      <section>
         <div
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
             <div>
-              <h2 className="text-5xl font-medium mb-5">
-                EMBARQUEZ POUR UNE AVENTURE SUR MESURE
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">EMBARQUEZ POUR UNE AVENTURE SUR MESURE</h2>
             </div>
             <div>
               <p className="descriptionallsectionhome text-center">
-               Découvrez notre sélection de bateaux adaptés à tous les styles de navigation. Que vous recherchiez 
-               une escapade paisible à bord d’un voilier, une croisière conviviale en catamaran, 
-               ou une sortie guidée avec skipper, trouvez l’expérience idéale pour voguer à votre rythme..
+                Découvrez notre sélection de bateaux adaptés à tous les styles de navigation. Que
+                vous recherchiez une escapade paisible à bord d’un voilier, une croisière conviviale
+                en catamaran, ou une sortie guidée avec skipper, trouvez l’expérience idéale pour
+                voguer à votre rythme..
               </p>
             </div>
           </div>
           <div className="flex justify-start mx-auto max-w-6xl w-full mb-10">
             <div>
-             
-                <RippleButton className="bg-black text-white font-bold">
-                  Toutes les catégories
-                </RippleButton>
-             
+              <RippleButton className="bg-black text-white font-bold">
+                Toutes les catégories
+              </RippleButton>
             </div>
           </div>
           <div className="contentcategoriehome">
@@ -208,14 +200,14 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Voiliers</div>
                     <div>
-                      Naviguez à l&apos;ancienne et ressentez chaque brise pour
-                      une expérience authentique.
+                      Naviguez à l&apos;ancienne et ressentez chaque brise pour une expérience
+                      authentique.
                     </div>
                     <div>
                       <RippleButton
@@ -236,14 +228,13 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Catamarans</div>
                     <div>
-                      Stables et confortables, parfaits pour les familles ou les
-                      longs séjours.
+                      Stables et confortables, parfaits pour les familles ou les longs séjours.
                     </div>
                     <div>
                       <RippleButton
@@ -264,16 +255,14 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Excursions avec Skipper
-                    </div>
+                    <div className="text-xl font-bold">Excursions avec Skipper</div>
                     <div>
-                      Partez sans permis : un professionnel vous accompagne tout
-                      au long de votre navigation.
+                      Partez sans permis : un professionnel vous accompagne tout au long de votre
+                      navigation.
                     </div>
                     <div>
                       <RippleButton
@@ -294,16 +283,14 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Destinations Populaires
-                    </div>
+                    <div className="text-xl font-bold">Destinations Populaires</div>
                     <div>
-                      Explorez les spots les plus réservés par nos utilisateurs,
-                      testés et approuvés.
+                      Explorez les spots les plus réservés par nos utilisateurs, testés et
+                      approuvés.
                     </div>
                     <div>
                       <RippleButton
@@ -324,14 +311,12 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
                     <div className="text-xl font-bold">Bateaux à Moteur</div>
-                    <div>
-                      Vitesse, liberté et adrénaline pour vos journées en mer.
-                    </div>
+                    <div>Vitesse, liberté et adrénaline pour vos journées en mer.</div>
                     <div>
                       <RippleButton
                         className="rounded-full bg-glace text-white font-medium"
@@ -351,13 +336,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Location à la Journée
-                    </div>
+                    <div className="text-xl font-bold">Location à la Journée</div>
                     <div>Idéal pour une escapade rapide sans engagement</div>
                     <div>
                       <RippleButton
@@ -370,7 +353,7 @@ export default function CategoriesPage() {
                   </div>
                 </div>
               </div>
-               <div className="relative cardcategorie">
+              <div className="relative cardcategorie">
                 <div className="logocategrie1 flex justify-center items-center">
                   <LogoBateauSansPermis />
                 </div>
@@ -378,13 +361,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324800/bateau_sans_permis_etgemz.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324800/bateau_sans_permis_etgemz.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Bateaux sans permis
-                    </div>
+                    <div className="text-xl font-bold">Bateaux sans permis</div>
                     <div>Naviguez librement sans avoir besoin de licence</div>
                     <div>
                       <RippleButton
@@ -397,7 +378,7 @@ export default function CategoriesPage() {
                   </div>
                 </div>
               </div>
-               <div className="relative cardcategorie">
+              <div className="relative cardcategorie">
                 <div className="logocategrie1 flex justify-center items-center">
                   <LogoBateauSale />
                 </div>
@@ -405,13 +386,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324556/offre_de_derniere_minute_jdzwk1.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324556/offre_de_derniere_minute_jdzwk1.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Offre de derniere minute
-                    </div>
+                    <div className="text-xl font-bold">Offre de derniere minute</div>
                     <div>Profitez des prix reduits sur les locations recentes</div>
                     <div>
                       <RippleButton
@@ -424,7 +403,7 @@ export default function CategoriesPage() {
                   </div>
                 </div>
               </div>
-               <div className="relative cardcategorie">
+              <div className="relative cardcategorie">
                 <div className="logocategrie1 flex justify-center items-center">
                   <LogoIdealFamille />
                 </div>
@@ -432,13 +411,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324672/Famille_zgx8qn.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324672/Famille_zgx8qn.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Ideal en Famille
-                    </div>
+                    <div className="text-xl font-bold">Ideal en Famille</div>
                     <div>Bateaux spacieux et securisés pour tous ages</div>
                     <div>
                       <RippleButton
@@ -459,14 +436,12 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324971/soleil_xb95vo.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324971/soleil_xb95vo.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Coucher de soleil
-                    </div>
-                    <div>Petites Croisières romantiques à l'heure dorée</div>
+                    <div className="text-xl font-bold">Coucher de soleil</div>
+                    <div>Petites Croisières romantiques à l&apos;heure dorée</div>
                     <div>
                       <RippleButton
                         className="rounded-full bg-glace text-white font-medium"
@@ -486,13 +461,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325283/team_bhthzg.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325283/team_bhthzg.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                      Séminaires & Team building
-                    </div>
+                    <div className="text-xl font-bold">Séminaires & Team building</div>
                     <div>Organisez un evenement pro en mer</div>
                     <div>
                       <RippleButton
@@ -513,13 +486,11 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
-                    <div className="text-xl font-bold">
-                     Accessibilité PMR
-                    </div>
+                    <div className="text-xl font-bold">Accessibilité PMR</div>
                     <div>Bateaux adaptés aux personnes à mobilité reduite</div>
                     <div>
                       <RippleButton
@@ -536,8 +507,6 @@ export default function CategoriesPage() {
           </div>
         </div>
       </section>
-
-     
     </>
   );
 }

@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import type { Dayjs } from "dayjs";
+import type { Dayjs } from 'dayjs';
+
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type DateRangeContextType = {
   date1: Dayjs | null;
@@ -27,8 +28,10 @@ export const DateRangeProvider = ({ children }: { children: ReactNode }) => {
 
 export const useDateRange = () => {
   const context = useContext(DateRangeContext);
+
   if (!context) {
-    throw new Error("useDateRange must be used within a DateRangeProvider");
+    throw new Error('useDateRange must be used within a DateRangeProvider');
   }
+
   return context;
 };
