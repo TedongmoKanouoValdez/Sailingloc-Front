@@ -101,11 +101,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: "flexible",
-    label: "Flexible : remboursement complet jusqu"à 24h avant le départ",
+    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
   },
   {
     id: "moderate",
-    label: "Modérée : remboursement partiel jusqu"à 7 jours avant",
+    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
   },
   {
     id: "strict",
