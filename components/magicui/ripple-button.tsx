@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from "react";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 interface RippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   rippleColor?: string;
@@ -11,7 +11,7 @@ interface RippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export const RippleButton = React.forwardRef<HTMLButtonElement, RippleButtonProps>(
   (
-    { className, children, rippleColor = '#ffffff', duration = '600ms', onClick, ...props },
+    { className, children, rippleColor = "#ffffff", duration = "600ms", onClick, ...props },
     ref
   ) => {
     const [buttonRipples, setButtonRipples] = useState<
@@ -52,7 +52,7 @@ export const RippleButton = React.forwardRef<HTMLButtonElement, RippleButtonProp
       <button
         ref={ref}
         className={cn(
-          'relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 bg-background px-4 py-2 text-center text-primary',
+          "relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 bg-background px-4 py-2 text-center text-primary",
           className
         )}
         onClick={handleClick}
@@ -80,4 +80,4 @@ export const RippleButton = React.forwardRef<HTMLButtonElement, RippleButtonProp
   }
 );
 
-RippleButton.displayName = 'RippleButton';
+RippleButton.displayName = "RippleButton";

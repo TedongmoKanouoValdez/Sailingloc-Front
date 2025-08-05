@@ -1,32 +1,32 @@
-'use client';
-import React from 'react';
-import { PiSunDimFill } from 'react-icons/pi';
-import { Badge, Space, Tooltip } from 'antd';
-import { BiSolidBookmark } from 'react-icons/bi';
-import { Chip } from '@heroui/chip';
-import { FaSailboat } from 'react-icons/fa6';
-import { GiCaptainHatProfile } from 'react-icons/gi';
-import { GiTakeMyMoney } from 'react-icons/gi';
-import { IoMdPin } from 'react-icons/io';
-import { HiUserGroup } from 'react-icons/hi2';
-import { FaStar } from 'react-icons/fa';
+"use client";
+import React from "react";
+import { PiSunDimFill } from "react-icons/pi";
+import { Badge, Space, Tooltip } from "antd";
+import { BiSolidBookmark } from "react-icons/bi";
+import { Chip } from "@heroui/chip";
+import { FaSailboat } from "react-icons/fa6";
+import { GiCaptainHatProfile } from "react-icons/gi";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { IoMdPin } from "react-icons/io";
+import { HiUserGroup } from "react-icons/hi2";
+import { FaStar } from "react-icons/fa";
 
-import { RippleButton } from '@/components/magicui/ripple-button';
+import { RippleButton } from "@/components/magicui/ripple-button";
 
 type Props = {
-  texte: string; // Définit que 'texte' doit être une chaîne de caractères
+  texte: string; // Définit que "texte" doit être une chaîne de caractères
 };
 
 export const MonTexte = ({ texte }: Props) => {
   const maxChars = 7; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export const Descritpion = ({ texte }: Props) => {
   const maxChars = 90; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
 
   return <p>{courtTexte}</p>;
 };
@@ -38,9 +38,9 @@ export default function BateauSimilaireSection() {
         className="relative carddestinationshome flex flex-col space-y-24"
         style={{
           backgroundImage:
-            'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751018808/parking-marin-de-bateaux-et-yachts-en-turquie-yacht-amarre-dans-le-port-maritime_ecsqlq.jpg)',
-          backgroundPositionX: 'center',
-          backgroundSize: '26rem',
+            "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751018808/parking-marin-de-bateaux-et-yachts-en-turquie-yacht-amarre-dans-le-port-maritime_ecsqlq.jpg)",
+          backgroundPositionX: "center",
+          backgroundSize: "26rem",
         }}
       >
         <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -57,7 +57,7 @@ export default function BateauSimilaireSection() {
           </div>
         </div>
         <div>
-          <Space direction="vertical" size="middle" style={{ width: '100%', gap: '2rem' }}>
+          <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
             <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
           </Space>
         </div>
@@ -152,7 +152,7 @@ export default function BateauSimilaireSection() {
             </div>
             <div
               className="flex flex-row justify-between items-center"
-              style={{ marginBottom: '1rem' }}
+              style={{ marginBottom: "1rem" }}
             >
               <div>
                 <RippleButton className="bg-white text-black">Voir les bateaux</RippleButton>
@@ -172,9 +172,9 @@ export default function BateauSimilaireSection() {
         className="relative carddestinationshome flex flex-col space-y-24"
         style={{
           backgroundImage:
-            'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg)',
-          backgroundPositionX: 'center',
-          backgroundSize: '26rem',
+            "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg)",
+          backgroundPositionX: "center",
+          backgroundSize: "26rem",
         }}
       >
         <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -191,7 +191,7 @@ export default function BateauSimilaireSection() {
           </div>
         </div>
         <div>
-          <Space direction="vertical" size="middle" style={{ width: '100%', gap: '2rem' }}>
+          <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
             <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
           </Space>
         </div>
@@ -286,7 +286,7 @@ export default function BateauSimilaireSection() {
             </div>
             <div
               className="flex flex-row justify-between items-center"
-              style={{ marginBottom: '1rem' }}
+              style={{ marginBottom: "1rem" }}
             >
               <div>
                 <RippleButton className="bg-white text-black">Voir les bateaux</RippleButton>
@@ -306,9 +306,9 @@ export default function BateauSimilaireSection() {
         className="relative carddestinationshome flex flex-col space-y-24"
         style={{
           backgroundImage:
-            'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg)',
-          backgroundPositionX: 'center',
-          backgroundSize: '26rem',
+            "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg)",
+          backgroundPositionX: "center",
+          backgroundSize: "26rem",
         }}
       >
         <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -325,7 +325,7 @@ export default function BateauSimilaireSection() {
           </div>
         </div>
         <div>
-          <Space direction="vertical" size="middle" style={{ width: '100%', gap: '2rem' }}>
+          <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
             <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
           </Space>
         </div>
@@ -420,7 +420,7 @@ export default function BateauSimilaireSection() {
             </div>
             <div
               className="flex flex-row justify-between items-center"
-              style={{ marginBottom: '1rem' }}
+              style={{ marginBottom: "1rem" }}
             >
               <div>
                 <RippleButton className="bg-white text-black">Voir le bateaux</RippleButton>

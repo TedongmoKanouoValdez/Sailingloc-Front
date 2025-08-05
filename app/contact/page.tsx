@@ -1,21 +1,21 @@
-'use client';
-import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
-import { FaLocationDot } from 'react-icons/fa6';
-import { IoIosTime } from 'react-icons/io';
-import { BsSendFill } from 'react-icons/bs';
-import { BsTelephoneFill } from 'react-icons/bs';
-import { TbMailFilled } from 'react-icons/tb';
-import toast from 'react-hot-toast';
+"use client";
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoIosTime } from "react-icons/io";
+import { BsSendFill } from "react-icons/bs";
+import { BsTelephoneFill } from "react-icons/bs";
+import { TbMailFilled } from "react-icons/tb";
+import toast from "react-hot-toast";
 
 export default function ContactPage() {
-  const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
+  const words = ["aventure", "voyage", "périple", "épopée", "exploration"];
 
   const [formData, setFormData] = useState({
-    nom: '',
-    email: '',
-    objet: '',
-    message: '',
+    nom: "",
+    email: "",
+    objet: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({
@@ -36,10 +36,10 @@ export default function ContactPage() {
     e.preventDefault();
 
     const newErrors = {
-      nom: formData.nom.trim() === '',
-      email: formData.email.trim() === '',
-      objet: formData.objet.trim() === '',
-      message: formData.message.trim() === '',
+      nom: formData.nom.trim() === "",
+      email: formData.email.trim() === "",
+      objet: formData.objet.trim() === "",
+      message: formData.message.trim() === "",
     };
 
     setErrors(newErrors);
@@ -47,14 +47,14 @@ export default function ContactPage() {
     const hasError = Object.values(newErrors).some((val) => val === true);
 
     if (hasError) {
-      toast.error('Veuillez remplir tous les champs obligatoires.');
+      toast.error("Veuillez remplir tous les champs obligatoires.");
 
       return;
     }
 
-    const SERVICE_ID = 'service_29gmwal';
-    const TEMPLATE_ID = 'template_rq3pwru';
-    const PUBLIC_KEY = '7EUjUve2HG1kZcB1t';
+    const SERVICE_ID = "service_29gmwal";
+    const TEMPLATE_ID = "template_rq3pwru";
+    const PUBLIC_KEY = "7EUjUve2HG1kZcB1t";
 
     const templateParams = {
       from_name: formData.nom,
@@ -66,8 +66,8 @@ export default function ContactPage() {
     emailjs
       .send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
       .then(() => {
-        toast.success('Votre message a bien été envoyé !');
-        setFormData({ nom: '', email: '', objet: '', message: '' });
+        toast.success("Votre message a bien été envoyé !");
+        setFormData({ nom: "", email: "", objet: "", message: "" });
       })
       .catch((error) => {
         // console.error("Erreur lors de l'envoi :", error);

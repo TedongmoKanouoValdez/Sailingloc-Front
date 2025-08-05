@@ -1,4 +1,4 @@
-import { Image } from '@heroui/image';
+import { Image } from "@heroui/image";
 
 type ImageType = {
   id: number;
@@ -7,7 +7,7 @@ type ImageType = {
 };
 
 export default function VeiwsGalerieBoatDashbordSectionOne({ images }: { images: ImageType[] }) {
-  // On filtre d'abord les images valides
+  // On filtre d"abord les images valides
   const filteredImages = images.filter((img) => /\.(jpe?g|png|webp|gif)$/i.test(img.url));
 
   const sectionOne = filteredImages.slice(0, 4);

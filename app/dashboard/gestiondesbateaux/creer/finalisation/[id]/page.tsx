@@ -1,16 +1,16 @@
-'use client';
-import * as React from 'react';
-import { useState } from 'react';
-import { Checkbox } from '@heroui/checkbox';
-import { useParams } from 'next/navigation';
-import { Alert } from '@heroui/alert';
-import { addToast, ToastProvider } from '@heroui/toast';
+"use client";
+import * as React from "react";
+import { useState } from "react";
+import { Checkbox } from "@heroui/checkbox";
+import { useParams } from "next/navigation";
+import { Alert } from "@heroui/alert";
+import { addToast, ToastProvider } from "@heroui/toast";
 
-import { Input } from '@/components/ui/input';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
-import { SiteHeader } from '@/components/site-header';
-import { MultiSectionImageUpload } from '@/components/pages/ImageUploadsSections';
+import { Input } from "@/components/ui/input";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { MultiSectionImageUpload } from "@/components/pages/ImageUploadsSections";
 
 export default function GestionDesBateauxCreerPage() {
   const [imagesSection1, setImagesSection1] = useState<File[]>([]);
@@ -18,31 +18,31 @@ export default function GestionDesBateauxCreerPage() {
   const [noCertificat, setNoCertificat] = useState(false);
   const [attestationFile, setAttestationFile] = useState<File | null>(null);
   const [certificatFile, setCertificatFile] = useState<File | null>(null);
-  const [numeroPolice, setNumeroPolice] = useState<string>('');
+  const [numeroPolice, setNumeroPolice] = useState<string>("");
   const params = useParams();
   const bateauId = params?.id;
-  const [placement, setPlacement] = React.useState('top-center');
+  const [placement, setPlacement] = React.useState("top-center");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
 
-    imagesSection1.forEach((file) => formData.append('section1', file));
-    imagesSection2.forEach((file) => formData.append('section2', file));
+    imagesSection1.forEach((file) => formData.append("section1", file));
+    imagesSection2.forEach((file) => formData.append("section2", file));
 
-    if (attestationFile) formData.append('attestation1', attestationFile);
+    if (attestationFile) formData.append("attestation1", attestationFile);
 
-    formData.append('numeroPolice', numeroPolice);
+    formData.append("numeroPolice", numeroPolice);
 
     if (bateauId) {
-      formData.append('bateauId', bateauId as string);
+      formData.append("bateauId", bateauId as string);
     }
 
     if (!noCertificat && certificatFile) {
-      formData.append('certificat', certificatFile);
+      formData.append("certificat", certificatFile);
     } else {
-      formData.append('noCertificat', 'true');
+      formData.append("noCertificat", "true");
     }
 
     for (let [key, value] of formData.entries()) {
@@ -50,8 +50,8 @@ export default function GestionDesBateauxCreerPage() {
     }
 
     try {
-      const res = await fetch('https://sailingloc-back.vercel.app/upload-documents', {
-        method: 'POST',
+      const res = await fetch("https://sailingloc-back.vercel.app/upload-documents", {
+        method: "POST",
         body: formData,
       });
       const data = await res.json();
@@ -59,15 +59,15 @@ export default function GestionDesBateauxCreerPage() {
       console.log(data);
 
       addToast({
-        title: 'Succès',
-        description: 'Les documents ont été envoyés avec succès.',
-        color: 'success',
+        title: "Succès",
+        description: "Les documents ont été envoyés avec succès.",
+        color: "success",
       });
     } catch (err) {
       addToast({
-        title: 'Erreur',
+        title: "Erreur",
         description: "Échec de l'envoi des documents.",
-        color: 'danger',
+        color: "danger",
       });
     }
   };
@@ -77,11 +77,11 @@ export default function GestionDesBateauxCreerPage() {
       <div className="fixed z-[100]">
         <ToastProvider
           placement={placement}
-          toastOffset={placement.includes('top') ? 60 : 0}
+          toastOffset={placement.includes("top") ? 60 : 0}
           toastProps={{
-            radius: 'lg',
+            radius: "lg",
             // color: "warning",
-            variant: 'flat',
+            variant: "flat",
             timeout: 9000,
           }}
         />
@@ -139,7 +139,7 @@ export default function GestionDesBateauxCreerPage() {
                         <label>Certificat de navigation (si applicable)</label>
                         <input
                           accept=".pdf"
-                          className={`mt-2 ${noCertificat ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          className={`mt-2 ${noCertificat ? "opacity-50 cursor-not-allowed" : ""}`}
                           disabled={noCertificat}
                           type="file"
                           onChange={(e) => {

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { ImagePlus, Trash2 } from 'lucide-react';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { addToast } from '@heroui/toast';
+import { ImagePlus, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { addToast } from "@heroui/toast";
 
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input";
 
 type MultiSectionImageUploadProps = {
   onChangeSection1?: (files: File[]) => void;
@@ -29,25 +29,25 @@ export function MultiSectionImageUpload({
 
     const maxSizeInBytes = 10 * 1024 * 1024; // 10 Mo
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']; // pas de webp ni avif
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"]; // pas de webp ni avif
 
     const validFiles: UploadedImage[] = [];
 
     for (const file of Array.from(files)) {
       if (file.size > maxSizeInBytes) {
         addToast({
-          title: 'Information',
+          title: "Information",
           description: `Le fichier ${file.name} dépasse 10 Mo et a été ignoré.`,
-          color: 'default',
+          color: "default",
         });
         continue;
       }
 
       if (!allowedTypes.includes(file.type)) {
         addToast({
-          title: 'Information',
+          title: "Information",
           description: `Le format ${file.type} n'est pas autorisé (webp/avif interdits).`,
-          color: 'default',
+          color: "default",
         });
         continue;
       }

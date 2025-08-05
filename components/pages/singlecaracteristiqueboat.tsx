@@ -1,12 +1,12 @@
-import { PiBoatFill } from 'react-icons/pi';
-import { FaRulerCombined } from 'react-icons/fa';
-import { ImTextWidth } from 'react-icons/im';
-import { FaDraftingCompass } from 'react-icons/fa';
-import { FaUsersRays } from 'react-icons/fa6';
-import { MdBedroomChild } from 'react-icons/md';
-import { GiBoatEngine } from 'react-icons/gi';
-import { IoWater } from 'react-icons/io5';
-import { GiFuelTank } from 'react-icons/gi';
+import { PiBoatFill } from "react-icons/pi";
+import { FaRulerCombined } from "react-icons/fa";
+import { ImTextWidth } from "react-icons/im";
+import { FaDraftingCompass } from "react-icons/fa";
+import { FaUsersRays } from "react-icons/fa6";
+import { MdBedroomChild } from "react-icons/md";
+import { GiBoatEngine } from "react-icons/gi";
+import { IoWater } from "react-icons/io5";
+import { GiFuelTank } from "react-icons/gi";
 
 export const SingleCaracteristiqueBoat = () => {
   return (

@@ -1,5 +1,5 @@
-'use client';
-import * as React from 'react';
+"use client";
+import * as React from "react";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -8,18 +8,18 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from '@heroui/navbar';
-import { Button } from '@heroui/button';
-import { Kbd } from '@heroui/kbd';
-import { Link } from '@heroui/link';
-import { Input } from '@heroui/input';
-import { link as linkStyles } from '@heroui/theme';
-import NextLink from 'next/link';
-import clsx from 'clsx';
-import { RiLoginCircleFill } from 'react-icons/ri';
-import { GiArchiveRegister } from 'react-icons/gi';
-import { FaUser } from 'react-icons/fa';
-import { useState } from 'react';
+} from "@heroui/navbar";
+import { Button } from "@heroui/button";
+import { Kbd } from "@heroui/kbd";
+import { Link } from "@heroui/link";
+import { Input } from "@heroui/input";
+import { link as linkStyles } from "@heroui/theme";
+import NextLink from "next/link";
+import clsx from "clsx";
+import { RiLoginCircleFill } from "react-icons/ri";
+import { GiArchiveRegister } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -27,13 +27,14 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from '@heroui/modal';
-import { Checkbox } from '@heroui/checkbox';
-// import { Select, SelectSection, SelectItem } from "@heroui/select";
-import { Select } from 'antd';
+} from "@heroui/modal";
+import { Checkbox } from "@heroui/checkbox";
 
-import { SearchIcon, Logo } from '@/components/icons';
-import { siteConfig } from '@/config/site';
+// import { Select, SelectSection, SelectItem } from "@heroui/select";
+import { Select } from "antd";
+
+import { SearchIcon, Logo } from "@/components/icons";
+import { siteConfig } from "@/config/site";
 
 export const Iconlang = ({ url }: { url: string }) => {
   return <img alt="iconeSailingTime" className="w-[1.6rem]" src={url} />;
@@ -99,11 +100,11 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: 'bg-default-100',
-        input: 'text-sm',
+        inputWrapper: "bg-default-100",
+        input: "text-sm",
       }}
       endContent={
-        <Kbd className="hidden lg:inline-block" keys={['command']}>
+        <Kbd className="hidden lg:inline-block" keys={["command"]}>
           K
         </Kbd>
       }
@@ -116,32 +117,32 @@ export const Navbar = () => {
     />
   );
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
 
   const handleRegister = async (onClose: () => void) => {
     try {
-      const response = await fetch('https://sailingloc-back.vercel.app/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("https://sailingloc-back.vercel.app/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nom,
           prenom,
           email,
           password,
-          role: 'CLIENT',
+          role: "CLIENT",
         }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert('Inscription réussie !');
+        alert("Inscription réussie !");
         onClose();
       } else {
-        alert(data.message || 'Une erreur est survenue.');
+        alert(data.message || "Une erreur est survenue.");
       }
     } catch (err) {
       alert("Erreur lors de l'inscription.");
@@ -152,10 +153,10 @@ export const Navbar = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://sailingloc-back.vercel.app/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("https://sailingloc-back.vercel.app/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -163,14 +164,14 @@ export const Navbar = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Connexion réussie !');
-        localStorage.setItem('token', data.token);
+        alert("Connexion réussie !");
+        localStorage.setItem("token", data.token);
       } else {
-        alert(data.message || 'Erreur de connexion');
+        alert(data.message || "Erreur de connexion");
       }
     } catch (err) {
-      alert('Erreur serveur');
-      console.error('Erreur lors de la connexion :', err);
+      alert("Erreur serveur");
+      console.error("Erreur lors de la connexion :", err);
     }
   };
 
@@ -183,7 +184,7 @@ export const Navbar = () => {
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarMenuToggle
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
         <NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -197,8 +198,8 @@ export const Navbar = () => {
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'data-[active=true]:text-primary data-[active=true]:font-medium text-white'
+                  linkStyles({ color: "foreground" }),
+                  "data-[active=true]:text-primary data-[active=true]:font-medium text-white"
                 )}
                 color="foreground"
                 href={item.href}
@@ -215,61 +216,61 @@ export const Navbar = () => {
           <Select
             options={[
               {
-                value: 'US',
+                value: "US",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/united-kingdom_1_gihox0.png" />
                 ),
               },
               {
-                value: 'CN',
+                value: "CN",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751228300/china_1_nzkdzd.png" />
                 ),
               },
               {
-                value: 'IN',
+                value: "IN",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/india_kwbcea.png" />
                 ),
               },
               {
-                value: 'ES',
+                value: "ES",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_sbnixy.png" />
                 ),
               },
               {
-                value: 'FR',
+                value: "FR",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/france_gaq5eo.png" />
                 ),
               },
               {
-                value: 'SA',
+                value: "SA",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_1_qa5odr.png" />
                 ),
               },
               {
-                value: 'BD',
+                value: "BD",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/bangladesh_tae0eb.png" />
                 ),
               },
               {
-                value: 'RU',
+                value: "RU",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/russia_dyvhrz.png" />
                 ),
               },
               {
-                value: 'PT',
+                value: "PT",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/portugal_kwbylu.png" />
                 ),
               },
               {
-                value: 'ID',
+                value: "ID",
                 label: (
                   <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/indonesia_tg0x1c.png" />
                 ),
@@ -324,7 +325,7 @@ export const Navbar = () => {
                       <div className="flex py-2 px-1 justify-between">
                         <Checkbox
                           classNames={{
-                            label: 'text-small',
+                            label: "text-small",
                           }}
                         >
                           Souviens-toi de moi
@@ -418,7 +419,7 @@ export const Navbar = () => {
                       <div className="space-x-1">
                         <Checkbox
                           classNames={{
-                            label: 'text-small',
+                            label: "text-small",
                           }}
                         >
                           J'accepte la
@@ -452,10 +453,10 @@ export const Navbar = () => {
               <Link
                 color={
                   index === 2
-                    ? 'primary'
+                    ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                      ? 'danger'
-                      : 'foreground'
+                      ? "danger"
+                      : "foreground"
                 }
                 href="#"
                 size="lg"

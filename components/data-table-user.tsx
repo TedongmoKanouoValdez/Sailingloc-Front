@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { useRef, useState } from 'react';
+import * as React from "react";
+import { useRef, useState } from "react";
 import {
   DndContext,
   KeyboardSensor,
@@ -12,15 +12,15 @@ import {
   useSensors,
   type DragEndEvent,
   type UniqueIdentifier,
-} from '@dnd-kit/core';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+} from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   SortableContext,
   arrayMove,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -35,7 +35,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 import {
   CheckCircle2Icon,
   ChevronDownIcon,
@@ -48,16 +48,16 @@ import {
   LoaderIcon,
   MoreVerticalIcon,
   PlusIcon,
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-import { Avatar, AvatarIcon } from '@heroui/avatar';
+} from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
+import { Avatar, AvatarIcon } from "@heroui/avatar";
 
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ChartConfig } from '@/components/ui/chart';
-import { Checkbox } from '@/components/ui/checkbox';
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ChartConfig } from "@/components/ui/chart";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -65,16 +65,16 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Sheet,
   SheetClose,
@@ -83,7 +83,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -91,8 +91,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogClose,
@@ -102,7 +102,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
 export const schema = z.object({
   id: z.number(),
@@ -136,19 +136,19 @@ function DragHandle({ id }: { id: number }) {
 
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
-    id: 'drag',
+    id: "drag",
     header: () => null,
     cell: ({ row }) => <DragHandle id={row.original.id} />,
   },
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <div className="flex items-center justify-center">
         <Checkbox
           aria-label="Select all"
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
+            (table.getIsSomePageRowsSelected() && "indeterminate")
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         />
@@ -167,16 +167,16 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'nom',
-    header: 'Nom complet',
+    accessorKey: "nom",
+    header: "Nom complet",
     cell: ({ row }) => {
       return <TableCellViewer item={row.original} />;
     },
     enableHiding: false,
   },
   {
-    accessorKey: 'email',
-    header: 'Email',
+    accessorKey: "email",
+    header: "Email",
     cell: ({ row }) => (
       <div className="w-32">
         <Badge className="px-1.5 text-muted-foreground" variant="outline">
@@ -186,11 +186,11 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: 'telephone',
-    header: 'Téléphone',
+    accessorKey: "telephone",
+    header: "Téléphone",
     cell: ({ row }) => (
       <Badge className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3" variant="outline">
-        {row.original.status === 'Done' ? (
+        {row.original.status === "Done" ? (
           <CheckCircle2Icon className="text-green-500 dark:text-green-400" />
         ) : (
           <LoaderIcon />
@@ -200,7 +200,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: 'nbbateau',
+    accessorKey: "nbbateau",
     header: () => <div className="w-full">Nombre de bateaux</div>,
     cell: ({ row }) => (
       <form
@@ -208,8 +208,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           e.preventDefault();
           toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
             loading: `Saving ${row.original.header}`,
-            success: 'Done',
-            error: 'Error',
+            success: "Done",
+            error: "Error",
           });
         }}
       >
@@ -225,7 +225,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: 'dateinscription',
+    accessorKey: "dateinscription",
     header: () => <div className="w-full">Date d'inscription</div>,
     cell: ({ row }) => (
       <form
@@ -233,8 +233,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           e.preventDefault();
           toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
             loading: `Saving ${row.original.header}`,
-            success: 'Done',
-            error: 'Error',
+            success: "Done",
+            error: "Error",
           });
         }}
       >
@@ -250,10 +250,10 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: 'role',
-    header: 'Rôle',
+    accessorKey: "role",
+    header: "Rôle",
     cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== 'Assign reviewer';
+      const isAssigned = row.original.reviewer !== "Assign reviewer";
 
       if (isAssigned) {
         return row.original.reviewer;
@@ -278,10 +278,10 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     },
   },
   {
-    accessorKey: 'statutducompte',
-    header: 'Statut du compte',
+    accessorKey: "statutducompte",
+    header: "Statut du compte",
     cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== 'Assign reviewer';
+      const isAssigned = row.original.reviewer !== "Assign reviewer";
 
       if (isAssigned) {
         return row.original.reviewer;
@@ -306,7 +306,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -341,7 +341,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
       ref={setNodeRef}
       className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       data-dragging={isDragging}
-      data-state={row.getIsSelected() && 'selected'}
+      data-state={row.getIsSelected() && "selected"}
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
@@ -421,7 +421,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         <TabsList className="@4xl/main:flex hidden">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger className="gap-1" value="past-performance">
-            Past Performance{' '}
+            Past Performance{" "}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -430,7 +430,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
             </Badge>
           </TabsTrigger>
           <TabsTrigger className="gap-1" value="key-personnel">
-            Key Personnel{' '}
+            Key Personnel{" "}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -453,7 +453,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
             <DropdownMenuContent align="end" className="w-56">
               {table
                 .getAllColumns()
-                .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
+                .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
                 .map((column) => {
                   return (
                     <DropdownMenuCheckboxItem
@@ -528,7 +528,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{' '}
+            {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
@@ -615,22 +615,22 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
 }
 
 const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
 ];
 
 const chartConfig = {
   desktop: {
-    label: 'Desktop',
-    color: 'var(--primary)',
+    label: "Desktop",
+    color: "var(--primary)",
   },
   mobile: {
-    label: 'Mobile',
-    color: 'var(--primary)',
+    label: "Mobile",
+    color: "var(--primary)",
   },
 } satisfies ChartConfig;
 
@@ -652,8 +652,8 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           <div className="flex items-center justify-center py-[2rem]">
             <Avatar
               classNames={{
-                base: 'bg-gradient-to-br from-[#FFB457] to-[#FF705B] w-[7rem] h-[7rem]',
-                icon: 'text-black/80',
+                base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B] w-[7rem] h-[7rem]",
+                icon: "text-black/80",
               }}
               icon={<AvatarIcon />}
             />
@@ -757,7 +757,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
   function handleRemoveImage() {
     setImageSrc(null);
     // Optionnel: reset aussi l'input file pour pouvoir recharger la même image après suppression
-    if (inputFileRef.current) inputFileRef.current.value = '';
+    if (inputFileRef.current) inputFileRef.current.value = "";
   }
 
   return (
@@ -777,8 +777,8 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
             />
             <Avatar
               classNames={{
-                base: 'bg-gradient-to-br from-[#FFB457] to-[#FF705B] w-[7rem] h-[7rem] cursor-pointer',
-                icon: 'text-black/80',
+                base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B] w-[7rem] h-[7rem] cursor-pointer",
+                icon: "text-black/80",
               }}
               icon={!imageSrc ? <AvatarIcon /> : undefined}
               radius="full"

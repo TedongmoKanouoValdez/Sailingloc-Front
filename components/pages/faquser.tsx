@@ -1,16 +1,16 @@
-import { Accordion, AccordionItem } from '@heroui/accordion';
-import { FaTicketAlt } from 'react-icons/fa';
-import { IoCloseCircle } from 'react-icons/io5';
-import { GiPayMoney } from 'react-icons/gi';
-import { IoInformationCircle } from 'react-icons/io5';
+import { Accordion, AccordionItem } from "@heroui/accordion";
+import { FaTicketAlt } from "react-icons/fa";
+import { IoCloseCircle } from "react-icons/io5";
+import { GiPayMoney } from "react-icons/gi";
+import { IoInformationCircle } from "react-icons/io5";
 
 export const FaqUser = () => {
   const itemClasses = {
-    base: 'py-0 w-full',
-    title: 'font-normal text-medium',
-    trigger: 'px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center',
-    indicator: 'text-medium',
-    content: 'text-small px-2',
+    base: "py-0 w-full",
+    title: "font-normal text-medium",
+    trigger: "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center",
+    indicator: "text-medium",
+    content: "text-small px-2",
   };
 
   return (

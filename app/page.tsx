@@ -1,39 +1,38 @@
-'use client';
-import React, { useState, useRef } from 'react';
-
-import { FlipWords } from '@/components/ui/flip-words';
-
-import { PiSunDimFill } from 'react-icons/pi';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { DatePicker } from '@heroui/date-picker';
-import { NumberInput } from '@heroui/number-input';
-import { Input } from '@heroui/input';
-import { BiSolidBookmark } from 'react-icons/bi';
-import { BsCloudSunFill } from 'react-icons/bs';
-import { FaStar } from 'react-icons/fa';
-import { Badge, Space } from 'antd';
-import { Chip } from '@heroui/chip';
-import { BsCheckCircleFill } from 'react-icons/bs';
-import { BsFillCreditCard2FrontFill } from 'react-icons/bs';
-import { BsTelephoneFill } from 'react-icons/bs';
-import { BsShieldFill } from 'react-icons/bs';
-import { FaQuoteLeft } from 'react-icons/fa';
-import { GrNext } from 'react-icons/gr';
-import { GrPrevious } from 'react-icons/gr';
-import { Form } from '@heroui/form';
-import { Button } from '@heroui/button';
+"use client";
+import React, { useState, useRef } from "react";
+import { FlipWords } from "@/components/ui/flip-words";
+import Image from "next/image";
+import { PiSunDimFill } from "react-icons/pi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { DatePicker } from "@heroui/date-picker";
+import { NumberInput } from "@heroui/number-input";
+import { Input } from "@heroui/input";
+import { BiSolidBookmark } from "react-icons/bi";
+import { BsCloudSunFill } from "react-icons/bs";
+import { FaStar } from "react-icons/fa";
+import { Badge, Space } from "antd";
+import { Chip } from "@heroui/chip";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { BsFillCreditCard2FrontFill } from "react-icons/bs";
+import { BsTelephoneFill } from "react-icons/bs";
+import { BsShieldFill } from "react-icons/bs";
+import { FaQuoteLeft } from "react-icons/fa";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
+import { Form } from "@heroui/form";
+import { Button } from "@heroui/button";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { TbMailFilled } from 'react-icons/tb';
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { TbMailFilled } from "react-icons/tb";
 // import required modules
-import { FreeMode, Pagination, Navigation } from 'swiper/modules';
-import Link from 'next/link';
+import { FreeMode, Pagination, Navigation } from "swiper/modules";
+import Link from "next/link";
 
-import { BoxReveal } from '@/components/magicui/box-reveal';
-import { RippleButton } from '@/components/magicui/ripple-button';
+import { BoxReveal } from "@/components/magicui/box-reveal";
+import { RippleButton } from "@/components/magicui/ripple-button";
 
 export const LogoSecondaire: React.FC = () => {
   return (
@@ -845,65 +844,65 @@ c-22 0 -46 -3 -53 -6z"
 
 export const LogoBoar = () => {
   let boar =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
+    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png";
 
-  return <img alt="iconeBoar" className="allogo" src={boar} />;
+  return <Image width={100} height={100} alt="iconeBoar" className="allogo" src={boar} />;
 };
 
 export const LogoCatamarans = () => {
   let catamarans =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
+    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png";
 
-  return <img alt="iconeCatamarans" className="allogo" src={catamarans} />;
+  return <Image width={100} height={100} alt="iconeCatamarans" className="allogo" src={catamarans} />;
 };
 
 export const LogoCap = () => {
-  let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
+  let cap = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png";
 
-  return <img alt="iconeCap" className="allogo" src={cap} />;
+  return <Image width={100} height={100} alt="iconeCap" className="allogo" src={cap} />;
 };
 
 export const LogoMap = () => {
-  let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
+  let map = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png";
 
-  return <img alt="iconeMap" className="allogo" src={map} />;
+  return <Image width={100} height={100} alt="iconeMap" className="allogo" src={map} />;
 };
 
 export const LogoZeus = () => {
-  let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
+  let zeus = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png";
 
-  return <img alt="iconeZeus" className="allogo" src={zeus} />;
+  return <Image width={100} height={100} alt="iconeZeus" className="allogo" src={zeus} />;
 };
 
 export const LogoSailingTime = () => {
   let sailingtime =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
+    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png";
 
-  return <img alt="iconeSailingTime" className="allogo" src={sailingtime} />;
+  return <Image width={100} height={100} alt="iconeSailingTime" className="allogo" src={sailingtime} />;
 };
 
 type Props = {
-  texte: string; // Définit que 'texte' doit être une chaîne de caractères
+  texte: string; // Définit que "texte" doit être une chaîne de caractères
 };
 
 export const MonTexte = ({ texte }: Props) => {
   const maxChars = 10; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export const Descritpion = ({ texte }: Props) => {
   const maxChars = 90; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export default function Home() {
   const [showControls, setShowControls] = useState(false);
-  const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
-  const [color] = useState('#E6FF00');
+  const words = ["aventure", "voyage", "périple", "épopée", "exploration"];
+  const [color] = useState("#E6FF00");
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -932,7 +931,7 @@ export default function Home() {
               className="w-full h-[170vh] md:h-[100vh]"
               controls={false}
               src="https://res.cloudinary.com/dluqkutu8/video/upload/v1750331153/14637966-uhd_2560_1440_60fps_tli0wh.mp4"
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
             />
           </div>
           <div className="absolute left-[1rem] md:left-[10rem] top-[14rem]">
@@ -941,7 +940,7 @@ export default function Home() {
                 <LogoSecondaire />
               </div>
               <div className="Textheader text-white">
-                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
                   <h1 className="w-[20rem] text-[2.9rem] text-center md:text-6xl font-bold md:w-[46rem] md:text-left">
                     Votre prochaine
                     <FlipWords className="text-white" words={words} />
@@ -949,14 +948,14 @@ export default function Home() {
                   </h1>
                 </BoxReveal>
 
-                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
                   <p className="text-lg mt-4 w-[20rem] text-center md:w-full md:text-left">
                     Louez ou proposez un bateau en quelques clics.
                   </p>
                 </BoxReveal>
 
                 <div className="mt-6 flex justify-center md:block">
-                  <BoxReveal boxColor={'#5046e6'} duration={0.5}>
+                  <BoxReveal boxColor={"#5046e6"} duration={0.5}>
                     <RippleButton rippleColor="#ADD8E6">Trouver mon bateau</RippleButton>
                   </BoxReveal>
                 </div>
@@ -978,7 +977,7 @@ export default function Home() {
                   <Input color="secondary" label="Type de bateau" type="text" variant="bordered" />
                 </div>
                 <div className="inputformhome">
-                  <DatePicker color="secondary" label={'Dates de navigation'} variant="bordered" />
+                  <DatePicker color="secondary" label={"Dates de navigation"} variant="bordered" />
                 </div>
                 <div className="inputformhome">
                   <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
@@ -999,7 +998,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
@@ -1033,7 +1032,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1061,7 +1060,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1088,7 +1087,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1116,7 +1115,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1144,7 +1143,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1169,7 +1168,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)',
+                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)",
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1196,7 +1195,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
@@ -1245,7 +1244,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750717340/belle-vue-avec-des-bateaux_o1f6jj.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750717340/belle-vue-avec-des-bateaux_o1f6jj.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1265,7 +1264,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1313,7 +1312,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1337,7 +1336,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750790401/femme-pleine-de-coups-regardant-des-bateaux_cnc6td.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750790401/femme-pleine-de-coups-regardant-des-bateaux_cnc6td.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1357,7 +1356,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1405,7 +1404,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1429,7 +1428,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750791884/beaux-paysages-varies_1_hs3dsu.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750791884/beaux-paysages-varies_1_hs3dsu.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1449,7 +1448,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1498,7 +1497,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1522,7 +1521,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792646/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_oeb0mh.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792646/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_oeb0mh.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1542,7 +1541,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1587,7 +1586,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1611,7 +1610,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792723/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_atfsw2.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792723/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_atfsw2.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1631,7 +1630,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1676,7 +1675,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1700,7 +1699,7 @@ export default function Home() {
                     className="relative carddestinationshome flex flex-col space-y-24"
                     style={{
                       backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792785/pin-francais_1_i81dpt.jpg)',
+                        "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792785/pin-francais_1_i81dpt.jpg)",
                     }}
                   >
                     <div className="flex flex-row justify-between mx-4 mt-4 items-center">
@@ -1720,7 +1719,7 @@ export default function Home() {
                       <Space
                         direction="vertical"
                         size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
+                        style={{ width: "100%", gap: "2rem" }}
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1765,7 +1764,7 @@ export default function Home() {
                         </div>
                         <div
                           className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
+                          style={{ marginBottom: "1rem" }}
                         >
                           <div>
                             <RippleButton className="bg-white text-black">
@@ -1795,7 +1794,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
@@ -1869,7 +1868,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
@@ -1889,7 +1888,7 @@ export default function Home() {
                 <div className="flex justify-center items-center bg-glace w-32 h-32 rounded-full logodevenirpartenaire">
                   <LogoPartenaire />
                 </div>
-                <img
+                <Image width={100} height={100}
                   alt="imagedecouverturepourdevenirpartenaire"
                   src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750811534/lire-avant-signe_1_puxlzw.jpg"
                 />
@@ -1920,7 +1919,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
@@ -1965,7 +1964,7 @@ export default function Home() {
                 slidesPerView={3}
                 spaceBetween={30}
                 onInit={(swiper) => {
-                  if (swiper.params.navigation && typeof swiper.params.navigation === 'object') {
+                  if (swiper.params.navigation && typeof swiper.params.navigation === "object") {
                     swiper.params.navigation.prevEl = prevRef.current;
                     swiper.params.navigation.nextEl = nextRef.current;
                     swiper.navigation.init();
@@ -1978,7 +1977,7 @@ export default function Home() {
                     <div className="relative flex flex-col space-y-6 text-left z-20">
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
-                          <img
+                          <Image width={100} height={100}
                             alt="avis1"
                             className="rounded-full"
                             src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/african-cafe-beautiful-american-black_o0hpby.jpg"
@@ -2012,7 +2011,7 @@ export default function Home() {
                     <div className="relative flex flex-col space-y-6 text-left z-20">
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
-                          <img
+                          <Image width={100} height={100}
                             alt="avis2"
                             className="rounded-full"
                             src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/business-woman-posing-professionally-outdoors_ewfamm.jpg"
@@ -2046,7 +2045,7 @@ export default function Home() {
                     <div className="relative flex flex-col space-y-6 text-left z-20">
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
-                          <img
+                          <Image width={100} height={100}
                             alt="avis3"
                             className="rounded-full"
                             src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834889/t%C3%A9l%C3%A9chargement_yjipk7.jpg"
@@ -2080,7 +2079,7 @@ export default function Home() {
                     <div className="relative flex flex-col space-y-6 text-left z-20">
                       <div className="flex flex-row space-x-3 items-center">
                         <div>
-                          <img
+                          <Image width={100} height={100}
                             alt="avis4"
                             className="rounded-full"
                             src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750835092/8a32b6a93ee5f980398ca1c89c5abdc5_vo72oz.jpg"
@@ -2120,7 +2119,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
@@ -2140,7 +2139,7 @@ export default function Home() {
                 <div className="bg-glace w-[26rem] cursor-pointer rounded-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105">
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
-                      <img
+                      <Image width={100} height={100}
                         alt="imagebloc"
                         className="w-[89%] rounded-lg"
                         src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842746/des-personnes-portant-des-gilets-de-sauvetage-lors-d-une-crise-migratoire_vknlz3.jpg"
@@ -2162,7 +2161,7 @@ export default function Home() {
                 <div className="bg-glace w-[26rem] cursor-pointer rounded-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105">
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
-                      <img
+                      <Image width={100} height={100}
                         alt="imagebloc2"
                         className="w-[89%] rounded-lg"
                         src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842743/vue-arriere-de-l-homme-a-la-marina_lxekoo.jpg"
@@ -2184,7 +2183,7 @@ export default function Home() {
                 <div className="bg-glace w-[26rem] cursor-pointer rounded-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105">
                   <div className="border-b-5 border-black rounded-lg h-[33rem]">
                     <div className="flex justify-center items-center w-full py-4">
-                      <img
+                      <Image width={100} height={100}
                         alt="imagebloc3"
                         className="w-[89%] rounded-lg"
                         src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842797/un-homme-dans-le-port-prepare-le-yacht-pour-le-voyage_1_lrhbis.jpg"
@@ -2219,7 +2218,7 @@ export default function Home() {
           className="py-24"
           style={{
             backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
           }}
         >
           <div className="flex flex-col justify-center items-center pb-24">

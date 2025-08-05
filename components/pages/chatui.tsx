@@ -15,7 +15,7 @@ export default function ChatUI() {
         </div>
 
         <div className="flex flex-col space-y-4 mt-4 overflow-y-auto flex-1">
-          {/* Exemple d'un contact */}
+          {/* Exemple d"un contact */}
           <ChatContact
             avatar="https://randomuser.me/api/portraits/men/32.jpg"
             name="Kaiya George"
@@ -169,7 +169,7 @@ type ChatContactProps = {
   role: string;
   time: string;
   avatar: string;
-  status: 'online' | 'away' | 'offline';
+  status: "online" | "away" | "offline";
 };
 
 type MessageProps = {
@@ -181,9 +181,9 @@ type MessageProps = {
 
 function ChatContact({ name, role, time, avatar, status }: ChatContactProps) {
   const statusColors = {
-    online: 'bg-green-500',
-    away: 'bg-yellow-500',
-    offline: 'bg-gray-400',
+    online: "bg-green-500",
+    away: "bg-yellow-500",
+    offline: "bg-gray-400",
   };
 
   return (
@@ -193,7 +193,7 @@ function ChatContact({ name, role, time, avatar, status }: ChatContactProps) {
           <img alt={name} className="w-12 h-12 rounded-full" src={avatar} />
           <span
             className={`absolute bottom-0 right-0 block w-3 h-3 border-2 border-white rounded-full ${
-              statusColors[status] || 'bg-gray-400'
+              statusColors[status] || "bg-gray-400"
             }`}
           />
         </div>
@@ -210,7 +210,7 @@ function ChatContact({ name, role, time, avatar, status }: ChatContactProps) {
 function Message({ avatar, text, time, isOwn }: MessageProps) {
   return (
     <div
-      className={`flex items-end ${isOwn ? 'justify-end' : 'justify-start'} space-x-2 max-w-4xl`}
+      className={`flex items-end ${isOwn ? "justify-end" : "justify-start"} space-x-2 max-w-4xl`}
     >
       {!isOwn && avatar && (
         <img alt="Avatars" className="w-8 h-8 rounded-full flex-shrink-0" src={avatar} />
@@ -219,13 +219,13 @@ function Message({ avatar, text, time, isOwn }: MessageProps) {
         <div
           className={`px-4 py-2 rounded-lg text-sm max-w-xs break-words ${
             isOwn
-              ? 'bg-indigo-600 text-white rounded-br-none'
-              : 'bg-gray-200 text-gray-900 rounded-bl-none'
+              ? "bg-indigo-600 text-white rounded-br-none"
+              : "bg-gray-200 text-gray-900 rounded-bl-none"
           }`}
         >
           {text}
         </div>
-        <p className={`mt-1 text-xs text-gray-400 ${isOwn ? 'text-right' : 'text-left'}`}>{time}</p>
+        <p className={`mt-1 text-xs text-gray-400 ${isOwn ? "text-right" : "text-left"}`}>{time}</p>
       </div>
       {isOwn && <div className="w-8 flex-shrink-0" />}
     </div>

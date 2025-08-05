@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal';
-import { MoreVerticalIcon } from 'lucide-react';
-import { Link as LinkHeroui } from '@heroui/link';
-import { Button } from '@heroui/button';
+import { useState } from "react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
+import { MoreVerticalIcon } from "lucide-react";
+import { Link as LinkHeroui } from "@heroui/link";
+import { Button } from "@heroui/button";
 
 import {
   DropdownMenu,
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 const ActionsCell = ({ row, refreshTable }: { row: any; refreshTable: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const ActionsCell = ({ row, refreshTable }: { row: any; refreshTable: () => void
       const res = await fetch(
         `https://sailingloc-back.vercel.app/api/bateaux/slug/${row.original.slug}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
         }
       );
 
@@ -30,11 +30,11 @@ const ActionsCell = ({ row, refreshTable }: { row: any; refreshTable: () => void
         refreshTable(); // à définir dans ton composant parent pour recharger les données
         setIsOpen(false);
       } else {
-        alert('Erreur : ' + data.error);
+        alert("Erreur : " + data.error);
       }
     } catch (error) {
-      console.error('Erreur de suppression :', error);
-      alert('Échec de la suppression.');
+      console.error("Erreur de suppression :", error);
+      alert("Échec de la suppression.");
     }
   };
 
