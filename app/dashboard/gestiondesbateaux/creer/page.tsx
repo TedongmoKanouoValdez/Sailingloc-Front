@@ -1,18 +1,18 @@
-"use client";
-import * as React from "react";
-import { useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { Alert } from "@heroui/alert";
-import { Checkbox } from "@heroui/checkbox";
-import { useRouter } from "next/navigation";
-import { addToast, ToastProvider } from "@heroui/toast";
-import { Spinner } from "@heroui/spinner";
+'use client';
+import * as React from 'react';
+import { useState } from 'react';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { Alert } from '@heroui/alert';
+import { Checkbox } from '@heroui/checkbox';
+import { useRouter } from 'next/navigation';
+import { addToast, ToastProvider } from '@heroui/toast';
+import { Spinner } from '@heroui/spinner';
 
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { AppSidebar } from '@/components/app-sidebar';
+import { SiteHeader } from '@/components/site-header';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -21,11 +21,11 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from "@/components/ui/select";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
@@ -33,117 +33,117 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { TagsSelector } from "@/components/ui/tags-selector";
-import { CalendarDashboardBoat } from "@/components/pages/calendardashboardcreateboat";
+} from '@/components/ui/command';
+import { TagsSelector } from '@/components/ui/tags-selector';
+import { CalendarDashboardBoat } from '@/components/pages/calendardashboardcreateboat';
 
 const frameworks = [
   {
-    value: "GPS",
-    label: "GPS",
+    value: 'GPS',
+    label: 'GPS',
   },
   {
-    value: "VHF",
-    label: "VHF",
+    value: 'VHF',
+    label: 'VHF',
   },
   {
-    value: "pilote automatique",
-    label: "pilote automatique",
+    value: 'pilote automatique',
+    label: 'pilote automatique',
   },
   {
-    value: "climatisation",
-    label: "climatisation",
+    value: 'climatisation',
+    label: 'climatisation',
   },
   {
-    value: "cuisine équipée",
-    label: "cuisine équipée",
+    value: 'cuisine équipée',
+    label: 'cuisine équipée',
   },
   {
-    value: "literie",
-    label: "literie",
+    value: 'literie',
+    label: 'literie',
   },
 ];
 
 const TAGS = [
-  { id: "Skipper", label: "Skipper" },
-  { id: "Hôtesse", label: "Hôtesse" },
-  { id: "Chef cuisinier", label: "Chef cuisinier" },
-  { id: "Instructeur de plongée", label: "Instructeur de plongée" },
-  { id: "Paddle", label: "Paddle" },
-  { id: "Kayak", label: "Kayak" },
-  { id: "Wakeboard", label: "Wakeboard" },
-  { id: "Jetski", label: "Jetski" },
-  { id: "Bouée tractée", label: "Bouée tractée" },
-  { id: "Nettoyage final", label: "Nettoyage final" },
-  { id: "Draps et serviettes", label: "Draps et serviettes" },
-  { id: "Courses livrées à bord", label: "Courses livrées à bord" },
-  { id: "Transfert aéroport / port", label: "Transfert aéroport / port" },
-  { id: "Barbecue", label: "Barbecue" },
-  { id: "Plancha", label: "Plancha" },
-  { id: "Wi-Fi à bord", label: "Wi-Fi à bord" },
-  { id: "Générateur portable", label: "Générateur portable" },
+  { id: 'Skipper', label: 'Skipper' },
+  { id: 'Hôtesse', label: 'Hôtesse' },
+  { id: 'Chef cuisinier', label: 'Chef cuisinier' },
+  { id: 'Instructeur de plongée', label: 'Instructeur de plongée' },
+  { id: 'Paddle', label: 'Paddle' },
+  { id: 'Kayak', label: 'Kayak' },
+  { id: 'Wakeboard', label: 'Wakeboard' },
+  { id: 'Jetski', label: 'Jetski' },
+  { id: 'Bouée tractée', label: 'Bouée tractée' },
+  { id: 'Nettoyage final', label: 'Nettoyage final' },
+  { id: 'Draps et serviettes', label: 'Draps et serviettes' },
+  { id: 'Courses livrées à bord', label: 'Courses livrées à bord' },
+  { id: 'Transfert aéroport / port', label: 'Transfert aéroport / port' },
+  { id: 'Barbecue', label: 'Barbecue' },
+  { id: 'Plancha', label: 'Plancha' },
+  { id: 'Wi-Fi à bord', label: 'Wi-Fi à bord' },
+  { id: 'Générateur portable', label: 'Générateur portable' },
 ];
 
 const fruits = [
-  { id: "Aucun", label: "Aucun" },
-  { id: "Par heure", label: "Par heure" },
-  { id: "Par demi-journée", label: "Par demi-journée" },
-  { id: "Par jour (journalier)", label: "Par jour (journalier)" },
-  { id: "Par week-end", label: "Par week-end" },
-  { id: "Par semaine (hebdomadaire)", label: "Par semaine (hebdomadaire)" },
-  { id: "Par mois (mensuel)", label: "Par mois (mensuel)" },
+  { id: 'Aucun', label: 'Aucun' },
+  { id: 'Par heure', label: 'Par heure' },
+  { id: 'Par demi-journée', label: 'Par demi-journée' },
+  { id: 'Par jour (journalier)', label: 'Par jour (journalier)' },
+  { id: 'Par week-end', label: 'Par week-end' },
+  { id: 'Par semaine (hebdomadaire)', label: 'Par semaine (hebdomadaire)' },
+  { id: 'Par mois (mensuel)', label: 'Par mois (mensuel)' },
   {
-    id: "Par séjour (forfait global, peu importe la durée)",
-    label: "Par séjour (forfait global, peu importe la durée)",
+    id: 'Par séjour (forfait global, peu importe la durée)',
+    label: 'Par séjour (forfait global, peu importe la durée)',
   },
 ];
 
 const cancellationPolicies = [
   {
-    id: "flexible",
-    label: "Flexible : remboursement complet jusqu&apos;à 24h avant le départ",
+    id: 'flexible',
+    label: 'Flexible : remboursement complet jusqu&apos;à 24h avant le départ',
   },
   {
-    id: "moderate",
-    label: "Modérée : remboursement partiel jusqu&apos;à 7 jours avant",
+    id: 'moderate',
+    label: 'Modérée : remboursement partiel jusqu&apos;à 7 jours avant',
   },
   {
-    id: "strict",
-    label: "Stricte : non-remboursable ou remboursement limité",
+    id: 'strict',
+    label: 'Stricte : non-remboursable ou remboursement limité',
   },
   {
-    id: "custom",
-    label: "Personnalisée : conditions spécifiques définies par le propriétaire",
+    id: 'custom',
+    label: 'Personnalisée : conditions spécifiques définies par le propriétaire',
   },
 ];
 
 export default function GestionDesBateauxCreerPage() {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
 
   const [selected, setSelected] = useState<string[]>([]);
   const [inputs, setInputs] = useState<Record<string, string>>({});
-  const [selectedPolicy, setSelectedPolicy] = useState<string>("");
-  const [customDescription, setCustomDescription] = useState<string>("");
+  const [selectedPolicy, setSelectedPolicy] = useState<string>('');
+  const [customDescription, setCustomDescription] = useState<string>('');
 
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInputs, setTagInputs] = useState<Record<string, string>>({});
   const [unavailableDates, setUnavailableDates] = useState<Dayjs[]>([]);
-  const [placement, setPlacement] = React.useState("top-center");
+  const [placement, setPlacement] = React.useState('top-center');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [typeBateau, setTypeBateau] = useState<string>("");
+  const [typeBateau, setTypeBateau] = useState<string>('');
 
   const router = useRouter();
 
   const handleSelect = (value: string) => {
-    if (value === "Aucun") {
-      setSelected(["Aucun"]);
+    if (value === 'Aucun') {
+      setSelected(['Aucun']);
       setInputs({});
 
       return;
     }
 
-    if (selected.includes("Aucun")) {
+    if (selected.includes('Aucun')) {
       setSelected([value]);
     } else if (!selected.includes(value)) {
       setSelected([...selected, value]);
@@ -175,44 +175,44 @@ export default function GestionDesBateauxCreerPage() {
     setIsSubmitting(true);
 
     const formData = {
-      nomBateau: (document.getElementById("nom-bateau") as HTMLInputElement).value,
+      nomBateau: (document.getElementById('nom-bateau') as HTMLInputElement).value,
       typeBateau: typeBateau,
-      modeleMarque: (document.getElementById("modele-marque") as HTMLInputElement).value,
-      anneeConstruction: (document.getElementById("annee-construction") as HTMLInputElement).value,
-      longueur: (document.getElementById("longueur") as HTMLInputElement).value,
-      largeur: (document.getElementById("largeur") as HTMLInputElement).value,
-      tirantEau: (document.getElementById("tirant-eau") as HTMLInputElement).value,
-      capaciteMax: (document.getElementById("capacite-max") as HTMLInputElement).value,
-      nombreCabines: (document.getElementById("nombre-cabines") as HTMLInputElement).value,
-      nombreCouchages: (document.getElementById("nombre-couchages") as HTMLInputElement).value,
-      description: (document.getElementById("description-detaillee") as HTMLTextAreaElement).value,
-      zonesnavigation: (document.getElementById("zones-navigation") as HTMLInputElement).value,
-      portattache: (document.getElementById("port-attache") as HTMLInputElement).value,
-      portdepart: (document.getElementById("port-depart") as HTMLInputElement).value,
-      portarriver: (document.getElementById("port-arriver") as HTMLInputElement).value,
+      modeleMarque: (document.getElementById('modele-marque') as HTMLInputElement).value,
+      anneeConstruction: (document.getElementById('annee-construction') as HTMLInputElement).value,
+      longueur: (document.getElementById('longueur') as HTMLInputElement).value,
+      largeur: (document.getElementById('largeur') as HTMLInputElement).value,
+      tirantEau: (document.getElementById('tirant-eau') as HTMLInputElement).value,
+      capaciteMax: (document.getElementById('capacite-max') as HTMLInputElement).value,
+      nombreCabines: (document.getElementById('nombre-cabines') as HTMLInputElement).value,
+      nombreCouchages: (document.getElementById('nombre-couchages') as HTMLInputElement).value,
+      description: (document.getElementById('description-detaillee') as HTMLTextAreaElement).value,
+      zonesnavigation: (document.getElementById('zones-navigation') as HTMLInputElement).value,
+      portattache: (document.getElementById('port-attache') as HTMLInputElement).value,
+      portdepart: (document.getElementById('port-depart') as HTMLInputElement).value,
+      portarriver: (document.getElementById('port-arriver') as HTMLInputElement).value,
 
       equipementsInclus: selectedValues,
       tags: selectedTags.map((tag) => ({
         id: tag.id,
         label: tag.label,
-        detail: tagInputs[tag.id] || "",
+        detail: tagInputs[tag.id] || '',
       })),
 
       tarifications: selected.map((id) => ({
         type: id,
-        montant: inputs[id] || "",
+        montant: inputs[id] || '',
       })),
 
       politiqueAnnulation:
-        selectedPolicy === "custom"
+        selectedPolicy === 'custom'
           ? customDescription
-          : cancellationPolicies.find((p) => p.id === selectedPolicy)?.label || "",
+          : cancellationPolicies.find((p) => p.id === selectedPolicy)?.label || '',
 
-      Depotgarantie: (document.getElementById("depot-garantie") as HTMLInputElement).value,
+      Depotgarantie: (document.getElementById('depot-garantie') as HTMLInputElement).value,
 
-      DureeLocation: (document.getElementById("duree-location") as HTMLInputElement).value,
+      DureeLocation: (document.getElementById('duree-location') as HTMLInputElement).value,
 
-      tarifbateau: (document.getElementById("tarif-bateau") as HTMLInputElement).value,
+      tarifbateau: (document.getElementById('tarif-bateau') as HTMLInputElement).value,
 
       // contact: {
       //   nom: (document.getElementById("nom-proprietaire") as HTMLInputElement)
@@ -225,16 +225,16 @@ export default function GestionDesBateauxCreerPage() {
       //   ).value,
       // },
 
-      indisponibilites: unavailableDates.map((d) => d.format("YYYY-MM-DD")),
+      indisponibilites: unavailableDates.map((d) => d.format('YYYY-MM-DD')),
     };
 
-    console.log("📤 Données à envoyer :", formData);
+    console.log('📤 Données à envoyer :', formData);
 
     try {
-      const response = await fetch("https://sailingloc-back.vercel.app/api/bateaux", {
-        method: "POST",
+      const response = await fetch('https://sailingloc-back.vercel.app/api/bateaux', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -244,9 +244,9 @@ export default function GestionDesBateauxCreerPage() {
         const id = data.bateauId;
 
         addToast({
-          title: "Succès",
-          description: "Bateau enregistré avec succès.",
-          color: "success",
+          title: 'Succès',
+          description: 'Bateau enregistré avec succès.',
+          color: 'success',
         });
         router.push(`/dashboard/gestiondesbateaux/creer/finalisation/${id}`);
         // ici tu peux reset le formulaire ou rediriger si besoin
@@ -254,17 +254,17 @@ export default function GestionDesBateauxCreerPage() {
         const errorData = await response.json();
 
         addToast({
-          title: "Erreur",
+          title: 'Erreur',
           description: errorData.message || response.statusText,
-          color: "danger",
+          color: 'danger',
         });
       }
     } catch (error) {
-      console.error("Erreur réseau ou serveur :", error);
+      console.error('Erreur réseau ou serveur :', error);
       addToast({
-        title: "Erreur réseau",
-        description: "Veuillez réessayer plus tard.",
-        color: "danger",
+        title: 'Erreur réseau',
+        description: 'Veuillez réessayer plus tard.',
+        color: 'danger',
       });
     } finally {
       setIsSubmitting(false);
@@ -275,11 +275,11 @@ export default function GestionDesBateauxCreerPage() {
     <>
       <ToastProvider
         placement={placement}
-        toastOffset={placement.includes("top") ? 60 : 0}
+        toastOffset={placement.includes('top') ? 60 : 0}
         toastProps={{
-          radius: "lg",
-          color: "primary",
-          variant: "flat",
+          radius: 'lg',
+          color: 'primary',
+          variant: 'flat',
           timeout: 9000,
         }}
       />
@@ -297,7 +297,7 @@ export default function GestionDesBateauxCreerPage() {
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
-                          <Input id="nom-bateau" placeholder="Ex : L&apos;Étoile de Mer" />
+                          <Input id="nom-bateau" placeholder="Ex : L'Étoile de Mer" />
                         </div>
                         <div className="grid gap-3">
                           <span>Type de bateau à louer</span>
@@ -402,8 +402,8 @@ export default function GestionDesBateauxCreerPage() {
                                   ? frameworks
                                       .filter((f) => selectedValues.includes(f.value))
                                       .map((f) => f.label)
-                                      .join(", ")
-                                  : "Sélectionner des équipements..."}
+                                      .join(', ')
+                                  : 'Sélectionner des équipements...'}
                                 <ChevronsUpDown className="ml-2 opacity-50" />
                               </Button>
                             </PopoverTrigger>
@@ -422,10 +422,10 @@ export default function GestionDesBateauxCreerPage() {
                                         {framework.label}
                                         <Check
                                           className={cn(
-                                            "ml-auto",
+                                            'ml-auto',
                                             selectedValues.includes(framework.value)
-                                              ? "opacity-100"
-                                              : "opacity-0"
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
                                           )}
                                         />
                                       </CommandItem>
@@ -463,7 +463,7 @@ export default function GestionDesBateauxCreerPage() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
+                            placeholder="Ex : Côte d'Azur, Méditerranée"
                           />
                         </div>
                       </div>
@@ -491,7 +491,7 @@ export default function GestionDesBateauxCreerPage() {
                               </SelectGroup>
                             </SelectContent>
                           </Select>
-                          {selected.length > 0 && selected[0] !== "Aucun" && (
+                          {selected.length > 0 && selected[0] !== 'Aucun' && (
                             <div className="space-y-4">
                               {selected.map((id) => {
                                 const label = fruits.find((f) => f.id === id)?.label;
@@ -501,6 +501,7 @@ export default function GestionDesBateauxCreerPage() {
                                     <div className="flex items-center justify-between">
                                       <span className="font-medium">{label}</span>
                                       <button
+                                        role="button"
                                         className="text-red-500 text-sm"
                                         onClick={() => handleRemove(id)}
                                       >
@@ -509,7 +510,7 @@ export default function GestionDesBateauxCreerPage() {
                                     </div>
                                     <Input
                                       placeholder={`Tarif pour : ${label}`}
-                                      value={inputs[id] || ""}
+                                      value={inputs[id] || ''}
                                       onChange={(e) =>
                                         setInputs((prev) => ({
                                           ...prev,
@@ -542,7 +543,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
+                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -569,10 +570,10 @@ export default function GestionDesBateauxCreerPage() {
                               ))}
                             </SelectContent>
                           </Select>
-                          {selectedPolicy === "custom" && (
+                          {selectedPolicy === 'custom' && (
                             <div className="space-y-2">
                               <span className="font-medium">
-                                Description personnalisée{" "}
+                                Description personnalisée{' '}
                                 <span className="text-muted-foreground">(optionnel)</span>
                               </span>
                               <Textarea
@@ -596,7 +597,7 @@ export default function GestionDesBateauxCreerPage() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
@@ -656,14 +657,14 @@ export default function GestionDesBateauxCreerPage() {
                       {isSubmitting ? (
                         <>
                           <Spinner
-                            classNames={{ label: "text-white" }}
+                            classNames={{ label: 'text-white' }}
                             color="default"
                             variant="simple"
                           />
                           <span>Soumission...</span>
                         </>
                       ) : (
-                        "Soumettre"
+                        'Soumettre'
                       )}
                     </button>
                   </div>

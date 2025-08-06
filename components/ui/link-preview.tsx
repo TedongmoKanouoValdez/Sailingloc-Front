@@ -73,8 +73,6 @@ export const LinkPreview = ({
       {isMounted ? (
         <div className="hidden">
           <Image
-            width={100}
-            height={100}
             alt="hidden images"
             height={height}
             src={src}
@@ -92,6 +90,8 @@ export const LinkPreview = ({
       >
         <HoverCardPrimitive.Trigger asChild>
           <span
+            role="button"
+            tabIndex={0}
             className={cn('cursor-pointer text-black dark:text-white', className)}
             onClick={() => window.open(url, '_blank', 'noopener')}
             onMouseMove={handleMouseMove}
@@ -134,8 +134,6 @@ export const LinkPreview = ({
                   target="_blank"
                 >
                   <Image
-                    width={100}
-                    height={100}
                     alt="preview images"
                     className="rounded-lg"
                     height={height}

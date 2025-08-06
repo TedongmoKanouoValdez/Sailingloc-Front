@@ -30,6 +30,8 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       {cards.map((card, i) => (
         <div key={i} className={cn(card.className, '')}>
           <motion.div
+            role="button"
+            tabIndex={0}
             className={cn(
               card.className,
               'relative overflow-hidden',
@@ -49,6 +51,8 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       ))}
       <motion.div
         animate={{ opacity: selected?.id ? 0.3 : 0 }}
+        role="button"
+        tabIndex={0}
         className={cn(
           'absolute h-full w-full left-0 top-0 bg-black opacity-0 z-10',
           selected?.id ? 'pointer-events-auto' : 'pointer-events-none'
