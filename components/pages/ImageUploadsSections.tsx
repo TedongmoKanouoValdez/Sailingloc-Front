@@ -12,6 +12,11 @@ type MultiSectionImageUploadProps = {
   onChangeSection2?: (files: File[]) => void;
 };
 
+type UploadedImage = {
+  file: File;
+  previewUrl: string;
+};
+
 export function MultiSectionImageUpload({
   onChangeSection1,
   onChangeSection2,
@@ -102,9 +107,9 @@ export function MultiSectionImageUpload({
           />
 
           <div
+            className="flex h-48 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed hover:bg-muted/50"
             role="button"
             tabIndex={0}
-            className="flex h-48 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed hover:bg-muted/50"
             onClick={() => section1InputRef.current?.click()}
           >
             <div className="text-center">
@@ -143,9 +148,9 @@ export function MultiSectionImageUpload({
           />
 
           <div
+            className="flex h-48 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed hover:bg-muted/50"
             role="button"
             tabIndex={0}
-            className="flex h-48 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed hover:bg-muted/50"
             onClick={() => section2InputRef.current?.click()}
           >
             <div className="text-center">

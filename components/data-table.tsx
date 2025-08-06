@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   DndContext,
   KeyboardSensor,
@@ -11,15 +11,15 @@ import {
   useSensors,
   type DragEndEvent,
   type UniqueIdentifier,
-} from "@dnd-kit/core";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+} from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   SortableContext,
   arrayMove,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -34,7 +34,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 import {
   CheckCircle2Icon,
   ChevronDownIcon,
@@ -45,29 +45,29 @@ import {
   ColumnsIcon,
   GripVerticalIcon,
   PlusIcon,
-} from "lucide-react";
-import { z } from "zod";
-import Link from "next/link";
-import { Link as LinkHeroui } from "@heroui/link";
+} from 'lucide-react';
+import { z } from 'zod';
+import Link from 'next/link';
+import { Link as LinkHeroui } from '@heroui/link';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ChartConfig } from "@/components/ui/chart";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ChartConfig } from '@/components/ui/chart';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dropdown-menu';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -75,9 +75,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ActionsCell from "@/components/ActionsCellBoat";
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ActionsCell from '@/components/ActionsCellBoat';
 
 export const schema = z.object({
   id: z.number(),
@@ -86,9 +86,9 @@ export const schema = z.object({
   type: z.string(),
   port: z.string(),
   target: z.string(),
-  detail: z.array(),
+  detail: z.array(z.string()),
   description: z.string(),
-  datesIndisponibles: z.array(),
+  datesIndisponibles: z.array(z.string()),
   proprietaireId: z.number(),
 });
 
@@ -115,19 +115,19 @@ function DragHandle({ id }: { id: number }) {
 function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>>[] {
   return [
     {
-      id: "drag",
+      id: 'drag',
       header: () => null,
       cell: ({ row }) => <DragHandle id={row.original.id} />,
     },
     {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
         <div className="flex items-center justify-center">
           <Checkbox
             aria-label="Select all"
             checked={
               table.getIsAllPageRowsSelected() ||
-              (table.getIsSomePageRowsSelected() && "indeterminate")
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
             }
             onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           />
@@ -146,8 +146,8 @@ function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>
       enableHiding: false,
     },
     {
-      accessorKey: "Nomdubateau",
-      header: "Nom du bateau",
+      accessorKey: 'Nomdubateau',
+      header: 'Nom du bateau',
       cell: ({ row }) => {
         return (
           <LinkHeroui
@@ -162,8 +162,8 @@ function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>
       enableHiding: false,
     },
     {
-      accessorKey: "Modele",
-      header: "Modèle",
+      accessorKey: 'Modele',
+      header: 'Modèle',
       cell: ({ row }) => (
         <div className="w-32">
           <Badge className="px-1.5 text-muted-foreground" variant="outline">
@@ -173,8 +173,8 @@ function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>
       ),
     },
     {
-      accessorKey: "Port",
-      header: "Port",
+      accessorKey: 'Port',
+      header: 'Port',
       cell: ({ row }) => (
         <>
           <Badge
@@ -188,16 +188,16 @@ function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>
       ),
     },
     {
-      accessorKey: "Prix",
+      accessorKey: 'Prix',
       header: () => <div className="w-full text-right">Prix</div>,
       cell: ({ row }) => <div className="text-right">{row.original.target} €</div>,
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         return (
           <>
-            <ActionsCell refreshTable={refreshTable} row={row} />
+            <ActionsCell refreshTable={refreshTable ?? (() => {})} row={row} />
           </>
         );
       },
@@ -215,7 +215,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
       ref={setNodeRef}
       className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       data-dragging={isDragging}
-      data-state={row.getIsSelected() && "selected"}
+      data-state={row.getIsSelected() && 'selected'}
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
@@ -237,7 +237,7 @@ export function DataTable({
   data: z.infer<typeof schema>[];
   refreshTable?: () => void;
 }) {
-  console.log("📊 Données reçues dans DataTable :", initialData);
+  console.log('📊 Données reçues dans DataTable :', initialData);
   const [data, setData] = React.useState(() => initialData);
   const columns = getColumns(refreshTable);
   const [rowSelection, setRowSelection] = React.useState({});
@@ -315,7 +315,7 @@ export function DataTable({
         <TabsList className="@4xl/main:flex hidden">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger className="gap-1" value="past-performance">
-            Past Performance{" "}
+            Past Performance{' '}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -324,7 +324,7 @@ export function DataTable({
             </Badge>
           </TabsTrigger>
           <TabsTrigger className="gap-1" value="key-personnel">
-            Key Personnel{" "}
+            Key Personnel{' '}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -347,7 +347,7 @@ export function DataTable({
             <DropdownMenuContent align="end" className="w-56">
               {table
                 .getAllColumns()
-                .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
+                .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
                 .map((column) => {
                   return (
                     <DropdownMenuCheckboxItem
@@ -418,7 +418,7 @@ export function DataTable({
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of{' '}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
@@ -505,21 +505,21 @@ export function DataTable({
 }
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: 'January', desktop: 186, mobile: 80 },
+  { month: 'February', desktop: 305, mobile: 200 },
+  { month: 'March', desktop: 237, mobile: 120 },
+  { month: 'April', desktop: 73, mobile: 190 },
+  { month: 'May', desktop: 209, mobile: 130 },
+  { month: 'June', desktop: 214, mobile: 140 },
 ];
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
+    label: 'Desktop',
+    color: 'var(--primary)',
   },
   mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
+    label: 'Mobile',
+    color: 'var(--primary)',
   },
 } satisfies ChartConfig;

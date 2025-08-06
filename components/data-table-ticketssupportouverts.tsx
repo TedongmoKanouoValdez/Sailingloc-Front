@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useRef, useState } from "react";
+import * as React from 'react';
+import { useRef, useState } from 'react';
 import {
   DndContext,
   KeyboardSensor,
@@ -12,15 +12,15 @@ import {
   useSensors,
   type DragEndEvent,
   type UniqueIdentifier,
-} from "@dnd-kit/core";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+} from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   SortableContext,
   arrayMove,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -35,7 +35,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 import {
   CheckCircle2Icon,
   ChevronDownIcon,
@@ -47,26 +47,26 @@ import {
   GripVerticalIcon,
   LoaderIcon,
   MoreVerticalIcon,
-} from "lucide-react";
-import { toast } from "sonner";
-import { z } from "zod";
-import { Button as ButtonHeroui } from "@heroui/button";
-import { IoTicketSharp } from "react-icons/io5";
-import { FaCheckCircle } from "react-icons/fa";
+} from 'lucide-react';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import { Button as ButtonHeroui } from '@heroui/button';
+import { IoTicketSharp } from 'react-icons/io5';
+import { FaCheckCircle } from 'react-icons/fa';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ChartConfig } from "@/components/ui/chart";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ChartConfig } from '@/components/ui/chart';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -75,8 +75,8 @@ import {
   SelectGroup,
   SelectLabel,
   SelectValue,
-} from "@/components/ui/select";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+} from '@/components/ui/select';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import {
   Table,
   TableBody,
@@ -84,8 +84,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogClose,
@@ -94,8 +94,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
 
 export const schema = z.object({
   id: z.number(),
@@ -129,19 +129,19 @@ function DragHandle({ id }: { id: number }) {
 
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
-    id: "drag",
+    id: 'drag',
     header: () => null,
     cell: ({ row }) => <DragHandle id={row.original.id} />,
   },
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <div className="flex items-center justify-center">
         <Checkbox
           aria-label="Select all"
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         />
@@ -160,8 +160,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "idduticket",
-    header: "ID du ticket",
+    accessorKey: 'idduticket',
+    header: 'ID du ticket',
     cell: ({ row }) => {
       const [showReservation, setShowReservation] = React.useState(false);
 
@@ -177,8 +177,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "utilisateur",
-    header: "Utilisateur",
+    accessorKey: 'utilisateur',
+    header: 'Utilisateur',
     cell: ({ row }) => (
       <div className="w-32">
         <Badge className="px-1.5 text-muted-foreground" variant="outline">
@@ -188,11 +188,11 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "sujet",
-    header: "Sujet",
+    accessorKey: 'sujet',
+    header: 'Sujet',
     cell: ({ row }) => (
       <Badge className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3" variant="outline">
-        {row.original.status === "Done" ? (
+        {row.original.status === 'Done' ? (
           <CheckCircle2Icon className="text-green-500 dark:text-green-400" />
         ) : (
           <LoaderIcon />
@@ -202,7 +202,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "datedecreation",
+    accessorKey: 'datedecreation',
     header: () => <div className="w-full">Date de création</div>,
     cell: ({ row }) => (
       <form
@@ -210,8 +210,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           e.preventDefault();
           toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
             loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
+            success: 'Done',
+            error: 'Error',
           });
         }}
       >
@@ -227,7 +227,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "priorite",
+    accessorKey: 'priorite',
     header: () => <div className="w-full">Priorité</div>,
     cell: ({ row }) => (
       <form
@@ -235,8 +235,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           e.preventDefault();
           toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
             loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
+            success: 'Done',
+            error: 'Error',
           });
         }}
       >
@@ -252,7 +252,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "statut",
+    accessorKey: 'statut',
     header: () => <div className="w-full">Statut</div>,
     cell: ({ row }) => (
       <form
@@ -260,8 +260,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
           e.preventDefault();
           toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
             loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
+            success: 'Done',
+            error: 'Error',
           });
         }}
       >
@@ -277,7 +277,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: () => {
       const [showReservation, setShowReservation] = React.useState(false);
       const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -306,13 +306,13 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
             </DropdownMenuContent>
           </DropdownMenu>
           <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-          {/* Réponse à l"utilisateur */}
+          {/* Réponse à l'utilisateur */}
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Résponse</DialogTitle>
                 <DialogDescription>
-                  Ce formulaire vous permet de répondre à une demande d"assistance utilisateur.
+                  Ce formulaire vous permet de répondre à une demande d'assistance utilisateur.
                   Formulez votre réponse de manière claire et précise pour aider efficacement
                   l&apos;utilisateur. Une fois envoyée, votre réponse sera visible par
                   l&apos;utilisateur dans son espace client.
@@ -342,7 +342,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
               <DialogHeader>
                 <DialogTitle>Affectation</DialogTitle>
                 <DialogDescription>
-                  Ce champ permet d"assigner un ticket de support à un membre de l&apos;équipe. Cela
+                  Ce champ permet d'assigner un ticket de support à un membre de l&apos;équipe. Cela
                   garantit un meilleur suivi et une répartition claire des responsabilités. Le
                   membre assigné recevra une notification et deviendra responsable du traitement du
                   ticket.
@@ -392,7 +392,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
       ref={setNodeRef}
       className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       data-dragging={isDragging}
-      data-state={row.getIsSelected() && "selected"}
+      data-state={row.getIsSelected() && 'selected'}
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
@@ -470,7 +470,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         <TabsList className="@4xl/main:flex hidden">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger className="gap-1" value="past-performance">
-            Past Performance{" "}
+            Past Performance{' '}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -479,7 +479,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
             </Badge>
           </TabsTrigger>
           <TabsTrigger className="gap-1" value="key-personnel">
-            Key Personnel{" "}
+            Key Personnel{' '}
             <Badge
               className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
               variant="secondary"
@@ -520,7 +520,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
             <DropdownMenuContent align="end" className="w-56">
               {table
                 .getAllColumns()
-                .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
+                .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
                 .map((column) => {
                   return (
                     <DropdownMenuCheckboxItem
@@ -585,7 +585,7 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
         </div>
         <div className="flex items-center justify-between px-4">
           <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
+            {table.getFilteredSelectedRowModel().rows.length} of{' '}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
@@ -672,22 +672,22 @@ export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[
 }
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: 'January', desktop: 186, mobile: 80 },
+  { month: 'February', desktop: 305, mobile: 200 },
+  { month: 'March', desktop: 237, mobile: 120 },
+  { month: 'April', desktop: 73, mobile: 190 },
+  { month: 'May', desktop: 209, mobile: 130 },
+  { month: 'June', desktop: 214, mobile: 140 },
 ];
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
+    label: 'Desktop',
+    color: 'var(--primary)',
   },
   mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
+    label: 'Mobile',
+    color: 'var(--primary)',
   },
 } satisfies ChartConfig;
 
@@ -711,8 +711,8 @@ function AddReservationPanel({ open, onClose }: { open: boolean; onClose: () => 
 
   function handleRemoveImage() {
     setImageSrc(null);
-    // Optionnel: reset aussi l"input file pour pouvoir recharger la même image après suppression
-    if (inputFileRef.current) inputFileRef.current.value = "";
+    // Optionnel: reset aussi l'input file pour pouvoir recharger la même image après suppression
+    if (inputFileRef.current) inputFileRef.current.value = '';
   }
 
   return (
@@ -733,7 +733,7 @@ function AddReservationPanel({ open, onClose }: { open: boolean; onClose: () => 
           <div>
             <div className="text-sm text-gray-600 font-medium">Sujet</div>
             <div className="text-base font-bold text-black">
-              Problème de paiement, je n"arrive pas à payer !
+              Problème de paiement, je n'arrive pas à payer !
             </div>
           </div>
           <div className="flex flex-row justify-between">

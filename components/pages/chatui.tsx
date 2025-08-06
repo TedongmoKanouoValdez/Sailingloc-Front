@@ -16,7 +16,7 @@ export default function ChatUI() {
         </div>
 
         <div className="flex flex-col space-y-4 mt-4 overflow-y-auto flex-1">
-          {/* Exemple d"un contact */}
+          {/* Exemple d'un contact */}
           <ChatContact
             avatar="https://randomuser.me/api/portraits/men/32.jpg"
             name="Kaiya George"
@@ -62,11 +62,11 @@ export default function ChatUI() {
           <div className="flex items-center space-x-4">
             <div className="relative">
               <Image
-                width={100}
-                height={100}
                 alt="Lindsey Curtis"
                 className="w-12 h-12 rounded-full"
+                height={100}
                 src="https://randomuser.me/api/portraits/men/43.jpg"
+                width={100}
               />
               <span className="absolute bottom-0 right-0 block w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
             </div>
@@ -194,11 +194,11 @@ function ChatContact({ name, role, time, avatar, status }: ChatContactProps) {
       <div className="flex items-center space-x-3">
         <div className="relative">
           <Image
-            width={100}
-            height={100}
             alt={name}
             className="w-12 h-12 rounded-full"
+            height={100}
             src={avatar}
+            width={100}
           />
           <span
             className={`absolute bottom-0 right-0 block w-3 h-3 border-2 border-white rounded-full ${
@@ -223,11 +223,11 @@ function Message({ avatar, text, time, isOwn }: MessageProps) {
     >
       {!isOwn && avatar && (
         <Image
-          width={100}
-          height={100}
           alt="Avatars"
           className="w-8 h-8 rounded-full flex-shrink-0"
+          height={100}
           src={avatar}
+          width={100}
         />
       )}
       <div>

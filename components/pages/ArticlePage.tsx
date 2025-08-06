@@ -1,22 +1,22 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Timeline } from "antd";
-import { Checkbox } from "@heroui/checkbox";
-import { Chip } from "@heroui/chip";
-import { Alert } from "@heroui/alert";
-import { FaStar } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
-import { BiSolidBookmark } from "react-icons/bi";
-import { Tooltip } from "@heroui/tooltip";
-import { FaWifi } from "react-icons/fa";
-import { FaKitchenSet } from "react-icons/fa6";
-import { IoBed } from "react-icons/io5";
-import { TbAirConditioningDisabled } from "react-icons/tb";
-import { RiSailboatFill } from "react-icons/ri";
-import { FaLocationDot } from "react-icons/fa6";
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import { Timeline } from 'antd';
+import { Checkbox } from '@heroui/checkbox';
+import { Chip } from '@heroui/chip';
+import { Alert } from '@heroui/alert';
+import { FaStar } from 'react-icons/fa';
+import { IoMdShare } from 'react-icons/io';
+import { BiSolidBookmark } from 'react-icons/bi';
+import { Tooltip } from '@heroui/tooltip';
+import { FaWifi } from 'react-icons/fa';
+import { FaKitchenSet } from 'react-icons/fa6';
+import { IoBed } from 'react-icons/io5';
+import { TbAirConditioningDisabled } from 'react-icons/tb';
+import { RiSailboatFill } from 'react-icons/ri';
+import { FaLocationDot } from 'react-icons/fa6';
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import {
   Card,
   CardContent,
@@ -24,15 +24,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { LinkPreview } from "@/components/ui/link-preview";
-import { SingleCarousselBoat } from "@/components/pages/singlecarousselboat";
-import { SingleCaracteristiqueBoat } from "@/components/pages/singlecaracteristiqueboat";
-import { GalerieSingleBoat } from "@/components/pages/galeriesingleboat";
-import { CalendarSingleBoat } from "@/components/pages/calendarsingleboat";
-import { useDateRange } from "@/context/DateRangeContext";
-import CommentsSection from "@/components/pages/CommentsSection";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { LinkPreview } from '@/components/ui/link-preview';
+import { SingleCarousselBoat } from '@/components/pages/singlecarousselboat';
+import { SingleCaracteristiqueBoat } from '@/components/pages/singlecaracteristiqueboat';
+import { GalerieSingleBoat } from '@/components/pages/galeriesingleboat';
+import { CalendarSingleBoat } from '@/components/pages/calendarsingleboat';
+import { useDateRange } from '@/context/DateRangeContext';
+import CommentsSection from '@/components/pages/CommentsSection';
 
 export default function ArticlePage() {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -62,9 +62,9 @@ export default function ArticlePage() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [divTopOffset, isSticky]);
 
   return (
@@ -73,10 +73,10 @@ export default function ArticlePage() {
         className="pt-16"
         style={{
           backgroundImage:
-            "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751624019/5601165_vw0d54.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          paddingBottom: "5rem",
+            'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751624019/5601165_vw0d54.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          paddingBottom: '5rem',
         }}
       >
         <SingleCarousselBoat />
@@ -130,9 +130,9 @@ export default function ArticlePage() {
                     Description
                   </div>
                   <div className="text-gray-600 mt-2">
-                    Louez notre bateau sans permis à Marseille - Tout le confort d&apos;un grand ! Vous
-                    rêvez de naviguer en toute liberté sans avoir besoin de permis ? Notre bateau
-                    est fait pour vous ! Partez à la découverte des magnifiques calanques de
+                    Louez notre bateau sans permis à Marseille - Tout le confort d&apos;un grand !
+                    Vous rêvez de naviguer en toute liberté sans avoir besoin de permis ? Notre
+                    bateau est fait pour vous ! Partez à la découverte des magnifiques calanques de
                     Marseille, explorez des criques secrètes aux eaux turquoise et admirez les
                     splendides côtes méditerranéennes, le tout avec le confort et l&apos;équipement
                     d&apos;un grand bateau.
@@ -237,13 +237,13 @@ export default function ArticlePage() {
                     <Timeline
                       items={[
                         {
-                          children: "Côte d&apos;Azur",
+                          children: 'Côte d&apos;Azur',
                         },
                         {
-                          children: "Corse",
+                          children: 'Corse',
                         },
                         {
-                          children: "Baléares",
+                          children: 'Baléares',
                         },
                       ]}
                     />
@@ -271,14 +271,14 @@ export default function ArticlePage() {
                 <div
                   ref={divRef}
                   style={{
-                    // background: "lightblue",
-                    // padding: "20px",
-                    // width: "100%",
+                    // background: 'lightblue',
+                    // padding: '20px',
+                    // width: '100%',
                     ...(isSticky
                       ? {
-                          position: "fixed",
-                          top: "6rem",
-                          left: "58rem",
+                          position: 'fixed',
+                          top: '6rem',
+                          left: '58rem',
                           right: 0,
                           zIndex: 30,
                         }
@@ -294,7 +294,7 @@ export default function ArticlePage() {
                             <div className="w-full flex items-center my-3">
                               <Alert
                                 color="warning"
-                                title="En cas d&apos;annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d&apos;annulation."
+                                title="En cas d'annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d'annulation."
                               />
                             </div>
                           </div>
@@ -309,8 +309,8 @@ export default function ArticlePage() {
                             <Input
                               disabled
                               id="datedebut"
-                              value={date1 ? date1.format("YYYY-MM-DD") : "Non définie"}
-                              //   placeholder="m@example.com"
+                              value={date1 ? date1.format('YYYY-MM-DD') : 'Non définie'}
+                              //   placeholder='m@example.com'
                               //   required
                               type="text"
                             />
@@ -321,7 +321,7 @@ export default function ArticlePage() {
                               disabled
                               id="datefin"
                               type="text"
-                              value={date2 ? date2.format("YYYY-MM-DD") : "Non définie"}
+                              value={date2 ? date2.format('YYYY-MM-DD') : 'Non définie'}
                             />
                           </div>
                           <div className="grid gap-2">
@@ -330,7 +330,8 @@ export default function ArticlePage() {
                               radius="full"
                               onValueChange={setIsAccepted}
                             >
-                              J&apos;accepte les conditions de location et la politique d&apos;annulation.
+                              J&apos;accepte les conditions de location et la politique
+                              d&apos;annulation.
                             </Checkbox>
                           </div>
                         </div>

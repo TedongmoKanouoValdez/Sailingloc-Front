@@ -70,8 +70,8 @@ export default function ContactPage() {
         setFormData({ nom: '', email: '', objet: '', message: '' });
       })
       .catch((error) => {
-        // console.error("Erreur lors de l'envoi :", error);
-        toast.error("Une erreur s&apos;est produite. Veuillez réessayer.");
+        // console.error('Erreur lors de l'envoi :', error);
+        toast.error('Une erreur s&apos;est produite. Veuillez réessayer.');
       });
   };
 
@@ -80,7 +80,7 @@ export default function ContactPage() {
       className="bg-cover bg-center w-screen min-h-screen flex items-center justify-center px-4 py-12"
       style={{
         backgroundImage:
-          "url('https://res.cloudinary.com/dluqkutu8/image/upload/v1751037337/4931029_zmkvbr.jpg')",
+          'url("https://res.cloudinary.com/dluqkutu8/image/upload/v1751037337/4931029_zmkvbr.jpg")',
       }}
     >
       <div className=" mx-auto max-w-6xl w-full grid grid-cols-1 md:grid-cols-5 gap-6 p-6 ">
@@ -204,11 +204,11 @@ export default function ContactPage() {
             <iframe
               allowFullScreen
               className="border-none"
-              title="Carte interactive de l&apos;agence X"
               height="220"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.337477058263!2d2.3522217156742816!3d48.85661407928786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fdfba7dfb1b%3A0xb60ff7f3732f7e3!2sParis!5e0!3m2!1sfr!2sfr!4v1616589273186!5m2!1sfr!2sfr"
+              title="Carte interactive de l'agence X"
               width="100%"
             />
           </div>

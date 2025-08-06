@@ -1,15 +1,15 @@
-"use client";
-import * as React from "react";
-import { Button as Buttonheroui } from "@heroui/button";
-import { User } from "@heroui/user";
-import { Chip } from "@heroui/chip";
-import { FaUserEdit } from "react-icons/fa";
-import { FaCcVisa } from "react-icons/fa6";
-import { FaCcMastercard } from "react-icons/fa6";
-import { SiAmericanexpress } from "react-icons/si";
-import { FaCcPaypal } from "react-icons/fa";
-import { Alert } from "@heroui/alert";
-import { ElementType } from "react";
+'use client';
+import * as React from 'react';
+import { Button as Buttonheroui } from '@heroui/button';
+import { User } from '@heroui/user';
+import { Chip } from '@heroui/chip';
+import { FaUserEdit } from 'react-icons/fa';
+import { FaCcVisa } from 'react-icons/fa6';
+import { FaCcMastercard } from 'react-icons/fa6';
+import { SiAmericanexpress } from 'react-icons/si';
+import { FaCcPaypal } from 'react-icons/fa';
+import { Alert } from '@heroui/alert';
+import { ElementType } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -21,24 +21,24 @@ import {
   SortingState,
   useReactTable,
   VisibilityState,
-} from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@heroui/drawer";
-import { useDisclosure } from "@heroui/modal";
-import { BsCreditCard2FrontFill } from "react-icons/bs";
-import { FaChevronDown } from "react-icons/fa";
-import { Tooltip } from "@heroui/tooltip";
-import { Image } from "@heroui/image";
-import { Avatar } from "@heroui/avatar";
-import { Link } from "@heroui/link";
-import { Steps } from "antd";
-import { Divider as Dividerhenoui } from "@heroui/divider";
+} from '@tanstack/react-table';
+import { MoreHorizontal } from 'lucide-react';
+import { Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from '@heroui/drawer';
+import { useDisclosure } from '@heroui/modal';
+import { BsCreditCard2FrontFill } from 'react-icons/bs';
+import { FaChevronDown } from 'react-icons/fa';
+import { Tooltip } from '@heroui/tooltip';
+import { Image } from '@heroui/image';
+import { Avatar } from '@heroui/avatar';
+import { Link } from '@heroui/link';
+import { Steps } from 'antd';
+import { Divider as Dividerhenoui } from '@heroui/divider';
 
-import { BateauPrefere } from "@/components/pages/bateauprefere";
-import { NotificationsUsers } from "@/components/pages/notificationUser";
-import { ZonesFavorites } from "@/components/pages/zonesfavorites";
-import { FaqUser } from "@/components/pages/faquser";
-import ChatUI from "@/components/pages/chatui";
+import { BateauPrefere } from '@/components/pages/bateauprefere';
+import { NotificationsUsers } from '@/components/pages/notificationUser';
+import { ZonesFavorites } from '@/components/pages/zonesfavorites';
+import { FaqUser } from '@/components/pages/faquser';
+import ChatUI from '@/components/pages/chatui';
 import {
   Table,
   TableBody,
@@ -46,7 +46,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -54,12 +54,12 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RippleButton } from "@/components/magicui/ripple-button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dropdown-menu';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RippleButton } from '@/components/magicui/ripple-button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogClose,
@@ -69,8 +69,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 type MoyenDePaimentIconProps = {
   icon: ElementType<{ size?: number | string; color?: string }>;
@@ -82,7 +82,7 @@ type MoyenDePaimentIconProps = {
 const MoyenDePaimentIcon = ({
   icon: Icon,
   size = 24,
-  color = "currentColor",
+  color = 'currentColor',
   className,
 }: MoyenDePaimentIconProps) => {
   return <Icon className={className} color={color} size={size} />;
@@ -91,134 +91,134 @@ const MoyenDePaimentIcon = ({
 export type Reservation = {
   id: string;
   photo: string; // URL ou base64 si tu veux une vraie image
-  bookingDate: string; // ex: "12 juin 2025"
-  sailingDates: string; // ex: "1–7 août 2025"
-  destination: string; // ex: "Côte d’Azur"
-  boatName: string; // ex: "Lagoon 42"
-  status: "Confirmée" | "Annulée" | "En attente";
+  bookingDate: string; // ex: '12 juin 2025'
+  sailingDates: string; // ex: '1–7 août 2025'
+  destination: string; // ex: 'Côte d’Azur'
+  boatName: string; // ex: 'Lagoon 42'
+  status: 'Confirmée' | 'Annulée' | 'En attente';
 };
 
 export const data: Reservation[] = [
   {
-    id: "1",
+    id: '1',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg",
-    bookingDate: "12 juin 2025",
-    sailingDates: "1-7 août 2025",
-    destination: "Côte d&apos;Azur",
-    boatName: "Lagoon 42",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg',
+    bookingDate: '12 juin 2025',
+    sailingDates: '1-7 août 2025',
+    destination: 'Côte d&apos;Azur',
+    boatName: 'Lagoon 42',
+    status: 'Confirmée',
   },
   {
-    id: "2",
+    id: '2',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "1 mars 2025",
-    sailingDates: "20-27 avril 2025",
-    destination: "Sardaigne",
-    boatName: "Sun Odyssey",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '1 mars 2025',
+    sailingDates: '20-27 avril 2025',
+    destination: 'Sardaigne',
+    boatName: 'Sun Odyssey',
+    status: 'Annulée',
   },
   {
-    id: "3",
+    id: '3',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "5 février 2025",
-    sailingDates: "15-22 mai 2025",
-    destination: "Baléares",
-    boatName: "Bavaria Cruiser",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '5 février 2025',
+    sailingDates: '15-22 mai 2025',
+    destination: 'Baléares',
+    boatName: 'Bavaria Cruiser',
+    status: 'Confirmée',
   },
   {
-    id: "4",
+    id: '4',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "10 janvier 2025",
-    sailingDates: "10-17 juillet 2025",
-    destination: "Croatie",
-    boatName: "Beneteau Oceanis",
-    status: "En attente",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '10 janvier 2025',
+    sailingDates: '10-17 juillet 2025',
+    destination: 'Croatie',
+    boatName: 'Beneteau Oceanis',
+    status: 'En attente',
   },
   {
-    id: "5",
+    id: '5',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "22 mars 2025",
-    sailingDates: "5-12 août 2025",
-    destination: "Grèce",
-    boatName: "Jeanneau 54",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '22 mars 2025',
+    sailingDates: '5-12 août 2025',
+    destination: 'Grèce',
+    boatName: 'Jeanneau 54',
+    status: 'Confirmée',
   },
   {
-    id: "6",
+    id: '6',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "3 avril 2025",
-    sailingDates: "12-19 juin 2025",
-    destination: "Sicile",
-    boatName: "Dufour 520",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '3 avril 2025',
+    sailingDates: '12-19 juin 2025',
+    destination: 'Sicile',
+    boatName: 'Dufour 520',
+    status: 'Annulée',
   },
   {
-    id: "7",
+    id: '7',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "17 mai 2025",
-    sailingDates: "1-8 septembre 2025",
-    destination: "Ibiza",
-    boatName: "Fountaine Pajot",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '17 mai 2025',
+    sailingDates: '1-8 septembre 2025',
+    destination: 'Ibiza',
+    boatName: 'Fountaine Pajot',
+    status: 'Confirmée',
   },
   {
-    id: "8",
+    id: '8',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "8 février 2025",
-    sailingDates: "18-25 juillet 2025",
-    destination: "Canaries",
-    boatName: "Hanse 458",
-    status: "En attente",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '8 février 2025',
+    sailingDates: '18-25 juillet 2025',
+    destination: 'Canaries',
+    boatName: 'Hanse 458',
+    status: 'En attente',
   },
   {
-    id: "9",
+    id: '9',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "25 mars 2025",
-    sailingDates: "2-9 août 2025",
-    destination: "Sardaigne",
-    boatName: "Sunreef 50",
-    status: "Confirmée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '25 mars 2025',
+    sailingDates: '2-9 août 2025',
+    destination: 'Sardaigne',
+    boatName: 'Sunreef 50',
+    status: 'Confirmée',
   },
   {
-    id: "10",
+    id: '10',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "12 avril 2025",
-    sailingDates: "22-29 juin 2025",
-    destination: "Côte Amalfitaine",
-    boatName: "Lagoon 450",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '12 avril 2025',
+    sailingDates: '22-29 juin 2025',
+    destination: 'Côte Amalfitaine',
+    boatName: 'Lagoon 450',
+    status: 'Annulée',
   },
   {
-    id: "11",
+    id: '11',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    bookingDate: "12 avril 2025",
-    sailingDates: "22-29 juin 2025",
-    destination: "Côte Amalfitaine",
-    boatName: "Lagoon 450",
-    status: "Annulée",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    bookingDate: '12 avril 2025',
+    sailingDates: '22-29 juin 2025',
+    destination: 'Côte Amalfitaine',
+    boatName: 'Lagoon 450',
+    status: 'Annulée',
   },
 ];
 
 export const columns: ColumnDef<Reservation>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         aria-label="Tout sélectionner"
         checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
       />
@@ -234,12 +234,18 @@ export const columns: ColumnDef<Reservation>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "photo",
-    header: "🛥️",
+    accessorKey: 'photo',
+    header: '🛥️',
     cell: ({ row }) => (
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
-          <Image alt="photo" width={100} height={100} className="w-full h-full object-cover" src={row.original.photo} />
+          <Image
+            alt="photo"
+            className="w-full h-full object-cover"
+            height={100}
+            src={row.original.photo}
+            width={100}
+          />
         ) : (
           <span className="text-xl">🛥️</span>
         )}
@@ -249,32 +255,32 @@ export const columns: ColumnDef<Reservation>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "bookingDate",
-    header: "Date de réservation",
+    accessorKey: 'bookingDate',
+    header: 'Date de réservation',
     cell: ({ row }) => <div>{row.original.bookingDate}</div>,
   },
   {
-    accessorKey: "sailingDates",
-    header: "Dates de navigation",
+    accessorKey: 'sailingDates',
+    header: 'Dates de navigation',
     cell: ({ row }) => <div>{row.original.sailingDates}</div>,
   },
   {
-    accessorKey: "destination",
-    header: "Destination",
+    accessorKey: 'destination',
+    header: 'Destination',
     cell: ({ row }) => <div>{row.original.destination}</div>,
   },
   {
-    accessorKey: "boatName",
-    header: "Nom du bateau",
+    accessorKey: 'boatName',
+    header: 'Nom du bateau',
     cell: ({ row }) => <div>{row.original.boatName}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Statut",
+    accessorKey: 'status',
+    header: 'Statut',
     cell: ({ row }) => {
       const status = row.original.status;
       const color =
-        status === "Confirmée" ? "success" : status === "Annulée" ? "danger" : "warning";
+        status === 'Confirmée' ? 'success' : status === 'Annulée' ? 'danger' : 'warning';
 
       return (
         <Chip className="text-white" color={`${color}`} variant="shadow">
@@ -284,7 +290,7 @@ export const columns: ColumnDef<Reservation>[] = [
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const reservation = row.original;
@@ -303,7 +309,7 @@ export const columns: ColumnDef<Reservation>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem onSelect={onOpen}>Voir détails</DropdownMenuItem>
               <DropdownMenuItem>Voir contrat</DropdownMenuItem>
-              {reservation.status !== "Annulée" && (
+              {reservation.status !== 'Annulée' && (
                 <DropdownMenuItem
                   onClick={() => console.log(`Annuler réservation ${reservation.id}`)}
                 >
@@ -316,7 +322,7 @@ export const columns: ColumnDef<Reservation>[] = [
             hideCloseButton
             backdrop="blur"
             classNames={{
-              base: "data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium",
+              base: 'data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium',
             }}
             isOpen={isOpen}
             onOpenChange={onOpenChange}
@@ -394,48 +400,48 @@ export const columns: ColumnDef<Reservation>[] = [
                         Contacter le loueur
                       </Buttonheroui>
                     </div>
-                    {/* <div className="flex gap-1 items-center">
-                      <Tooltip content="Previous">
+                    {/* <div className='flex gap-1 items-center'>
+                      <Tooltip content='Previous'>
                         <Buttonheroui
                           isIconOnly
-                          className="text-default-500"
-                          size="sm"
-                          variant="flat"
+                          className='text-default-500'
+                          size='sm'
+                          variant='flat'
                         >
                           <svg
-                            fill="none"
-                            height="16"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            fill='none'
+                            height='16'
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            viewBox='0 0 24 24'
+                            width='16'
+                            xmlns='http://www.w3.org/2000/svg'
                           >
-                            <path d="m18 15-6-6-6 6" />
+                            <path d='m18 15-6-6-6 6' />
                           </svg>
                         </Buttonheroui>
                       </Tooltip>
-                      <Tooltip content="Next">
+                      <Tooltip content='Next'>
                         <Buttonheroui
                           isIconOnly
-                          className="text-default-500"
-                          size="sm"
-                          variant="flat"
+                          className='text-default-500'
+                          size='sm'
+                          variant='flat'
                         >
                           <svg
-                            fill="none"
-                            height="16"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
+                            fill='none'
+                            height='16'
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            viewBox='0 0 24 24'
+                            width='16'
+                            xmlns='http://www.w3.org/2000/svg'
                           >
-                            <path d="m6 9 6 6 6-6" />
+                            <path d='m6 9 6 6 6-6' />
                           </svg>
                         </Buttonheroui>
                       </Tooltip>
@@ -460,7 +466,7 @@ export const columns: ColumnDef<Reservation>[] = [
                         Informations principales
                       </h2>
                       <div className="text-sm text-default-500">
-                        <span>Type de bateau : </span>{" "}
+                        <span>Type de bateau : </span>{' '}
                         <Chip color="warning" variant="dot">
                           catamaran
                         </Chip>
@@ -544,46 +550,46 @@ export const columns: ColumnDef<Reservation>[] = [
                               November 19th.
                             </p>
                             <div>
-                              <span>Numéro de réservation : </span>{" "}
+                              <span>Numéro de réservation : </span>{' '}
                               <Chip color="warning" variant="bordered">
                                 NGT-TFR785JUY
                               </Chip>
                             </div>
                             <div>
-                              <span>Date à laquelle la réservation a été faite : </span>{" "}
+                              <span>Date à laquelle la réservation a été faite : </span>{' '}
                               <Chip color="warning" variant="faded">
                                 18/06/2025
                               </Chip>
                             </div>
 
                             <div>
-                              <span>Date à laquelle la réservation a été faite : </span>{" "}
+                              <span>Date à laquelle la réservation a été faite : </span>{' '}
                               <Chip className="text-white" color="warning" variant="shadow">
                                 En attente
                               </Chip>
                             </div>
 
                             <div>
-                              <span>Récapitulatif des options choisies : </span>{" "}
+                              <span>Récapitulatif des options choisies : </span>{' '}
                               <Steps
                                 progressDot
                                 current={2}
                                 direction="vertical"
                                 items={[
                                   {
-                                    title: "skipper",
+                                    title: 'skipper',
                                     // description:
-                                    //   "This is a description. This is a description.",
+                                    //   'This is a description. This is a description.',
                                   },
                                   {
-                                    title: "hôtesse",
+                                    title: 'hôtesse',
                                     // description:
-                                    //   "This is a description. This is a description.",
+                                    //   'This is a description. This is a description.',
                                   },
                                   {
-                                    title: "matériel",
+                                    title: 'matériel',
                                     // description:
-                                    //   "This is a description. This is a description.",
+                                    //   'This is a description. This is a description.',
                                   },
                                 ]}
                               />
@@ -617,7 +623,7 @@ export const columns: ColumnDef<Reservation>[] = [
                             </div>
 
                             <div className="mt-4">
-                              Voir le bateau{" "}
+                              Voir le bateau{' '}
                               <Link className="text-default-700" href="https://heroui.com">
                                 SF Bay Area Meetup in November
                               </Link>
@@ -630,17 +636,17 @@ export const columns: ColumnDef<Reservation>[] = [
                         </h2>
                         <div>
                           <div>
-                            <span className="font-medium">Politique d&apos;annulation :</span>{" "}
+                            <span className="font-medium">Politique d&apos;annulation :</span>{' '}
                             Annulation gratuite jusqu&apos;à 30 jours avant le départ. 50% remboursé
                             entre 29 et 15 jours. Aucun remboursement si moins de 15 jours. Cas de
                             force majeure et météo extrême pris en compte.
                           </div>
                           <div>
-                            Montant de la caution demandée :{" "}
+                            Montant de la caution demandée :{' '}
                             <span className="font-medium">Aucun</span>
                           </div>
                           <div>
-                            Conditions spécifiques :{" "}
+                            Conditions spécifiques :{' '}
                             <span>interdit de fumer, animaux acceptés</span>
                           </div>
                         </div>
@@ -673,7 +679,7 @@ export const columns: ColumnDef<Reservation>[] = [
                         </div>
                         <div>
                           <div>
-                            Contact du support client :{" "}
+                            Contact du support client :{' '}
                             <span className="font-medium">+33 7 85 89 04 45</span>
                           </div>
                         </div>
@@ -685,9 +691,9 @@ export const columns: ColumnDef<Reservation>[] = [
                       Télécharger le contrat de location
                     </Link>
                     {/* <Link
-                      className="text-default-400"
-                      href="mailto:hello@heroui.com"
-                      size="sm"
+                      className='text-default-400'
+                      href='mailto:hello@heroui.com'
+                      size='sm'
                     >
                       Report event
                     </Link> */}
@@ -727,7 +733,7 @@ export default function ProfilPage() {
   });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("opaque");
+  const [backdrop, setBackdrop] = React.useState('opaque');
 
   const handleBackdropChange = (backdrop: string) => {
     setBackdrop(backdrop);
@@ -741,11 +747,11 @@ export default function ProfilPage() {
           className="absolute top-0"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751093328/9551504_v1w9w0.jpg)",
-            height: "56vh",
-            backgroundSize: "100%",
-            backgroundRepeat: "no-repeat",
-            width: "100%",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751093328/9551504_v1w9w0.jpg)',
+            height: '56vh',
+            backgroundSize: '100%',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
           }}
         >
           <div className="mx-auto max-w-6xl mt-48 text-white font-bold text-5xl">
@@ -758,7 +764,7 @@ export default function ProfilPage() {
           className="pb-10 pt-[21rem]"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751362027/4847236_rplbu1.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751362027/4847236_rplbu1.jpg)',
           }}
         >
           <div>
@@ -768,9 +774,9 @@ export default function ProfilPage() {
                   <div>
                     <User
                       avatarProps={{
-                        src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                        src: 'https://i.pravatar.cc/150?u=a04258114e29026702d',
                       }}
-                      // description="Product Designer"
+                      // description='Product Designer'
                       className="avatarProfil"
                       name="Jane Doe"
                     />
@@ -854,15 +860,15 @@ export default function ProfilPage() {
 
                           <div className="flex flex-col space-y-2">
                             <span>
-                              <span className="text-gray-500">Nom complet :</span>{" "}
+                              <span className="text-gray-500">Nom complet :</span>{' '}
                               <span>Jane Doe</span>
                             </span>
                             <span>
-                              <span className="text-gray-500">Email :</span>{" "}
+                              <span className="text-gray-500">Email :</span>{' '}
                               <span>janedoe@gmail.com</span>
                             </span>
                             <span>
-                              <span className="text-gray-500">Mot de passe :</span>{" "}
+                              <span className="text-gray-500">Mot de passe :</span>{' '}
                               <span>*************</span>
                             </span>
                             <span>
@@ -1136,10 +1142,10 @@ export default function ProfilPage() {
                                 className="max-w-sm"
                                 placeholder="Filter emails..."
                                 value={
-                                  (table.getColumn("destination")?.getFilterValue() as string) ?? ""
+                                  (table.getColumn('destination')?.getFilterValue() as string) ?? ''
                                 }
                                 onChange={(event) =>
-                                  table.getColumn("destination")?.setFilterValue(event.target.value)
+                                  table.getColumn('destination')?.setFilterValue(event.target.value)
                                 }
                               />
                               <DropdownMenu>
@@ -1194,7 +1200,7 @@ export default function ProfilPage() {
                                     table.getRowModel().rows.map((row) => (
                                       <TableRow
                                         key={row.id}
-                                        data-state={row.getIsSelected() && "selected"}
+                                        data-state={row.getIsSelected() && 'selected'}
                                       >
                                         {row.getVisibleCells().map((cell) => (
                                           <TableCell key={cell.id}>
@@ -1221,7 +1227,7 @@ export default function ProfilPage() {
                             </div>
                             <div className="flex items-center justify-end space-x-2 py-4">
                               <div className="text-muted-foreground flex-1 text-sm">
-                                {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                                {table.getFilteredSelectedRowModel().rows.length} of{' '}
                                 {table.getFilteredRowModel().rows.length} row(s) selected.
                               </div>
                               <div className="space-x-2">
@@ -1270,7 +1276,7 @@ export default function ProfilPage() {
                         <p className="pt-24">
                           En désactivant votre compte, vous ne pourrez plus accéder à votre profil
                           ni effectuer de réservations. Vous pourrez réactiver votre compte
-                          ultérieurement en vous reconnectant.{" "}
+                          ultérieurement en vous reconnectant.{' '}
                         </p>
                         <RippleButton className="mt-4 bg-gray-700 text-white font-medium">
                           Désactiver mon compte

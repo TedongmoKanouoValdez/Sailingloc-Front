@@ -8,7 +8,7 @@ import { Checkbox } from '@heroui/checkbox';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { Spinner } from '@heroui/spinner';
 import { Divider } from 'antd';
 import { Image } from '@heroui/image';
@@ -107,11 +107,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: 'flexible',
-    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
+    label: 'Flexible : remboursement complet jusqu&apos;à 24h avant le départ',
   },
   {
     id: 'moderate',
-    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
+    label: 'Modérée : remboursement partiel jusqu&apos;à 7 jours avant',
   },
   {
     id: 'strict',
@@ -185,8 +185,10 @@ export default function EditBateauForm() {
         const selectedFromAPI = safeParse(data.bateau.details?.optionsPayantes) || [];
 
         const selectedLabels = selectedFromAPI
-          .filter((option) => TAGS.some((tag) => tag.label === option.label))
-          .map((option) => ({ id: option.id, label: option.label }));
+          .filter((option: { id: string; label: string }) =>
+            TAGS.some((tag) => tag.label === option.label)
+          )
+          .map((option: { id: string; label: string }) => ({ id: option.id, label: option.label }));
 
         setSelectedTags(selectedLabels);
 
@@ -243,7 +245,7 @@ export default function EditBateauForm() {
 
         // 1. Récupérer uniquement les images (type COVER ou GALLERIE)
         const images = allMedias.filter(
-          (media) => media.type === 'COVER' || media.type === 'GALLERIE'
+          (media: { type: string }) => media.type === 'COVER' || media.type === 'GALLERIE'
         );
 
         // 2. Séparer les 4 premières images (affichage principal)
@@ -253,7 +255,7 @@ export default function EditBateauForm() {
         const otherImages = images.slice(4);
 
         // 4. Séparer les PDFs (type ATTESTATION_ASSURANCE, CERTIFICAT_NAVIGATION, etc.)
-        const pdfs = allMedias.filter((media) => media.url.endsWith('.pdf'));
+        const pdfs = allMedias.filter((media: { url: string }) => media.url.endsWith('.pdf'));
 
         // Tu peux maintenant stocker ça dans des états séparés si tu veux :
         setCoverImages(firstFourImages);
@@ -465,7 +467,7 @@ export default function EditBateauForm() {
       console.error('Erreur lors de la sauvegarde :', err);
       addToast({
         title: 'Succès',
-        description: "Erreur lors de l'enregistrement",
+        description: 'Erreur lors de l&apos;enregistrement',
         color: 'danger',
       });
     } finally {
@@ -1074,7 +1076,7 @@ export default function EditBateauForm() {
 
                   <div className="ml-4 mt-4">
                     <button
-                      // type="submit"
+                      // type='submit'
                       className="bg-black text-white px-4 py-2 rounded shadow flex items-center justify-center gap-2"
                       disabled={isSubmitting}
                       onClick={handleSave}
@@ -1273,15 +1275,15 @@ export default function EditBateauForm() {
                         {/* {isSubmitting ? (
                         <>
                           <Spinner
-                            classNames={{ label: "text-white" }}
-                            color="default"
-                            size="sm"
-                            variant="simple"
+                            classNames={{ label: 'text-white' }}
+                            color='default'
+                            size='sm'
+                            variant='simple'
                           />
                           <span>Soumission...</span>
                         </>
                       ) : ( */}
-                        "Soumettre"
+                        'Soumettre'
                         {/* )} */}
                       </button>
                     </div>

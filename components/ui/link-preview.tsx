@@ -4,6 +4,7 @@ import { encode } from 'qss';
 import React from 'react';
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react';
 import { Image } from '@heroui/image';
+
 import { cn } from '@/lib/utils';
 
 type LinkPreviewProps = {
@@ -72,12 +73,7 @@ export const LinkPreview = ({
     <>
       {isMounted ? (
         <div className="hidden">
-          <Image
-            alt="hidden images"
-            height={height}
-            src={src}
-            width={width}
-          />
+          <Image alt="hidden images" height={height} src={src} width={width} />
         </div>
       ) : null}
 
@@ -90,9 +86,9 @@ export const LinkPreview = ({
       >
         <HoverCardPrimitive.Trigger asChild>
           <span
+            className={cn('cursor-pointer text-black dark:text-white', className)}
             role="button"
             tabIndex={0}
-            className={cn('cursor-pointer text-black dark:text-white', className)}
             onClick={() => window.open(url, '_blank', 'noopener')}
             onMouseMove={handleMouseMove}
           >

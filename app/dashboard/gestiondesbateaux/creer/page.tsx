@@ -215,13 +215,13 @@ export default function GestionDesBateauxCreerPage() {
       tarifbateau: (document.getElementById('tarif-bateau') as HTMLInputElement).value,
 
       // contact: {
-      //   nom: (document.getElementById("nom-proprietaire") as HTMLInputElement)
+      //   nom: (document.getElementById('nom-proprietaire') as HTMLInputElement)
       //     .value,
       //   telephone: (
-      //     document.getElementById("telephone-proprietaire") as HTMLInputElement
+      //     document.getElementById('telephone-proprietaire') as HTMLInputElement
       //   ).value,
       //   email: (
-      //     document.getElementById("email-proprietaire") as HTMLInputElement
+      //     document.getElementById('email-proprietaire') as HTMLInputElement
       //   ).value,
       // },
 
@@ -501,8 +501,8 @@ export default function GestionDesBateauxCreerPage() {
                                     <div className="flex items-center justify-between">
                                       <span className="font-medium">{label}</span>
                                       <button
-                                        role="button"
                                         className="text-red-500 text-sm"
+                                        role="button"
                                         onClick={() => handleRemove(id)}
                                       >
                                         Supprimer
@@ -611,37 +611,37 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
 
                     {/* <div>
-                      <div className="text-lg font-bold mb-4">
+                      <div className='text-lg font-bold mb-4'>
                         Contact propriétaire
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="grid gap-3 mb-4">
+                      <div className='grid grid-cols-2 gap-2'>
+                        <div className='grid gap-3 mb-4'>
                           <label>Nom du propriétaire</label>
                           <Input
-                            id="nom-proprietaire"
-                            type="text"
-                            placeholder="Ex : Jean Dupont"
+                            id='nom-proprietaire'
+                            type='text'
+                            placeholder='Ex : Jean Dupont'
                             required
                           />
                         </div>
 
-                        <div className="grid gap-3 mb-4">
+                        <div className='grid gap-3 mb-4'>
                           <label>Téléphone</label>
                           <Input
-                            id="telephone-proprietaire"
-                            type="tel"
-                            placeholder="+33 6 12 34 56 78"
+                            id='telephone-proprietaire'
+                            type='tel'
+                            placeholder='+33 6 12 34 56 78'
                             required
                           />
                         </div>
                       </div>
                       <div>
-                        <div className="grid gap-3 mb-4">
+                        <div className='grid gap-3 mb-4'>
                           <label>Email</label>
                           <Input
-                            id="email-proprietaire"
-                            type="email"
-                            placeholder="exemple@domaine.com"
+                            id='email-proprietaire'
+                            type='email'
+                            placeholder='exemple@domaine.com'
                             required
                           />
                         </div>

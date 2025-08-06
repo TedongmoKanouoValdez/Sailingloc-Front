@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { motion, useAnimation, useInView } from "motion/react";
-import { useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from 'motion/react';
+import { useEffect, useRef } from 'react';
 
 interface BoxRevealProps {
   children: JSX.Element;
-  width?: "fit-content" | "100%";
+  width?: 'fit-content' | '100%';
   boxColor?: string;
   duration?: number;
 }
 
 export const BoxReveal = ({
   children,
-  width = "fit-content",
-  boxColor = "#5046e6",
+  width = 'fit-content',
+  boxColor = '#5046e6',
   duration,
 }: BoxRevealProps) => {
   const mainControls = useAnimation();
@@ -24,16 +24,16 @@ export const BoxReveal = ({
 
   useEffect(() => {
     if (isInView) {
-      slideControls.start("visible");
-      mainControls.start("visible");
+      slideControls.start('visible');
+      mainControls.start('visible');
     } else {
-      slideControls.start("hidden");
-      mainControls.start("hidden");
+      slideControls.start('hidden');
+      mainControls.start('hidden');
     }
   }, [isInView, mainControls, slideControls]);
 
   return (
-    <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
+    <div ref={ref} style={{ position: 'relative', width, overflow: 'hidden' }}>
       <motion.div
         animate={mainControls}
         initial="hidden"
@@ -50,7 +50,7 @@ export const BoxReveal = ({
         animate={slideControls}
         initial="hidden"
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 4,
           bottom: 4,
           left: 0,
@@ -58,10 +58,10 @@ export const BoxReveal = ({
           zIndex: 20,
           background: boxColor,
         }}
-        transition={{ duration: duration ? duration : 0.5, ease: "easeIn" }}
+        transition={{ duration: duration ? duration : 0.5, ease: 'easeIn' }}
         variants={{
           hidden: { left: 0 },
-          visible: { left: "100%" },
+          visible: { left: '100%' },
         }}
       />
     </div>

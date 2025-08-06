@@ -30,8 +30,6 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       {cards.map((card, i) => (
         <div key={i} className={cn(card.className, '')}>
           <motion.div
-            role="button"
-            tabIndex={0}
             className={cn(
               card.className,
               'relative overflow-hidden',
@@ -42,6 +40,8 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
                   : 'bg-white rounded-xl h-full w-full'
             )}
             layoutId={`card-${card.id}`}
+            role="button"
+            tabIndex={0}
             onClick={() => handleClick(card)}
           >
             {selected?.id === card.id && <SelectedCard selected={selected} />}
@@ -51,12 +51,12 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       ))}
       <motion.div
         animate={{ opacity: selected?.id ? 0.3 : 0 }}
-        role="button"
-        tabIndex={0}
         className={cn(
           'absolute h-full w-full left-0 top-0 bg-black opacity-0 z-10',
           selected?.id ? 'pointer-events-auto' : 'pointer-events-none'
         )}
+        role="button"
+        tabIndex={0}
         onClick={handleOutsideClick}
       />
     </div>
@@ -88,7 +88,7 @@ const SelectedCard = ({ selected }: { selected: Card | null }) => {
         animate={{
           opacity: 0.6,
         }}
-        className="absolute inset-0 h-full w-full bg-black opacity-60 z-10"
+        className='absolute inset-0 h-full w-full bg-black opacity-60 z-10'
       /> */}
       <motion.div
         animate={{

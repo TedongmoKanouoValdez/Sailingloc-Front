@@ -1,9 +1,3 @@
 export default function BateauxfinityLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <section>
-      {/* <ToastProvider placement="top-right" maxVisibleToasts={8}> */}
-      {children}
-      {/* </ToastProvider> */}
-    </section>
-  );
+  return <section>{children}</section>;
 }

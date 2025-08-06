@@ -13,6 +13,7 @@ import {
   VisibilityState,
 } from '@tanstack/react-table';
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { Image } from '@heroui/image';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -33,7 +34,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Image } from '@heroui/image';
 
 const data: Payment[] = [
   {
@@ -114,11 +114,11 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
           <Image
-            width={100}
-            height={100}
             alt="BateauxB"
             className="w-full h-full object-cover"
+            height={100}
             src={row.original.photo}
+            width={100}
           />
         ) : (
           <span className="text-xl">🛥️</span>

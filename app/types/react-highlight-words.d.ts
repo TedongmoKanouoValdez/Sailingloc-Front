@@ -1,5 +1,5 @@
-declare module "react-highlight-words" {
-  import * as React from "react";
+declare module 'react-highlight-words' {
+  import * as React from 'react';
   const Highlighter: React.ComponentType<{
     highlightClassName?: string;
     searchWords: string[];

@@ -1,16 +1,16 @@
-import { Accordion, AccordionItem } from "@heroui/accordion";
-import { FaTicketAlt } from "react-icons/fa";
-import { IoCloseCircle } from "react-icons/io5";
-import { GiPayMoney } from "react-icons/gi";
-import { IoInformationCircle } from "react-icons/io5";
+import { Accordion, AccordionItem } from '@heroui/accordion';
+import { FaTicketAlt } from 'react-icons/fa';
+import { IoCloseCircle } from 'react-icons/io5';
+import { GiPayMoney } from 'react-icons/gi';
+import { IoInformationCircle } from 'react-icons/io5';
 
 export const FaqUser = () => {
   const itemClasses = {
-    base: "py-0 w-full",
-    title: "font-normal text-medium",
-    trigger: "px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center",
-    indicator: "text-medium",
-    content: "text-small px-2",
+    base: 'py-0 w-full',
+    title: 'font-normal text-medium',
+    trigger: 'px-2 py-0 data-[hover=true]:bg-default-100 rounded-lg h-14 flex items-center',
+    indicator: 'text-medium',
+    content: 'text-small px-2',
   };
 
   return (
@@ -26,8 +26,8 @@ export const FaqUser = () => {
           aria-label="Comment réserver un bateau ?"
           startContent={<FaTicketAlt className="text-primary" />}
           //   subtitle={
-          //     <p className="flex">
-          //       2 issues to <span className="text-primary ml-1">fix now</span>
+          //     <p className='flex'>
+          //       2 issues to <span className='text-primary ml-1'>fix now</span>
           //     </p>
           //   }
           title="Comment réserver un bateau ?"
@@ -38,7 +38,7 @@ export const FaqUser = () => {
           key="2"
           aria-label="Puis-je annuler ma réservation ?"
           startContent={<IoCloseCircle />}
-          //   subtitle="3 apps have read permissions"
+          //   subtitle='3 apps have read permissions'
           title="Puis-je annuler ma réservation ?"
         >
           Oui, selon notre politique d&apos;annulation. Voir détails.
@@ -46,9 +46,9 @@ export const FaqUser = () => {
         <AccordionItem
           key="3"
           aria-label="Quels moyens de paiement sont acceptés ?"
-          //   classNames={{ subtitle: "text-warning" }}
+          //   classNames={{ subtitle: 'text-warning' }}
           startContent={<GiPayMoney />}
-          //   subtitle="Complete your profile"
+          //   subtitle='Complete your profile'
           title="Quels moyens de paiement sont acceptés ?"
         >
           Carte bancaire, PayPal, virement bancaire.
@@ -56,9 +56,9 @@ export const FaqUser = () => {
         <AccordionItem
           key="4"
           aria-label="Que faire en cas de problème à bord ?"
-          //   classNames={{ subtitle: "text-danger" }}
+          //   classNames={{ subtitle: 'text-danger' }}
           startContent={<IoInformationCircle />}
-          //   subtitle="Please, update now"
+          //   subtitle='Please, update now'
           title={<p className="flex gap-1 items-center">Que faire en cas de problème à bord ?</p>}
         >
           Contactez immédiatement notre support au numéro indiqué.

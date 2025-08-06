@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,11 +11,12 @@ import {
   SortingState,
   useReactTable,
   VisibilityState,
-} from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+} from '@tanstack/react-table';
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { Image } from '@heroui/image';
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -23,8 +24,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
 import {
   Table,
   TableBody,
@@ -32,49 +33,48 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import {Image} from "@heroui/image";
+} from '@/components/ui/table';
 
 const data: Payment[] = [
   {
-    id: "m5gr84i9",
+    id: 'm5gr84i9',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    type: "Voilier",
-    zone: "Méditerranée",
-    note: "Pour naviguer en famille",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    type: 'Voilier',
+    zone: 'Méditerranée',
+    note: 'Pour naviguer en famille',
   },
   {
-    id: "3u1reuv4",
+    id: '3u1reuv4',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    type: "Catamaran",
-    zone: "Bretagne",
-    note: "Idéal pour week-ends",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    type: 'Catamaran',
+    zone: 'Bretagne',
+    note: 'Idéal pour week-ends',
   },
   {
-    id: "derv1ws0",
+    id: 'derv1ws0',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    type: "Yacht",
-    zone: "Îles grecques",
-    note: "Luxe et confort",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    type: 'Yacht',
+    zone: 'Îles grecques',
+    note: 'Luxe et confort',
   },
   {
-    id: "5kma53ae",
+    id: '5kma53ae',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    type: "Bateau à moteur",
-    zone: "Côte d&apos;Azur",
-    note: "Rapide et maniable",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    type: 'Bateau à moteur',
+    zone: 'Côte d&apos;Azur',
+    note: 'Rapide et maniable',
   },
   {
-    id: "bhqecj4p",
+    id: 'bhqecj4p',
     photo:
-      "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
-    type: "Péniche",
-    zone: "Canaux de France",
-    note: "Calme et détente",
+      'https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg',
+    type: 'Péniche',
+    zone: 'Canaux de France',
+    note: 'Calme et détente',
   },
 ];
 
@@ -87,12 +87,12 @@ export type Payment = {
 };
 export const columns: ColumnDef<Payment>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         aria-label="Select all"
         checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
       />
@@ -108,12 +108,18 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "photo",
-    header: "🛥️",
+    accessorKey: 'photo',
+    header: '🛥️',
     cell: ({ row }) => (
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
-          <Image width={100} height={100} alt="Bateaux" className="w-full h-full object-cover" src={row.original.photo} />
+          <Image
+            alt="Bateaux"
+            className="w-full h-full object-cover"
+            height={100}
+            src={row.original.photo}
+            width={100}
+          />
         ) : (
           <span className="text-xl">🛥️</span>
         )}
@@ -123,34 +129,34 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "type",
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Type
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("type")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue('type')}</div>,
   },
   {
-    accessorKey: "zone",
-    header: "Zone",
-    cell: ({ row }) => <div className="text-sm text-muted-foreground">{row.getValue("zone")}</div>,
+    accessorKey: 'zone',
+    header: 'Zone',
+    cell: ({ row }) => <div className="text-sm text-muted-foreground">{row.getValue('zone')}</div>,
   },
   {
-    accessorKey: "note",
-    header: "Note",
+    accessorKey: 'note',
+    header: 'Note',
     cell: ({ row }) => (
-      <div className="text-sm italic text-muted-foreground">{row.getValue("note")}</div>
+      <div className="text-sm italic text-muted-foreground">{row.getValue('note')}</div>
     ),
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const payment = row.original;
@@ -204,8 +210,8 @@ export const BateauPrefere = () => {
         <Input
           className="max-w-sm"
           placeholder="Filter type..."
-          value={(table.getColumn("type")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("type")?.setFilterValue(event.target.value)}
+          value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -252,7 +258,7 @@ export const BateauPrefere = () => {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -272,7 +278,7 @@ export const BateauPrefere = () => {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">

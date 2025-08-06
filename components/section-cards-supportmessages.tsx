@@ -1,9 +1,9 @@
-import { IoTicketSharp } from "react-icons/io5";
-import { BiSolidMessageRoundedDetail } from "react-icons/bi";
-import { Link } from "@heroui/link";
+import { IoTicketSharp } from 'react-icons/io5';
+import { BiSolidMessageRoundedDetail } from 'react-icons/bi';
+import { Link } from '@heroui/link';
 
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export function SectionCards() {
   return (
@@ -23,7 +23,7 @@ export function SectionCards() {
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Suivi des demandes d"assistance
+              Suivi des demandes d'assistance
             </div>
             <div className="text-muted-foreground">
               Consultez l&apos;état des tickets de support envoyés par les utilisateurs. Suivez
@@ -51,9 +51,9 @@ export function SectionCards() {
               Centre de messagerie utilisateur
             </div>
             <div className="text-muted-foreground">
-              Accédez à tous les messages envoyés par les utilisateurs, qu&apos;il s&apos;agisse de demandes
-              de contact, de retours ou de communications internes. Gardez une vue centralisée pour
-              ne manquer aucune interaction importante.
+              Accédez à tous les messages envoyés par les utilisateurs, qu&apos;il s&apos;agisse de
+              demandes de contact, de retours ou de communications internes. Gardez une vue
+              centralisée pour ne manquer aucune interaction importante.
             </div>
           </CardFooter>
         </Card>

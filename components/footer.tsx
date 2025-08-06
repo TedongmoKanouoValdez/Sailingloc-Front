@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { LucideIcon } from "lucide-react";
-import { SiSailsdotjs } from "react-icons/si";
+import * as React from 'react';
+import { LucideIcon } from 'lucide-react';
+import { SiSailsdotjs } from 'react-icons/si';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface SocialLink {
   name: string;
@@ -36,7 +36,7 @@ interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
   ({ className, brand, socialLinks, columns, copyright, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("pt-20", className)} {...props}>
+      <div ref={ref} className={cn('pt-20', className)} {...props}>
         <div className="max-w-screen-xl mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-2">
@@ -44,7 +44,7 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
               <a className="text-xl font-semibold" href="#">
                 {brand.name}
               </a>
-              {/* <p className="text-sm text-foreground/60">{brand.description}</p> */}
+              {/* <p className='text-sm text-foreground/60'>{brand.description}</p> */}
             </div>
 
             <div className="grid grid-cols-2 mt-16 md:grid-cols-3 lg:col-span-8 lg:justify-items-end lg:mt-0">
@@ -56,7 +56,7 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                       <li key={name}>
                         <a
                           className="flex gap-3 items-center text-sm transition-all text-foreground/60 hover:text-foreground/90 group"
-                          href={href || "#"}
+                          href={href || '#'}
                         >
                           <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />
                           {name}
@@ -83,7 +83,7 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                       {/* {link.name} */}
                       <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />
                     </a>
-                    {/* {index < socialLinks.length - 1 && " • "} */}
+                    {/* {index < socialLinks.length - 1 && ' • '} */}
                   </React.Fragment>
                 );
               })}
@@ -101,4 +101,4 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
   }
 );
 
-Footer.displayName = "Footer";
+Footer.displayName = 'Footer';

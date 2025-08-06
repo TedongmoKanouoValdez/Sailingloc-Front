@@ -1,103 +1,120 @@
-import { Input } from "@heroui/input";
-import { DatePicker } from "@heroui/date-picker";
-import { NumberInput } from "@heroui/number-input";
-import Image from 'next/image'
-import { BoxReveal } from "@/components/magicui/box-reveal";
-import { RippleButton } from "@/components/magicui/ripple-button";
+import { Input } from '@heroui/input';
+import { DatePicker } from '@heroui/date-picker';
+import { NumberInput } from '@heroui/number-input';
+import Image from 'next/image';
+
+import { BoxReveal } from '@/components/magicui/box-reveal';
+import { RippleButton } from '@/components/magicui/ripple-button';
 
 export const animals = [
-  { key: "cat", label: "Cat" },
-  { key: "dog", label: "Dog" },
-  { key: "elephant", label: "Elephant" },
-  { key: "lion", label: "Lion" },
-  { key: "tiger", label: "Tiger" },
-  { key: "giraffe", label: "Giraffe" },
-  { key: "dolphin", label: "Dolphin" },
-  { key: "penguin", label: "Penguin" },
-  { key: "zebra", label: "Zebra" },
-  { key: "shark", label: "Shark" },
-  { key: "whale", label: "Whale" },
-  { key: "otter", label: "Otter" },
-  { key: "crocodile", label: "Crocodile" },
+  { key: 'cat', label: 'Cat' },
+  { key: 'dog', label: 'Dog' },
+  { key: 'elephant', label: 'Elephant' },
+  { key: 'lion', label: 'Lion' },
+  { key: 'tiger', label: 'Tiger' },
+  { key: 'giraffe', label: 'Giraffe' },
+  { key: 'dolphin', label: 'Dolphin' },
+  { key: 'penguin', label: 'Penguin' },
+  { key: 'zebra', label: 'Zebra' },
+  { key: 'shark', label: 'Shark' },
+  { key: 'whale', label: 'Whale' },
+  { key: 'otter', label: 'Otter' },
+  { key: 'crocodile', label: 'Crocodile' },
 ];
 export const LogoBoar = () => {
   let boar =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
 
-  return <Image width={100} height={100} alt="iconeBoar" className="allogo" src={boar} />;
+  return <Image alt="iconeBoar" className="allogo" height={100} src={boar} width={100} />;
 };
 
 export const LogoCatamarans = () => {
   let catamarans =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
 
-  return <Image width={100} height={100} alt="iconeCatamarans" className="allogo" src={catamarans} />;
+  return (
+    <Image alt="iconeCatamarans" className="allogo" height={100} src={catamarans} width={100} />
+  );
 };
 
 export const LogoCap = () => {
-  let cap = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png";
+  let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
 
-  return <Image width={100} height={100} alt="iconeCap" className="allogo" src={cap} />;
+  return <Image alt="iconeCap" className="allogo" height={100} src={cap} width={100} />;
 };
 
 export const LogoMap = () => {
-  let map = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png";
+  let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
 
-  return <Image width={100} height={100} alt="iconeMap" className="allogo" src={map} />;
+  return <Image alt="iconeMap" className="allogo" height={100} src={map} width={100} />;
 };
 
 export const LogoZeus = () => {
-  let zeus = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png";
+  let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
 
-  return <Image width={100} height={100} alt="iconeZeus" className="allogo" src={zeus} />;
+  return <Image alt="iconeZeus" className="allogo" height={100} src={zeus} width={100} />;
 };
 
 export const LogoSailingTime = () => {
   let sailingtime =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
 
-  return <Image width={100} height={100} alt="iconeSailingTime" className="allogo" src={sailingtime} />;
+  return (
+    <Image alt="iconeSailingTime" className="allogo" height={100} src={sailingtime} width={100} />
+  );
 };
 
 export const LogoBateauSansPermis = () => {
   let bateauSansPermis =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686483/small_zcmu0m.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686483/small_zcmu0m.png';
 
-  return <Image width={100} height={100} alt="iconebateauSansPermis" className="allogo" src={bateauSansPermis} />;
+  return (
+    <Image
+      alt="iconebateauSansPermis"
+      className="allogo"
+      height={100}
+      src={bateauSansPermis}
+      width={100}
+    />
+  );
 };
 
 export const LogoBateauSale = () => {
-  let bateauSale = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png";
+  let bateauSale = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png';
 
-  return <Image width={100} height={100} alt="iconebateauSale" className="allogo" src={bateauSale} />;
+  return (
+    <Image alt="iconebateauSale" className="allogo" height={100} src={bateauSale} width={100} />
+  );
 };
 
 export const LogoIdealFamille = () => {
   let idealFamille =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/family_fb9ymr.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/family_fb9ymr.png';
 
-  return <Image width={100} height={100} alt="iconeidealFamille" className="allogo" src={idealFamille} />;
+  return (
+    <Image alt="iconeidealFamille" className="allogo" height={100} src={idealFamille} width={100} />
+  );
 };
 
 export const LogoSoleil = () => {
-  let soleil = "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png";
+  let soleil = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png';
 
-  return <Image width={100} height={100} alt="iconesoleil" className="allogo" src={soleil} />;
+  return <Image alt="iconesoleil" className="allogo" height={100} src={soleil} width={100} />;
 };
 export const LogoSeminaire = () => {
   let seminaire =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png';
 
-  return <Image width={100} height={100} alt="iconeseminaire" className="allogo" src={seminaire} />;
+  return <Image alt="iconeseminaire" className="allogo" height={100} src={seminaire} width={100} />;
 };
 export const LogoPMR = () => {
   let PMR =
-    "https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png";
+    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png';
 
-  return <Image width={100} height={100} alt="iconePMR" className="allogo" src={PMR} />;
+  return <Image alt="iconePMR" className="allogo" height={100} src={PMR} width={100} />;
 };
 export default function CategoriesPage() {
-  const words = ["aventure", "voyage", "périple", "épopée", "exploration"];
+  const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
 
   return (
     <>
@@ -107,22 +124,22 @@ export default function CategoriesPage() {
             className="contentvideohome"
             style={{
               backgroundImage:
-                "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)",
-              width: "100%",
-              height: "100vh",
-              objectFit: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "97rem",
+                'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)',
+              width: '100%',
+              height: '100vh',
+              objectFit: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '97rem',
             }}
           />
           <div className="contenttext">
             <div className="flex flex-row space-x-2">
               <div className="Textheader text-white">
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <h1 className="text-6xl font-bold">Nos Categories de navigation</h1>
                 </BoxReveal>
 
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <p className="text-lg mt-4">
                     Choisissez la categorie de bateau ou de service <br /> qui vous convient le
                     mieux pour vivre <br /> une experience en mer inoubliable.
@@ -146,7 +163,7 @@ export default function CategoriesPage() {
                   <Input color="secondary" label="Type de bateau" type="text" variant="bordered" />
                 </div>
                 <div className="inputformhome">
-                  <DatePicker color="secondary" label={"Dates de navigation"} variant="bordered" />
+                  <DatePicker color="secondary" label={'Dates de navigation'} variant="bordered" />
                 </div>
                 <div className="inputformhome">
                   <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
@@ -167,7 +184,7 @@ export default function CategoriesPage() {
           className="py-24"
           style={{
             backgroundImage:
-              "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)",
+              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           }}
         >
           <div className="flex flex-col justify-center items-center pb-20">
@@ -200,7 +217,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -228,7 +245,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -255,7 +272,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -283,7 +300,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -311,7 +328,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -336,7 +353,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -361,7 +378,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324800/bateau_sans_permis_etgemz.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324800/bateau_sans_permis_etgemz.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -386,7 +403,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324556/offre_de_derniere_minute_jdzwk1.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324556/offre_de_derniere_minute_jdzwk1.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -411,7 +428,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324672/Famille_zgx8qn.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324672/Famille_zgx8qn.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -436,7 +453,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324971/soleil_xb95vo.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751324971/soleil_xb95vo.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -461,7 +478,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325283/team_bhthzg.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325283/team_bhthzg.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -486,7 +503,7 @@ export default function CategoriesPage() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)",
+                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751325213/handicap%C3%A9s_ffn7ax.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">

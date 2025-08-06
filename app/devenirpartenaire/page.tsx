@@ -1,18 +1,18 @@
-"use client";
-import React, { useState } from "react";
-import { GrSecure } from "react-icons/gr";
-import { IoTimeSharp } from "react-icons/io5";
-import { FaGlobe } from "react-icons/fa";
-import { Steps } from "antd";
-import { SlNote } from "react-icons/sl";
-import { IoMailUnread } from "react-icons/io5";
-import { TfiStatsUp } from "react-icons/tfi";
-import { Checkbox } from "@heroui/checkbox";
+'use client';
+import React, { useState } from 'react';
+import { GrSecure } from 'react-icons/gr';
+import { IoTimeSharp } from 'react-icons/io5';
+import { FaGlobe } from 'react-icons/fa';
+import { Steps } from 'antd';
+import { SlNote } from 'react-icons/sl';
+import { IoMailUnread } from 'react-icons/io5';
+import { TfiStatsUp } from 'react-icons/tfi';
+import { Checkbox } from '@heroui/checkbox';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -21,7 +21,7 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 export default function DevenirPartenairePage() {
   const [isAccepted, setIsAccepted] = useState(false);
@@ -34,11 +34,11 @@ export default function DevenirPartenairePage() {
             className="absolute top-0 bannerpagedevenirpartenaire"
             style={{
               backgroundImage:
-                "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751644473/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_sxogkd.jpg)",
-              height: "56vh",
-              backgroundSize: "100%",
-              backgroundRepeat: "no-repeat",
-              width: "100%",
+                'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751644473/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_sxogkd.jpg)',
+              height: '56vh',
+              backgroundSize: '100%',
+              backgroundRepeat: 'no-repeat',
+              width: '100%',
             }}
           >
             <div className="relative mx-auto max-w-6xl mt-48 text-white font-bold z-10">
@@ -120,21 +120,21 @@ export default function DevenirPartenairePage() {
             <Steps
               items={[
                 {
-                  title: "Inscrivez votre bateau",
-                  description: "Remplissez le formulaire en quelques minutes.",
-                  status: "finish",
+                  title: 'Inscrivez votre bateau',
+                  description: 'Remplissez le formulaire en quelques minutes.',
+                  status: 'finish',
                   icon: <SlNote />,
                 },
                 {
-                  title: "Recevez vos réservations",
-                  description: "Les clients réservent directement sur la plateforme.",
-                  status: "finish",
+                  title: 'Recevez vos réservations',
+                  description: 'Les clients réservent directement sur la plateforme.',
+                  status: 'finish',
                   icon: <IoMailUnread />,
                 },
                 {
-                  title: "Naviguez vers le succès",
-                  description: "Générez des revenus pendant que votre bateau est au port.",
-                  status: "finish",
+                  title: 'Naviguez vers le succès',
+                  description: 'Générez des revenus pendant que votre bateau est au port.',
+                  status: 'finish',
                   icon: <TfiStatsUp />,
                 },
               ]}
@@ -265,7 +265,8 @@ export default function DevenirPartenairePage() {
                     </div>
                     <div>
                       <Checkbox isSelected={isAccepted} onValueChange={setIsAccepted}>
-                        J&apos;accepte la politique de confidentialité et les conditions d&apos;utilisation.
+                        J&apos;accepte la politique de confidentialité et les conditions
+                        d&apos;utilisation.
                       </Checkbox>
                     </div>
                   </div>

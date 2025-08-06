@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+'use client';
+import React, { useState } from 'react';
+import { FaPaperPlane } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 
 export default function CommentsSection() {
   const [rating, setRating] = useState(0);
@@ -30,7 +30,7 @@ export default function CommentsSection() {
               >
                 <svg
                   className={`w-5 h-5 cursor-pointer transition ${
-                    star <= rating ? "fill-orange-400" : "fill-gray-300"
+                    star <= rating ? 'fill-orange-400' : 'fill-gray-300'
                   }`}
                   viewBox="0 0 24 24"
                 >
