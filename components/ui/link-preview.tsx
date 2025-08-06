@@ -3,7 +3,7 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { encode } from 'qss';
 import React from 'react';
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react';
-
+import { Image } from '@heroui/image';
 import { cn } from '@/lib/utils';
 
 type LinkPreviewProps = {
@@ -72,7 +72,14 @@ export const LinkPreview = ({
     <>
       {isMounted ? (
         <div className="hidden">
-          <img alt="hidden images" height={height} src={src} width={width} />
+          <Image
+            width={100}
+            height={100}
+            alt="hidden images"
+            height={height}
+            src={src}
+            width={width}
+          />
         </div>
       ) : null}
 
@@ -126,7 +133,9 @@ export const LinkPreview = ({
                   style={{ fontSize: 0 }}
                   target="_blank"
                 >
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     alt="preview images"
                     className="rounded-lg"
                     height={height}

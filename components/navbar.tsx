@@ -29,6 +29,7 @@ import {
   useDisclosure,
 } from "@heroui/modal";
 import { Checkbox } from "@heroui/checkbox";
+import {Image} from "@heroui/image";
 
 // import { Select, SelectSection, SelectItem } from "@heroui/select";
 import { Select } from "antd";
@@ -37,7 +38,7 @@ import { SearchIcon, Logo } from "@/components/icons";
 import { siteConfig } from "@/config/site";
 
 export const Iconlang = ({ url }: { url: string }) => {
-  return <img alt="iconeSailingTime" className="w-[1.6rem]" src={url} />;
+  return <Image width={1000} height={100} alt="iconeSailingTime" className="w-[1.6rem]" src={url} />;
 };
 
 const handleChange = (value: string) => {
@@ -145,7 +146,7 @@ export const Navbar = () => {
         alert(data.message || "Une erreur est survenue.");
       }
     } catch (err) {
-      alert("Erreur lors de l'inscription.");
+      alert("Erreur lors de l&apos;inscription.");
       console.error(err);
     }
   };
@@ -422,7 +423,7 @@ export const Navbar = () => {
                             label: "text-small",
                           }}
                         >
-                          J'accepte la
+                          J&apos;accepte la
                         </Checkbox>
                         <Link className="text-[#00ced1]" href="/">
                           politique de confidentialité

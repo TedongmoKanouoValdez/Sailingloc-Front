@@ -66,7 +66,7 @@ export const SingleCaracteristiqueBoat = () => {
             <div>
               <IoWater className="w-7 h-7" />
             </div>
-            <div className="text-gray-500">Réservoir d'eau</div>
+            <div className="text-gray-500">Réservoir d&apos;eau</div>
             <div>600 L</div>
           </div>
           <div className="flex flex-col items-center text-center">

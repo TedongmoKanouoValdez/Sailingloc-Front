@@ -105,7 +105,7 @@ export const data: Reservation[] = [
       "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020033/white-yacht-with-mountains_1_mj6jqe.jpg",
     bookingDate: "12 juin 2025",
     sailingDates: "1-7 août 2025",
-    destination: "Côte d'Azur",
+    destination: "Côte d&apos;Azur",
     boatName: "Lagoon 42",
     status: "Confirmée",
   },
@@ -239,7 +239,7 @@ export const columns: ColumnDef<Reservation>[] = [
     cell: ({ row }) => (
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
-          <img alt="Bateau" className="w-full h-full object-cover" src={row.original.photo} />
+          <Image alt="photo" width={100} height={100} className="w-full h-full object-cover" src={row.original.photo} />
         ) : (
           <span className="text-xl">🛥️</span>
         )}

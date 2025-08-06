@@ -226,7 +226,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     accessorKey: "dateinscription",
-    header: () => <div className="w-full">Date d'inscription</div>,
+    header: () => <div className="w-full">Date d&apos;inscription</div>,
     cell: ({ row }) => (
       <form
         onSubmit={(e) => {
@@ -676,7 +676,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Input disabled defaultValue={item.header} id="header" />
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="header">Date d'inscription</Label>
+              <Label htmlFor="header">Date d&apos;inscription</Label>
               <Input disabled defaultValue="18/08/2025" id="header" />
             </div>
             <div className="grid grid-cols-1">

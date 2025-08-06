@@ -101,11 +101,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: "flexible",
-    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
+    label: "Flexible : remboursement complet jusqu&apos;à 24h avant le départ",
   },
   {
     id: "moderate",
-    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
+    label: "Modérée : remboursement partiel jusqu&apos;à 7 jours avant",
   },
   {
     id: "strict",
@@ -297,7 +297,7 @@ export default function GestionDesBateauxCreerPage() {
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
-                          <Input id="nom-bateau" placeholder="Ex : L'Étoile de Mer" />
+                          <Input id="nom-bateau" placeholder="Ex : L&apos;Étoile de Mer" />
                         </div>
                         <div className="grid gap-3">
                           <span>Type de bateau à louer</span>
@@ -354,7 +354,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
+                          <Label htmlFor="tirant-eau">Tirant d&apos;eau (en mètres)</Label>
                           <Input id="tirant-eau" placeholder="Ex : 1.8m" />
                         </div>
                         <div className="grid gap-3">
@@ -454,7 +454,7 @@ export default function GestionDesBateauxCreerPage() {
                       <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="port-attache">Port d'attache (ville, marina)</Label>
+                          <Label htmlFor="port-attache">Port d&apos;attache (ville, marina)</Label>
                           <Input id="port-attache" placeholder="Ex : Marina de Cannes" />
                         </div>
                         <div className="grid gap-3">
@@ -463,7 +463,7 @@ export default function GestionDesBateauxCreerPage() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d'Azur, Méditerranée"
+                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
                           />
                         </div>
                       </div>
@@ -542,7 +542,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
+                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -550,13 +550,13 @@ export default function GestionDesBateauxCreerPage() {
                           <Input id="port-depart" placeholder="Port de Nice" />
                         </div>
                         <div className="grid gap-3">
-                          <Label htmlFor="depot-garantie-2">Port d'arriver (optionnel)</Label>
+                          <Label htmlFor="depot-garantie-2">Port d&apos;arriver (optionnel)</Label>
                           <Input id="port-arriver" placeholder="Port de Nice" />
                         </div>
                       </div>
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <span className="font-medium">Politique d'annulation</span>
+                          <span className="font-medium">Politique d&apos;annulation</span>
                           <Select onValueChange={(value) => setSelectedPolicy(value)}>
                             <SelectTrigger>
                               <SelectValue placeholder="Sélectionner une politique" />
@@ -596,7 +596,7 @@ export default function GestionDesBateauxCreerPage() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>

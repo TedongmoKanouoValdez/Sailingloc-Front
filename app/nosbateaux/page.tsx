@@ -42,7 +42,7 @@ export const Descritpion = ({ texte }: Props) => {
 
 export default function NosBateauxPage() {
   const words = [
-    "Vivez l'expérience de",
+    "Vivez l&apos;expérience de",
     "Imaginez-vous à bord de",
     "Offrez-vous un moment unique avec",
     "Embarquez avec",
@@ -172,7 +172,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -315,7 +315,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -458,7 +458,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -601,7 +601,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -744,7 +744,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -887,7 +887,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -1030,7 +1030,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -1173,7 +1173,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>
@@ -1316,7 +1316,7 @@ export default function NosBateauxPage() {
                     >
                       <Badge.Ribbon
                         className="bg-glacev2"
-                        text="Croisières le long de la Côte d'Azur."
+                        text="Croisières le long de la Côte d&apos;Azur."
                       />
                     </Space>
                   </div>

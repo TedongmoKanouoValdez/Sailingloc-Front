@@ -51,7 +51,7 @@ export function SectionCards() {
               Centre de messagerie utilisateur
             </div>
             <div className="text-muted-foreground">
-              Accédez à tous les messages envoyés par les utilisateurs, qu'il s'agisse de demandes
+              Accédez à tous les messages envoyés par les utilisateurs, qu&apos;il s&apos;agisse de demandes
               de contact, de retours ou de communications internes. Gardez une vue centralisée pour
               ne manquer aucune interaction importante.
             </div>

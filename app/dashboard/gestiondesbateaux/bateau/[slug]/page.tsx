@@ -244,7 +244,7 @@ export default function GestionDesBateauxCreerPage() {
                       <div className="grid gap-3">
                         <span>Port d"attache (ville, marina)</span>
                         <Chip color="warning" variant="dot">
-                          {bateau?.details?.portdefault || "Aucun port d'attache défini"}
+                          {bateau?.details?.portdefault || "Aucun port d&apos;attache défini"}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
@@ -342,7 +342,7 @@ export default function GestionDesBateauxCreerPage() {
                         <div className="w-full flex items-center my-3">
                           <Alert
                             color="warning"
-                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                           />
                         </div>
                       </div>

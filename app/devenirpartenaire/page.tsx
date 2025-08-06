@@ -230,7 +230,7 @@ export default function DevenirPartenairePage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
-                        <Label htmlFor="portdattacheprincipal">Port d'attache principal</Label>
+                        <Label htmlFor="portdattacheprincipal">Port d&apos;attache principal</Label>
                         <Input
                           required
                           id="portdattacheprincipal"
@@ -265,7 +265,7 @@ export default function DevenirPartenairePage() {
                     </div>
                     <div>
                       <Checkbox isSelected={isAccepted} onValueChange={setIsAccepted}>
-                        J'accepte la politique de confidentialité et les conditions d'utilisation.
+                        J&apos;accepte la politique de confidentialité et les conditions d&apos;utilisation.
                       </Checkbox>
                     </div>
                   </div>

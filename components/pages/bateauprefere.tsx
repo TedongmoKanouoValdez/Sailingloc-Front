@@ -33,6 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {Image} from "@heroui/image";
 
 const data: Payment[] = [
   {
@@ -64,7 +65,7 @@ const data: Payment[] = [
     photo:
       "https://res.cloudinary.com/dluqkutu8/image/upload/v1751020067/sailing-ship-sea-sunlight-cloudy-sky-daytime_1_ztf587.jpg",
     type: "Bateau à moteur",
-    zone: "Côte d'Azur",
+    zone: "Côte d&apos;Azur",
     note: "Rapide et maniable",
   },
   {
@@ -112,7 +113,7 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => (
       <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center">
         {row.original.photo ? (
-          <img alt="Bateaux" className="w-full h-full object-cover" src={row.original.photo} />
+          <Image width={100} height={100} alt="Bateaux" className="w-full h-full object-cover" src={row.original.photo} />
         ) : (
           <span className="text-xl">🛥️</span>
         )}

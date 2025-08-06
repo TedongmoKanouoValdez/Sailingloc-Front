@@ -86,7 +86,7 @@ export default function ArticlePage() {
             <div className="mb-4">
               <Chip className="border-none contentTitleBoat" variant="dot">
                 <h1 className="text-4xl">
-                  Full Day Adventure : Entre Île du Frioul et Calanques d'Ensues
+                  Full Day Adventure : Entre Île du Frioul et Calanques d&apos;Ensues
                 </h1>
               </Chip>
             </div>
@@ -130,12 +130,12 @@ export default function ArticlePage() {
                     Description
                   </div>
                   <div className="text-gray-600 mt-2">
-                    Louez notre bateau sans permis à Marseille - Tout le confort d'un grand ! Vous
+                    Louez notre bateau sans permis à Marseille - Tout le confort d&apos;un grand ! Vous
                     rêvez de naviguer en toute liberté sans avoir besoin de permis ? Notre bateau
                     est fait pour vous ! Partez à la découverte des magnifiques calanques de
                     Marseille, explorez des criques secrètes aux eaux turquoise et admirez les
                     splendides côtes méditerranéennes, le tout avec le confort et l&apos;équipement
-                    d'un grand bateau.
+                    d&apos;un grand bateau.
                   </div>
                 </div>
                 <div className="mt-[3rem]">
@@ -183,7 +183,7 @@ export default function ArticlePage() {
                     Informations de navigation
                   </div>
                   <div className="flex flex-col space-y-4 mt-4">
-                    <div className="text-lg text-gray-700">Port de départ et d'arrivée</div>
+                    <div className="text-lg text-gray-700">Port de départ et d&apos;arrivée</div>
                     <div className="flex items-center justify-start w-full">
                       <LinkPreview
                         className="font-bold"
@@ -237,7 +237,7 @@ export default function ArticlePage() {
                     <Timeline
                       items={[
                         {
-                          children: "Côte d'Azur",
+                          children: "Côte d&apos;Azur",
                         },
                         {
                           children: "Corse",
@@ -294,7 +294,7 @@ export default function ArticlePage() {
                             <div className="w-full flex items-center my-3">
                               <Alert
                                 color="warning"
-                                title="En cas d'annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d'annulation."
+                                title="En cas d&apos;annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d&apos;annulation."
                               />
                             </div>
                           </div>
@@ -330,7 +330,7 @@ export default function ArticlePage() {
                               radius="full"
                               onValueChange={setIsAccepted}
                             >
-                              J'accepte les conditions de location et la politique d'annulation.
+                              J&apos;accepte les conditions de location et la politique d&apos;annulation.
                             </Checkbox>
                           </div>
                         </div>

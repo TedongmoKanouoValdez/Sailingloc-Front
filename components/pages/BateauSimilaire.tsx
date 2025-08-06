@@ -58,7 +58,7 @@ export default function BateauSimilaireSection() {
         </div>
         <div>
           <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
-            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
+            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d&apos;Azur." />
           </Space>
         </div>
         <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
@@ -192,7 +192,7 @@ export default function BateauSimilaireSection() {
         </div>
         <div>
           <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
-            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
+            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d&apos;Azur." />
           </Space>
         </div>
         <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
@@ -326,7 +326,7 @@ export default function BateauSimilaireSection() {
         </div>
         <div>
           <Space direction="vertical" size="middle" style={{ width: "100%", gap: "2rem" }}>
-            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d'Azur." />
+            <Badge.Ribbon className="bg-glacev2" text="Croisières le long de la Côte d&apos;Azur." />
           </Space>
         </div>
         <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">

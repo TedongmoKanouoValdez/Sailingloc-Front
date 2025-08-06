@@ -46,7 +46,7 @@ export function MultiSectionImageUpload({
       if (!allowedTypes.includes(file.type)) {
         addToast({
           title: "Information",
-          description: `Le format ${file.type} n'est pas autorisé (webp/avif interdits).`,
+          description: `Le format ${file.type} n&apos;est pas autorisé (webp/avif interdits).`,
           color: "default",
         });
         continue;

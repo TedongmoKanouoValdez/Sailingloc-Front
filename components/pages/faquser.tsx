@@ -41,7 +41,7 @@ export const FaqUser = () => {
           //   subtitle="3 apps have read permissions"
           title="Puis-je annuler ma réservation ?"
         >
-          Oui, selon notre politique d'annulation. Voir détails.
+          Oui, selon notre politique d&apos;annulation. Voir détails.
         </AccordionItem>
         <AccordionItem
           key="3"

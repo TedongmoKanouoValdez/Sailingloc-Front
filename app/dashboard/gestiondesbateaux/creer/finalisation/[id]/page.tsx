@@ -66,7 +66,7 @@ export default function GestionDesBateauxCreerPage() {
     } catch (err) {
       addToast({
         title: "Erreur",
-        description: "Échec de l'envoi des documents.",
+        description: "Échec de l&apos;envoi des documents.",
         color: "danger",
       });
     }
@@ -116,7 +116,7 @@ export default function GestionDesBateauxCreerPage() {
                   <div className="grid flex-1 auto-rows-min gap-6 px-4 mt-4">
                     <div className="text-lg font-bold mb-4">Informations administratives</div>
                     <div className="grid gap-3 mb-4">
-                      <label>Attestation d'assurance (PDF ou image)</label>
+                      <label>Attestation d&apos;assurance (PDF ou image)</label>
                       <input
                         accept=".pdf"
                         type="file"
@@ -125,7 +125,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d'assurance</label>
+                        <label>Numéro de police d&apos;assurance</label>
                         <Input
                           id="numero-police"
                           placeholder="Ex : 12345678-AB"

@@ -1268,7 +1268,7 @@ export default function Home() {
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
-                          text="Croisières le long de la Côte d'Azur."
+                          text="Croisières le long de la Côte d&apos;Azur."
                         />
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1360,7 +1360,7 @@ export default function Home() {
                       >
                         <Badge.Ribbon
                           className="bg-glacev2"
-                          text="Détente à bord d'un catamaran tout confort."
+                          text="Détente à bord d&apos;un catamaran tout confort."
                         />
                         <Badge.Ribbon
                           className="bg-glacev2"
@@ -1553,7 +1553,7 @@ export default function Home() {
                         />
                         <Badge.Ribbon
                           className="bg-glacev2"
-                          text="Croisières et détente à bord d'un voilier."
+                          text="Croisières et détente à bord d&apos;un voilier."
                         />
                       </Space>
                     </div>
@@ -1658,7 +1658,7 @@ export default function Home() {
                           </Chip>
                         </div>
                         <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion texte="Vivez l'aventure grecque, entre histoire antique, plages secrètes et mer bleu turquoise." />
+                          <Descritpion texte="Vivez l&apos;aventure grecque, entre histoire antique, plages secrètes et mer bleu turquoise." />
                         </div>
                       </div>
                       <div className="space-y-4">
@@ -1747,7 +1747,7 @@ export default function Home() {
                           </Chip>
                         </div>
                         <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion texte="Un paradis caché, avec des eaux transparentes et des paysages d'une beauté à couper le souffle." />
+                          <Descritpion texte="Un paradis caché, avec des eaux transparentes et des paysages d&apos;une beauté à couper le souffle." />
                         </div>
                       </div>
                       <div className="space-y-4">
@@ -1989,8 +1989,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
-                          clients témoignent d'une satisfaction élevée grâce à notre
+                          Nous sommes fiers d&apos;offrir une expérience de location inégalée. Nos
+                          clients témoignent d&apos;une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2023,8 +2023,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
-                          clients témoignent d'une satisfaction élevée grâce à notre
+                          Nous sommes fiers d&apos;offrir une expérience de location inégalée. Nos
+                          clients témoignent d&apos;une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2057,8 +2057,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
-                          clients témoignent d'une satisfaction élevée grâce à notre
+                          Nous sommes fiers d&apos;offrir une expérience de location inégalée. Nos
+                          clients témoignent d&apos;une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
@@ -2091,8 +2091,8 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-sm">
-                          Nous sommes fiers d'offrir une expérience de location inégalée. Nos
-                          clients témoignent d'une satisfaction élevée grâce à notre
+                          Nous sommes fiers d&apos;offrir une expérience de location inégalée. Nos
+                          clients témoignent d&apos;une satisfaction élevée grâce à notre
                         </p>
                       </div>
                     </div>
