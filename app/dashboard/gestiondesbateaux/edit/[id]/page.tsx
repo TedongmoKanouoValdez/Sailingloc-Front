@@ -13,7 +13,7 @@ import { Spinner } from '@heroui/spinner';
 import { Divider } from 'antd';
 import { Image } from '@heroui/image';
 import { addToast, ToastProvider } from '@heroui/toast';
-
+import { Link } from '@heroui/link';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -385,7 +385,7 @@ export default function EditBateauForm() {
 
     // Vérifie qu'il n'y a rien déjà
     if (documentPdfs[index]?.file) {
-      alert("Un fichier est déjà présent. Utilisez \'Remplacer\' pour le modifier.");
+      alert('Un fichier est déjà présent. Utilisez &apos;Remplacer&apos; pour le modifier.');
 
       return;
     }
@@ -588,7 +588,7 @@ export default function EditBateauForm() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L&apos;Étoile de Mer"
+                            placeholder="Ex : L'Étoile de Mer"
                             value={formData?.nomBateau || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -599,7 +599,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <Label>Type de bateau à louer</Label>
+                          <span>Type de bateau à louer</span>
                           <Select
                             value={formData?.typeBateau || ''}
                             onValueChange={(value) =>
@@ -865,7 +865,7 @@ export default function EditBateauForm() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
+                            placeholder="Ex : Côte d'Azur, Méditerranée"
                             value={formData?.zonesNavigation || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -981,7 +981,7 @@ export default function EditBateauForm() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
+                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -1015,7 +1015,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label className="font-medium">Politique d&apos;annulation</Label>
+                          <span className="font-medium">Politique d&apos;annulation</span>
                           <Select
                             value={selectedPolicy}
                             onValueChange={(value) => setSelectedPolicy(value)}
@@ -1033,11 +1033,12 @@ export default function EditBateauForm() {
                           </Select>
                           {selectedPolicy === 'custom' && (
                             <div className="space-y-2">
-                              <Label className="font-medium">
+                              <Label htmlFor="Descriptionpersonnalisee" className="font-medium">
                                 Description personnalisée{' '}
                                 <span className="text-muted-foreground">(optionnel)</span>
                               </Label>
                               <Textarea
+                                id="Descriptionpersonnalisee"
                                 placeholder="Ex : Remboursement à 50% si annulation 14 jours avant"
                                 value={customDescription}
                                 onChange={(e) => setCustomDescription(e.target.value)}
@@ -1060,7 +1061,7 @@ export default function EditBateauForm() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
@@ -1122,13 +1123,14 @@ export default function EditBateauForm() {
                                 src={img.url}
                                 width={300}
                               />
-                              <label className="mt-2 block text-center">
+                              <label htmlFor="Remplacer" className="mt-2 block text-center">
                                 <span className="text-sm text-blue-600 cursor-pointer underline">
                                   Remplacer l&apos;image
                                 </span>
                                 <input
                                   accept="image/*"
                                   className="hidden"
+                                  id="Remplacer"
                                   type="file"
                                   onChange={(e) => handleReplaceImage(index, e)}
                                 />
@@ -1137,11 +1139,15 @@ export default function EditBateauForm() {
                           ))}
                           {coverImages.length < 4 && (
                             <div className="col-span-2 text-center">
-                              <label className="cursor-pointer text-blue-500 underline">
+                              <label
+                                htmlFor="Ajouter"
+                                className="cursor-pointer text-blue-500 underline"
+                              >
                                 + Ajouter une image
                                 <input
                                   accept="image/*"
                                   className="hidden"
+                                  id="Ajouter"
                                   type="file"
                                   onChange={(e) => handleAddImage(e, 'cover')}
                                 />
@@ -1161,12 +1167,13 @@ export default function EditBateauForm() {
                                 src={img.url}
                                 width={300}
                               />
-                              <label className="mt-2 block text-center">
+                              <label htmlFor="Remplacerimage" className="mt-2 block text-center">
                                 <span className="text-sm text-blue-600 cursor-pointer underline">
                                   Remplacer l&apos;image
                                 </span>
                                 <input
                                   accept="image/*"
+                                  id="Remplacerimage"
                                   className="hidden"
                                   type="file"
                                   onChange={(e) => handleReplaceImage(index, e)}
@@ -1176,10 +1183,14 @@ export default function EditBateauForm() {
                           ))}
                           {galleryImages.length < 5 && (
                             <div className="col-span-2 text-center">
-                              <label className="cursor-pointer text-blue-500 underline">
+                              <label
+                                htmlFor="Ajouterimage"
+                                className="cursor-pointer text-blue-500 underline"
+                              >
                                 + Ajouter une image
                                 <input
                                   accept="image/*"
+                                  id="Ajouterimage"
                                   className="hidden"
                                   type="file"
                                   onChange={(e) => handleAddImage(e, 'gallery')}
@@ -1210,14 +1221,14 @@ export default function EditBateauForm() {
                               <p className="font-medium text-sm">{pdf.type}</p>
 
                               {pdf.url && (
-                                <a
+                                <Link
                                   className="text-blue-600 text-sm underline"
                                   href={pdf.url}
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >
                                   Voir le PDF
-                                </a>
+                                </Link>
                               )}
 
                               {pdf.nom && (
@@ -1239,10 +1250,14 @@ export default function EditBateauForm() {
                                 />
                               </label>
                             ) : (
-                              <label className="text-sm text-blue-600 underline cursor-pointer">
+                              <label
+                                htmlFor="Remplacerplus"
+                                className="text-sm text-blue-600 underline cursor-pointer"
+                              >
                                 Remplacer
                                 <input
                                   accept="application/pdf"
+                                  id="Remplacerplus"
                                   className="hidden"
                                   type="file"
                                   onChange={(e) => handleReplacePDF(i, e)}
@@ -1256,7 +1271,7 @@ export default function EditBateauForm() {
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d&apos;assurance</label>
+                        <label htmlFor="numero-police">Numéro de police d&apos;assurance</label>
                         <Input
                           id="numero-police"
                           placeholder="Ex : 12345678-AB"
