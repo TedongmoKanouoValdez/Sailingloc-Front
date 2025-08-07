@@ -881,7 +881,7 @@ export default function EditBateauForm() {
                       <div className="text-lg font-bold mb-4">Conditions de location</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc.</Label>
+                          <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc...</Label>
                           <Select onValueChange={handleSelect}>
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Choisissez une tarification" />
