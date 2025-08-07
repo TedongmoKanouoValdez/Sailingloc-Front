@@ -1033,7 +1033,7 @@ export default function EditBateauForm() {
                           {selectedPolicy === 'custom' && (
                             <div className="space-y-2">
                               <Label htmlFor="Descriptionpersonnalisee" className="font-medium">
-                                Description personnalisée{' '}
+                                Description personnalisée
                                 <span className="text-muted-foreground">(optionnel)</span>
                               </Label>
                               <Textarea
@@ -1232,7 +1232,7 @@ export default function EditBateauForm() {
 
                               {pdf.nom && (
                                 <p className="flex items-center space-x-4 text-xs text-gray-600 mt-1">
-                                  <BsFillFileEarmarkPdfFill className="w-6 h-6 text-red-700" />{' '}
+                                  <BsFillFileEarmarkPdfFill className="w-6 h-6 text-red-700" />
                                   {pdf.nom}
                                 </p>
                               )}
