@@ -23,14 +23,14 @@ export const animals = [
   { key: 'otter', label: 'Otter' },
   { key: 'crocodile', label: 'Crocodile' },
 ];
-export const LogoBoar = () => {
+function LogoBoar() {
   let boar =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
 
   return <Image alt="iconeBoar" className="allogo" height={100} src={boar} width={100} />;
 };
 
-export const LogoCatamarans = () => {
+function LogoCatamarans() {
   let catamarans =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
 
@@ -39,25 +39,25 @@ export const LogoCatamarans = () => {
   );
 };
 
-export const LogoCap = () => {
+function LogoCap() {
   let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
 
   return <Image alt="iconeCap" className="allogo" height={100} src={cap} width={100} />;
 };
 
-export const LogoMap = () => {
+function LogoMap() {
   let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
 
   return <Image alt="iconeMap" className="allogo" height={100} src={map} width={100} />;
 };
 
-export const LogoZeus = () => {
+function LogoZeus() {
   let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
 
   return <Image alt="iconeZeus" className="allogo" height={100} src={zeus} width={100} />;
 };
 
-export const LogoSailingTime = () => {
+function LogoSailingTime() {
   let sailingtime =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
 
@@ -66,7 +66,7 @@ export const LogoSailingTime = () => {
   );
 };
 
-export const LogoBateauSansPermis = () => {
+function LogoBateauSansPermis() {
   let bateauSansPermis =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686483/small_zcmu0m.png';
 
@@ -81,7 +81,7 @@ export const LogoBateauSansPermis = () => {
   );
 };
 
-export const LogoBateauSale = () => {
+function LogoBateauSale() {
   let bateauSale = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png';
 
   return (
@@ -89,7 +89,7 @@ export const LogoBateauSale = () => {
   );
 };
 
-export const LogoIdealFamille = () => {
+function LogoIdealFamille() {
   let idealFamille =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/family_fb9ymr.png';
 
@@ -98,25 +98,25 @@ export const LogoIdealFamille = () => {
   );
 };
 
-export const LogoSoleil = () => {
+function LogoSoleil() {
   let soleil = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png';
 
   return <Image alt="iconesoleil" className="allogo" height={100} src={soleil} width={100} />;
 };
-export const LogoSeminaire = () => {
+function LogoSeminaire() {
   let seminaire =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png';
 
   return <Image alt="iconeseminaire" className="allogo" height={100} src={seminaire} width={100} />;
 };
-export const LogoPMR = () => {
+function LogoPMR() {
   let PMR =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png';
 
   return <Image alt="iconePMR" className="allogo" height={100} src={PMR} width={100} />;
 };
 
-export default async function CategoriesPage() {
+export default function CategoriesPage() {
   const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
 
   return (
