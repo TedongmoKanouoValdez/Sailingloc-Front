@@ -1297,7 +1297,7 @@ export default function EditBateauForm() {
                           <span>Soumission...</span>
                         </>
                       ) : ( */}
-                        'Soumettre'
+                        Soumettre
                         {/* )} */}
                       </button>
                     </div>
