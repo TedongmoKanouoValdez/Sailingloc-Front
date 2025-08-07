@@ -13,7 +13,6 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
     <div>
       <h2>Something went wrong!</h2>
       <button
-        role="button"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

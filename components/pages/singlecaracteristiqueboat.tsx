@@ -38,7 +38,7 @@ export const SingleCaracteristiqueBoat = () => {
             <div>
               <FaDraftingCompass className="w-7 h-7" />
             </div>
-            <div className="text-gray-500">Tirant d'eau</div>
+            <div className="text-gray-500">Tirant d&apos;eau</div>
             <div>1,25 m</div>
           </div>
           <div className="flex flex-col items-center text-center border-r-1 pr-4 border-gray-500">

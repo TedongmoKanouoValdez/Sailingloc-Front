@@ -38,7 +38,6 @@ import { BateauPrefere } from '@/components/pages/bateauprefere';
 import { NotificationsUsers } from '@/components/pages/notificationUser';
 import { ZonesFavorites } from '@/components/pages/zonesfavorites';
 import { FaqUser } from '@/components/pages/faquser';
-import ChatUI from '@/components/pages/chatui';
 import {
   Table,
   TableBody,
@@ -211,6 +210,411 @@ export const data: Reservation[] = [
   },
 ];
 
+const renderActions = (reservation) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button className="h-8 w-8 p-0" variant="ghost">
+            <span className="sr-only">Ouvrir le menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem onSelect={onOpen}>Voir détails</DropdownMenuItem>
+          <DropdownMenuItem>Voir contrat</DropdownMenuItem>
+          {reservation.status !== 'Annulée' && (
+            <DropdownMenuItem onClick={() => console.log(`Annuler réservation ${reservation.id}`)}>
+              Annuler
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Drawer
+        hideCloseButton
+        backdrop="blur"
+        classNames={{
+          base: 'data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium',
+        }}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      >
+        <DrawerContent>
+          {(onClose) => (
+            <>
+              <DrawerHeader className="absolute top-0 inset-x-0 z-50 flex flex-row gap-2 px-2 py-2 border-b border-default-200/50 justify-between bg-content1/50 backdrop-saturate-150 backdrop-blur-lg">
+                <Tooltip content="Close">
+                  <Buttonheroui
+                    isIconOnly
+                    className="text-default-400"
+                    size="sm"
+                    variant="light"
+                    onPress={onClose}
+                  >
+                    <svg
+                      fill="none"
+                      height="20"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
+                    </svg>
+                  </Buttonheroui>
+                </Tooltip>
+                <div className="w-full flex justify-start gap-2">
+                  <Buttonheroui
+                    className="font-medium text-small text-default-500"
+                    endContent={
+                      <svg
+                        fill="none"
+                        height="16"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M7 17 17 7M7 7h10v10" />
+                      </svg>
+                    }
+                    size="sm"
+                    variant="flat"
+                  >
+                    Annuler la réservation
+                  </Buttonheroui>
+                  <Buttonheroui
+                    className="font-medium text-small text-default-500"
+                    endContent={
+                      <svg
+                        fill="none"
+                        height="16"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M7 17 17 7M7 7h10v10" />
+                      </svg>
+                    }
+                    size="sm"
+                    variant="flat"
+                  >
+                    Contacter le loueur
+                  </Buttonheroui>
+                </div>
+                {/* <div className='flex gap-1 items-center'>
+                      <Tooltip content='Previous'>
+                        <Buttonheroui
+                          isIconOnly
+                          className='text-default-500'
+                          size='sm'
+                          variant='flat'
+                        >
+                          <svg
+                            fill='none'
+                            height='16'
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            viewBox='0 0 24 24'
+                            width='16'
+                            xmlns='http://www.w3.org/2000/svg'
+                          >
+                            <path d='m18 15-6-6-6 6' />
+                          </svg>
+                        </Buttonheroui>
+                      </Tooltip>
+                      <Tooltip content='Next'>
+                        <Buttonheroui
+                          isIconOnly
+                          className='text-default-500'
+                          size='sm'
+                          variant='flat'
+                        >
+                          <svg
+                            fill='none'
+                            height='16'
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            viewBox='0 0 24 24'
+                            width='16'
+                            xmlns='http://www.w3.org/2000/svg'
+                          >
+                            <path d='m6 9 6 6 6-6' />
+                          </svg>
+                        </Buttonheroui>
+                      </Tooltip>
+                    </div> */}
+              </DrawerHeader>
+              <DrawerBody className="pt-16">
+                <div className="flex w-full justify-center items-center pt-4">
+                  <Image
+                    isBlurred
+                    isZoomed
+                    alt="Event image"
+                    className="aspect-square w-full hover:scale-110"
+                    height={300}
+                    src="https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/places/san-francisco.png"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 py-4">
+                  <h2 className="text-2xl font-bold leading-7">SF Bay Area Meetup in November</h2>
+                  <h2 className="text-lg text-gray-600 underline underline-offset-8">
+                    Informations principales
+                  </h2>
+                  <div className="text-sm text-default-500">
+                    <span>Type de bateau : </span>{' '}
+                    <Chip color="warning" variant="dot">
+                      catamaran
+                    </Chip>
+                  </div>
+                  <div className="mt-4 flex flex-col gap-3">
+                    <div className="flex gap-3 items-center">
+                      <div className="flex-none border-1 border-default-200/50 rounded-small text-center w-11 overflow-hidden">
+                        <div className="text-tiny bg-default-100 py-0.5 text-default-500">Nov</div>
+                        <div className="flex items-center justify-center font-semibold text-medium h-6 text-default-500">
+                          19
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <p className="text-medium text-foreground font-medium">
+                          Tuesday, November 19
+                        </p>
+                        <p className="text-small text-default-500">5:00 PM - 9:00 PM PST</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <div className="flex items-center justify-center border-1 border-default-200/50 rounded-small w-11 h-11">
+                        <svg
+                          className="text-default-500"
+                          height="20"
+                          viewBox="0 0 16 16"
+                          width="20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fillRule="evenodd"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                          >
+                            <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854" />
+                            <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                          </g>
+                        </svg>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <Link
+                          isExternal
+                          showAnchorIcon
+                          anchorIcon={
+                            <svg
+                              className="group-hover:text-inherit text-default-400 transition-[color,transform] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                              fill="none"
+                              height="16"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              viewBox="0 0 24 24"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M7 17 17 7M7 7h10v10" />
+                            </svg>
+                          }
+                          className="group gap-x-0.5 text-medium text-foreground font-medium"
+                          href="https://www.google.com/maps/place/555+California+St,+San+Francisco,+CA+94103"
+                          rel="noreferrer noopener"
+                        >
+                          555 California St suite 500
+                        </Link>
+                        <p className="text-small text-default-500">San Francisco, California</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-4 gap-3 items-start">
+                      <h2 className="text-lg text-gray-600 underline underline-offset-8">
+                        Détails de la réservation
+                      </h2>
+                      <span className="text-medium font-medium">About the event</span>
+                      <div className="text-medium text-default-500 flex flex-col gap-2">
+                        <p>
+                          Hey Bay Area! We are excited to announce our next meetup on Tuesday,
+                          November 19th.
+                        </p>
+                        <div>
+                          <span>Numéro de réservation : </span>{' '}
+                          <Chip color="warning" variant="bordered">
+                            NGT-TFR785JUY
+                          </Chip>
+                        </div>
+                        <div>
+                          <span>Date à laquelle la réservation a été faite : </span>{' '}
+                          <Chip color="warning" variant="faded">
+                            18/06/2025
+                          </Chip>
+                        </div>
+
+                        <div>
+                          <span>Date à laquelle la réservation a été faite : </span>{' '}
+                          <Chip className="text-white" color="warning" variant="shadow">
+                            En attente
+                          </Chip>
+                        </div>
+
+                        <div>
+                          <span>Récapitulatif des options choisies : </span>{' '}
+                          <Steps
+                            progressDot
+                            current={2}
+                            direction="vertical"
+                            items={[
+                              {
+                                title: 'skipper',
+                                // description:
+                                //   'This is a description. This is a description.',
+                              },
+                              {
+                                title: 'hôtesse',
+                                // description:
+                                //   'This is a description. This is a description.',
+                              },
+                              {
+                                title: 'matériel',
+                                // description:
+                                //   'This is a description. This is a description.',
+                              },
+                            ]}
+                          />
+                        </div>
+
+                        <h2 className="text-lg text-gray-600 underline underline-offset-8">
+                          Prix et paiement
+                        </h2>
+
+                        <div>
+                          <div>
+                            <div>Prix total : </div>
+                            <div className="text-black font-medium">650.00€</div>
+                          </div>
+                          <div>
+                            <div>Montant restant à payer : </div>
+                            <div className="text-black font-medium">0.00€</div>
+                          </div>
+                          <div>
+                            <div>Moyens de paiement utilisés ou prévus : </div>
+                            <div className="text-black font-medium">PayPal</div>
+                          </div>
+                          <div>
+                            <div>Téléchargement de la facture ou du reçu : </div>
+                            <div>
+                              <Link className="text-default-700 font-medium" href="/">
+                                SailingLocFacture
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4">
+                          Voir le bateau{' '}
+                          <Link className="text-default-700" href="https://heroui.com">
+                            SF Bay Area Meetup in November
+                          </Link>
+                          .
+                        </div>
+                      </div>
+                    </div>
+                    <h2 className="text-lg text-gray-600 underline underline-offset-8">
+                      Conditions de location
+                    </h2>
+                    <div>
+                      <div>
+                        <span className="font-medium">Politique d&apos;annulation :</span>{' '}
+                        Annulation gratuite jusqu&apos;à 30 jours avant le départ. 50% remboursé
+                        entre 29 et 15 jours. Aucun remboursement si moins de 15 jours. Cas de force
+                        majeure et météo extrême pris en compte.
+                      </div>
+                      <div>
+                        Montant de la caution demandée : <span className="font-medium">Aucun</span>
+                      </div>
+                      <div>
+                        Conditions spécifiques : <span>interdit de fumer, animaux acceptés</span>
+                      </div>
+                    </div>
+                    <h2 className="text-lg text-gray-600 underline underline-offset-8">
+                      Contacts utiles
+                    </h2>
+                    <div className="flex flex-col mt-4 gap-3 items-start">
+                      <span className="text-small text-default-500">Propiètaire</span>
+                      <div className="flex gap-2 items-center">
+                        <Avatar
+                          name="HeroUI"
+                          size="sm"
+                          src="https://heroui.com/android-chrome-192x192.png"
+                        />
+                        <span className="text-small text-default-500">John Doe</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-4 gap-3 items-start">
+                      <span className="text-small text-default-500">
+                        Informations sur le skipper si réservé :
+                      </span>
+                      <div className="flex gap-2 items-center">
+                        <Avatar
+                          name="HeroUI"
+                          size="sm"
+                          src="https://heroui.com/android-chrome-192x192.png"
+                        />
+                        <span className="text-small text-default-500">John Doe</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Contact du support client :{' '}
+                        <span className="font-medium">+33 7 85 89 04 45</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </DrawerBody>
+              <DrawerFooter className="flex flex-col gap-1">
+                <Link className="text-default-400" href="mailto:hello@heroui.com" size="sm">
+                  Télécharger le contrat de location
+                </Link>
+                {/* <Link
+                      className='text-default-400'
+                      href='mailto:hello@heroui.com'
+                      size='sm'
+                    >
+                      Report event
+                    </Link> */}
+              </DrawerFooter>
+            </>
+          )}
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+};
+
 export const columns: ColumnDef<Reservation>[] = [
   {
     id: 'select',
@@ -294,416 +698,8 @@ export const columns: ColumnDef<Reservation>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const reservation = row.original;
-      const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className="h-8 w-8 p-0" variant="ghost">
-                <span className="sr-only">Ouvrir le menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onSelect={onOpen}>Voir détails</DropdownMenuItem>
-              <DropdownMenuItem>Voir contrat</DropdownMenuItem>
-              {reservation.status !== 'Annulée' && (
-                <DropdownMenuItem
-                  onClick={() => console.log(`Annuler réservation ${reservation.id}`)}
-                >
-                  Annuler
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Drawer
-            hideCloseButton
-            backdrop="blur"
-            classNames={{
-              base: 'data-[placement=right]:sm:m-2 data-[placement=left]:sm:m-2  rounded-medium',
-            }}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-          >
-            <DrawerContent>
-              {(onClose) => (
-                <>
-                  <DrawerHeader className="absolute top-0 inset-x-0 z-50 flex flex-row gap-2 px-2 py-2 border-b border-default-200/50 justify-between bg-content1/50 backdrop-saturate-150 backdrop-blur-lg">
-                    <Tooltip content="Close">
-                      <Buttonheroui
-                        isIconOnly
-                        className="text-default-400"
-                        size="sm"
-                        variant="light"
-                        onPress={onClose}
-                      >
-                        <svg
-                          fill="none"
-                          height="20"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="m13 17 5-5-5-5M6 17l5-5-5-5" />
-                        </svg>
-                      </Buttonheroui>
-                    </Tooltip>
-                    <div className="w-full flex justify-start gap-2">
-                      <Buttonheroui
-                        className="font-medium text-small text-default-500"
-                        endContent={
-                          <svg
-                            fill="none"
-                            height="16"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M7 17 17 7M7 7h10v10" />
-                          </svg>
-                        }
-                        size="sm"
-                        variant="flat"
-                      >
-                        Annuler la réservation
-                      </Buttonheroui>
-                      <Buttonheroui
-                        className="font-medium text-small text-default-500"
-                        endContent={
-                          <svg
-                            fill="none"
-                            height="16"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M7 17 17 7M7 7h10v10" />
-                          </svg>
-                        }
-                        size="sm"
-                        variant="flat"
-                      >
-                        Contacter le loueur
-                      </Buttonheroui>
-                    </div>
-                    {/* <div className='flex gap-1 items-center'>
-                      <Tooltip content='Previous'>
-                        <Buttonheroui
-                          isIconOnly
-                          className='text-default-500'
-                          size='sm'
-                          variant='flat'
-                        >
-                          <svg
-                            fill='none'
-                            height='16'
-                            stroke='currentColor'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            viewBox='0 0 24 24'
-                            width='16'
-                            xmlns='http://www.w3.org/2000/svg'
-                          >
-                            <path d='m18 15-6-6-6 6' />
-                          </svg>
-                        </Buttonheroui>
-                      </Tooltip>
-                      <Tooltip content='Next'>
-                        <Buttonheroui
-                          isIconOnly
-                          className='text-default-500'
-                          size='sm'
-                          variant='flat'
-                        >
-                          <svg
-                            fill='none'
-                            height='16'
-                            stroke='currentColor'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            viewBox='0 0 24 24'
-                            width='16'
-                            xmlns='http://www.w3.org/2000/svg'
-                          >
-                            <path d='m6 9 6 6 6-6' />
-                          </svg>
-                        </Buttonheroui>
-                      </Tooltip>
-                    </div> */}
-                  </DrawerHeader>
-                  <DrawerBody className="pt-16">
-                    <div className="flex w-full justify-center items-center pt-4">
-                      <Image
-                        isBlurred
-                        isZoomed
-                        alt="Event image"
-                        className="aspect-square w-full hover:scale-110"
-                        height={300}
-                        src="https://nextuipro.nyc3.cdn.digitaloceanspaces.com/components-images/places/san-francisco.png"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2 py-4">
-                      <h2 className="text-2xl font-bold leading-7">
-                        SF Bay Area Meetup in November
-                      </h2>
-                      <h2 className="text-lg text-gray-600 underline underline-offset-8">
-                        Informations principales
-                      </h2>
-                      <div className="text-sm text-default-500">
-                        <span>Type de bateau : </span>{' '}
-                        <Chip color="warning" variant="dot">
-                          catamaran
-                        </Chip>
-                      </div>
-                      <div className="mt-4 flex flex-col gap-3">
-                        <div className="flex gap-3 items-center">
-                          <div className="flex-none border-1 border-default-200/50 rounded-small text-center w-11 overflow-hidden">
-                            <div className="text-tiny bg-default-100 py-0.5 text-default-500">
-                              Nov
-                            </div>
-                            <div className="flex items-center justify-center font-semibold text-medium h-6 text-default-500">
-                              19
-                            </div>
-                          </div>
-                          <div className="flex flex-col gap-0.5">
-                            <p className="text-medium text-foreground font-medium">
-                              Tuesday, November 19
-                            </p>
-                            <p className="text-small text-default-500">5:00 PM - 9:00 PM PST</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3 items-center">
-                          <div className="flex items-center justify-center border-1 border-default-200/50 rounded-small w-11 h-11">
-                            <svg
-                              className="text-default-500"
-                              height="20"
-                              viewBox="0 0 16 16"
-                              width="20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                fill="none"
-                                fillRule="evenodd"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                              >
-                                <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854" />
-                                <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                              </g>
-                            </svg>
-                          </div>
-                          <div className="flex flex-col gap-0.5">
-                            <Link
-                              isExternal
-                              showAnchorIcon
-                              anchorIcon={
-                                <svg
-                                  className="group-hover:text-inherit text-default-400 transition-[color,transform] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                                  fill="none"
-                                  height="16"
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  viewBox="0 0 24 24"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path d="M7 17 17 7M7 7h10v10" />
-                                </svg>
-                              }
-                              className="group gap-x-0.5 text-medium text-foreground font-medium"
-                              href="https://www.google.com/maps/place/555+California+St,+San+Francisco,+CA+94103"
-                              rel="noreferrer noopener"
-                            >
-                              555 California St suite 500
-                            </Link>
-                            <p className="text-small text-default-500">San Francisco, California</p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col mt-4 gap-3 items-start">
-                          <h2 className="text-lg text-gray-600 underline underline-offset-8">
-                            Détails de la réservation
-                          </h2>
-                          <span className="text-medium font-medium">About the event</span>
-                          <div className="text-medium text-default-500 flex flex-col gap-2">
-                            <p>
-                              Hey Bay Area! We are excited to announce our next meetup on Tuesday,
-                              November 19th.
-                            </p>
-                            <div>
-                              <span>Numéro de réservation : </span>{' '}
-                              <Chip color="warning" variant="bordered">
-                                NGT-TFR785JUY
-                              </Chip>
-                            </div>
-                            <div>
-                              <span>Date à laquelle la réservation a été faite : </span>{' '}
-                              <Chip color="warning" variant="faded">
-                                18/06/2025
-                              </Chip>
-                            </div>
-
-                            <div>
-                              <span>Date à laquelle la réservation a été faite : </span>{' '}
-                              <Chip className="text-white" color="warning" variant="shadow">
-                                En attente
-                              </Chip>
-                            </div>
-
-                            <div>
-                              <span>Récapitulatif des options choisies : </span>{' '}
-                              <Steps
-                                progressDot
-                                current={2}
-                                direction="vertical"
-                                items={[
-                                  {
-                                    title: 'skipper',
-                                    // description:
-                                    //   'This is a description. This is a description.',
-                                  },
-                                  {
-                                    title: 'hôtesse',
-                                    // description:
-                                    //   'This is a description. This is a description.',
-                                  },
-                                  {
-                                    title: 'matériel',
-                                    // description:
-                                    //   'This is a description. This is a description.',
-                                  },
-                                ]}
-                              />
-                            </div>
-
-                            <h2 className="text-lg text-gray-600 underline underline-offset-8">
-                              Prix et paiement
-                            </h2>
-
-                            <div>
-                              <div>
-                                <div>Prix total : </div>
-                                <div className="text-black font-medium">650.00€</div>
-                              </div>
-                              <div>
-                                <div>Montant restant à payer : </div>
-                                <div className="text-black font-medium">0.00€</div>
-                              </div>
-                              <div>
-                                <div>Moyens de paiement utilisés ou prévus : </div>
-                                <div className="text-black font-medium">PayPal</div>
-                              </div>
-                              <div>
-                                <div>Téléchargement de la facture ou du reçu : </div>
-                                <div>
-                                  <Link className="text-default-700 font-medium" href="/">
-                                    SailingLocFacture
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="mt-4">
-                              Voir le bateau{' '}
-                              <Link className="text-default-700" href="https://heroui.com">
-                                SF Bay Area Meetup in November
-                              </Link>
-                              .
-                            </div>
-                          </div>
-                        </div>
-                        <h2 className="text-lg text-gray-600 underline underline-offset-8">
-                          Conditions de location
-                        </h2>
-                        <div>
-                          <div>
-                            <span className="font-medium">Politique d&apos;annulation :</span>{' '}
-                            Annulation gratuite jusqu&apos;à 30 jours avant le départ. 50% remboursé
-                            entre 29 et 15 jours. Aucun remboursement si moins de 15 jours. Cas de
-                            force majeure et météo extrême pris en compte.
-                          </div>
-                          <div>
-                            Montant de la caution demandée :{' '}
-                            <span className="font-medium">Aucun</span>
-                          </div>
-                          <div>
-                            Conditions spécifiques :{' '}
-                            <span>interdit de fumer, animaux acceptés</span>
-                          </div>
-                        </div>
-                        <h2 className="text-lg text-gray-600 underline underline-offset-8">
-                          Contacts utiles
-                        </h2>
-                        <div className="flex flex-col mt-4 gap-3 items-start">
-                          <span className="text-small text-default-500">Propiètaire</span>
-                          <div className="flex gap-2 items-center">
-                            <Avatar
-                              name="HeroUI"
-                              size="sm"
-                              src="https://heroui.com/android-chrome-192x192.png"
-                            />
-                            <span className="text-small text-default-500">John Doe</span>
-                          </div>
-                        </div>
-                        <div className="flex flex-col mt-4 gap-3 items-start">
-                          <span className="text-small text-default-500">
-                            Informations sur le skipper si réservé :
-                          </span>
-                          <div className="flex gap-2 items-center">
-                            <Avatar
-                              name="HeroUI"
-                              size="sm"
-                              src="https://heroui.com/android-chrome-192x192.png"
-                            />
-                            <span className="text-small text-default-500">John Doe</span>
-                          </div>
-                        </div>
-                        <div>
-                          <div>
-                            Contact du support client :{' '}
-                            <span className="font-medium">+33 7 85 89 04 45</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </DrawerBody>
-                  <DrawerFooter className="flex flex-col gap-1">
-                    <Link className="text-default-400" href="mailto:hello@heroui.com" size="sm">
-                      Télécharger le contrat de location
-                    </Link>
-                    {/* <Link
-                      className='text-default-400'
-                      href='mailto:hello@heroui.com'
-                      size='sm'
-                    >
-                      Report event
-                    </Link> */}
-                  </DrawerFooter>
-                </>
-              )}
-            </DrawerContent>
-          </Drawer>
-        </>
-      );
+      return renderActions(reservation);
     },
   },
 ];
@@ -1256,7 +1252,7 @@ export default function ProfilPage() {
                   </div>
                 </TabsContent>
                 <TabsContent value="chat">
-                  <ChatUI />
+
                 </TabsContent>
                 <TabsContent value="parametre">
                   <div className="h-[20rem] bg-glacev2 p-4 rounded-lg">

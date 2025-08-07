@@ -385,7 +385,7 @@ export default function EditBateauForm() {
 
     // Vérifie qu'il n'y a rien déjà
     if (documentPdfs[index]?.file) {
-      alert("Un fichier est déjà présent. Utilisez 'Remplacer' pour le modifier.");
+      alert("Un fichier est déjà présent. Utilisez \'Remplacer\' pour le modifier.");
 
       return;
     }
@@ -588,7 +588,7 @@ export default function EditBateauForm() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L'Étoile de Mer"
+                            placeholder="Ex : L&apos;Étoile de Mer"
                             value={formData?.nomBateau || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -698,7 +698,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
+                          <Label htmlFor="tirant-eau">Tirant d&apos;eau (en mètres)</Label>
                           <Input
                             id="tirant-eau"
                             placeholder="Ex : 1.8m"
@@ -846,7 +846,7 @@ export default function EditBateauForm() {
                       <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="port-attache">Port d'attache (ville, marina)</Label>
+                          <Label htmlFor="port-attache">Port d&apos;attache (ville, marina)</Label>
                           <Input
                             id="port-attache"
                             placeholder="Ex : Marina de Cannes"
@@ -865,7 +865,7 @@ export default function EditBateauForm() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d'Azur, Méditerranée"
+                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
                             value={formData?.zonesNavigation || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -981,7 +981,7 @@ export default function EditBateauForm() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
+                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -999,7 +999,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <Label htmlFor="depot-garantie-2">Port d'arriver (optionnel)</Label>
+                          <Label htmlFor="depot-garantie-2">Port d&apos;arriver (optionnel)</Label>
                           <Input
                             id="port-arriver"
                             placeholder="Port de Nice"
@@ -1015,7 +1015,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label className="font-medium">Politique d'annulation</Label>
+                          <Label className="font-medium">Politique d&apos;annulation</Label>
                           <Select
                             value={selectedPolicy}
                             onValueChange={(value) => setSelectedPolicy(value)}
@@ -1060,7 +1060,7 @@ export default function EditBateauForm() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
@@ -1256,7 +1256,7 @@ export default function EditBateauForm() {
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d'assurance</label>
+                        <label>Numéro de police d&apos;assurance</label>
                         <Input
                           id="numero-police"
                           placeholder="Ex : 12345678-AB"

@@ -116,16 +116,17 @@ export default function GestionDesBateauxCreerPage() {
                   <div className="grid flex-1 auto-rows-min gap-6 px-4 mt-4">
                     <div className="text-lg font-bold mb-4">Informations administratives</div>
                     <div className="grid gap-3 mb-4">
-                      <label>Attestation d&apos;assurance (PDF ou image)</label>
+                      <label htmlFor='AttestationAssurance'>Attestation d&apos;assurance (PDF ou image)</label>
                       <input
                         accept=".pdf"
+                        id='AttestationAssurance'
                         type="file"
                         onChange={(e) => setAttestationFile(e.target.files?.[0] || null)}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d&apos;assurance</label>
+                        <label htmlFor='numero-police'>Numéro de police d&apos;assurance</label>
                         <Input
                           id="numero-police"
                           placeholder="Ex : 12345678-AB"
@@ -136,9 +137,10 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <label>Certificat de navigation (si applicable)</label>
+                        <label htmlFor='noCertificat'>Certificat de navigation (si applicable)</label>
                         <input
                           accept=".pdf"
+                          id='noCertificat'
                           className={`mt-2 ${noCertificat ? 'opacity-50 cursor-not-allowed' : ''}`}
                           disabled={noCertificat}
                           type="file"

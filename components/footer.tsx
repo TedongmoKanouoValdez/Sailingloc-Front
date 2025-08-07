@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { SiSailsdotjs } from 'react-icons/si';
-
+import { Link } from '@heroui/link';
 import { cn } from '@/lib/utils';
 
 interface SocialLink {
@@ -41,9 +41,9 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
           <div className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-2">
               <SiSailsdotjs className="w-28 h-28" />
-              <a className="text-xl font-semibold" href="#">
+              <Link className="text-xl font-semibold" href="/">
                 {brand.name}
-              </a>
+              </Link>
               {/* <p className='text-sm text-foreground/60'>{brand.description}</p> */}
             </div>
 
@@ -54,13 +54,13 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                   <ul className="mt-4 space-y-2.5">
                     {links.map(({ name, Icon, href }) => (
                       <li key={name}>
-                        <a
+                        <Link
                           className="flex gap-3 items-center text-sm transition-all text-foreground/60 hover:text-foreground/90 group"
-                          href={href || '#'}
+                          href={href || '/'}
                         >
                           <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />
                           {name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -74,15 +74,15 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
 
                 return (
                   <React.Fragment key={`${link.name}-${index}`}>
-                    <a
+                    <Link
                       className="hover:text-foreground/90"
-                      href={link.href}
+                      href={link.href || '/'}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       {/* {link.name} */}
                       <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />
-                    </a>
+                    </Link>
                     {/* {index < socialLinks.length - 1 && ' • '} */}
                   </React.Fragment>
                 );

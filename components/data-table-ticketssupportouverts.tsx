@@ -127,6 +127,113 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
+function TicketCell({ row }: { row: Row<z.infer<typeof schema>> }) {
+  const [showReservation, setShowReservation] = useState(false);
+
+  return (
+    <>
+      <ButtonHeroui color="default" variant="light" onClick={() => setShowReservation(true)}>
+        {row.original.header}
+      </ButtonHeroui>
+      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
+    </>
+  );
+}
+
+function ActionsCell() {
+  const [showReservation, setShowReservation] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpenAffectation, setIsDialogOpenAffectation] = useState(false);
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
+            size="icon"
+            variant="ghost"
+          >
+            <MoreVerticalIcon />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-32">
+          <DropdownMenuItem onClick={() => setShowReservation(true)}>Voir</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>Répondre</DropdownMenuItem>
+          <DropdownMenuItem>Fermer</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDialogOpenAffectation(true)}>
+            Réaffecter
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
+
+      {/* Dialog pour répondre */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Réponse</DialogTitle>
+            <DialogDescription>
+              Formulez votre réponse de manière claire et précise.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4">
+            <div className="grid gap-3">
+              <Label htmlFor="name">Utilisateur</Label>
+              <Input disabled defaultValue="Pedro Duarte" id="name" />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="message">Votre réponse</Label>
+              <Textarea placeholder="Veuillez saisir votre réponse." />
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Annuler</Button>
+            </DialogClose>
+            <Button type="submit">Enregistrer</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog pour affectation */}
+      <Dialog open={isDialogOpenAffectation} onOpenChange={setIsDialogOpenAffectation}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Affectation</DialogTitle>
+            <DialogDescription>Assignez ce ticket à un membre de l'équipe.</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4">
+            <div className="grid gap-3">
+              <Label htmlFor="assignee">Assigner à</Label>
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner un membre" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Membres</SelectLabel>
+                    <SelectItem value="alice">Alice</SelectItem>
+                    <SelectItem value="bob">Bob</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Annuler</Button>
+            </DialogClose>
+            <Button type="submit">Enregistrer</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: 'drag',
@@ -162,18 +269,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'idduticket',
     header: 'ID du ticket',
-    cell: ({ row }) => {
-      const [showReservation, setShowReservation] = React.useState(false);
-
-      return (
-        <>
-          <ButtonHeroui color="default" variant="light" onClick={() => setShowReservation(true)}>
-            {row.original.header}
-          </ButtonHeroui>
-          <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-        </>
-      );
-    },
+    cell: ({ row }) => <TicketCell row={row} />,
     enableHiding: false,
   },
   {
@@ -278,107 +374,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     id: 'actions',
-    cell: () => {
-      const [showReservation, setShowReservation] = React.useState(false);
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-      const [isDialogOpenAffectation, setIsDialogOpenAffectation] = useState(false);
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-                size="icon"
-                variant="ghost"
-              >
-                <MoreVerticalIcon />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-32">
-              <DropdownMenuItem onClick={() => setShowReservation(true)}>Voir</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>Répondre</DropdownMenuItem>
-              <DropdownMenuItem>Fermer</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setIsDialogOpenAffectation(true)}>
-                Réaffecter
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-          {/* Réponse à l'utilisateur */}
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Résponse</DialogTitle>
-                <DialogDescription>
-                  Ce formulaire vous permet de répondre à une demande d'assistance utilisateur.
-                  Formulez votre réponse de manière claire et précise pour aider efficacement
-                  l&apos;utilisateur. Une fois envoyée, votre réponse sera visible par
-                  l&apos;utilisateur dans son espace client.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4">
-                <div className="grid gap-3">
-                  <Label htmlFor="name-1">Non de l&apos;utilisateur</Label>
-                  <Input disabled defaultValue="Pedro Duarte" id="name-1" name="name" />
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="username-1">Votre réponse</Label>
-                  <Textarea placeholder="Veuillez saisir votre réponse." />
-                </div>
-              </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Annuler</Button>
-                </DialogClose>
-                <Button type="submit">Enrgistrer</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-          {/* Affectation */}
-          <Dialog open={isDialogOpenAffectation} onOpenChange={setIsDialogOpenAffectation}>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Affectation</DialogTitle>
-                <DialogDescription>
-                  Ce champ permet d'assigner un ticket de support à un membre de l&apos;équipe. Cela
-                  garantit un meilleur suivi et une répartition claire des responsabilités. Le
-                  membre assigné recevra une notification et deviendra responsable du traitement du
-                  ticket.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4">
-                <div className="grid gap-3">
-                  <Label htmlFor="name-1">Non de l&apos;utilisateur</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a fruit" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Fruits</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Annuler</Button>
-                </DialogClose>
-                <Button type="submit">Enrgistrer</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </>
-      );
-    },
+    cell: () => <ActionsCell />,
   },
 ];
 
@@ -733,7 +729,7 @@ function AddReservationPanel({ open, onClose }: { open: boolean; onClose: () => 
           <div>
             <div className="text-sm text-gray-600 font-medium">Sujet</div>
             <div className="text-base font-bold text-black">
-              Problème de paiement, je n'arrive pas à payer !
+              Problème de paiement, je n&apos;arrive pas à payer !
             </div>
           </div>
           <div className="flex flex-row justify-between">

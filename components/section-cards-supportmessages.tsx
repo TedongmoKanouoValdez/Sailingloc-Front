@@ -23,7 +23,7 @@ export function SectionCards() {
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Suivi des demandes d'assistance
+              Suivi des demandes d&apos;assistance
             </div>
             <div className="text-muted-foreground">
               Consultez l&apos;état des tickets de support envoyés par les utilisateurs. Suivez

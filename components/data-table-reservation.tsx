@@ -115,6 +115,46 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
+function BateauCell({ row }: { row: Row<z.infer<typeof schema>> }) {
+  const [showReservation, setShowReservation] = React.useState(false);
+
+  return (
+    <>
+      <ButtonHeroui color="default" variant="light" onClick={() => setShowReservation(true)}>
+        {row.original.header}
+      </ButtonHeroui>
+      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
+    </>
+  );
+}
+
+function ActionsCell({ row }: { row: Row<z.infer<typeof schema>> }) {
+  const [showReservation, setShowReservation] = React.useState(false);
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
+            size="icon"
+            variant="ghost"
+          >
+            <MoreVerticalIcon />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-32">
+          <DropdownMenuItem onClick={() => setShowReservation(true)}>Voir</DropdownMenuItem>
+          <DropdownMenuItem>Archive</DropdownMenuItem>
+          <DropdownMenuItem>Supprimer</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
+    </>
+  );
+}
+
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: 'drag',
@@ -150,18 +190,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: 'nomdubateau',
     header: 'Bateau',
-    cell: ({ row }) => {
-      const [showReservation, setShowReservation] = React.useState(false);
-
-      return (
-        <>
-          <ButtonHeroui color="default" variant="light" onClick={() => setShowReservation(true)}>
-            {row.original.header}
-          </ButtonHeroui>
-          <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-        </>
-      );
-    },
+    cell: ({ row }) => <BateauCell row={row} />,
     enableHiding: false,
   },
   {
@@ -241,32 +270,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   },
   {
     id: 'actions',
-    cell: () => {
-      const [showReservation, setShowReservation] = React.useState(false);
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-                size="icon"
-                variant="ghost"
-              >
-                <MoreVerticalIcon />
-                <span className="sr-only">Open menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-32">
-              <DropdownMenuItem onClick={() => setShowReservation(true)}>Voir</DropdownMenuItem>
-              <DropdownMenuItem>Archive</DropdownMenuItem>
-              <DropdownMenuItem>supprimer</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-        </>
-      );
-    },
+    cell: ({ row }) => <ActionsCell row={row} />,
   },
 ];
 

@@ -502,7 +502,6 @@ export default function GestionDesBateauxCreerPage() {
                                       <span className="font-medium">{label}</span>
                                       <button
                                         className="text-red-500 text-sm"
-                                        role="button"
                                         onClick={() => handleRemove(id)}
                                       >
                                         Supprimer
