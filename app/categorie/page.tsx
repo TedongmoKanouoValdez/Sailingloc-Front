@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { BoxReveal } from '@/components/magicui/box-reveal';
 import { RippleButton } from '@/components/magicui/ripple-button';
 
-export const animals = [
+const animals = [
   { key: 'cat', label: 'Cat' },
   { key: 'dog', label: 'Dog' },
   { key: 'elephant', label: 'Elephant' },
