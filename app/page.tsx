@@ -36,7 +36,7 @@ import Link from 'next/link';
 import { BoxReveal } from '@/components/magicui/box-reveal';
 import { RippleButton } from '@/components/magicui/ripple-button';
 
-export const LogoSecondaire: React.FC = () => {
+const LogoSecondaire: React.FC = () => {
   return (
     <svg
       className="w-20 h-20"
@@ -182,7 +182,7 @@ m7256 -261 c67 -105 227 -447 305 -654 125 -331 213 -667 267 -1020 26 -170
   );
 };
 
-export const LogoPartenaire = () => {
+const LogoPartenaire = () => {
   return (
     <svg
       className="w-24 h-24"
@@ -844,14 +844,14 @@ c-22 0 -46 -3 -53 -6z"
   );
 };
 
-export const LogoBoar = () => {
+const LogoBoar = () => {
   let boar =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
 
   return <Image alt="iconeBoar" className="allogo" height={100} src={boar} width={100} />;
 };
 
-export const LogoCatamarans = () => {
+const LogoCatamarans = () => {
   let catamarans =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
 
@@ -860,25 +860,25 @@ export const LogoCatamarans = () => {
   );
 };
 
-export const LogoCap = () => {
+const LogoCap = () => {
   let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
 
   return <Image alt="iconeCap" className="allogo" height={100} src={cap} width={100} />;
 };
 
-export const LogoMap = () => {
+const LogoMap = () => {
   let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
 
   return <Image alt="iconeMap" className="allogo" height={100} src={map} width={100} />;
 };
 
-export const LogoZeus = () => {
+const LogoZeus = () => {
   let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
 
   return <Image alt="iconeZeus" className="allogo" height={100} src={zeus} width={100} />;
 };
 
-export const LogoSailingTime = () => {
+const LogoSailingTime = () => {
   let sailingtime =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
 
@@ -891,14 +891,14 @@ type Props = {
   texte: string; // Définit que 'texte' doit être une chaîne de caractères
 };
 
-export const MonTexte = ({ texte }: Props) => {
+const MonTexte = ({ texte }: Props) => {
   const maxChars = 10; // Limite à 100 caractères
   const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
-export const Descritpion = ({ texte }: Props) => {
+const Descritpion = ({ texte }: Props) => {
   const maxChars = 90; // Limite à 100 caractères
   const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
