@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fontSans.variable
         )}
       >
-        <Providers>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
           <ClientLayout>{children}</ClientLayout>
         </Providers>
       </body>
