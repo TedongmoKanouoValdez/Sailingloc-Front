@@ -383,7 +383,6 @@ export default function EditBateauForm() {
 
     if (!file) return;
 
-    // Vérifie qu'il n'y a rien déjà
     if (documentPdfs[index]?.file) {
       alert('Un fichier est déjà présent. Utilisez &apos;Remplacer&apos; pour le modifier.');
 
@@ -588,7 +587,7 @@ export default function EditBateauForm() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L'Étoile de Mer"
+                            placeholder="Ex : L&apos;Étoile de Mer"
                             value={formData?.nomBateau || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -865,7 +864,7 @@ export default function EditBateauForm() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d'Azur, Méditerranée"
+                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
                             value={formData?.zonesNavigation || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -981,7 +980,7 @@ export default function EditBateauForm() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
+                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -1061,7 +1060,7 @@ export default function EditBateauForm() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
