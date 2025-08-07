@@ -39,7 +39,7 @@ import { siteConfig } from '@/config/site';
 
 export const Iconlang = ({ url }: { url: string }) => {
   return (
-    <Image alt="iconeSailingTime" className="w-[1.6rem]" height={100} src={url} width={1000} />
+    <Image alt="iconeSailingTime" className="w-[1.6rem]" width={32} height={26} src={url} />
   );
 };
 

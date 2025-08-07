@@ -8,7 +8,7 @@ import { Link } from '@heroui/link';
 import { IoIosLink } from 'react-icons/io';
 import { useParams } from 'next/navigation';
 import { Chip } from '@heroui/chip';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
@@ -278,7 +278,7 @@ export default function GestionDesBateauxCreerPage() {
                           <Chip color="warning" variant="dot">
                             {(() => {
                               const raw = bateau?.details?.tarifications;
-                              let list: { label: string; detail?: string }[] = [];
+                              let list: { type: string; montant: number }[] = [];
 
                               if (typeof raw === 'string') {
                                 try {
@@ -342,7 +342,7 @@ export default function GestionDesBateauxCreerPage() {
                         <div className="w-full flex items-center my-3">
                           <Alert
                             color="warning"
-                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
                           />
                         </div>
                       </div>

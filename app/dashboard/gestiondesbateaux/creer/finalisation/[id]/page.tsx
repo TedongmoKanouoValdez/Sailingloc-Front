@@ -12,6 +12,8 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { MultiSectionImageUpload } from '@/components/pages/ImageUploadsSections';
 
+type ToastPlacement = 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left';
+
 export default function GestionDesBateauxCreerPage() {
   const [imagesSection1, setImagesSection1] = useState<File[]>([]);
   const [imagesSection2, setImagesSection2] = useState<File[]>([]);
@@ -21,7 +23,7 @@ export default function GestionDesBateauxCreerPage() {
   const [numeroPolice, setNumeroPolice] = useState<string>('');
   const params = useParams();
   const bateauId = params?.id;
-  const [placement, setPlacement] = React.useState('top-center');
+  const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

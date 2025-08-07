@@ -29,9 +29,10 @@ export const CalendarDashboardBoat = ({
   const disabledDate = (currentDate: Dayjs) => {
     const today = dayjs().startOf('day');
 
-    if (currentDate.isBefore(today, 'day')) return true;
+    // if (currentDate.isBefore(today, 'day')) return true;
+    // return unavailableDates.some((d) => d.isSame(currentDate, 'day'));
 
-    return unavailableDates.some((d) => d.isSame(currentDate, 'day'));
+    return currentDate.isBefore(today, 'day');
   };
 
   const fullCellRender = (current: Dayjs, info: any) => {
@@ -89,6 +90,7 @@ export const CalendarDashboardBoat = ({
         key={calendarKey}
         disabledDate={disabledDate}
         fullCellRender={fullCellRender}
+        onSelect={handleSelect}
         onPanelChange={(date) => setCurrentMonth(date.startOf('month'))}
       />
 

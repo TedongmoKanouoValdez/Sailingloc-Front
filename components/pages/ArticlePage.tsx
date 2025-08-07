@@ -237,7 +237,7 @@ export default function ArticlePage() {
                     <Timeline
                       items={[
                         {
-                          children: 'Côte d&apos;Azur',
+                          children: 'Côte d Azur',
                         },
                         {
                           children: 'Corse',

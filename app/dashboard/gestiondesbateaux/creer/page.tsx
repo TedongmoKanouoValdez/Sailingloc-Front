@@ -7,7 +7,7 @@ import { Checkbox } from '@heroui/checkbox';
 import { useRouter } from 'next/navigation';
 import { addToast, ToastProvider } from '@heroui/toast';
 import { Spinner } from '@heroui/spinner';
-
+import dayjs, { Dayjs } from 'dayjs';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -36,6 +36,11 @@ import {
 } from '@/components/ui/command';
 import { TagsSelector } from '@/components/ui/tags-selector';
 import { CalendarDashboardBoat } from '@/components/pages/calendardashboardcreateboat';
+
+type Tag = {
+  id: string;
+  label: string;
+};
 
 const frameworks = [
   {
@@ -117,6 +122,8 @@ const cancellationPolicies = [
   },
 ];
 
+type ToastPlacement = 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left';
+
 export default function GestionDesBateauxCreerPage() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
@@ -129,7 +136,7 @@ export default function GestionDesBateauxCreerPage() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInputs, setTagInputs] = useState<Record<string, string>>({});
   const [unavailableDates, setUnavailableDates] = useState<Dayjs[]>([]);
-  const [placement, setPlacement] = React.useState('top-center');
+  const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [typeBateau, setTypeBateau] = useState<string>('');
 

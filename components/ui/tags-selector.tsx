@@ -16,6 +16,7 @@ type TagsSelectorProps = {
   setSelectedTags: React.Dispatch<React.SetStateAction<Tag[]>>;
   inputs: Record<string, string>;
   setInputs: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  onChange?: (newTags: Tag[]) => void;
 };
 
 export function TagsSelector({
@@ -24,6 +25,7 @@ export function TagsSelector({
   setSelectedTags,
   inputs,
   setInputs,
+  onChange,
 }: TagsSelectorProps) {
   const selectedsContainerRef = useRef<HTMLDivElement>(null);
 

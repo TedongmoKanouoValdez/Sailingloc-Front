@@ -87,7 +87,7 @@ const MoyenDePaimentIcon = ({
   return <Icon className={className} color={color} size={size} />;
 };
 
-export type Reservation = {
+type Reservation = {
   id: string;
   photo: string; // URL ou base64 si tu veux une vraie image
   bookingDate: string; // ex: '12 juin 2025'
@@ -97,7 +97,7 @@ export type Reservation = {
   status: 'Confirmée' | 'Annulée' | 'En attente';
 };
 
-export const data: Reservation[] = [
+const data: Reservation[] = [
   {
     id: '1',
     photo:
@@ -615,7 +615,7 @@ const ReservationActions = ({ reservation }: { reservation: Reservation }) => {
   );
 };
 
-export const columns: ColumnDef<Reservation>[] = [
+const columns: ColumnDef<Reservation>[] = [
   {
     id: 'select',
     header: ({ table }) => (

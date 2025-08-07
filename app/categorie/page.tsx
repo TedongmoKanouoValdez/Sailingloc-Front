@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Input } from '@heroui/input';
 import { DatePicker } from '@heroui/date-picker';
@@ -28,7 +28,7 @@ function LogoBoar() {
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
 
   return <Image alt="iconeBoar" className="allogo" height={100} src={boar} width={100} />;
-};
+}
 
 function LogoCatamarans() {
   let catamarans =
@@ -37,25 +37,25 @@ function LogoCatamarans() {
   return (
     <Image alt="iconeCatamarans" className="allogo" height={100} src={catamarans} width={100} />
   );
-};
+}
 
 function LogoCap() {
   let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
 
   return <Image alt="iconeCap" className="allogo" height={100} src={cap} width={100} />;
-};
+}
 
 function LogoMap() {
   let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
 
   return <Image alt="iconeMap" className="allogo" height={100} src={map} width={100} />;
-};
+}
 
 function LogoZeus() {
   let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
 
   return <Image alt="iconeZeus" className="allogo" height={100} src={zeus} width={100} />;
-};
+}
 
 function LogoSailingTime() {
   let sailingtime =
@@ -64,7 +64,7 @@ function LogoSailingTime() {
   return (
     <Image alt="iconeSailingTime" className="allogo" height={100} src={sailingtime} width={100} />
   );
-};
+}
 
 function LogoBateauSansPermis() {
   let bateauSansPermis =
@@ -79,7 +79,7 @@ function LogoBateauSansPermis() {
       width={100}
     />
   );
-};
+}
 
 function LogoBateauSale() {
   let bateauSale = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sale_xqgnxw.png';
@@ -87,7 +87,7 @@ function LogoBateauSale() {
   return (
     <Image alt="iconebateauSale" className="allogo" height={100} src={bateauSale} width={100} />
   );
-};
+}
 
 function LogoIdealFamille() {
   let idealFamille =
@@ -96,25 +96,25 @@ function LogoIdealFamille() {
   return (
     <Image alt="iconeidealFamille" className="allogo" height={100} src={idealFamille} width={100} />
   );
-};
+}
 
 function LogoSoleil() {
   let soleil = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sunset_dometl.png';
 
   return <Image alt="iconesoleil" className="allogo" height={100} src={soleil} width={100} />;
-};
+}
 function LogoSeminaire() {
   let seminaire =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/seminar_ads3ym.png';
 
   return <Image alt="iconeseminaire" className="allogo" height={100} src={seminaire} width={100} />;
-};
+}
 function LogoPMR() {
   let PMR =
     'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/disabled-person_bn2sbu.png';
 
   return <Image alt="iconePMR" className="allogo" height={100} src={PMR} width={100} />;
-};
+}
 
 export default function CategoriesPage() {
   const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
@@ -134,12 +134,12 @@ export default function CategoriesPage() {
               backgroundRepeat: 'no-repeat',
               backgroundSize: '97rem',
             }}
-          />
-          <div className="contenttext">
-            <div className="flex flex-row space-x-2">
+          ></div>
+          <div className="absolute left-[1rem] md:left-[10rem] top-[14rem]">
+            <div className="flex flex-col items-center md:items-start md:flex-row space-x-2">
               <div className="Textheader text-white">
                 <BoxReveal boxColor={'#5046e6'} duration={0.5}>
-                  <h1 className="text-6xl font-bold">Nos Categories de navigation</h1>
+                  <h1 className="text-6xl font-bold h-[5rem]">Nos Categories de navigation</h1>
                 </BoxReveal>
 
                 <BoxReveal boxColor={'#5046e6'} duration={0.5}>
@@ -151,9 +151,9 @@ export default function CategoriesPage() {
               </div>
             </div>
           </div>
-          <div className="contentFormHome">
+          <div className="absolute bottom-[6rem] left-[4rem] md:left-[10rem] md:bottom-[5rem] contentFormHome">
             <form action="">
-              <div className="grid grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div className="inputformhome">
                   <Input
                     color="secondary"
@@ -171,9 +171,9 @@ export default function CategoriesPage() {
                 <div className="inputformhome">
                   <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
                 </div>
-                <div>
+                <div className="flex justify-center md:block">
                   <RippleButton className="py-3.5" rippleColor="#ADD8E6">
-                    Trouver mon bateau
+                    Rechercher mon bateau
                   </RippleButton>
                 </div>
               </div>
@@ -195,10 +195,10 @@ export default function CategoriesPage() {
               <h2 className="text-5xl font-medium mb-5">EMBARQUEZ POUR UNE AVENTURE SUR MESURE</h2>
             </div>
             <div>
-              <p className="descriptionallsectionhome text-center">
+              <p className="descriptionallsectionhome text-center w-[63rem]">
                 Découvrez notre sélection de bateaux adaptés à tous les styles de navigation. Que
-                vous recherchiez une escapade paisible à bord d’un voilier, une croisière conviviale
-                en catamaran, ou une sortie guidée avec skipper, trouvez l’expérience idéale pour
+                vous recherchiez une escapade paisible à bord d&apos;un voilier, une croisière conviviale
+                en catamaran, ou une sortie guidée avec skipper, trouvez l&apos;expérience idéale pour
                 voguer à votre rythme..
               </p>
             </div>

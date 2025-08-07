@@ -42,7 +42,7 @@ const Descritpion = ({ texte }: Props) => {
 
 export default function NosBateauxPage() {
   const words = [
-    'Vivez l&apos;expérience de',
+    'Vivez l expérience de',
     'Imaginez-vous à bord de',
     'Offrez-vous un moment unique avec',
     'Embarquez avec',

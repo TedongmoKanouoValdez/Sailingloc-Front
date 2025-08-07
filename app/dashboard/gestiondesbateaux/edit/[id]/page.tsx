@@ -123,6 +123,28 @@ const cancellationPolicies = [
   },
 ];
 
+type ToastPlacement = 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left';
+
+type MediaImage = {
+  id?: number | string;    
+  url: string;
+  file?: File;               
+  titre?: string;
+  [key: string]: any;         
+};
+
+type DocumentPdf = {
+  url: string;
+  file?: File;
+  nom?: string;
+  [key: string]: any;
+};
+
+type Tag = {
+  id: string;
+  label: string;
+};
+
 export default function EditBateauForm() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
@@ -134,18 +156,18 @@ export default function EditBateauForm() {
   const [noCertificat, setNoCertificat] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const [tagInputs, setTagInputs] = useState<Record<string, boolean>>({});
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [tagInputs, setTagInputs] = useState<Record<string, string>>({});
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [selectedTarif, setSelectedTarif] = useState<string[]>([]);
   const [inputsTarif, setInputsTarif] = useState<Record<string, string>>({});
   const [unavailableDates, setUnavailableDates] = useState<Dayjs[]>([]);
-  const [coverImages, setCoverImages] = useState([]);
-  const [galleryImages, setGalleryImages] = useState([]);
-  const [documentPdfs, setDocumentPdfs] = useState([]);
+  const [coverImages, setCoverImages] = useState<MediaImage[]>([]);
+  const [galleryImages, setGalleryImages] = useState<MediaImage[]>([]);
+  const [documentPdfs, setDocumentPdfs] = useState<DocumentPdf[]>([]);
   const [ImagesNeedUpdate, setImagesNeedUpdate] = useState(false);
   const [numeroPolice, setNumeroPolice] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [placement, setPlacement] = React.useState('top-center');
+  const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
 
   const router = useRouter();
   const params = useParams();
@@ -345,7 +367,7 @@ export default function EditBateauForm() {
 
     if (!file) return;
 
-    const updatedPDFs = [...pdfFiles];
+    const updatedPDFs = [...documentPdfs];
 
     updatedPDFs[index] = {
       ...updatedPDFs[index],
@@ -401,7 +423,7 @@ export default function EditBateauForm() {
     setDocumentPdfs(updatedPDFs);
   };
 
-  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setIsSubmitting(true);
@@ -835,7 +857,7 @@ export default function EditBateauForm() {
                             setInputs={setTagInputs}
                             setSelectedTags={setSelectedTags}
                             tags={TAGS}
-                            onChange={(newTags) => setSelectedTags(newTags)}
+                            onChange={(newTags: Tag[]) => setSelectedTags(newTags)}
                           />
                         </div>
                       </div>
