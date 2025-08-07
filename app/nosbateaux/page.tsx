@@ -26,14 +26,14 @@ type Props = {
   texte: string; // Définit que 'texte' doit être une chaîne de caractères
 };
 
-export const MonTexte = ({ texte }: Props) => {
+const MonTexte = ({ texte }: Props) => {
   const maxChars = 7; // Limite à 100 caractères
   const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
-export const Descritpion = ({ texte }: Props) => {
+const Descritpion = ({ texte }: Props) => {
   const maxChars = 90; // Limite à 100 caractères
   const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
