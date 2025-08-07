@@ -1,3 +1,5 @@
+'use client'
+
 import { Input } from '@heroui/input';
 import { DatePicker } from '@heroui/date-picker';
 import { NumberInput } from '@heroui/number-input';
@@ -113,7 +115,8 @@ export const LogoPMR = () => {
 
   return <Image alt="iconePMR" className="allogo" height={100} src={PMR} width={100} />;
 };
-export default function CategoriesPage() {
+
+export default async function CategoriesPage() {
   const words = ['aventure', 'voyage', 'périple', 'épopée', 'exploration'];
 
   return (
