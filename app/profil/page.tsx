@@ -210,7 +210,7 @@ export const data: Reservation[] = [
   },
 ];
 
-const renderActions = (reservation) => {
+const ReservationActions = ({ reservation }: { reservation: Reservation }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -696,11 +696,7 @@ export const columns: ColumnDef<Reservation>[] = [
   {
     id: 'actions',
     enableHiding: false,
-    cell: ({ row }) => {
-      const reservation = row.original;
-
-      return renderActions(reservation);
-    },
+    cell: ({ row }) => <ReservationActions reservation={row.original} />,
   },
 ];
 
@@ -1251,9 +1247,7 @@ export default function ProfilPage() {
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="chat">
-
-                </TabsContent>
+                <TabsContent value="chat"></TabsContent>
                 <TabsContent value="parametre">
                   <div className="h-[20rem] bg-glacev2 p-4 rounded-lg">
                     <div className="space-y-1">

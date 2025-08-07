@@ -203,7 +203,7 @@ function ActionsCell() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Affectation</DialogTitle>
-            <DialogDescription>Assignez ce ticket à un membre de l'équipe.</DialogDescription>
+            <DialogDescription>Assignez ce ticket à un membre de l&apos;équipe.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
