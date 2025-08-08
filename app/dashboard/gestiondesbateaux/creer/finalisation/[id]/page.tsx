@@ -55,6 +55,7 @@ export default function GestionDesBateauxCreerPage() {
       const res = await fetch('https://sailingloc-back.vercel.app/upload-documents', {
         method: 'POST',
         body: formData,
+        credentials: "include"
       });
       const data = await res.json();
 
