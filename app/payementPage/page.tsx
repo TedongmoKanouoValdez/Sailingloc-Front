@@ -1,3 +1,4 @@
+'use client';
 import PayementClient from '@/components/PayementClient';
 
 export default function Home() {
