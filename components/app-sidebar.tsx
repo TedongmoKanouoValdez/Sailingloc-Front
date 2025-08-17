@@ -51,27 +51,27 @@ const data = {
     },
     {
       title: 'Réservations',
-      url: '#',
+      url: '/dashboard/reservations',
       icon: FileText,
     },
     {
       title: 'Gestion des utilisateurs',
-      url: '#',
+      url: '/dashboard/gestiondesutilisateurs',
       icon: UserCog,
     },
     {
       title: 'Support & messages',
-      url: '#',
+      url: '/dashboard/support&messages',
       icon: MessageSquareLock,
     },
     {
       title: 'Notifications système',
-      url: '#',
+      url: '/dashboard',
       icon: Bell,
     },
     {
       title: 'Transactions & paiements',
-      url: '#',
+      url: '/dashboard',
       icon: BanknoteArrowUp,
     },
   ],

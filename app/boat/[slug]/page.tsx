@@ -1,16 +1,16 @@
-'use client';
-import { useParams } from 'next/navigation';
+"use client";
+import { useParams } from "next/navigation";
+import ArticlePage from "@/components/pages/ArticlePage";
+import { DateRangeProvider } from "@/context/DateRangeContext";
 
-import ArticlePage from '@/components/pages/ArticlePage';
-import { DateRangeProvider } from '@/context/DateRangeContext';
 
 export default function Page() {
   const params = useParams();
-  const slug = params.slug; // slug de l’article
+  const slug = params.slug as string; // slug de l’article
 
   return (
     <DateRangeProvider>
-      <ArticlePage />
+      <ArticlePage slug={slug} />
     </DateRangeProvider>
   );
 }

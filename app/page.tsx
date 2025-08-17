@@ -32,7 +32,8 @@ import { TbMailFilled } from 'react-icons/tb';
 // import required modules
 import { FreeMode, Pagination, Navigation } from 'swiper/modules';
 import Link from 'next/link';
-
+import MonTexte from '@/components/MonTexte';
+import Descritpion from '@/components/Descritpion';
 import { BoxReveal } from '@/components/magicui/box-reveal';
 import { RippleButton } from '@/components/magicui/ripple-button';
 
@@ -885,24 +886,6 @@ const LogoSailingTime = () => {
   return (
     <Image alt="iconeSailingTime" className="allogo" height={100} src={sailingtime} width={100} />
   );
-};
-
-type Props = {
-  texte: string; // Définit que 'texte' doit être une chaîne de caractères
-};
-
-const MonTexte = ({ texte }: Props) => {
-  const maxChars = 10; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
-
-  return <p>{courtTexte}</p>;
-};
-
-const Descritpion = ({ texte }: Props) => {
-  const maxChars = 90; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
-
-  return <p>{courtTexte}</p>;
 };
 
 export default function Home() {

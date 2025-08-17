@@ -123,14 +123,20 @@ const cancellationPolicies = [
   },
 ];
 
-type ToastPlacement = 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left';
+type ToastPlacement =
+  | 'top-center'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'bottom-left';
 
 type MediaImage = {
-  id?: number | string;    
+  id?: number | string;
   url: string;
-  file?: File;               
+  file?: File;
   titre?: string;
-  [key: string]: any;         
+  [key: string]: any;
 };
 
 type DocumentPdf = {
@@ -234,7 +240,7 @@ export default function EditBateauForm() {
         const foundPolicy = cancellationPolicies.find((p) => p.label === policyFromAPI);
 
         if (foundPolicy) {
-          setSelectedPolicy(foundPolicy.id); // ID d’une option existante
+          setSelectedPolicy(foundPolicy.id); // ID d&apos;une option existante
         } else if (policyFromAPI) {
           setSelectedPolicy('custom');
           setCustomDescription(policyFromAPI); // Valeur personnalisée
@@ -291,7 +297,12 @@ export default function EditBateauForm() {
           modeleMarque: data.bateau.modele,
           typeBateau: data.bateau.typeBateau,
           portattache: data.bateau.port,
-          tarifbateau: data.bateau.prix,
+          SupplementParPassagerSupplémentaire:
+            data.bateau.details?.SupplementParPassagerSupplémentaire,
+          moteur: data.bateau.details?.moteur,
+          reservoirEau: data.bateau.details?.reservoirEau,
+          reservoirCarburant: data.bateau.details?.reservoirCarburant,
+          PassagersInclusDansLePrix: data.bateau.details?.PassagersInclusDansLePrix,
           description: data.bateau.description,
           indisponibilites: safeParse(data.datesIndisponibles),
           disponibilite: data.disponibilite,
@@ -349,7 +360,7 @@ export default function EditBateauForm() {
 
     const newUrl = URL.createObjectURL(file);
 
-    // Mettre à jour l’image dans l’état
+    // Mettre à jour l&apos;image dans l&apos;état
     const updatedImages = [...coverImages];
 
     updatedImages[index] = {
@@ -448,7 +459,11 @@ export default function EditBateauForm() {
       nomBateau: formData.nomBateau,
       modeleMarque: formData.modeleMarque,
       description: formData.description,
-      tarifbateau: formData.tarifbateau,
+      SupplementParPassagerSupplémentaire: formData.SupplementParPassagerSupplémentaire,
+      moteur: formData.moteur,
+      reservoirEau: formData.reservoirEau,
+      reservoirCarburant: formData.reservoirCarburant,
+      PassagersInclusDansLePrix: formData.PassagersInclusDansLePrix,
       portattache: formData.portattache,
       portdefault: formData.portdefault,
       typeBateau: formData.typeBateau,
@@ -609,7 +624,7 @@ export default function EditBateauForm() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L&apos;Étoile de Mer"
+                            placeholder="Ex : L'Étoile de Mer"
                             value={formData?.nomBateau || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -779,6 +794,52 @@ export default function EditBateauForm() {
                           />
                         </div>
                       </div>
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="grid gap-3">
+                          <Label htmlFor="Moteurs">Moteurs</Label>
+                          <Input
+                            id="Moteurs"
+                            placeholder="Torqeedo Travel 1103 C"
+                            value={formData?.moteur || 'non défini'}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                moteur: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="grid gap-3">
+                          <Label htmlFor="reservoirEau">réservoirs d&apos;eau</Label>
+                          <Input
+                            id="reservoirEau"
+                            placeholder="Vetus FTANK série (PEHD, 100 à 400 L)"
+                            value={formData?.reservoirEau || 'non défini'}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                reservoirEau: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="grid gap-3">
+                          <Label htmlFor="reservoirCarburant">réservoirs de carburant</Label>
+                          <Input
+                            id="reservoirCarburant"
+                            placeholder="12 L à 30 L"
+                            value={formData?.reservoirCarburant || 'non défini'}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                reservoirCarburant: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <div>
@@ -903,7 +964,9 @@ export default function EditBateauForm() {
                       <div className="text-lg font-bold mb-4">Conditions de location</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc...</Label>
+                          <Label htmlFor="tarification">
+                            Tarif journalier, hebdomadaire, etc...
+                          </Label>
                           <Select onValueChange={handleSelect}>
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Choisissez une tarification" />
@@ -995,6 +1058,54 @@ export default function EditBateauForm() {
                               setFormData({
                                 ...formData,
                                 tarifbateau: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                      <Alert
+                        color="warning"
+                        title="Si vous souhaitez facturer un supplément au-delà d&apos;un certain nombre de passagers, indiquez ici le prix par passager supplémentaire et par jour.
+                        Laissez vide ou mettez 0 si aucun supplément n&apos;est appliqué."
+                      />
+                      <div className="grid grid-cols-2 gap-2 mt-2 mb-4">
+                        <div className="grid gap-3">
+                          <Label htmlFor="depot-garantie-2">
+                            Passagers inclus dans le prix
+                          </Label>
+                          <Input
+                            id="PassagersInclusDansLePrix"
+                            placeholder="ex : 4"
+                            value={
+                              formData?.PassagersInclusDansLePrix ||
+                              "non défini"
+                            }
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                PassagersInclusDansLePrix: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="grid gap-3">
+                          <Label htmlFor="depot-garantie-2">
+                            Supplément par passager supplémentaire (€ / jour)
+                          </Label>
+                          <Input
+                            type="number"
+                            id="SupplementParPassagerSupplémentaire"
+                            placeholder="ex : 20"
+                            step="0.01"
+                            value={
+                              formData?.SupplementParPassagerSupplémentaire ||
+                              "non défini"
+                            }
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                SupplementParPassagerSupplémentaire:
+                                  e.target.value,
                               })
                             }
                           />
