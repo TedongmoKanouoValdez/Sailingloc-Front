@@ -20,6 +20,10 @@ export const siteConfig = {
       label: 'Devenir partenaire',
       href: '/devenirpartenaire',
     },
+    {
+      label: 'Contact',
+      href: '/contact',
+    },
     // {
     //   label: "A propos",
     //   href: "/about",
