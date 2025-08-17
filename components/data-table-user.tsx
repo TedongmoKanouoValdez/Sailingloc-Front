@@ -728,7 +728,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
               <Input id="header" defaultValue={item.header} disabled />
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="header">Date d'inscription</Label>
+              <Label htmlFor="header">Date d&apos;inscription</Label>
               <Input id="header" defaultValue="18/08/2025" disabled />
             </div>
             <div className="grid grid-cols-1">
@@ -852,7 +852,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
     if (!email.trim()) {
       newErrors.email = "L'email est requis";
     } else if (!emailRegex.test(email)) {
-      newErrors.email = "Format d'email invalide";
+      newErrors.email = "Format d&apos;email invalide";
     }
     if (!motDePasse.trim()) newErrors.motDePasse = 'Le mot de passe est requis';
     if (!role.trim()) newErrors.role = 'Le role  est requis';
@@ -901,7 +901,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
             email: 'Cet email est déjà utilisé',
           }));
         } else {
-          throw new Error("Erreur lors de l'ajout");
+          throw new Error("Erreur lors de l&apos;ajout");
         }
         setIsLoading(false);
         return;
@@ -970,7 +970,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
                   onClick={handleRemoveImage}
                   className="w-[7rem]"
                 >
-                  Supprimer l'image
+                  Supprimer l&apos;image
                 </Button>
               )}
             </div>
@@ -1209,7 +1209,7 @@ function EditUserPanel({
                   onClick={handleRemoveImage}
                   className="w-[7rem]"
                 >
-                  Supprimer l'image
+                  Supprimer l&apos;image
                 </Button>
               )}
             </div>

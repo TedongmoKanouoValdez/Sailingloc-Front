@@ -1,23 +1,20 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import Select, {
-  components,
-  OptionProps,
-  SingleValueProps,
-} from "react-select";
-import ReactWorldFlags from "react-world-flags";
-import countries from "i18n-iso-countries";
-import { useAppStore } from "@/store/appStore";
-import { allCountries } from "country-telephone-data";
-import { Checkbox } from "@heroui/checkbox";
-import { cn } from "@/lib/utils";
-import { User } from "@heroui/user";
-import { Chip } from "@heroui/chip";
+import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import Select, { components, OptionProps, SingleValueProps } from 'react-select';
+import ReactWorldFlags from 'react-world-flags';
+import countries from 'i18n-iso-countries';
+import { useAppStore } from '@/store/appStore';
+import { allCountries } from 'country-telephone-data';
+import { Checkbox } from '@heroui/checkbox';
+import { cn } from '@/lib/utils';
+import { User } from '@heroui/user';
+import { Chip } from '@heroui/chip';
+import { Link } from '@heroui/link';
 
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
 // Préparer les options
 const countryOptions = allCountries.map((country) => ({
@@ -28,21 +25,13 @@ const countryOptions = allCountries.map((country) => ({
 // Custom option pour afficher uniquement le drapeau
 const Option = (props: OptionProps<{ value: string; label: string }>) => (
   <components.Option {...props}>
-    <ReactWorldFlags
-      code={props.data.label.toUpperCase()}
-      style={{ width: 24, height: 16 }}
-    />
+    <ReactWorldFlags code={props.data.label.toUpperCase()} style={{ width: 24, height: 16 }} />
   </components.Option>
 );
 
-const SingleValue = (
-  props: SingleValueProps<{ value: string; label: string }>
-) => (
+const SingleValue = (props: SingleValueProps<{ value: string; label: string }>) => (
   <components.SingleValue {...props}>
-    <ReactWorldFlags
-      code={props.data.label.toUpperCase()}
-      style={{ width: 24, height: 16 }}
-    />
+    <ReactWorldFlags code={props.data.label.toUpperCase()} style={{ width: 24, height: 16 }} />
   </components.SingleValue>
 );
 
@@ -56,23 +45,21 @@ export default function ReservationPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
   const router = useRouter();
-  const [countriesList, setCountriesList] = useState<
-    { code: string; name: string }[]
-  >([]);
-  const [selected, setSelected] = useState("");
+  const [countriesList, setCountriesList] = useState<{ code: string; name: string }[]>([]);
+  const [selected, setSelected] = useState('');
   const userData = useAppStore((state) => state.userData);
   const [isSelected, setIsSelected] = React.useState(false);
 
   const [form, setForm] = useState({
-    titre: "",
-    prenom: userData?.prenom || "",
-    nom: userData?.username || "",
-    telephone: userData?.telephone || "",
-    email: userData?.email || "",
+    titre: '',
+    prenom: userData?.prenom || '',
+    nom: userData?.username || '',
+    telephone: userData?.telephone || '',
+    email: userData?.email || '',
   });
 
   useEffect(() => {
-    const countryObj = countries.getNames("en", { select: "official" });
+    const countryObj = countries.getNames('en', { select: 'official' });
     const list = Object.entries(countryObj).map(([code, name]) => ({
       code,
       name,
@@ -95,10 +82,7 @@ export default function ReservationPage() {
     [extras]
   );
 
-  const totalPrice = useMemo(
-    () => basePrice - discount + totalExtrasPrice,
-    [totalExtrasPrice]
-  );
+  const totalPrice = useMemo(() => basePrice - discount + totalExtrasPrice, [totalExtrasPrice]);
 
   const handleExtrasChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -109,16 +93,14 @@ export default function ReservationPage() {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
     setForm((prev) => ({ ...prev, [id]: value }));
     setErrors((prev) => ({ ...prev, [id]: false }));
   };
 
   const validateForm = () => {
-    const requiredFields = ["titre", "prenom", "nom", "telephone", "email"];
+    const requiredFields = ['titre', 'prenom', 'nom', 'telephone', 'email'];
     const newErrors: { [key: string]: boolean } = {};
     requiredFields.forEach((field) => {
       if (!form[field as keyof typeof form]) newErrors[field] = true;
@@ -164,7 +146,7 @@ export default function ReservationPage() {
                   id="titre"
                   value={form.titre}
                   onChange={handleChange}
-                  className={`w-full border p-2 rounded ${errors.titre && "border-red-500"}`}
+                  className={`w-full border p-2 rounded ${errors.titre && 'border-red-500'}`}
                 >
                   <option value="">-- Sélectionner --</option>
                   <option value="M.">Monsieur</option>
@@ -182,7 +164,7 @@ export default function ReservationPage() {
                   value={form.prenom}
                   onChange={handleChange}
                   type="text"
-                  className={`w-full border p-2 rounded ${errors.prenom && "border-red-500"}`}
+                  className={`w-full border p-2 rounded ${errors.prenom && 'border-red-500'}`}
                 />
               </div>
               <div>
@@ -194,7 +176,7 @@ export default function ReservationPage() {
                   value={form.nom}
                   onChange={handleChange}
                   type="text"
-                  className={`w-full border p-2 rounded ${errors.nom && "border-red-500"}`}
+                  className={`w-full border p-2 rounded ${errors.nom && 'border-red-500'}`}
                 />
               </div>
             </div>
@@ -214,13 +196,13 @@ export default function ReservationPage() {
                   styles={{
                     option: (provided) => ({
                       ...provided,
-                      display: "flex",
-                      justifyContent: "center",
+                      display: 'flex',
+                      justifyContent: 'center',
                     }),
                     singleValue: (provided) => ({
                       ...provided,
-                      display: "flex",
-                      justifyContent: "center",
+                      display: 'flex',
+                      justifyContent: 'center',
                     }),
                   }}
                 />
@@ -234,7 +216,7 @@ export default function ReservationPage() {
                   value={form.telephone}
                   onChange={handleChange}
                   type="text"
-                  className={`w-full border p-2 rounded ${errors.telephone && "border-red-500"}`}
+                  className={`w-full border p-2 rounded ${errors.telephone && 'border-red-500'}`}
                 />
               </div>
             </div>
@@ -248,7 +230,7 @@ export default function ReservationPage() {
                 value={form.email}
                 onChange={handleChange}
                 type="email"
-                className={`w-full border p-2 rounded ${errors.email && "border-red-500"}`}
+                className={`w-full border p-2 rounded ${errors.email && 'border-red-500'}`}
               />
             </div>
 
@@ -264,12 +246,12 @@ export default function ReservationPage() {
                     aria-label={item.value}
                     classNames={{
                       base: cn(
-                        "inline-flex w-full max-w-md bg-content1 contourselector",
-                        "hover:bg-content2 items-center justify-start",
-                        "cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent",
-                        "data-[selected=true]:border-primary"
+                        'inline-flex w-full max-w-md bg-content1 contourselector',
+                        'hover:bg-content2 items-center justify-start',
+                        'cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent',
+                        'data-[selected=true]:border-primary'
                       ),
-                      label: "w-full",
+                      label: 'w-full',
                     }}
                     isSelected={isSelected}
                     onValueChange={setIsSelected}
@@ -277,17 +259,17 @@ export default function ReservationPage() {
                     <div className="w-full flex justify-between gap-2">
                       <User
                         avatarProps={{
-                          size: "md",
-                          src: "https://res.cloudinary.com/dluqkutu8/image/upload/v1755118569/15558_jdfeoh.jpg",
+                          size: 'md',
+                          src: 'https://res.cloudinary.com/dluqkutu8/image/upload/v1755118569/15558_jdfeoh.jpg',
                         }}
                         name={item.value}
                       />
                       <div className="flex flex-col items-end gap-1">
                         <span className="text-tiny text-default-500">
-                          {userData.nomdubateau || ""}
+                          {userData.nomdubateau || ''}
                         </span>
                         <Chip color="success" size="sm" variant="flat">
-                          {item.detail ? `${item.detail} €` : ""}
+                          {item.detail ? `${item.detail} €` : ''}
                         </Chip>
                       </div>
                     </div>
@@ -306,10 +288,10 @@ export default function ReservationPage() {
                 onChange={() => setTermsAccepted(!termsAccepted)}
               />
               <p className="ml-2 text-sm">
-                J’ai lu et j’accepte les{" "}
-                <a href="#" className="text-blue-600 underline">
+                J&apos;ai lu et j&apos;accepte les{' '}
+                <Link className="text-blue-600 underline" href="/nosbateaux">
                   conditions générales
-                </a>
+                </Link>
                 .
               </p>
             </div>
@@ -319,15 +301,14 @@ export default function ReservationPage() {
         {/* Récapitulatif */}
         <div className="w-full lg:w-[350px] bg-blue-50 rounded-2xl p-6 shadow space-y-5">
           <div className="flex justify-between text-sm text-gray-600">
-            <span id="address">{userData.port || ""}</span>
+            <span id="address">{userData.port || ''}</span>
           </div>
 
           <p id="boat-name" className="text-lg font-bold text-gray-800">
-            {userData.nomdubateau || ""}
+            {userData.nomdubateau || ''}
           </p>
           <p id="boat-dates" className="text-sm text-gray-600">
-            {userData.DateDeReservation[0] || ""} /{" "}
-            {userData.DateDeReservation[1] || ""}
+            {userData.DateDeReservation[0] || ''} / {userData.DateDeReservation[1] || ''}
           </p>
 
           <div className="border rounded p-3 text-sm bg-white">
@@ -347,9 +328,7 @@ export default function ReservationPage() {
 
             {extras.map((key) => (
               <div key={key} className="flex justify-between text-gray-700">
-                <span>
-                  {key === "table" ? "Service à table" : "Directeur de groupe"}
-                </span>
+                <span>{key === 'table' ? 'Service à table' : 'Directeur de groupe'}</span>
                 <span>+{extrasPrices[key].toFixed(2)}€</span>
               </div>
             ))}
@@ -363,9 +342,7 @@ export default function ReservationPage() {
           <button
             onClick={handleReserveClick}
             className={`mt-4 w-full p-3 rounded-xl text-white font-bold transition ${
-              termsAccepted
-                ? "bg-blue-800 hover:bg-blue-900"
-                : "bg-gray-400 cursor-not-allowed"
+              termsAccepted ? 'bg-blue-800 hover:bg-blue-900' : 'bg-gray-400 cursor-not-allowed'
             }`}
             disabled={!termsAccepted}
           >
@@ -389,12 +366,9 @@ export default function ReservationPage() {
             className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
           >
             <div className="bg-white rounded-xl shadow-xl p-6 max-w-sm text-center space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">
-                Confirmation
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-800">Confirmation</h3>
               <p className="text-gray-600 text-sm">
-                Vous recevrez un e-mail contenant un lien sécurisé pour
-                finaliser le paiement.
+                Vous recevrez un e-mail contenant un lien sécurisé pour finaliser le paiement.
               </p>
               <p className="text-gray-500 text-xs">
                 Redirection automatique dans quelques secondes...

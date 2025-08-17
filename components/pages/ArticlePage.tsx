@@ -89,7 +89,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
 
   function handleNext() {
     if (!date1 || !date2 || !token) return;
-    
+
     setUserData({
       DateDeReservation: [
         date1.format("YYYY-MM-DD"),
@@ -443,7 +443,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                   </div>
                   <div className="flex flex-col space-y-4 mt-4">
                     <div className="text-lg text-gray-700">
-                      Port de départ et d'arrivée
+                      Port de départ et d&apos;arrivée
                     </div>
                     <div
                       className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? "" : "hidden"}`}
@@ -517,7 +517,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                             : "Permis bateau côtier non obligatoire"}
                         </li>
                         <li>
-                          Politique d'annulation :{" "}
+                          Politique d&apos;annulation :{" "}
                           {data[0].politiqueAnnulation.split(":")[1]?.trim()}
                         </li>
                         <li>Contrat de location signé avant le départ.</li>
@@ -565,7 +565,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                             <div className="w-full flex items-center my-3">
                               <Alert
                                 color="warning"
-                                title="En cas d'annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d'annulation."
+                                title="En cas d&apos;annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d&apos;annulation."
                               />
                             </div>
                           </div>
@@ -609,8 +609,8 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                               onValueChange={setIsAccepted}
                               radius="full"
                             >
-                              J'accepte les conditions de location et la
-                              politique d'annulation.
+                              J&apos;accepte les conditions de location et la
+                              politique d&apos;annulation.
                             </Checkbox>
                           </div>
                         </div>
