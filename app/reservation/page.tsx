@@ -3,7 +3,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import Select, { components, OptionProps, SingleValueProps } from 'react-select';
+import Select, { components, OptionProps } from 'react-select';
+import type { SingleValue as SingleValueType, SingleValueProps } from 'react-select';
 import ReactWorldFlags from 'react-world-flags';
 import countries from 'i18n-iso-countries';
 import { useAppStore } from '@/store/appStore';
@@ -16,8 +17,41 @@ import { Link } from '@heroui/link';
 
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
+type Country = {
+  name: string;
+  iso2: string;
+  dialCode: string;
+  format?: string;
+  priority?: number;
+  areaCodes?: string[];
+};
+
+// Définition du type
+type CountryOption = {
+  value: string;
+  label: string;
+  flag?: string;
+};
+
+type OptionPayante = {
+  value: string;
+  detail?: number;
+};
+
+// Composant personnalisé pour SingleValue
+const SingleValueFlag = (props: SingleValueProps<CountryOption>) => {
+  return (
+    <components.SingleValue {...props}>
+      {props.data.flag && (
+        <ReactWorldFlags code={props.data.flag} style={{ width: 20, marginRight: 8 }} />
+      )}
+      {props.data.label}
+    </components.SingleValue>
+  );
+};
+
 // Préparer les options
-const countryOptions = allCountries.map((country) => ({
+const countryOptions = allCountries.map((country: Country) => ({
   value: country.dialCode, // +33, +1, ...
   label: country.iso2, // ISO code pour le drapeau
 }));
@@ -37,10 +71,7 @@ const SingleValue = (props: SingleValueProps<{ value: string; label: string }>) 
 
 export default function ReservationPage() {
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [selectedCountry, setSelectedCountry] = React.useState<{
-    value: string;
-    label: string;
-  } | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(null);
   const [extras, setExtras] = useState<string[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
@@ -189,8 +220,10 @@ export default function ReservationPage() {
                 <Select
                   options={countryOptions}
                   value={selectedCountry}
-                  onChange={(option) => setSelectedCountry(option)}
-                  components={{ Option, SingleValue }}
+                  onChange={(option) => {
+                    setSelectedCountry(option as SingleValueType<CountryOption>);
+                  }}
+                  components={{ SingleValue: SingleValueFlag }}
                   placeholder="Select a country"
                   isSearchable
                   styles={{
@@ -240,7 +273,7 @@ export default function ReservationPage() {
               <h2 className="text-xl font-semibold mb-4">2. Extras</h2>
 
               <div className="flex flex-col justify-center items-center h-[11rem] overflow-y-scroll space-y-4 pt-[12rem] pb-[2rem]">
-                {userData?.optionsPayantes.map((item, index) => (
+                {userData?.optionsPayantes.map((item: OptionPayante, index: number) => (
                   <Checkbox
                     key={index}
                     aria-label={item.value}

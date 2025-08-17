@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import { SplitText } from '@/components/split-text';
@@ -23,19 +23,22 @@ import MonTexte from '@/components/MonTexte';
 import Descritpion from '@/components/Descritpion';
 import { Pagination, PaginationItem, PaginationCursor } from '@heroui/pagination';
 
-const handleAnimationComplete = () => {
-  console.log('All letters have animated!');
-};
-
-type Props = {
-  texte: string; // Définit que 'texte' doit être une chaîne de caractères
-};
+interface OptionPayante {
+  id: string;
+  label?: string;
+}
 
 interface Media {
   id: number;
   url: string;
   type: string;
   titre: string;
+}
+
+interface BateauDetail {
+  optionsPayantes?: string;
+  tarifications?: string;
+  capaciteMax?: number;
 }
 
 interface Bateau {
@@ -48,6 +51,7 @@ interface Bateau {
   target: string;
   description: string;
   medias: Media[];
+  detail?: BateauDetail;
 }
 
 const typeToLabel: Record<string, string> = {
@@ -95,7 +99,7 @@ export default function NosBateauxPage() {
           type: bateau.typeBateau ?? 'Modèle inconnu',
           port: bateau.portdefault ?? 'Port inconnu',
           target: bateau.prix ?? '0',
-          detail: bateau.details ?? [],
+          detail: bateau.details ?? {},
           description: bateau.description ?? '',
           datesIndisponibles: bateau.datesIndisponibles ?? [],
           proprietaireId: bateau.proprietaireId ?? 0,
@@ -116,7 +120,7 @@ export default function NosBateauxPage() {
 
   if (loading) return <p>Chargement…</p>;
 
-  console.log(pagedData)
+  console.log(pagedData);
 
   return (
     <>
@@ -215,9 +219,9 @@ export default function NosBateauxPage() {
                 <div className="grid grid-cols-3 gap-3 place-items-center">
                   {pagedData.map((bateau) => {
                     const cover = bateau.medias.find((m) => m.type === 'COVER');
-                    let optionsPayantes = [];
+                    let optionsPayantes: OptionPayante[] = [];
                     if (bateau?.detail?.optionsPayantes) {
-                      optionsPayantes = JSON.parse(bateau.detail.optionsPayantes);
+                      optionsPayantes = JSON.parse(bateau.detail.optionsPayantes) as OptionPayante[];
                     }
                     const hasSkipper = optionsPayantes.some((option) => option.id === 'Skipper');
 
@@ -238,7 +242,6 @@ export default function NosBateauxPage() {
                     } catch (error) {
                       console.error(`Erreur parsing tarifications pour ${bateau.header} :`, error);
                     }
-console.log(cover)
                     return (
                       <div
                         key={bateau.id}

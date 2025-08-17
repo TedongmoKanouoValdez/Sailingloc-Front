@@ -35,7 +35,7 @@ export const DateRangeProvider = ({ children }: { children: ReactNode }) => {
     return dates;
   })();
 
-  const setDates = (d1: Dayjs | null, d2: Dayjs | null) => {
+  const setDates = (d1: Dayjs | null, d2: Dayjs | null, allDates: Dayjs[] = []) => {
     setDate1(d1);
     setDate2(d2);
   };

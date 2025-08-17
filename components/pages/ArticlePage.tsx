@@ -1,11 +1,11 @@
-"use client";
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { motion } from "motion/react";
-import { Timeline } from "antd";
-import { LinkPreview } from "@/components/ui/link-preview";
-import { Checkbox } from "@heroui/checkbox";
-import { Chip } from "@heroui/chip";
-import { Button } from "@/components/ui/button";
+'use client';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { motion } from 'motion/react';
+import { Timeline } from 'antd';
+import { LinkPreview } from '@/components/ui/link-preview';
+import { Checkbox } from '@heroui/checkbox';
+import { Chip } from '@heroui/chip';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -13,30 +13,30 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Alert } from "@heroui/alert";
-import { FaStar } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
-import { BiSolidBookmark } from "react-icons/bi";
-import { Tooltip } from "@heroui/tooltip";
-import { FaWifi } from "react-icons/fa";
-import { FaKitchenSet } from "react-icons/fa6";
-import { IoBed } from "react-icons/io5";
-import { TbAirConditioningDisabled } from "react-icons/tb";
-import { RiSailboatFill } from "react-icons/ri";
-import { FaLocationDot } from "react-icons/fa6";
-import { SingleCarousselBoat } from "@/components/pages/singlecarousselboat";
-import { SingleCaracteristiqueBoat } from "@/components/pages/singlecaracteristiqueboat";
-import { GalerieSingleBoat } from "@/components/pages/galeriesingleboat";
-import { CalendarSingleBoat } from "@/components/pages/calendarsingleboat";
-import { useDateRange } from "@/context/DateRangeContext";
-import CommentsSection from "@/components/pages/CommentsSection";
-import BateauSimilaireSection from "@/components/pages/BateauSimilaire";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { GiRadioTower, GiThermometerCold, GiBunkBeds } from "react-icons/gi";
-import { MdOutlineAutoMode } from "react-icons/md";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert } from '@heroui/alert';
+import { FaStar } from 'react-icons/fa';
+import { IoMdShare } from 'react-icons/io';
+import { BiSolidBookmark } from 'react-icons/bi';
+import { Tooltip } from '@heroui/tooltip';
+import { FaWifi } from 'react-icons/fa';
+import { FaKitchenSet } from 'react-icons/fa6';
+import { IoBed } from 'react-icons/io5';
+import { TbAirConditioningDisabled } from 'react-icons/tb';
+import { RiSailboatFill } from 'react-icons/ri';
+import { FaLocationDot } from 'react-icons/fa6';
+import { SingleCarousselBoat } from '@/components/pages/singlecarousselboat';
+import { SingleCaracteristiqueBoat } from '@/components/pages/singlecaracteristiqueboat';
+import { GalerieSingleBoat } from '@/components/pages/galeriesingleboat';
+import { CalendarSingleBoat } from '@/components/pages/calendarsingleboat';
+import { useDateRange } from '@/context/DateRangeContext';
+import CommentsSection from '@/components/pages/CommentsSection';
+import BateauSimilaireSection from '@/components/pages/BateauSimilaire';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { GiRadioTower, GiThermometerCold, GiBunkBeds } from 'react-icons/gi';
+import { MdOutlineAutoMode } from 'react-icons/md';
 import {
   FaUserTie,
   FaUserNurse,
@@ -50,29 +50,67 @@ import {
   FaMotorcycle,
   FaShip,
   FaDrumstickBite,
-} from "react-icons/fa";
-import { MdAirportShuttle } from "react-icons/md";
-import { GiPaddles } from "react-icons/gi";
-import { TbKayak } from "react-icons/tb";
-import { BsDot } from "react-icons/bs";
-import { jwtDecode } from "jwt-decode";
-import { useAppStore } from "@/store/appStore";
-import { useRouter } from "next/navigation";
+} from 'react-icons/fa';
+import { MdAirportShuttle } from 'react-icons/md';
+import { GiPaddles } from 'react-icons/gi';
+import { TbKayak } from 'react-icons/tb';
+import { BsDot } from 'react-icons/bs';
+import * as jwtDecode from 'jwt-decode';
+import { useAppStore } from '@/store/appStore';
+import { useRouter } from 'next/navigation';
 
 interface ArticlePageProps {
   slug: string;
 }
 
+interface Token {
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  userId: string;
+}
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
+
 const typeToLabel: Record<string, string> = {
-  Aucun: "",
-  "Par heure": "/ heure",
-  "Par demi-journée": "/ demi-journée",
-  "Par jour (journalier)": "/ jour",
-  "Par week-end": "/ week-end",
-  "Par semaine (hebdomadaire)": "/ semaine",
-  "Par mois (mensuel)": "/ mois",
-  "Par séjour (forfait global, peu importe la durée)": "/ séjour",
+  Aucun: '',
+  'Par heure': '/ heure',
+  'Par demi-journée': '/ demi-journée',
+  'Par jour (journalier)': '/ jour',
+  'Par week-end': '/ week-end',
+  'Par semaine (hebdomadaire)': '/ semaine',
+  'Par mois (mensuel)': '/ mois',
+  'Par séjour (forfait global, peu importe la durée)': '/ séjour',
 };
+
+interface Token {
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  userId: string;
+}
+
+interface Equipement {
+  value: string;
+  icon: React.ReactNode | null;
+}
+
+interface OptionPayante {
+  value: string;
+  icon: React.ReactNode | null;
+  detail?: string;
+}
 
 export default function ArticlePage({ slug }: ArticlePageProps) {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -82,7 +120,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
   const { date1, date2, fullRange } = useDateRange();
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<Token | null>(null);
   const [utilisateurId, setUtilisateurId] = useState<number>(0);
   const setUserData = useAppStore((state) => state.setUserData);
   const router = useRouter();
@@ -91,10 +129,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
     if (!date1 || !date2 || !token) return;
 
     setUserData({
-      DateDeReservation: [
-        date1.format("YYYY-MM-DD"),
-        date2.format("YYYY-MM-DD"),
-      ],
+      DateDeReservation: [date1.format('YYYY-MM-DD'), date2.format('YYYY-MM-DD')],
       username: token.nom,
       email: token.email,
       telephone: token.telephone,
@@ -103,10 +138,9 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       nomdubateau: data[0].header,
       port: data[0].port,
       dureeLocation: data[0].dureeLocation,
-      politiqueAnnulation: data[0].politiqueAnnulation.split(":")[1]?.trim(),
+      politiqueAnnulation: data[0].politiqueAnnulation.split(':')[1]?.trim(),
       tarifs: affichageTarifs,
-      SupplementParPassagerSupplémentaire:
-        data[0].SupplementParPassagerSupplémentaire,
+      SupplementParPassagerSupplémentaire: data[0].SupplementParPassagerSupplémentaire,
       PassagersInclusDansLePrix: data[0].PassagersInclusDansLePrix,
       comition: data[0].depotgarantie,
       capaciteMax: data[0].capaciteMax,
@@ -114,15 +148,17 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       idUser: token.userId,
       prenom: token.prenom,
     });
-    router.push("/reservation");
+    router.push('/reservation');
   }
 
   useEffect(() => {
-    const sessionData = localStorage.getItem("token");
+    const sessionData = localStorage.getItem('token');
     if (sessionData) {
-      const Token = jwtDecode(sessionData);
-      setUtilisateurId(Token.userId);
-      setToken(Token);
+      const decodedToken = decodeJWT(sessionData);
+      if (decodedToken) {
+        setUtilisateurId(Number(decodedToken.userId));
+        setToken(decodedToken);
+      }
       // console.log("Token JWT :", Token);
       // console.log("ID :", Token.userId);
     }
@@ -131,30 +167,30 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
   const ICONS_MAP: Record<string, JSX.Element> = {
     GPS: <FaMapMarkerAlt />,
     VHF: <GiRadioTower />,
-    "pilote automatique": <MdOutlineAutoMode />,
+    'pilote automatique': <MdOutlineAutoMode />,
     climatisation: <GiThermometerCold />,
-    "cuisine équipée": <FaKitchenSet />,
+    'cuisine équipée': <FaKitchenSet />,
     literie: <GiBunkBeds />,
   };
 
   const OPTIONS_PAYANTES_ICONS: Record<string, JSX.Element> = {
     Skipper: <FaUserTie />,
     Hôtesse: <FaUserNurse />,
-    "Chef cuisinier": <FaUtensils />,
-    "Instructeur de plongée": <FaWater />,
+    'Chef cuisinier': <FaUtensils />,
+    'Instructeur de plongée': <FaWater />,
     Paddle: <GiPaddles />,
     Kayak: <TbKayak />,
     Wakeboard: <FaWater />,
     Jetski: <FaMotorcycle />,
-    "Bouée tractée": <BsDot />,
-    "Nettoyage final": <FaBroom />,
-    "Draps et serviettes": <FaBed />,
-    "Courses livrées à bord": <FaShoppingCart />,
-    "Transfert aéroport / port": <MdAirportShuttle />,
+    'Bouée tractée': <BsDot />,
+    'Nettoyage final': <FaBroom />,
+    'Draps et serviettes': <FaBed />,
+    'Courses livrées à bord': <FaShoppingCart />,
+    'Transfert aéroport / port': <MdAirportShuttle />,
     Barbecue: <FaDrumstickBite />,
     Plancha: <FaHotdog />,
-    "Wi-Fi à bord": <FaWifi />,
-    "Générateur portable": <FaBolt />,
+    'Wi-Fi à bord': <FaWifi />,
+    'Générateur portable': <FaBolt />,
   };
 
   useEffect(() => {
@@ -176,8 +212,8 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [divTopOffset, isSticky]);
 
   useEffect(() => {
@@ -186,7 +222,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       .then((res) => res.json())
       .then((json) => {
         if (!json || !json.bateau) {
-          console.error("Format de données inattendu :", json);
+          console.error('Format de données inattendu :', json);
           setLoading(false);
           return;
         }
@@ -198,7 +234,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
         // Si c'est une chaîne JSON, on la parse
         const equipementsArray = Array.isArray(rawEquipements)
           ? rawEquipements
-          : typeof rawEquipements === "string"
+          : typeof rawEquipements === 'string'
             ? JSON.parse(rawEquipements)
             : [];
 
@@ -210,11 +246,11 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
         let optionsPayantesRaw = details.optionsPayantes ?? [];
         let optionsPayantesArray = [];
 
-        if (typeof optionsPayantesRaw === "string") {
+        if (typeof optionsPayantesRaw === 'string') {
           try {
             optionsPayantesArray = JSON.parse(optionsPayantesRaw);
           } catch (e) {
-            console.error("Erreur parsing optionsPayantes:", e);
+            console.error('Erreur parsing optionsPayantes:', e);
             optionsPayantesArray = [];
           }
         } else if (Array.isArray(optionsPayantesRaw)) {
@@ -234,32 +270,30 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
 
         const zonesNavigation =
           json.bateau?.details?.zonesNavigation
-            ?.split(",")
+            ?.split(',')
             .map((zone: string) => ({ children: zone.trim() })) ?? [];
 
         const bateau = {
           id: json.bateau.id ?? 0,
-          header: json.bateau.nom ?? "Nom inconnu",
-          slug: json.bateau.slug ?? "",
-          modele: json.bateau.modele ?? "Modèle inconnu",
-          type: json.bateau.typeBateau ?? "Modèle inconnu",
-          port: json.bateau.portdefault ?? "Port inconnu",
-          target: json.bateau.prix ?? "0",
+          header: json.bateau.nom ?? 'Nom inconnu',
+          slug: json.bateau.slug ?? '',
+          modele: json.bateau.modele ?? 'Modèle inconnu',
+          type: json.bateau.typeBateau ?? 'Modèle inconnu',
+          port: json.bateau.portdefault ?? 'Port inconnu',
+          target: json.bateau.prix ?? '0',
           detail: json.bateau.details ?? [],
-          description: json.bateau.description ?? "",
+          description: json.bateau.description ?? '',
           datesIndisponibles: json.bateau.datesIndisponibles ?? [],
           proprietaireId: json.bateau.proprietaireId ?? 0,
           medias: json.bateau.medias ?? [],
           equipements: equipementsFormatted,
           optionsPayantes: optionsPayantesFormatted,
-          datesIndisponibles: datesIndispo ?? [],
           zonesNavigation,
           depotgarantie: json.bateau?.details.depotgarantie,
           locationSansPermis: json.bateau?.details.locationSansPermis,
           dureeLocation: json.bateau?.details.dureeLocation,
           tarifications: json.bateau?.details.tarifications,
-          PassagersInclusDansLePrix:
-            json.bateau?.details.PassagersInclusDansLePrix,
+          PassagersInclusDansLePrix: json.bateau?.details.PassagersInclusDansLePrix,
           SupplementParPassagerSupplémentaire:
             json.bateau?.details.SupplementParPassagerSupplémentaire,
           politiqueAnnulation: json.bateau?.details.politiqueAnnulation,
@@ -270,30 +304,27 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Erreur lors du rafraîchissement :", err);
+        console.error('Erreur lors du rafraîchissement :', err);
         setLoading(false);
       });
   }, [slug]);
 
   const affichageTarifs = (() => {
     try {
-      if (!data?.[0]?.tarifications) return "N/A";
+      if (!data?.[0]?.tarifications) return 'N/A';
 
-      const tarifs = JSON.parse(data[0].tarifications || "[]");
+      const tarifs = JSON.parse(data[0].tarifications || '[]');
 
       return tarifs
         .map((tarif: any) => {
           const montant = parseFloat(tarif.montant);
-          const label = typeToLabel[tarif.type] || "";
+          const label = typeToLabel[tarif.type] || '';
           return `${montant}€ ${label}`;
         })
-        .join(", ");
+        .join(', ');
     } catch (error) {
-      console.error(
-        `Erreur parsing tarifications pour ${data[0]?.header} :`,
-        error
-      );
-      return "Erreur";
+      console.error(`Erreur parsing tarifications pour ${data[0]?.header} :`, error);
+      return 'Erreur';
     }
   })();
 
@@ -306,22 +337,18 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       <section
         style={{
           backgroundImage:
-            "url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751624019/5601165_vw0d54.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          paddingBottom: "5rem",
+            'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751624019/5601165_vw0d54.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          paddingBottom: '5rem',
         }}
         className="pt-16"
       >
+        {data.length > 0 && <SingleCarousselBoat medias={data[0].medias.slice(0, 4)} />}
         {data.length > 0 && (
-          <SingleCarousselBoat medias={data[0].medias.slice(0, 4)} />
+          <SingleCaracteristiqueBoat detail={data[0].detail} modele={data[0].type} />
         )}
-        {data.length > 0 && (
-          <SingleCaracteristiqueBoat
-            detail={data[0].detail}
-            modele={data[0].type}
-          />
-        )}
+
         <div>
           <div className="mx-auto max-w-6xl">
             <div className="mb-4">
@@ -357,11 +384,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                         <IoMdShare className="w-8 h-8" />
                       </div>
                     </Tooltip>
-                    <Tooltip
-                      color="secondary"
-                      content="Mettre en favorie"
-                      offset={15}
-                    >
+                    <Tooltip color="secondary" content="Mettre en favorie" offset={15}>
                       <div className="flex justify-center items-center cursor-pointer p-2.5 bg-glacev2 rounded-full w-12 h-12">
                         <BiSolidBookmark className="w-8 h-8" />
                       </div>
@@ -372,23 +395,18 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                   <div className="text-xl text-black font-bold underline underline-offset-8">
                     Description
                   </div>
-                  <div className="text-gray-600 mt-2">
-                    {data[0].description}
-                  </div>
+                  <div className="text-gray-600 mt-2">{data[0].description}</div>
                 </div>
                 <div>
                   <div className="text-xl text-black font-bold underline underline-offset-8">
                     Détails
                   </div>
+                  <div className="text-gray-600 mt-2">Prix de base : {affichageTarifs}</div>
                   <div className="text-gray-600 mt-2">
-                    Prix de base : {affichageTarifs}
+                    Passagers inclus dans le prix : {data[0].PassagersInclusDansLePrix}
                   </div>
                   <div className="text-gray-600 mt-2">
-                    Passagers inclus dans le prix :{" "}
-                    {data[0].PassagersInclusDansLePrix}
-                  </div>
-                  <div className="text-gray-600 mt-2">
-                    Supplément par passager supplémentaire :{" "}
+                    Supplément par passager supplémentaire :{' '}
                     {data[0].SupplementParPassagerSupplémentaire}
                   </div>
                   <div className="text-gray-600 mt-2">
@@ -400,12 +418,8 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Équipements à bord
                   </div>
                   <div className="flex flex-wrap gap-4 mt-4">
-                    {data[0]?.equipements?.map((eq) => (
-                      <Chip
-                        key={eq.value}
-                        variant="shadow"
-                        className="p-2.5 bgBlue text-white"
-                      >
+                    {data[0]?.equipements?.map((eq: Equipement) => (
+                      <Chip key={eq.value} variant="shadow" className="p-2.5 bgBlue text-white">
                         <div className="flex flex-row space-x-4 items-center">
                           <div>{eq.icon}</div>
                           <div>{eq.value}</div>
@@ -420,16 +434,12 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Options payantes
                   </div>
                   <div className="flex flex-wrap gap-4 mt-4">
-                    {data[0]?.optionsPayantes?.map((opt) => (
-                      <Chip
-                        key={opt.value}
-                        variant="shadow"
-                        className="p-2.5 bgBlue text-white"
-                      >
+                    {data[0]?.optionsPayantes?.map((opt: OptionPayante) => (
+                      <Chip key={opt.value} variant="shadow" className="p-2.5 bgBlue text-white">
                         <div className="flex flex-row space-x-4 items-center">
                           <div>{opt.icon}</div>
                           <div>
-                            {opt.value} {opt.detail ? `- ${opt.detail} €` : ""}
+                            {opt.value} {opt.detail ? `- ${opt.detail} €` : ''}
                           </div>
                         </div>
                       </Chip>
@@ -442,16 +452,11 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Informations de navigation
                   </div>
                   <div className="flex flex-col space-y-4 mt-4">
-                    <div className="text-lg text-gray-700">
-                      Port de départ et d&apos;arrivée
-                    </div>
+                    <div className="text-lg text-gray-700">Port de départ et d&apos;arrivée</div>
                     <div
-                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? "" : "hidden"}`}
+                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? '' : 'hidden'}`}
                     >
-                      <LinkPreview
-                        url={`${data[0]?.detail.portdarriver}`}
-                        className="font-bold"
-                      >
+                      <LinkPreview url={`${data[0]?.detail.portdarriver}`} className="font-bold">
                         <Alert
                           color="default"
                           icon={<FaLocationDot />}
@@ -462,12 +467,9 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                       </LinkPreview>
                     </div>
                     <div
-                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? "" : "hidden"}`}
+                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? '' : 'hidden'}`}
                     >
-                      <LinkPreview
-                        url={`${data[0]?.detail.portdedepart}`}
-                        className="font-bold"
-                      >
+                      <LinkPreview url={`${data[0]?.detail.portdedepart}`} className="font-bold">
                         <Alert
                           color="default"
                           icon={<FaLocationDot />}
@@ -492,33 +494,27 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                         </div>
                       </div>
                       <div>
-                        <CalendarSingleBoat
-                          datesIndisponibles={data[0].datesIndisponibles}
-                        />
+                        <CalendarSingleBoat datesIndisponibles={data[0].datesIndisponibles} />
                       </div>
                     </div>
-                    <div className="text-lg text-gray-700 mt-4">
-                      Zones de navigation autorisées
-                    </div>
+                    <div className="text-lg text-gray-700 mt-4">Zones de navigation autorisées</div>
                     <div className="text-base text-gray-600 mt-2 pl-2">
                       Méditerranée occidentale
                     </div>
                     <Timeline items={data[0].zonesNavigation} />
 
                     <div>
-                      <div className="text-lg text-gray-700 mt-2">
-                        Conditions de location
-                      </div>
+                      <div className="text-lg text-gray-700 mt-2">Conditions de location</div>
                       <ul className="list-disc pl-6 text-gray-700 space-y-1">
                         <li>Caution : {data[0].depotgarantie} €.</li>
                         <li>
                           {data[0].locationSansPermis
-                            ? "Permis bateau côtier obligatoire"
-                            : "Permis bateau côtier non obligatoire"}
+                            ? 'Permis bateau côtier obligatoire'
+                            : 'Permis bateau côtier non obligatoire'}
                         </li>
                         <li>
-                          Politique d&apos;annulation :{" "}
-                          {data[0].politiqueAnnulation.split(":")[1]?.trim()}
+                          Politique d&apos;annulation :{' '}
+                          {data[0].politiqueAnnulation.split(':')[1]?.trim()}
                         </li>
                         <li>Contrat de location signé avant le départ.</li>
                       </ul>
@@ -530,9 +526,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Galerie
                   </div>
                   <div>
-                    {data.length > 0 && (
-                      <GalerieSingleBoat medias={data[0].medias.slice(4, 9)} />
-                    )}
+                    {data.length > 0 && <GalerieSingleBoat medias={data[0].medias.slice(4, 9)} />}
                   </div>
                 </div>
               </div>
@@ -545,9 +539,9 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     // width: "100%",
                     ...(isSticky
                       ? {
-                          position: "fixed",
-                          top: "6rem",
-                          left: "58rem",
+                          position: 'fixed',
+                          top: '6rem',
+                          left: '58rem',
                           right: 0,
                           zIndex: 30,
                         }
@@ -556,16 +550,14 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                 >
                   <Card className="w-full max-w-sm">
                     <CardHeader>
-                      <CardTitle>
-                        Réservez votre bateau en quelques clics
-                      </CardTitle>
+                      <CardTitle>Réservez votre bateau en quelques clics</CardTitle>
                       <CardDescription>
                         <div className="flex items-center justify-center w-full mb-4">
                           <div className="flex flex-col w-full">
                             <div className="w-full flex items-center my-3">
                               <Alert
                                 color="warning"
-                                title="En cas d&apos;annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d&apos;annulation."
+                                title="En cas d'annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d'annulation."
                               />
                             </div>
                           </div>
@@ -580,11 +572,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                             <Input
                               id="datedebut"
                               type="text"
-                              value={
-                                date1
-                                  ? date1.format("YYYY-MM-DD")
-                                  : "Non définie"
-                              }
+                              value={date1 ? date1.format('YYYY-MM-DD') : 'Non définie'}
                               //   placeholder="m@example.com"
                               //   required
                               disabled
@@ -595,11 +583,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                             <Input
                               id="datefin"
                               type="text"
-                              value={
-                                date2
-                                  ? date2.format("YYYY-MM-DD")
-                                  : "Non définie"
-                              }
+                              value={date2 ? date2.format('YYYY-MM-DD') : 'Non définie'}
                               disabled
                             />
                           </div>
@@ -609,8 +593,8 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                               onValueChange={setIsAccepted}
                               radius="full"
                             >
-                              J&apos;accepte les conditions de location et la
-                              politique d&apos;annulation.
+                              J&apos;accepte les conditions de location et la politique
+                              d&apos;annulation.
                             </Checkbox>
                           </div>
                         </div>
@@ -623,11 +607,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                           handleNext();
                         }}
                       >
-                        <Button
-                          type="submit"
-                          className="w-full"
-                          disabled={!isAccepted}
-                        >
+                        <Button type="submit" className="w-full" disabled={!isAccepted}>
                           Réserver maintenant
                         </Button>
                       </form>

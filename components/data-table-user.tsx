@@ -67,6 +67,7 @@ import { z } from 'zod';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Button as Buttonheroui, ButtonGroup } from '@heroui/button';
 import {
   ChartConfig,
   ChartContainer,
@@ -131,7 +132,39 @@ interface User {
   email: string;
   telephone: string;
   adresse: string;
+  role?: string;
+  photoProfil?: string;
 }
+
+interface ModalDeleteProps {
+  userId: string; // ou number selon ton backend
+  onDelete?: () => void;
+  userName: string;
+  user: User;
+}
+
+interface Errors {
+  prenom?: string;
+  nom?: string;
+  email?: string;
+  motDePasse?: string;
+  role?: string;
+  photoProfil?: string;
+  telephone?: string;
+}
+
+const schema = z.object({
+  id: z.string(),
+  nomcomplet: z.string(),
+  prenom: z.string(),
+  nom: z.string(),
+  email: z.string().email(),
+  telephone: z.string().optional(),
+  adresse: z.string().optional(),
+  nbbateau: z.number().optional(),
+  role: z.string().optional(),
+  photoProfil: z.string().optional(),
+});
 
 // Create a separate component for the drag handle
 function DragHandle({ id }: { id: number }) {
@@ -153,7 +186,7 @@ function DragHandle({ id }: { id: number }) {
   );
 }
 
-function ModalDelete({ userId, onDelete, userName, user }) {
+function ModalDelete({ userId, onDelete, userName, user }: ModalDeleteProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const targetRef = React.useRef(null);
   const { moveProps } = useDraggable({ targetRef, isDisabled: !isOpen });
@@ -162,7 +195,9 @@ function ModalDelete({ userId, onDelete, userName, user }) {
     const saved = localStorage.getItem('editingUser');
     return saved ? JSON.parse(saved) : null;
   });
-  const modalCloseRef = useRef<() => void>(null);
+  const modalCloseRef = useRef<() => void | null>(null) as React.MutableRefObject<
+    (() => void) | null
+  >;
   const [selectedUserName, setSelectedUserName] = useState('');
   const { id, prenom, nom, email, telephone, adresse } = user;
 
@@ -265,15 +300,15 @@ function ModalDelete({ userId, onDelete, userName, user }) {
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button variant="light" onClick={onClose}>
+                  <Buttonheroui variant="light" onClick={onClose}>
                     Fermer
-                  </Button>
-                  <Button
+                  </Buttonheroui>
+                  <Buttonheroui
                     className="bg-red-600 text-white font-bold hover:bg-red-800"
                     onClick={handleDelete}
                   >
                     Supprimer
-                  </Button>
+                  </Buttonheroui>
                 </ModalFooter>
               </>
             );
@@ -288,7 +323,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     id: 'drag',
     header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
+    cell: ({ row }) => <DragHandle id={Number(row.original.id)} />,
   },
   {
     id: 'select',
@@ -372,8 +407,8 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
             prenom,
             nom,
             email,
-            telephone,
-            adresse,
+            telephone: telephone ?? '',
+            adresse: adresse ?? '',
             role,
             photoProfil,
           }}
@@ -693,12 +728,12 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="link" className="w-fit px-0 text-left text-foreground">
-          {item.header}
+          {item.nomcomplet}
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="flex flex-col">
         <SheetHeader className="gap-1">
-          <SheetTitle>{item.header}</SheetTitle>
+          <SheetTitle>{item.nomcomplet}</SheetTitle>
         </SheetHeader>
         <div className="flex flex-1 flex-col gap-4 overflow-y-auto py-4 text-sm">
           <div className="flex items-center justify-center py-[2rem]">
@@ -713,19 +748,19 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
           <form className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Label htmlFor="header">Nom complet</Label>
-              <Input id="header" defaultValue={item.header} disabled />
+              <Input id="header" defaultValue={item.nomcomplet} disabled />
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="header">Email</Label>
-              <Input id="header" defaultValue={item.header} disabled />
+              <Input id="header" defaultValue={item.email} disabled />
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="header">Téléphone</Label>
-              <Input id="header" defaultValue={item.header} disabled />
+              <Input id="header" defaultValue={item.telephone} disabled />
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="header">Nombre de bateaux</Label>
-              <Input id="header" defaultValue={item.header} disabled />
+              <Input id="header" defaultValue={item.nbbateau} disabled />
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="header">Date d&apos;inscription</Label>
@@ -734,7 +769,7 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
             <div className="grid grid-cols-1">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="type">Rôle</Label>
-                <Select defaultValue={item.type}>
+                <Select defaultValue={item.role}>
                   <SelectTrigger id="type" className="w-full">
                     <SelectValue placeholder="Selectionne un role" />
                   </SelectTrigger>
@@ -801,7 +836,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
   const [role, setRole] = useState('');
 
   const [successMessage, setSuccessMessage] = useState('');
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   // const [showPassword, setShowPassword] = useState(false);
@@ -844,7 +879,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
   }
 
   function validateForm() {
-    const newErrors = {};
+    const newErrors: Errors = {};
     const emailRegex =
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|fr|net|org|edu|gov|io|info|co|biz)$/;
     if (!prenom.trim()) newErrors.prenom = 'Le prenom  est requis';
@@ -852,7 +887,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
     if (!email.trim()) {
       newErrors.email = "L'email est requis";
     } else if (!emailRegex.test(email)) {
-      newErrors.email = "Format d&apos;email invalide";
+      newErrors.email = 'Format d&apos;email invalide';
     }
     if (!motDePasse.trim()) newErrors.motDePasse = 'Le mot de passe est requis';
     if (!role.trim()) newErrors.role = 'Le role  est requis';
@@ -901,7 +936,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
             email: 'Cet email est déjà utilisé',
           }));
         } else {
-          throw new Error("Erreur lors de l&apos;ajout");
+          throw new Error('Erreur lors de l&apos;ajout');
         }
         setIsLoading(false);
         return;
@@ -1177,9 +1212,11 @@ function EditUserPanel({
             onSubmit={handleSubmit}
             encType="multipart/form-data"
           >
-            <h2>
-              Modifier {editingUser.prenom} {editingUser.nom}
-            </h2>
+            {editingUser && (
+              <h2>
+                Modifier {editingUser.prenom} {editingUser.nom}
+              </h2>
+            )}
             <div className="flex flex-col items-center justify-center py-[2rem] gap-2">
               <input
                 type="file"
