@@ -19,7 +19,8 @@ import { HiUserGroup } from 'react-icons/hi2';
 import { GiCaptainHatProfile } from 'react-icons/gi';
 import { GiTakeMyMoney } from 'react-icons/gi';
 import { useRouter } from 'next/navigation';
-
+import MonTexte from '@/components/MonTexte';
+import Descritpion from '@/components/Descritpion';
 import { Pagination, PaginationItem, PaginationCursor } from '@heroui/pagination';
 
 const handleAnimationComplete = () => {
@@ -58,20 +59,6 @@ const typeToLabel: Record<string, string> = {
   'Par semaine (hebdomadaire)': '/ semaine',
   'Par mois (mensuel)': '/ mois',
   'Par séjour (forfait global, peu importe la durée)': '/ séjour',
-};
-
-export const MonTexte = ({ texte }: Props) => {
-  const maxChars = 7; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
-
-  return <p>{courtTexte}</p>;
-};
-
-export const Descritpion = ({ texte }: Props) => {
-  const maxChars = 90; // Limite à 100 caractères
-  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
-
-  return <p>{courtTexte}</p>;
 };
 
 export default function NosBateauxPage() {
