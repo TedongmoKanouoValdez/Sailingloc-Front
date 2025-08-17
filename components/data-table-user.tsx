@@ -203,7 +203,7 @@ function ModalDelete({ userId, onDelete, userName, user }: ModalDeleteProps) {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/utilisateur/${userId}`, {
+      const response = await fetch(`https://sailingloc-back.vercel.app/api/utilisateur/${userId}`, {
         method: 'DELETE',
       });
 
@@ -920,7 +920,7 @@ function AddUserPanel({ open, onClose }: { open: boolean; onClose: () => void })
     }
 
     try {
-      const res = await fetch('http://localhost:3001/api/utilisateur', {
+      const res = await fetch('https://sailingloc-back.vercel.app/api/utilisateur', {
         method: 'POST',
         body: formData,
       });
@@ -1177,7 +1177,7 @@ function EditUserPanel({
     }
 
     try {
-      const res = await fetch(`http://localhost:3001/api/utilisateur/${editingUser?.id}`, {
+      const res = await fetch(`https://sailingloc-back.vercel.app/api/utilisateur/${editingUser?.id}`, {
         method: 'PUT',
         body: formData, // fetch gère automatiquement le Content-Type ici
       });

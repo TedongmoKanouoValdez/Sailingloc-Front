@@ -1,7 +1,7 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { FaThumbsUp, FaThumbsDown, FaPaperPlane } from "react-icons/fa";
-import StarsRating from "@/components/StarsRating";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { FaThumbsUp, FaThumbsDown, FaPaperPlane } from 'react-icons/fa';
+import StarsRating from '@/components/StarsRating';
 
 interface Commentaire {
   id: number;
@@ -16,32 +16,51 @@ interface CommentairesProps {
   utilisateurId: number;
 }
 
-export default function CommentsSection({
-  bateauId,
-  utilisateurId,
-}: CommentairesProps) {
+export default function CommentsSection({ bateauId, utilisateurId }: CommentairesProps) {
   const [commentaires, setCommentaires] = useState<Commentaire[]>([]);
-  const [newCommentaire, setNewCommentaire] = useState("");
+  const [newCommentaire, setNewCommentaire] = useState('');
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/api/commentaires?bateauId=${bateauId}`)
+    fetch(`https://sailingloc-back.vercel.app/api/commentaires?bateauId=${bateauId}`)
       .then((res) => res.json())
       .then((data) => {
-        setCommentaires(data);
+        let parsed = data;
+
+        // Si c’est une string JSON → parse
+        if (typeof data === 'string') {
+          try {
+            parsed = JSON.parse(data);
+          } catch (err) {
+            console.error('Erreur parsing JSON commentaires :', err);
+            parsed = [];
+          }
+        }
+
+        // Si c’est un objet avec .commentaires → prends le tableau
+        if (parsed && typeof parsed === 'object' && 'commentaires' in parsed) {
+          parsed = parsed.commentaires;
+        }
+
+        // Forcer en tableau
+        if (!Array.isArray(parsed)) {
+          parsed = [];
+        }
+
+        setCommentaires(parsed);
         setLoading(false);
       });
   }, [bateauId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newCommentaire) return alert("Le commentaire est vide");
+    if (!newCommentaire) return alert('Le commentaire est vide');
 
-    const res = await fetch("http://localhost:3001/api/commentaires", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('https://sailingloc-back.vercel.app/api/commentaires', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contenu: newCommentaire,
         note: rating,
@@ -53,7 +72,7 @@ export default function CommentsSection({
     if (res.ok) {
       const saved = await res.json();
       setCommentaires((prev) => [saved, ...prev]);
-      setNewCommentaire("");
+      setNewCommentaire('');
       setRating(0);
     } else {
       alert("Erreur lors de l'envoi");
@@ -89,7 +108,7 @@ export default function CommentsSection({
                 >
                   <svg
                     className={`w-5 h-5 cursor-pointer transition ${
-                      star <= rating ? "fill-orange-400" : "fill-gray-300"
+                      star <= rating ? 'fill-orange-400' : 'fill-gray-300'
                     }`}
                     viewBox="0 0 24 24"
                   >
@@ -110,9 +129,7 @@ export default function CommentsSection({
 
       {/* Nombre de commentaires + filtre */}
       <div className="flex justify-between items-center mb-4 w-[40rem]">
-        <p className="text-gray-600 font-medium">
-          {commentaires.length} Commentaire
-        </p>
+        <p className="text-gray-600 font-medium">{commentaires.length} Commentaire</p>
         {/* <button className="text-gray-500 text-sm flex items-center space-x-1">
           <span>Plus</span>
           <svg
@@ -136,17 +153,12 @@ export default function CommentsSection({
         <>
           {commentaires.length === 0 && <p>Aucun commentaire.</p>}
           {commentaires.map((c) => (
-            <div
-              key={c.id}
-              className="bg-white rounded-lg shadow p-4 mb-4 w-[40rem]"
-            >
+            <div key={c.id} className="bg-white rounded-lg shadow p-4 mb-4 w-[40rem]">
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">{c.auteur?.nom ?? "Anonyme"}</p>
-                  <p className="text-gray-400 text-xs">
-                    {new Date(c.creeLe).toLocaleDateString()}
-                  </p>
+                  <p className="font-semibold">{c.auteur?.nom ?? 'Anonyme'}</p>
+                  <p className="text-gray-400 text-xs">{new Date(c.creeLe).toLocaleDateString()}</p>
                 </div>
               </div>
               <p className="text-gray-800 text-sm mb-3">{c.contenu}</p>

@@ -218,7 +218,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3001/api/bateaux/slug/${slug}`)
+    fetch(`https://sailingloc-back.vercel.app/api/bateaux/slug/${slug}`)
       .then((res) => res.json())
       .then((json) => {
         if (!json || !json.bateau) {
@@ -330,7 +330,8 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
 
   if (loading) return <p>Chargement…</p>;
 
-  console.log(fullRange);
+  console.log('data[0]');
+  console.log(data[0]);
 
   return (
     <>
@@ -494,7 +495,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                         </div>
                       </div>
                       <div>
-                        <CalendarSingleBoat datesIndisponibles={data[0].datesIndisponibles} />
+                        <CalendarSingleBoat datesIndisponibles={JSON.parse(data[0].datesIndisponibles || "[]")} />
                       </div>
                     </div>
                     <div className="text-lg text-gray-700 mt-4">Zones de navigation autorisées</div>
