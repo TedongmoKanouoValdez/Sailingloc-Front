@@ -3,7 +3,7 @@ import { CheckCircle } from "lucide-react";
 export default function PaymentSuccess({
   searchParams: { amount },
 }: {
-  searchParams: { amount: string };
+  searchParams: { amount: string } | any;
 }) {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-700 px-4 py-16">

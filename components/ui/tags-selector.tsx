@@ -25,7 +25,7 @@ export function TagsSelector({
   setSelectedTags,
   inputs,
   setInputs,
-  onChange,
+  onChange = () => {},
 }: TagsSelectorProps) {
   const selectedsContainerRef = useRef<HTMLDivElement>(null);
 
