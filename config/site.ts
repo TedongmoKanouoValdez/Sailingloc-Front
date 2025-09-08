@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: 'Next.js + HeroUI',
-  description: 'Make beautiful websites regardless of your design experience.',
+  name: 'SailingLoc - Location de bateaux entre particuliers',
+  description: 'Trouvez et louez des bateaux en toute simplicité avec SailingLoc.',
   navItems: [
     {
       label: 'Accueil',
