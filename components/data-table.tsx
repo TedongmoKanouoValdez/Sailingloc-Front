@@ -90,6 +90,8 @@ export const schema = z.object({
   description: z.string(),
   datesIndisponibles: z.array(z.string()),
   proprietaireId: z.number(),
+  nomproprietaire: z.string(),
+  roleproprietaire: z.string(),
 });
 
 // Create a separate component for the drag handle
@@ -188,9 +190,14 @@ function getColumns(refreshTable?: () => void): ColumnDef<z.infer<typeof schema>
       ),
     },
     {
-      accessorKey: 'Prix',
-      header: () => <div className="w-full text-right">Prix</div>,
-      cell: ({ row }) => <div className="text-right">{row.original.target} €</div>,
+      accessorKey: 'Nomdupropriétaire',
+      header: () => <div className="w-full text-right">Nom du propriétaire</div>,
+      cell: ({ row }) => <div className="text-right">{row.original.nomproprietaire}</div>,
+    },
+    {
+      accessorKey: 'Roledupropriétaire',
+      header: () => <div className="w-full text-right">Role du propriétaire</div>,
+      cell: ({ row }) => <div className="text-right">{row.original.roleproprietaire}</div>,
     },
     {
       id: 'actions',

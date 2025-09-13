@@ -14,20 +14,16 @@ export const siteConfig = {
     },
     {
       label: 'Nos destinations',
-      href: '/#destinations',
+      href: '/nosdestinations',
     },
     {
       label: 'Devenir partenaire',
       href: '/devenirpartenaire',
     },
     {
-      label: 'Contact',
+      label: 'Nous contacter',
       href: '/contact',
     },
-    // {
-    //   label: "A propos",
-    //   href: "/about",
-    // },
   ],
   navMenuItems: [
     {
@@ -40,11 +36,15 @@ export const siteConfig = {
     },
     {
       label: 'Nos destinations',
-      href: '/#destinations',
+      href: '/nosdestinations',
     },
     {
       label: 'Devenir partenaire',
       href: '/devenirpartenaire',
+    },
+    {
+      label: 'Nous contacter',
+      href: '/contact',
     },
   ],
   links: {

@@ -4,10 +4,57 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { DataTable } from '@/components/data-table-user';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { useRouter } from "next/navigation";
+
+type Token = {
+  userId: number;
+  email: string;
+  role: string;
+  nom: string;
+  prenom: string;
+  telephone: string | null;
+  photoProfil: string | null;
+  iat: number;
+  exp: number;
+};
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
 
 export default function GestionDesUtilisateursPage() {
   const [utilisateurs, setUtilisateurs] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [utilisateurId, setUtilisateurId] = useState<number>(0);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem("token");
+
+    if (sessionData) {
+      const decodedToken = decodeJWT(sessionData);
+      if (decodedToken) {
+        setUtilisateurId(Number(decodedToken.userId));
+        if (
+          decodedToken.role !== "PROPRIETAIRE" &&
+          decodedToken.role !== "ADMIN"
+        ) {
+          router.push("/");
+        }
+      }
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   useEffect(() => {
     fetch('https://sailingloc-back.vercel.app/api/utilisateur')

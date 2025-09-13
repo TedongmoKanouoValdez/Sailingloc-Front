@@ -1,18 +1,49 @@
-'use client';
-import * as React from 'react';
-import { useState } from 'react';
-import { Checkbox } from '@heroui/checkbox';
-import { useParams } from 'next/navigation';
-import { Alert } from '@heroui/alert';
-import { addToast, ToastProvider } from '@heroui/toast';
+"use client";
+import * as React from "react";
+import { useState, useEffect, useRef } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@heroui/checkbox";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { MultiSectionImageUpload } from "@/components/pages/ImageUploadsSections";
+import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { Alert } from "@heroui/alert";
+import { addToast, ToastProvider } from "@heroui/toast";
+import { useRouter } from "next/navigation";
 
-import { Input } from '@/components/ui/input';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
-import { SiteHeader } from '@/components/site-header';
-import { MultiSectionImageUpload } from '@/components/pages/ImageUploadsSections';
+type Token = {
+  userId: number;
+  email: string;
+  role: string;
+  nom: string;
+  prenom: string;
+  telephone: string | null;
+  photoProfil: string | null;
+  iat: number;
+  exp: number;
+};
 
-type ToastPlacement = 'top-center' | 'top-right' | 'top-left' | 'bottom-center' | 'bottom-right' | 'bottom-left';
+type ToastPlacement =
+  | 'top-center'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'bottom-left';
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error("Erreur decoding JWT :", e);
+    return null;
+  }
+}
 
 export default function GestionDesBateauxCreerPage() {
   const [imagesSection1, setImagesSection1] = useState<File[]>([]);
@@ -20,31 +51,54 @@ export default function GestionDesBateauxCreerPage() {
   const [noCertificat, setNoCertificat] = useState(false);
   const [attestationFile, setAttestationFile] = useState<File | null>(null);
   const [certificatFile, setCertificatFile] = useState<File | null>(null);
-  const [numeroPolice, setNumeroPolice] = useState<string>('');
+  const [numeroPolice, setNumeroPolice] = useState<string>("");
   const params = useParams();
   const bateauId = params?.id;
   const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
+
+  const [utilisateurId, setUtilisateurId] = useState<number>(0);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem("token");
+
+    if (sessionData) {
+      const decodedToken = decodeJWT(sessionData);
+      if (decodedToken) {
+        setUtilisateurId(Number(decodedToken.userId));
+        if (
+          decodedToken.role !== "PROPRIETAIRE" &&
+          decodedToken.role !== "ADMIN"
+        ) {
+          router.push("/");
+        }
+      }
+    } else {
+      router.push("/");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
 
-    imagesSection1.forEach((file) => formData.append('section1', file));
-    imagesSection2.forEach((file) => formData.append('section2', file));
+    imagesSection1.forEach((file) => formData.append("section1", file));
+    imagesSection2.forEach((file) => formData.append("section2", file));
 
-    if (attestationFile) formData.append('attestation1', attestationFile);
+    if (attestationFile) formData.append("attestation1", attestationFile);
 
-    formData.append('numeroPolice', numeroPolice);
+    formData.append("numeroPolice", numeroPolice);
 
     if (bateauId) {
-      formData.append('bateauId', bateauId as string);
+      formData.append("bateauId", bateauId as string);
     }
 
     if (!noCertificat && certificatFile) {
-      formData.append('certificat', certificatFile);
+      formData.append("certificat", certificatFile);
     } else {
-      formData.append('noCertificat', 'true');
+      formData.append("noCertificat", "true");
     }
 
     for (let [key, value] of formData.entries()) {
@@ -52,25 +106,24 @@ export default function GestionDesBateauxCreerPage() {
     }
 
     try {
-      const res = await fetch('https://sailingloc-back.vercel.app/upload-documents', {
-        method: 'POST',
+      const res = await fetch("https://sailingloc-back.vercel.app/upload-documents", {
+        method: "POST",
         body: formData,
-        credentials: "include"
       });
       const data = await res.json();
-
       console.log(data);
 
       addToast({
-        title: 'Succès',
-        description: 'Les documents ont été envoyés avec succès.',
-        color: 'success',
+        title: "Succès",
+        description: "Les documents ont été envoyés avec succès.",
+        color: "success",
       });
+      window.location.href = "/dashboard/gestiondesbateaux";
     } catch (err) {
       addToast({
-        title: 'Erreur',
-        description: 'Échec de l&apos;envoi des documents.',
-        color: 'danger',
+        title: "Erreur",
+        description: "Échec de l'envoi des documents.",
+        color: "danger",
       });
     }
   };
@@ -80,11 +133,11 @@ export default function GestionDesBateauxCreerPage() {
       <div className="fixed z-[100]">
         <ToastProvider
           placement={placement}
-          toastOffset={placement.includes('top') ? 60 : 0}
+          toastOffset={placement.includes("top") ? 60 : 0}
           toastProps={{
-            radius: 'lg',
-            // color: 'warning',
-            variant: 'flat',
+            radius: "lg",
+            // color: "warning",
+            variant: "flat",
             timeout: 9000,
           }}
         />
@@ -108,7 +161,9 @@ export default function GestionDesBateauxCreerPage() {
               <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                 <form onSubmit={handleSubmit}>
                   <div className="grid flex-1 auto-rows-min gap-6 px-4 mt-4">
-                    <div className="text-lg font-bold mb-4">Photos & médias</div>
+                    <div className="text-lg font-bold mb-4">
+                      Photos & médias
+                    </div>
                     <div>
                       <MultiSectionImageUpload
                         onChangeSection1={setImagesSection1}
@@ -117,39 +172,42 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                   </div>
                   <div className="grid flex-1 auto-rows-min gap-6 px-4 mt-4">
-                    <div className="text-lg font-bold mb-4">Informations administratives</div>
+                    <div className="text-lg font-bold mb-4">
+                      Informations administratives
+                    </div>
                     <div className="grid gap-3 mb-4">
-                      <label htmlFor='AttestationAssurance'>Attestation d&apos;assurance (PDF ou image)</label>
+                      <label>Attestation d'assurance (PDF ou image)</label>
                       <input
-                        accept=".pdf"
-                        id='AttestationAssurance'
                         type="file"
-                        onChange={(e) => setAttestationFile(e.target.files?.[0] || null)}
+                        accept=".pdf"
+                        onChange={(e) =>
+                          setAttestationFile(e.target.files?.[0] || null)
+                        }
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label htmlFor='numero-police'>Numéro de police d&apos;assurance</label>
+                        <label>Numéro de police d'assurance</label>
                         <Input
                           id="numero-police"
-                          placeholder="Ex : 12345678-AB"
                           type="text"
                           onChange={(e) => setNumeroPolice(e.target.value)}
+                          placeholder="Ex : 12345678-AB"
                         />
                       </div>
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <label htmlFor='noCertificat'>Certificat de navigation (si applicable)</label>
+                        <label>Certificat de navigation (si applicable)</label>
                         <input
-                          accept=".pdf"
-                          id='noCertificat'
-                          className={`mt-2 ${noCertificat ? 'opacity-50 cursor-not-allowed' : ''}`}
-                          disabled={noCertificat}
                           type="file"
+                          accept=".pdf"
+                          disabled={noCertificat}
                           onChange={(e) => {
-                            if (e.target.files?.[0]) setCertificatFile(e.target.files[0]);
+                            if (e.target.files?.[0])
+                              setCertificatFile(e.target.files[0]);
                           }}
+                          className={`mt-2 ${noCertificat ? "opacity-50 cursor-not-allowed" : ""}`}
                         />
                         <div className="flex items-center mt-2">
                           <Checkbox
@@ -163,7 +221,10 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <button className="bg-black text-white px-4 py-2 rounded shadow" type="submit">
+                    <button
+                      type="submit"
+                      className="bg-black text-white px-4 py-2 rounded shadow"
+                    >
                       Enregistrer
                     </button>
                   </div>

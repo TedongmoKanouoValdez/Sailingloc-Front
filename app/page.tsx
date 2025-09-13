@@ -29,6 +29,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { TbMailFilled } from 'react-icons/tb';
+import FormulaireRecherche from '@/components/pages/FormulaireRecherche';
 // import required modules
 import { FreeMode, Pagination, Navigation } from 'swiper/modules';
 import Link from 'next/link';
@@ -847,14 +848,14 @@ c-22 0 -46 -3 -53 -6z"
 
 const LogoBoar = () => {
   let boar =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/sailing-boat_j2nbpt.png';
+    'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759920/sailing-boat_lamzbe.png';
 
   return <Image alt="iconeBoar" className="allogo" height={100} src={boar} width={100} />;
 };
 
 const LogoCatamarans = () => {
   let catamarans =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/catamaran_r5gjhc.png';
+    'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759969/catamaran_eja4iy.png';
 
   return (
     <Image alt="iconeCatamarans" className="allogo" height={100} src={catamarans} width={100} />
@@ -862,26 +863,26 @@ const LogoCatamarans = () => {
 };
 
 const LogoCap = () => {
-  let cap = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/sailor-cap_erm3tc.png';
+  let cap = 'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759922/sailor-cap_l4uaje.png';
 
   return <Image alt="iconeCap" className="allogo" height={100} src={cap} width={100} />;
 };
 
 const LogoMap = () => {
-  let map = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686481/map_u3koli.png';
+  let map = 'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759957/map_yoqtxl.png';
 
   return <Image alt="iconeMap" className="allogo" height={100} src={map} width={100} />;
 };
 
 const LogoZeus = () => {
-  let zeus = 'https://res.cloudinary.com/dluqkutu8/image/upload/v1750686482/zeus_fy0klw.png';
+  let zeus = 'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759969/zeus_kpa4xy.png';
 
   return <Image alt="iconeZeus" className="allogo" height={100} src={zeus} width={100} />;
 };
 
 const LogoSailingTime = () => {
   let sailingtime =
-    'https://res.cloudinary.com/dluqkutu8/image/upload/v1750699330/sailing_dffir0.png';
+    'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759921/calendar_hqdqro.png';
 
   return (
     <Image alt="iconeSailingTime" className="allogo" height={100} src={sailingtime} width={100} />
@@ -919,7 +920,7 @@ export default function Home() {
               playsInline
               className="w-full h-[170vh] md:h-[100vh]"
               controls={false}
-              src="https://res.cloudinary.com/dluqkutu8/video/upload/v1750331153/14637966-uhd_2560_1440_60fps_tli0wh.mp4"
+              src="https://res.cloudinary.com/dv19l9qkz/video/upload/v1757610565/14637966-uhd_2560_1440_60fps_vxpke0.mp4"
               style={{ objectFit: 'cover' }}
             />
           </div>
@@ -952,50 +953,31 @@ export default function Home() {
             </div>
           </div>
           <div className="absolute bottom-[6rem] left-[4rem] md:left-[10rem] md:bottom-[5rem] contentFormHome">
-            <form action="">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <div className="inputformhome">
-                  <Input
-                    color="secondary"
-                    label="Veuillez saisire votre destination"
-                    type="text"
-                    variant="bordered"
-                  />
-                </div>
-                <div className="inputformhome">
-                  <Input color="secondary" label="Type de bateau" type="text" variant="bordered" />
-                </div>
-                <div className="inputformhome">
-                  <DatePicker color="secondary" label={'Dates de navigation'} variant="bordered" />
-                </div>
-                <div className="inputformhome">
-                  <NumberInput color="secondary" label="Nombre de passagers" variant="bordered" />
-                </div>
-                <div className="flex justify-center md:block">
-                  <RippleButton className="py-3.5" rippleColor="#ADD8E6">
-                    Rechercher mon bateau
-                  </RippleButton>
-                </div>
-              </div>
-            </form>
+            <FormulaireRecherche />
           </div>
         </div>
       </section>
 
-      <section>
-        <div
-          className="py-24"
-          style={{
-            backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
-          }}
-        >
+      <section
+        className="relative"
+        style={{
+          backgroundImage:
+            'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757620610/paysage-de-plage-d-hawai-avec-la-nature-et-le-littoral_1_rg4gil.jpg)',
+          backgroundSize: '108rem',
+        }}
+      >
+        <svg viewBox="0 0 1440 100" className="absolute top-0">
+          <path fill="#f0f0f0" d="M0,0 C720,100 720,0 1440,100 L1440,0 L0,0 Z"></path>
+        </svg>
+        <div className="relative py-24 z-20">
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">EXPLOREZ LA MER À VOTRE RYTHME</h2>
+              <h2 className="text-5xl font-medium mb-5 text-white">
+                EXPLOREZ LA MER À VOTRE RYTHME
+              </h2>
             </div>
             <div>
-              <p className="w-[20rem] md:w-[35rem] text-center">
+              <p className="w-[20rem] md:w-[35rem] text-center text-white">
                 Trouvez facilement le bateau ou l&apos;expérience qui vous correspond. Catamarans
                 spacieux, voiliers authentiques ou sorties avec skipper, choisissez en toute
                 liberté.
@@ -1004,7 +986,7 @@ export default function Home() {
           </div>
           <div className="flex justify-center md:justify-end mx-auto max-w-6xl w-full mb-10">
             <div>
-              <Link passHref href="/categorie">
+              <Link href="/categorie" passHref>
                 <RippleButton className="bg-black text-white font-bold">
                   Voir toutes nos catégories
                 </RippleButton>
@@ -1012,7 +994,7 @@ export default function Home() {
             </div>
           </div>
           <div className="contentcategoriehome">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1 place-items-center md:place-items-start">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 place-items-center md:place-items-start">
               <div className="relative cardcategorie">
                 <div className="logocategrie1 flex justify-center items-center">
                   <LogoBoar />
@@ -1021,7 +1003,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692648/vue-d-un-voilier-sur-l-eau_ar6ixe.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757759976/vue-d-un-voilier-sur-l-eau_aea82f.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1049,7 +1031,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750692435/7522620_20200716035334376_1_XLARGE_ifo7b4.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757763416/image-de-bateau-generee-par-ai_1_u2zznt.jpg',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1062,7 +1044,7 @@ export default function Home() {
                         className="rounded-full bg-glace text-white font-medium"
                         rippleColor="#ADD8E6"
                       >
-                        Voir les voiliers
+                        Voir les Catamarans
                       </RippleButton>
                     </div>
                   </div>
@@ -1076,7 +1058,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698388/oJptb16CS56Ll4CiOdjHep2JSxqzgiDm.big_lczbgu.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757763506/homme-voyageant-en-bateau-a-san-sebastian_1_evi98t.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1104,7 +1086,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750698539/femme-robe-debout-yacht-tenue-dore-ballons-quoique-voile_sobx8q.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757763692/belle-jeune-femme-relaxante-dans-ses-vacances_1_anzaqg.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1118,7 +1100,7 @@ export default function Home() {
                         className="rounded-full bg-glace text-white font-medium"
                         rippleColor="#ADD8E6"
                       >
-                        Voir les voiliers
+                        Voir les destinations Populaires
                       </RippleButton>
                     </div>
                   </div>
@@ -1132,7 +1114,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750699720/dji-0392-scaled_wpckgh.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757764387/tir-vertical-d-un-yacht-sur-un-plan-d-eau-en-nouvelle-zelande_imkwo3.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1143,7 +1125,7 @@ export default function Home() {
                         className="rounded-full bg-glace text-white font-medium"
                         rippleColor="#ADD8E6"
                       >
-                        Voir les voiliers
+                        Voir les Bateaux à Moteur
                       </RippleButton>
                     </div>
                   </div>
@@ -1157,7 +1139,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750700813/I3ZXx2CNWO4JpH1VgdRcF2MLYrFddN8c.big_1_nx2qog.jpg)',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757765100/man-travelling-by-boat-san-sebastian_1_qgtiyq.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
@@ -1168,7 +1150,7 @@ export default function Home() {
                         className="rounded-full bg-glace text-white font-medium"
                         rippleColor="#ADD8E6"
                       >
-                        Voir les voiliers
+                        Voir les location à la Journée
                       </RippleButton>
                     </div>
                   </div>
@@ -1177,615 +1159,21 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section id="destinations">
-        <div
-          className="py-24"
-          style={{
-            backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
-          }}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          className="absolute bottom-0 z-10"
         >
-          <div className="flex flex-col justify-center items-center pb-20">
-            <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">NAVIGUEZ VERS DE NOUVEAUX HORIZONS</h2>
-            </div>
-            <div>
-              <p className="w-[20rem] md:w-[35rem] text-center">
-                Naviguez dans les plus beaux coins de France et d&apos;Europe
-              </p>
-            </div>
-          </div>
-          <div className="contentdestinationshome mx-auto max-w-6xl">
-            <div>
-              <Swiper
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                  },
-                  640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                  },
-                  1440: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                  },
-                }}
-                className="mySwiper"
-                freeMode={true}
-                modules={[FreeMode, Pagination, Navigation]}
-                navigation={true}
-                pagination={{
-                  clickable: true,
-                }}
-                slidesPerView={3}
-                spaceBetween={30}
-              >
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750717340/belle-vue-avec-des-bateaux_o1f6jj.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <PiSunDimFill className="text-yellow-400 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          25°C en été - <span className="font-bold">France</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Croisières le long de la Côte d'Azur."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Excursions à bord de voiliers traditionnels."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Sports nautiques (planche à voile, plongée)."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Côtes méditerranéennes et atlantiques
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion
-                            texte="Des plages ensoleillées aux charmants ports de pêche,
-                          découvrez les plus belles côtes de France."
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Monocoques" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Catamarans" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="voiliers à moteur" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750790401/femme-pleine-de-coups-regardant-des-bateaux_cnc6td.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <PiSunDimFill className="text-yellow-400 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          28°C en été - <span className="font-bold">Espagne</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Détente à bord d'un catamaran tout confort."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Plongée dans les eaux cristallines."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Visite des petits ports méditerranéens."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Costa Brava et Costa Blanca
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion
-                            texte="Plages idylliques, criques secrètes et villages
-                          pittoresques entre mer et montagnes."
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Catamarans" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="yachts à moteur" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="voiliers avec skipper" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750791884/beaux-paysages-varies_1_hs3dsu.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <PiSunDimFill className="text-yellow-400 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          30°C en été - <span className="font-bold">Italie</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Visites culturelles à Palerme et Cagliari."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Croisières autour des îles volcaniques."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Pêche en mer et exploration des grottes marines."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Îles de Sardaigne et de Sicile
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion
-                            texte="Venez découvrir deux des plus belles îles
-                          méditerranéennes, riches en culture et en paysages
-                          sublimes."
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Monocoques" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="voiliers à louer avec skipper" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="catamarans" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792646/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_oeb0mh.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <BsCloudSunFill className="text-gray-500 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          22°C toute l&apos;année - <span className="font-bold">Portugal</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Exploration des grottes marines."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Pêche en mer, sports nautiques."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Croisières et détente à bord d'un voilier."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Région côtière de l&apos;Algarve
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion texte="La côte ensoleillée du Portugal, idéale pour les amoureux de la mer et du soleil." />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Voiliers privés" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="catamarans de luxe" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="excursions en voilier" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792723/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_atfsw2.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <PiSunDimFill className="text-yellow-400 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          28°C en été - <span className="font-bold">Grèce</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Croisières autour de Santorin et Mykonos."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Découverte des sites historiques."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Plongée dans les eaux cristallines et baignades."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Îles des Cyclades et Crète
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion texte="Vivez l'aventure grecque, entre histoire antique, plages secrètes et mer bleu turquoise." />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Voiliers avec skipper" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="catamarans" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="yachts privés" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <div
-                    className="relative carddestinationshome flex flex-col space-y-24"
-                    style={{
-                      backgroundImage:
-                        'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750792785/pin-francais_1_i81dpt.jpg)',
-                    }}
-                  >
-                    <div className="flex flex-row justify-between mx-4 mt-4 items-center">
-                      <div className="bg-glace flex flex-row space-x-4 items-center px-2.5 py-1 rounded-full">
-                        <div>
-                          <PiSunDimFill className="text-yellow-400 w-6 h-6" />
-                        </div>
-                        <div className="text-white text-base">
-                          26°C en été - <span className="font-bold">Croatie</span>
-                        </div>
-                      </div>
-                      <div className="cursor-pointer z-10">
-                        <BiSolidBookmark className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <Space
-                        direction="vertical"
-                        size="middle"
-                        style={{ width: '100%', gap: '2rem' }}
-                      >
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Croisières autour de Split et Dubrovnik."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Découverte des îles de Hvar et Korčula."
-                        />
-                        <Badge.Ribbon
-                          className="bg-glacev2"
-                          text="Activités nautiques et plongée."
-                        />
-                      </Space>
-                    </div>
-                    <div className="bg-glace contentinfocarddestination text-left text-base space-y-4 px-2">
-                      <div className="space-y-2 px-2">
-                        <div>
-                          <Chip
-                            className="text-white text-lg font-medium mt-2 border-none"
-                            color="warning"
-                            variant="dot"
-                          >
-                            Côte dalmate
-                          </Chip>
-                        </div>
-                        <div className="text-white py-1 text-sm rounded-full">
-                          <Descritpion texte="Un paradis caché, avec des eaux transparentes et des paysages d'une beauté à couper le souffle." />
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-x-2">
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="Voiliers à moteur" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="catamarans" />
-                          </Chip>
-                          <Chip color="warning" variant="shadow">
-                            <MonTexte texte="excursions en groupe" />
-                          </Chip>
-                        </div>
-                        <div
-                          className="flex flex-row justify-between items-center"
-                          style={{ marginBottom: '1rem' }}
-                        >
-                          <div>
-                            <RippleButton className="bg-white text-black">
-                              Voir les bateaux
-                            </RippleButton>
-                          </div>
-                          <div className="flex flex-row space-x-2">
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-amber-400" />
-                            <FaStar className="text-white" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              </Swiper>
-            </div>
-          </div>
-        </div>
+          <path
+            fill="#ffffff"
+            fillOpacity="1"
+            d="M0,64L48,58.7C96,53,192,43,288,58.7C384,75,480,117,576,165.3C672,213,768,267,864,272C960,277,1056,235,1152,208C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
       </section>
 
       <section>
-        <div
-          className="py-24"
-          style={{
-            backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
-          }}
-        >
+        <div className="py-24">
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
               <h2 className="text-5xl font-medium mb-5">POURQUOI NOUS CHOISIR ?</h2>
@@ -1855,10 +1243,10 @@ export default function Home() {
       <section>
         <div
           className="py-24"
-          style={{
-            backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
-          }}
+          // style={{
+          //   backgroundImage:
+          //     'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+          // }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
             <div>
@@ -1880,7 +1268,7 @@ export default function Home() {
                 <Image
                   alt="imagedecouverturepourdevenirpartenaire"
                   height={100}
-                  src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750811534/lire-avant-signe_1_puxlzw.jpg"
+                  src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760141/lire-avant-signe_1_msvhnv.jpg"
                   width={100}
                 />
               </div>
@@ -1908,14 +1296,14 @@ export default function Home() {
       <section>
         <div
           className="py-24"
-          style={{
-            backgroundImage:
-              'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
-          }}
+          // style={{
+          //   backgroundImage:
+          //     'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
+          // }}
         >
           <div className="flex flex-col justify-center items-center pb-24">
             <div>
-              <h2 className="px-[1rem] md:px-0 text-center">FAITES NOUS CONFIANCE</h2>
+              <h2 className="text-5xl font-medium mb-5">FAITES NOUS CONFIANCE</h2>
             </div>
             <div>
               <p className="descriptionallsectionhome text-center">
@@ -1972,7 +1360,7 @@ export default function Home() {
                             alt="avis1"
                             className="rounded-full"
                             height={100}
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/african-cafe-beautiful-american-black_o0hpby.jpg"
+                            src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760793/business-woman-posing-professionally-outdoors_da0ihi.jpg"
                             width={100}
                           />
                         </div>
@@ -2008,7 +1396,7 @@ export default function Home() {
                             alt="avis2"
                             className="rounded-full"
                             height={100}
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834751/business-woman-posing-professionally-outdoors_ewfamm.jpg"
+                            src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760793/front-view-smiling-man-woman-park_azrk2v.jpg"
                             width={100}
                           />
                         </div>
@@ -2044,7 +1432,7 @@ export default function Home() {
                             alt="avis3"
                             className="rounded-full"
                             height={100}
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750834889/t%C3%A9l%C3%A9chargement_yjipk7.jpg"
+                            src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760911/business-man-by-skyscraper_uvzcxj.jpg"
                             width={100}
                           />
                         </div>
@@ -2080,12 +1468,12 @@ export default function Home() {
                             alt="avis4"
                             className="rounded-full"
                             height={100}
-                            src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750835092/8a32b6a93ee5f980398ca1c89c5abdc5_vo72oz.jpg"
+                            src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760792/Person_Chris_Skin_Tone_Black_Posture_1_Happy_1_fajezq.png"
                             width={100}
                           />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold">Ice blue</h3>
+                          <h3 className="text-base font-bold">Yannick</h3>
                         </div>
                       </div>
                       <div>
@@ -2142,7 +1530,7 @@ export default function Home() {
                         alt="imagebloc"
                         className="w-[89%] rounded-lg"
                         height={100}
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842746/des-personnes-portant-des-gilets-de-sauvetage-lors-d-une-crise-migratoire_vknlz3.jpg"
+                        src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760307/des-personnes-portant-des-gilets-de-sauvetage-lors-d-une-crise-migratoire_hfktky.jpg"
                         width={100}
                       />
                     </div>
@@ -2166,7 +1554,7 @@ export default function Home() {
                         alt="imagebloc2"
                         className="w-[89%] rounded-lg"
                         height={100}
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842743/vue-arriere-de-l-homme-a-la-marina_lxekoo.jpg"
+                        src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760142/un-homme-dans-le-port-prepare-le-yacht-pour-le-voyage_1_dvabxn.jpg"
                         width={100}
                       />
                     </div>
@@ -2190,7 +1578,7 @@ export default function Home() {
                         alt="imagebloc3"
                         className="w-[89%] rounded-lg"
                         height={100}
-                        src="https://res.cloudinary.com/dluqkutu8/image/upload/v1750842797/un-homme-dans-le-port-prepare-le-yacht-pour-le-voyage_1_lrhbis.jpg"
+                        src="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757760305/vue-arriere-de-l-homme-a-la-marina_pprpyw.jpg"
                         width={100}
                       />
                     </div>

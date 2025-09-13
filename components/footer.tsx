@@ -5,6 +5,7 @@ import { LucideIcon } from 'lucide-react';
 import { SiSailsdotjs } from 'react-icons/si';
 import { Link } from '@heroui/link';
 import { cn } from '@/lib/utils';
+import { Logo } from '@/components/icons';
 
 interface SocialLink {
   name: string;
@@ -36,11 +37,11 @@ interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
   ({ className, brand, socialLinks, columns, copyright, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn('pt-20', className)} {...props}>
+      <div ref={ref} className={cn('pt-20 border-t-2 border-black', className)} {...props}>
         <div className="max-w-screen-xl mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-2">
-              <SiSailsdotjs className="w-28 h-28" />
+              <Logo className="w-36 h-36" />
               <Link className="text-xl font-semibold" href="/">
                 {brand.name}
               </Link>

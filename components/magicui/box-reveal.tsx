@@ -8,6 +8,7 @@ interface BoxRevealProps {
   width?: 'fit-content' | '100%';
   boxColor?: string;
   duration?: number;
+  onClick?: () => void;
 }
 
 export const BoxReveal = ({
@@ -15,6 +16,7 @@ export const BoxReveal = ({
   width = 'fit-content',
   boxColor = '#5046e6',
   duration,
+  onClick,
 }: BoxRevealProps) => {
   const mainControls = useAnimation();
   const slideControls = useAnimation();
@@ -33,7 +35,7 @@ export const BoxReveal = ({
   }, [isInView, mainControls, slideControls]);
 
   return (
-    <div ref={ref} style={{ position: 'relative', width, overflow: 'hidden' }}>
+    <div ref={ref} style={{ position: 'relative', width, overflow: 'hidden' }} onClick={onClick}>
       <motion.div
         animate={mainControls}
         initial="hidden"

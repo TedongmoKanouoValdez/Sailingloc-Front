@@ -1,17 +1,15 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import dayjs, { Dayjs } from "dayjs";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
 type DateRangeContextType = {
   date1: Dayjs | null;
   date2: Dayjs | null;
   fullRange: Dayjs[];
-  setDates: (d1: Dayjs | null, d2: Dayjs | null) => void;
+  setDates: (d1: Dayjs | null, d2: Dayjs | null, range?: Dayjs[]) => void;
   resetDates: () => void;
 };
 
-const DateRangeContext = createContext<DateRangeContextType | undefined>(
-  undefined
-);
+const DateRangeContext = createContext<DateRangeContextType | undefined>(undefined);
 
 export const DateRangeProvider = ({ children }: { children: ReactNode }) => {
   const [date1, setDate1] = useState<Dayjs | null>(null);
@@ -27,15 +25,15 @@ export const DateRangeProvider = ({ children }: { children: ReactNode }) => {
     const dates: Dayjs[] = [];
     let cursor = start.clone();
 
-    while (cursor.isBefore(end) || cursor.isSame(end, "day")) {
+    while (cursor.isBefore(end) || cursor.isSame(end, 'day')) {
       dates.push(cursor);
-      cursor = cursor.add(1, "day");
+      cursor = cursor.add(1, 'day');
     }
 
     return dates;
   })();
 
-  const setDates = (d1: Dayjs | null, d2: Dayjs | null, allDates: Dayjs[] = []) => {
+  const setDates = (d1: Dayjs | null, d2: Dayjs | null, range?: Dayjs[]) => {
     setDate1(d1);
     setDate2(d2);
   };
@@ -55,7 +53,7 @@ export const DateRangeProvider = ({ children }: { children: ReactNode }) => {
 export const useDateRange = () => {
   const context = useContext(DateRangeContext);
   if (!context) {
-    throw new Error("useDateRange must be used within a DateRangeProvider");
+    throw new Error('useDateRange must be used within a DateRangeProvider');
   }
   return context;
 };

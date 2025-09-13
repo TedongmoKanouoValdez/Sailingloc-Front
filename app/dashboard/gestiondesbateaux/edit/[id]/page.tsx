@@ -1,24 +1,12 @@
 'use client';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { BsFillFileEarmarkPdfFill } from 'react-icons/bs';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { Alert } from '@heroui/alert';
-import { Checkbox } from '@heroui/checkbox';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { useParams } from 'next/navigation';
-import dayjs, { Dayjs } from 'dayjs';
-import { Spinner } from '@heroui/spinner';
-import { Divider } from 'antd';
-import { Image } from '@heroui/image';
-import { addToast, ToastProvider } from '@heroui/toast';
-import { Link } from '@heroui/link';
+import { useState, useEffect, useRef } from 'react';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { BsFillFileEarmarkPdfFill } from 'react-icons/bs';
 import {
   Select,
   SelectContent,
@@ -30,6 +18,7 @@ import {
 } from '@/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,7 +30,19 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { TagsSelector } from '@/components/ui/tags-selector';
+import { MultiSectionImageUpload } from '@/components/pages/ImageUploadsSections';
 import { CalendarDashboardBoat } from '@/components/pages/calendardashboardcreateboat';
+import { Alert } from '@heroui/alert';
+import { Checkbox } from '@heroui/checkbox';
+import { Button as ButtonHeroui, ButtonGroup } from '@heroui/button';
+import { useRouter, useSearchParams } from 'next/navigation';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
+import dayjs, { Dayjs } from 'dayjs';
+import { Spinner } from '@heroui/spinner';
+import { Divider } from 'antd';
+import { Image } from '@heroui/image';
+import { addToast, ToastProvider } from '@heroui/toast';
 
 const frameworks = [
   {
@@ -70,7 +71,13 @@ const frameworks = [
   },
 ];
 
-const TAGS = [
+// Définir le type pour tes tags
+type Tag = {
+  id: string;
+  label: string;
+};
+
+const TAGS: Tag[] = [
   { id: 'Skipper', label: 'Skipper' },
   { id: 'Hôtesse', label: 'Hôtesse' },
   { id: 'Chef cuisinier', label: 'Chef cuisinier' },
@@ -107,11 +114,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: 'flexible',
-    label: 'Flexible : remboursement complet jusqu&apos;à 24h avant le départ',
+    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
   },
   {
     id: 'moderate',
-    label: 'Modérée : remboursement partiel jusqu&apos;à 7 jours avant',
+    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
   },
   {
     id: 'strict',
@@ -123,6 +130,48 @@ const cancellationPolicies = [
   },
 ];
 
+type Token = {
+  userId: number;
+  email: string;
+  role: string;
+  nom: string;
+  prenom: string;
+  telephone: string | null;
+  photoProfil: string | null;
+  iat: number;
+  exp: number;
+};
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
+
+type Option = { id: number; label: string };
+
+type Media = {
+  id: number;
+  url: string;
+  file?: File;
+  type: 'COVER' | 'GALLERIE' | string; // ajoute les autres types possibles si besoin
+  titre?: string;
+  nom?: string;
+};
+
+type MediaWithFile = Media & { file?: File; nom?: string };
+
+// Définir le type pour tes tarifications
+type Tarif = {
+  type: string; // ou number selon ce que contient ton id
+  montant: string;
+};
+
 type ToastPlacement =
   | 'top-center'
   | 'top-right'
@@ -130,26 +179,6 @@ type ToastPlacement =
   | 'bottom-center'
   | 'bottom-right'
   | 'bottom-left';
-
-type MediaImage = {
-  id?: number | string;
-  url: string;
-  file?: File;
-  titre?: string;
-  [key: string]: any;
-};
-
-type DocumentPdf = {
-  url: string;
-  file?: File;
-  nom?: string;
-  [key: string]: any;
-};
-
-type Tag = {
-  id: string;
-  label: string;
-};
 
 export default function EditBateauForm() {
   const [open, setOpen] = React.useState(false);
@@ -167,15 +196,35 @@ export default function EditBateauForm() {
   const [selectedTarif, setSelectedTarif] = useState<string[]>([]);
   const [inputsTarif, setInputsTarif] = useState<Record<string, string>>({});
   const [unavailableDates, setUnavailableDates] = useState<Dayjs[]>([]);
-  const [coverImages, setCoverImages] = useState<MediaImage[]>([]);
-  const [galleryImages, setGalleryImages] = useState<MediaImage[]>([]);
-  const [documentPdfs, setDocumentPdfs] = useState<DocumentPdf[]>([]);
+  const [coverImages, setCoverImages] = useState<Media[]>([]);
+  const [galleryImages, setGalleryImages] = useState<Media[]>([]);
+  const [documentPdfs, setDocumentPdfs] = useState<Media[]>([]);
+  const [pdfFiles, setpdfFiles] = useState<MediaWithFile[]>([]);
   const [ImagesNeedUpdate, setImagesNeedUpdate] = useState(false);
   const [numeroPolice, setNumeroPolice] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
 
+  const [utilisateurId, setUtilisateurId] = useState<number>(0);
+
   const router = useRouter();
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem('token');
+
+    if (sessionData) {
+      const decodedToken = decodeJWT(sessionData);
+      if (decodedToken) {
+        setUtilisateurId(Number(decodedToken.userId));
+        if (decodedToken.role !== 'PROPRIETAIRE' && decodedToken.role !== 'ADMIN') {
+          router.push('/');
+        }
+      }
+    } else {
+      router.push('/');
+    }
+  }, [router]);
+
   const params = useParams();
   const bateauId = params.id;
 
@@ -210,20 +259,24 @@ export default function EditBateauForm() {
       axios.get(`https://sailingloc-back.vercel.app/api/bateaux/${bateauId}`).then((res) => {
         const data = res.data;
 
-        const selectedFromAPI = safeParse(data.bateau.details?.optionsPayantes) || [];
+        const selectedFromAPI = (safeParse(data.bateau.details?.optionsPayantes) as Option[]) || [];
 
-        const selectedLabels = selectedFromAPI
-          .filter((option: { id: string; label: string }) =>
-            TAGS.some((tag) => tag.label === option.label)
-          )
-          .map((option: { id: string; label: string }) => ({ id: option.id, label: option.label }));
+        const selectedTagsObjects: Tag[] = selectedFromAPI
+          .map((option) => {
+            const tag = TAGS.find((t) => t.label === option.label);
+            if (!tag) return null;
+            return {
+              id: tag.id, // reste string
+              label: tag.label,
+            };
+          })
+          .filter((t): t is Tag => t !== null);
 
-        setSelectedTags(selectedLabels);
+        setSelectedTags(selectedTagsObjects);
 
         const tagInputsFromAPI = Object.fromEntries(
           selectedFromAPI.map((option: any) => [option.id, option.detail || ''])
         );
-
         setTagInputs(tagInputsFromAPI);
 
         const tarificationsFromAPI = safeParse(data.bateau.details?.tarifications) || [];
@@ -240,7 +293,7 @@ export default function EditBateauForm() {
         const foundPolicy = cancellationPolicies.find((p) => p.label === policyFromAPI);
 
         if (foundPolicy) {
-          setSelectedPolicy(foundPolicy.id); // ID d&apos;une option existante
+          setSelectedPolicy(foundPolicy.id); // ID d’une option existante
         } else if (policyFromAPI) {
           setSelectedPolicy('custom');
           setCustomDescription(policyFromAPI); // Valeur personnalisée
@@ -259,7 +312,6 @@ export default function EditBateauForm() {
             const converted = Array.isArray(parsed)
               ? parsed.map((date: string) => dayjs(date))
               : [];
-
             setUnavailableDates(converted);
           } catch (e) {
             console.error('Erreur parsing datesIndisponibles :', e);
@@ -272,8 +324,8 @@ export default function EditBateauForm() {
         const allMedias = data.bateau?.medias || [];
 
         // 1. Récupérer uniquement les images (type COVER ou GALLERIE)
-        const images = allMedias.filter(
-          (media: { type: string }) => media.type === 'COVER' || media.type === 'GALLERIE'
+        const images = (allMedias as Media[]).filter(
+          (media: Media) => media.type === 'COVER' || media.type === 'GALLERIE'
         );
 
         // 2. Séparer les 4 premières images (affichage principal)
@@ -283,7 +335,7 @@ export default function EditBateauForm() {
         const otherImages = images.slice(4);
 
         // 4. Séparer les PDFs (type ATTESTATION_ASSURANCE, CERTIFICAT_NAVIGATION, etc.)
-        const pdfs = allMedias.filter((media: { url: string }) => media.url.endsWith('.pdf'));
+        const pdfs = (allMedias as Media[]).filter((media: Media) => media.url.endsWith('.pdf'));
 
         // Tu peux maintenant stocker ça dans des états séparés si tu veux :
         setCoverImages(firstFourImages);
@@ -308,7 +360,7 @@ export default function EditBateauForm() {
           disponibilite: data.disponibilite,
           medias: data.medias || [],
           equipementsInclus: setSelectedValues(safeParse(data.bateau.details?.equipements) || []),
-          tags: selectedLabels,
+          tags: selectedTagsObjects,
           tarifications: safeParse(data.details?.tarifications),
           anneeConstruction: data.bateau.details?.anneeConstruction,
           longueur: data.bateau.details?.longueur,
@@ -346,27 +398,23 @@ export default function EditBateauForm() {
     setSelectedTarif((prev) => prev.filter((item) => item !== id));
     setInputsTarif((prev) => {
       const copy = { ...prev };
-
       delete copy[id];
-
       return copy;
     });
   };
 
   const handleReplaceImage = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
     const newUrl = URL.createObjectURL(file);
 
-    // Mettre à jour l&apos;image dans l&apos;état
-    const updatedImages = [...coverImages];
-
+    // Mettre à jour l’image dans l’état
+    const updatedImages: MediaWithFile[] = [...coverImages];
     updatedImages[index] = {
       ...updatedImages[index],
       url: newUrl,
-      file: file, // Stocke le fichier pour upload plus tard
+      file, // maintenant TypeScript l'accepte
     };
 
     setCoverImages(updatedImages);
@@ -375,11 +423,9 @@ export default function EditBateauForm() {
 
   const handleReplacePDF = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
-    const updatedPDFs = [...documentPdfs];
-
+    const updatedPDFs = [...pdfFiles];
     updatedPDFs[index] = {
       ...updatedPDFs[index],
       file: file,
@@ -392,14 +438,14 @@ export default function EditBateauForm() {
 
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>, type: 'cover' | 'gallery') => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
-    const newImage = {
+    const newImage: Media = {
       id: Date.now(),
       file,
       url: URL.createObjectURL(file),
       titre: file.name,
+      type: type === 'cover' ? 'COVER' : 'GALLERIE', // <-- le champ obligatoire
     };
 
     if (type === 'cover' && coverImages.length < 4) {
@@ -413,17 +459,15 @@ export default function EditBateauForm() {
 
   const handleAddPDF = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
+    // Vérifie qu'il n'y a rien déjà
     if (documentPdfs[index]?.file) {
-      alert('Un fichier est déjà présent. Utilisez &apos;Remplacer&apos; pour le modifier.');
-
+      alert("Un fichier est déjà présent. Utilisez 'Remplacer' pour le modifier.");
       return;
     }
 
     const updatedPDFs = [...documentPdfs];
-
     updatedPDFs[index] = {
       ...updatedPDFs[index],
       file,
@@ -503,7 +547,7 @@ export default function EditBateauForm() {
       console.error('Erreur lors de la sauvegarde :', err);
       addToast({
         title: 'Succès',
-        description: 'Erreur lors de l&apos;enregistrement',
+        description: "Erreur lors de l'enregistrement",
         color: 'danger',
       });
     } finally {
@@ -567,14 +611,9 @@ export default function EditBateauForm() {
     }
 
     try {
-      const res = await axios.put(
-        'https://sailingloc-back.vercel.app/upload-documents/medias',
-        form,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }
-      );
-
+      const res = await axios.put('https://sailingloc-back.vercel.app/upload-documents/medias', form, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       alert('Médias mis à jour avec succès !');
       console.log('✅ Résultat:', res.data);
     } catch (error) {
@@ -624,8 +663,8 @@ export default function EditBateauForm() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L'Étoile de Mer"
                             value={formData?.nomBateau || 'non défini'}
+                            placeholder="Ex : L'Étoile de Mer"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -635,7 +674,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <span>Type de bateau à louer</span>
+                          <Label>Type de bateau à louer</Label>
                           <Select
                             value={formData?.typeBateau || ''}
                             onValueChange={(value) =>
@@ -677,8 +716,8 @@ export default function EditBateauForm() {
                           <Label htmlFor="modele-marque">Modèle / marque</Label>
                           <Input
                             id="modele-marque"
-                            placeholder="Ex : Beneteau Oceanis 38"
                             value={formData?.modeleMarque || 'non défini'}
+                            placeholder="Ex : Beneteau Oceanis 38"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -691,8 +730,8 @@ export default function EditBateauForm() {
                           <Label htmlFor="annee-construction">Année de construction</Label>
                           <Input
                             id="annee-construction"
-                            placeholder="Ex : 2015"
                             value={formData?.anneeConstruction || 'non défini'}
+                            placeholder="Ex : 2015"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -734,7 +773,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tirant-eau">Tirant d&apos;eau (en mètres)</Label>
+                          <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
                           <Input
                             id="tirant-eau"
                             placeholder="Ex : 1.8m"
@@ -810,7 +849,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <Label htmlFor="reservoirEau">réservoirs d&apos;eau</Label>
+                          <Label htmlFor="reservoirEau">réservoirs d’eau</Label>
                           <Input
                             id="reservoirEau"
                             placeholder="Vetus FTANK série (PEHD, 100 à 400 L)"
@@ -866,10 +905,10 @@ export default function EditBateauForm() {
                           <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
                             <PopoverTrigger asChild>
                               <Button
+                                variant="outline"
+                                role="combobox"
                                 aria-expanded={open}
                                 className="w-[20rem] justify-between"
-                                role="combobox"
-                                variant="outline"
                               >
                                 {selectedValues.length > 0
                                   ? frameworks
@@ -913,12 +952,12 @@ export default function EditBateauForm() {
                       <div className="grid grid-cols-1 gap-1 mb-4">
                         <div className="grid gap-3">
                           <TagsSelector
-                            inputs={tagInputs}
                             selectedTags={selectedTags}
-                            setInputs={setTagInputs}
                             setSelectedTags={setSelectedTags}
+                            inputs={tagInputs}
+                            setInputs={setTagInputs}
                             tags={TAGS}
-                            onChange={(newTags: Tag[]) => setSelectedTags(newTags)}
+                            onChange={(newTags) => setSelectedTags(newTags)}
                           />
                         </div>
                       </div>
@@ -928,7 +967,7 @@ export default function EditBateauForm() {
                       <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="port-attache">Port d&apos;attache (ville, marina)</Label>
+                          <Label htmlFor="port-attache">Port d'attache (ville, marina)</Label>
                           <Input
                             id="port-attache"
                             placeholder="Ex : Marina de Cannes"
@@ -947,7 +986,7 @@ export default function EditBateauForm() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d&apos;Azur, Méditerranée"
+                            placeholder="Ex : Côte d'Azur, Méditerranée"
                             value={formData?.zonesNavigation || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -964,9 +1003,7 @@ export default function EditBateauForm() {
                       <div className="text-lg font-bold mb-4">Conditions de location</div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tarification">
-                            Tarif journalier, hebdomadaire, etc...
-                          </Label>
+                          <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc.</Label>
                           <Select onValueChange={handleSelect}>
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Choisissez une tarification" />
@@ -988,14 +1025,13 @@ export default function EditBateauForm() {
                             <div className="space-y-4">
                               {selectedTarif.map((id) => {
                                 const label = fruits.find((f) => f.id === id)?.label;
-
                                 return (
                                   <div key={id} className="space-y-2">
                                     <div className="flex items-center justify-between">
                                       <span className="font-medium">{label}</span>
                                       <button
-                                        className="text-red-500 text-sm"
                                         onClick={() => handleRemove(id)}
+                                        className="text-red-500 text-sm"
                                       >
                                         Supprimer
                                       </button>
@@ -1048,38 +1084,19 @@ export default function EditBateauForm() {
                             }
                           />
                         </div>
-                        <div className="grid gap-3">
-                          <Label htmlFor="depot-garantie-2">Tarif du bateau</Label>
-                          <Input
-                            id="tarif-bateau"
-                            placeholder="Ex : 1000.00"
-                            value={formData?.tarifbateau || 'non défini'}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                tarifbateau: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
                       </div>
                       <Alert
                         color="warning"
-                        title="Si vous souhaitez facturer un supplément au-delà d&apos;un certain nombre de passagers, indiquez ici le prix par passager supplémentaire et par jour.
-                        Laissez vide ou mettez 0 si aucun supplément n&apos;est appliqué."
+                        title="Si vous souhaitez facturer un supplément au-delà d’un certain nombre de passagers, indiquez ici le prix par passager supplémentaire et par jour.
+                        Laissez vide ou mettez 0 si aucun supplément n’est appliqué."
                       />
                       <div className="grid grid-cols-2 gap-2 mt-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="depot-garantie-2">
-                            Passagers inclus dans le prix
-                          </Label>
+                          <Label htmlFor="depot-garantie-2">Passagers inclus dans le prix</Label>
                           <Input
                             id="PassagersInclusDansLePrix"
                             placeholder="ex : 4"
-                            value={
-                              formData?.PassagersInclusDansLePrix ||
-                              "non défini"
-                            }
+                            value={formData?.PassagersInclusDansLePrix || 'non défini'}
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1097,15 +1114,11 @@ export default function EditBateauForm() {
                             id="SupplementParPassagerSupplémentaire"
                             placeholder="ex : 20"
                             step="0.01"
-                            value={
-                              formData?.SupplementParPassagerSupplémentaire ||
-                              "non défini"
-                            }
+                            value={formData?.SupplementParPassagerSupplémentaire || 'non défini'}
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
-                                SupplementParPassagerSupplémentaire:
-                                  e.target.value,
+                                SupplementParPassagerSupplémentaire: e.target.value,
                               })
                             }
                           />
@@ -1113,7 +1126,7 @@ export default function EditBateauForm() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d&apos;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&apos;arriver de votre bateau."
+                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -1131,7 +1144,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <Label htmlFor="depot-garantie-2">Port d&apos;arriver (optionnel)</Label>
+                          <Label htmlFor="depot-garantie-2">Port d'arriver (optionnel)</Label>
                           <Input
                             id="port-arriver"
                             placeholder="Port de Nice"
@@ -1147,7 +1160,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <span className="font-medium">Politique d&apos;annulation</span>
+                          <Label className="font-medium">Politique d'annulation</Label>
                           <Select
                             value={selectedPolicy}
                             onValueChange={(value) => setSelectedPolicy(value)}
@@ -1165,12 +1178,11 @@ export default function EditBateauForm() {
                           </Select>
                           {selectedPolicy === 'custom' && (
                             <div className="space-y-2">
-                              <Label htmlFor="Descriptionpersonnalisee" className="font-medium">
-                                Description personnalisée
+                              <Label className="font-medium">
+                                Description personnalisée{' '}
                                 <span className="text-muted-foreground">(optionnel)</span>
                               </Label>
                               <Textarea
-                                id="Descriptionpersonnalisee"
                                 placeholder="Ex : Remboursement à 50% si annulation 14 jours avant"
                                 value={customDescription}
                                 onChange={(e) => setCustomDescription(e.target.value)}
@@ -1193,15 +1205,15 @@ export default function EditBateauForm() {
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&apos;ajouter comme indisponible; cliquez à nouveau pour l&apos;enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
                       </div>
                       <div>
                         <CalendarDashboardBoat
-                          setUnavailableDates={setUnavailableDates}
                           unavailableDates={unavailableDates}
+                          setUnavailableDates={setUnavailableDates}
                         />
                       </div>
                     </div>
@@ -1209,10 +1221,10 @@ export default function EditBateauForm() {
 
                   <div className="ml-4 mt-4">
                     <button
-                      // type='submit'
+                      // type="submit"
+                      onClick={handleSave}
                       className="bg-black text-white px-4 py-2 rounded shadow flex items-center justify-center gap-2"
                       disabled={isSubmitting}
-                      onClick={handleSave}
                     >
                       {isSubmitting ? (
                         <>
@@ -1250,20 +1262,19 @@ export default function EditBateauForm() {
                           {coverImages.map((img, index) => (
                             <div key={img.id} className="relative">
                               <Image
-                                alt={img.titre}
-                                className="h-[14rem] object-cover"
                                 src={img.url}
+                                alt={img.titre}
                                 width={300}
+                                className="h-[14rem] object-cover"
                               />
-                              <label htmlFor="Remplacer" className="mt-2 block text-center">
+                              <label className="mt-2 block text-center">
                                 <span className="text-sm text-blue-600 cursor-pointer underline">
-                                  Remplacer l&apos;image
+                                  Remplacer l'image
                                 </span>
                                 <input
+                                  type="file"
                                   accept="image/*"
                                   className="hidden"
-                                  id="Remplacer"
-                                  type="file"
                                   onChange={(e) => handleReplaceImage(index, e)}
                                 />
                               </label>
@@ -1271,16 +1282,12 @@ export default function EditBateauForm() {
                           ))}
                           {coverImages.length < 4 && (
                             <div className="col-span-2 text-center">
-                              <label
-                                htmlFor="Ajouter"
-                                className="cursor-pointer text-blue-500 underline"
-                              >
+                              <label className="cursor-pointer text-blue-500 underline">
                                 + Ajouter une image
                                 <input
+                                  type="file"
                                   accept="image/*"
                                   className="hidden"
-                                  id="Ajouter"
-                                  type="file"
                                   onChange={(e) => handleAddImage(e, 'cover')}
                                 />
                               </label>
@@ -1294,20 +1301,19 @@ export default function EditBateauForm() {
                           {galleryImages.map((img, index) => (
                             <div key={img.id} className="relative">
                               <Image
-                                alt={img.titre}
-                                className="h-[14rem] object-cover"
                                 src={img.url}
+                                alt={img.titre}
                                 width={300}
+                                className="h-[14rem] object-cover"
                               />
-                              <label htmlFor="Remplacerimage" className="mt-2 block text-center">
+                              <label className="mt-2 block text-center">
                                 <span className="text-sm text-blue-600 cursor-pointer underline">
-                                  Remplacer l&apos;image
+                                  Remplacer l'image
                                 </span>
                                 <input
-                                  accept="image/*"
-                                  id="Remplacerimage"
-                                  className="hidden"
                                   type="file"
+                                  accept="image/*"
+                                  className="hidden"
                                   onChange={(e) => handleReplaceImage(index, e)}
                                 />
                               </label>
@@ -1315,16 +1321,12 @@ export default function EditBateauForm() {
                           ))}
                           {galleryImages.length < 5 && (
                             <div className="col-span-2 text-center">
-                              <label
-                                htmlFor="Ajouterimage"
-                                className="cursor-pointer text-blue-500 underline"
-                              >
+                              <label className="cursor-pointer text-blue-500 underline">
                                 + Ajouter une image
                                 <input
-                                  accept="image/*"
-                                  id="Ajouterimage"
-                                  className="hidden"
                                   type="file"
+                                  accept="image/*"
+                                  className="hidden"
                                   onChange={(e) => handleAddImage(e, 'gallery')}
                                 />
                               </label>
@@ -1353,19 +1355,19 @@ export default function EditBateauForm() {
                               <p className="font-medium text-sm">{pdf.type}</p>
 
                               {pdf.url && (
-                                <Link
-                                  className="text-blue-600 text-sm underline"
+                                <a
                                   href={pdf.url}
-                                  rel="noopener noreferrer"
                                   target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 text-sm underline"
                                 >
                                   Voir le PDF
-                                </Link>
+                                </a>
                               )}
 
                               {pdf.nom && (
                                 <p className="flex items-center space-x-4 text-xs text-gray-600 mt-1">
-                                  <BsFillFileEarmarkPdfFill className="w-6 h-6 text-red-700" />
+                                  <BsFillFileEarmarkPdfFill className="w-6 h-6 text-red-700" />{' '}
                                   {pdf.nom}
                                 </p>
                               )}
@@ -1375,23 +1377,19 @@ export default function EditBateauForm() {
                               <label className="text-sm text-green-600 underline cursor-pointer">
                                 Ajouter
                                 <input
+                                  type="file"
                                   accept="application/pdf"
                                   className="hidden"
-                                  type="file"
                                   onChange={(e) => handleAddPDF(i, e)}
                                 />
                               </label>
                             ) : (
-                              <label
-                                htmlFor="Remplacerplus"
-                                className="text-sm text-blue-600 underline cursor-pointer"
-                              >
+                              <label className="text-sm text-blue-600 underline cursor-pointer">
                                 Remplacer
                                 <input
-                                  accept="application/pdf"
-                                  id="Remplacerplus"
-                                  className="hidden"
                                   type="file"
+                                  accept="application/pdf"
+                                  className="hidden"
                                   onChange={(e) => handleReplacePDF(i, e)}
                                 />
                               </label>
@@ -1403,12 +1401,12 @@ export default function EditBateauForm() {
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label htmlFor="numero-police">Numéro de police d&apos;assurance</label>
+                        <label>Numéro de police d'assurance</label>
                         <Input
                           id="numero-police"
-                          placeholder="Ex : 12345678-AB"
                           type="text"
                           onChange={(e) => setNumeroPolice(e.target.value)}
+                          placeholder="Ex : 12345678-AB"
                         />
                       </div>
                     </div>
@@ -1422,15 +1420,15 @@ export default function EditBateauForm() {
                         {/* {isSubmitting ? (
                         <>
                           <Spinner
-                            classNames={{ label: 'text-white' }}
-                            color='default'
-                            size='sm'
-                            variant='simple'
+                            classNames={{ label: "text-white" }}
+                            color="default"
+                            size="sm"
+                            variant="simple"
                           />
                           <span>Soumission...</span>
                         </>
                       ) : ( */}
-                        Soumettre
+                        "Soumettre"
                         {/* )} */}
                       </button>
                     </div>

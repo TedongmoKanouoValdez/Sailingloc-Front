@@ -1,21 +1,39 @@
 'use client';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { AppSidebar } from '@/components/app-sidebar';
+import { SiteHeader } from '@/components/site-header';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Textarea } from '@/components/ui/textarea';
+import VeiwsGalerieBoatDashbordSectionOne from '@/components/pages/veiwsgalerieboatdashbordsectionone';
+import { CalendarDashboardBoat } from '@/components/pages/calendardashboardcreateboat';
 import { Alert } from '@heroui/alert';
 import { Checkbox } from '@heroui/checkbox';
-import { Button as ButtonHeroui } from '@heroui/button';
+import { Button as ButtonHeroui, ButtonGroup } from '@heroui/button';
 import { Link } from '@heroui/link';
 import { IoIosLink } from 'react-icons/io';
 import { useParams } from 'next/navigation';
 import { Chip } from '@heroui/chip';
 import dayjs, { Dayjs } from 'dayjs';
 
-import { AppSidebar } from '@/components/app-sidebar';
-import { SiteHeader } from '@/components/site-header';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { Input } from '@/components/ui/input';
-import VeiwsGalerieBoatDashbordSectionOne from '@/components/pages/veiwsgalerieboatdashbordsectionone';
-import { CalendarDashboardBoat } from '@/components/pages/calendardashboardcreateboat';
+type Tarif = {
+  type: string;
+  montant: number;
+  label?: string;
+  detail?: string;
+};
 
 export default function GestionDesBateauxCreerPage() {
   const [open, setOpen] = React.useState(false);
@@ -36,7 +54,6 @@ export default function GestionDesBateauxCreerPage() {
     if (value === 'Aucun') {
       setSelected(['Aucun']);
       setInputs({});
-
       return;
     }
 
@@ -51,9 +68,7 @@ export default function GestionDesBateauxCreerPage() {
     setSelected((prev) => prev.filter((v) => v !== value));
     setInputs((prev) => {
       const newInputs = { ...prev };
-
       delete newInputs[value];
-
       return newInputs;
     });
   };
@@ -63,7 +78,6 @@ export default function GestionDesBateauxCreerPage() {
       try {
         const res = await fetch(`https://sailingloc-back.vercel.app/api/bateaux/slug/${slug}`);
         const data = await res.json();
-
         setBateau(data.bateau);
       } catch (err) {
         console.error('Erreur chargement bateau :', err);
@@ -78,7 +92,6 @@ export default function GestionDesBateauxCreerPage() {
       try {
         const parsed = JSON.parse(bateau.datesIndisponibles);
         const converted = Array.isArray(parsed) ? parsed.map((date: string) => dayjs(date)) : [];
-
         setUnavailableDates(converted);
       } catch (e) {
         console.error('Erreur parsing datesIndisponibles :', e);
@@ -108,13 +121,13 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Informations générales</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Nom du bateau</span>
+                        <Label>Nom du bateau</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.nom || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Type de bateau à louer</span>
+                        <Label>Type de bateau à louer</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.typeBateau || ''}
                         </Chip>
@@ -122,13 +135,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Modèle / marque</span>
+                        <Label htmlFor="modele-marque">Modèle / marque</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.modele || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Année de construction</span>
+                        <Label htmlFor="annee-construction">Année de construction</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.anneeConstruction || ''}
                         </Chip>
@@ -136,13 +149,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Longueur (en mètres)</span>
+                        <Label htmlFor="longueur">Longueur (en mètres)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.longueur || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Largeur (en mètres)</span>
+                        <Label htmlFor="largeur">Largeur (en mètres)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.largeur || ''}
                         </Chip>
@@ -150,13 +163,15 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Tirant d&apos;eau (en mètres)</span>
+                        <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.tirantEau || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Capacité maximale (nombre de personnes)</span>
+                        <Label htmlFor="capacite-max">
+                          Capacité maximale (nombre de personnes)
+                        </Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.capaciteMax || ''}
                         </Chip>
@@ -164,13 +179,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Nombre de cabines</span>
+                        <Label htmlFor="nombre-cabines">Nombre de cabines</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.nombreCabines || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Nombre de couchages</span>
+                        <Label htmlFor="nombre-couchages">Nombre de couchages</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.nombreCouchages || ''}
                         </Chip>
@@ -181,7 +196,7 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Description & équipement</div>
                     <div className="grid grid-cols-1 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Description détaillée</span>
+                        <Label htmlFor="description-detaillee">Description détaillée</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.description || ''}
                         </Chip>
@@ -189,7 +204,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-1 mb-4">
                       <div className="grid gap-3">
-                        <span>Équipements inclus</span>
+                        <Label htmlFor="equipements-inclus">Équipements inclus</Label>
                         <Chip color="warning" variant="dot">
                           {(() => {
                             const raw = bateau?.details?.equipements;
@@ -200,7 +215,6 @@ export default function GestionDesBateauxCreerPage() {
                             } else if (typeof raw === 'string') {
                               try {
                                 const parsed = JSON.parse(raw);
-
                                 if (Array.isArray(parsed)) list = parsed;
                               } catch (e) {
                                 list = [];
@@ -214,7 +228,9 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-1 mb-4">
                       <div className="grid gap-3">
-                        <span>Options payantes ou en supplément</span>
+                        <Label htmlFor="equipements-inclus">
+                          Options payantes ou en supplément
+                        </Label>
                         <Chip color="warning" variant="dot">
                           {(() => {
                             const raw = bateau?.details?.optionsPayantes;
@@ -223,7 +239,6 @@ export default function GestionDesBateauxCreerPage() {
                             if (typeof raw === 'string') {
                               try {
                                 const parsed = JSON.parse(raw);
-
                                 if (Array.isArray(parsed)) list = parsed;
                               } catch (e) {
                                 list = [];
@@ -242,13 +257,15 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Port d&apos;attache (ville, marina)</span>
+                        <Label htmlFor="port-attache">Port d'attache (ville, marina)</Label>
                         <Chip color="warning" variant="dot">
-                          {bateau?.details?.portdefault || 'Aucun port d&apos;attache défini'}
+                          {bateau?.details?.portdefault || "Aucun port d'attache défini"}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Zones de navigation autorisées ou recommandées</span>
+                        <Label htmlFor="zones-navigation">
+                          Zones de navigation autorisées ou recommandées
+                        </Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.zonesNavigation || 'Non définie'}
                         </Chip>
@@ -256,13 +273,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Port de départ (optionnel)</span>
+                        <Label htmlFor="port-attache">Port de départ (optionnel)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdarriver || 'Non défini'}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <span>Port d&apos;arrivé (optionnel)</span>
+                        <Label htmlFor="zones-navigation">Port d'arrivé (optionnel)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdedepart || 'Non défini'}
                         </Chip>
@@ -273,17 +290,16 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Conditions de location</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Tarif journalier, hebdomadaire, etc.</span>
+                        <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc.</Label>
                         <div className="grid grid-cols-2 gap-2">
                           <Chip color="warning" variant="dot">
                             {(() => {
                               const raw = bateau?.details?.tarifications;
-                              let list: { type: string; montant: number }[] = [];
+                              let list: Tarif[] = [];
 
                               if (typeof raw === 'string') {
                                 try {
                                   const parsed = JSON.parse(raw);
-
                                   if (Array.isArray(parsed)) list = parsed;
                                 } catch (e) {
                                   list = [];
@@ -298,7 +314,7 @@ export default function GestionDesBateauxCreerPage() {
                         </div>
                       </div>
                       <div className="grid gap-3">
-                        <span>Dépôt de garantie</span>
+                        <Label htmlFor="depot-garantie">Dépôt de garantie</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.Depotgarantie || 'Non défini'}
                         </Chip>
@@ -306,14 +322,16 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <span>Durée minimale / maximale de location</span>
+                        <Label htmlFor="duree-location">
+                          Durée minimale / maximale de location
+                        </Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.DureeLocation || 'Non défini'}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
                         <div className="grid gap-3">
-                          <span>Politique d&apos;annulation</span>
+                          <Label className="font-medium">Politique d'annulation</Label>
                         </div>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.politiqueAnnulation || 'Non défini'}
@@ -322,8 +340,8 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-3">
                       <Checkbox
-                        isDisabled
                         defaultChecked={bateau?.details?.locationSansPermis || false}
+                        isDisabled
                       >
                         Le bateau peut être loué sans certificat / permis
                       </Checkbox>
@@ -349,59 +367,59 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div>
                       <CalendarDashboardBoat
-                        editable={false}
-                        setUnavailableDates={setUnavailableDates}
                         unavailableDates={unavailableDates}
+                        setUnavailableDates={setUnavailableDates}
+                        editable={false}
                       />
                     </div>
                   </div>
                   <div>
                     <div className="text-lg font-bold mb-4">Informations administratives</div>
                     <div className="grid gap-3 mb-4">
-                      <span>Attestation d&apos;assurance (PDF ou image)</span>
+                      <label>Attestation d'assurance (PDF ou image)</label>
                       <Link
                         isExternal
                         showAnchorIcon
+                        underline="always"
                         anchorIcon={<IoIosLink />}
                         href="https://github.com/heroui-inc/heroui"
-                        underline="always"
                       >
                         Informations administratives.pdf
                       </Link>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <span>Numéro de police d&apos;assurance</span>
+                        <label>Numéro de police d'assurance</label>
                         <Input
                           disabled
                           id="numero-police"
-                          placeholder="Ex : 12345678-AB"
                           type="text"
+                          placeholder="Ex : 12345678-AB"
                         />
                       </div>
 
                       <div className="grid gap-3 mb-4">
-                        <span>Attestation d&apos;assurance (PDF ou image)</span>
+                        <label>Attestation d'assurance (PDF ou image)</label>
                         <Link
                           isExternal
+                          underline="always"
                           showAnchorIcon
                           anchorIcon={<IoIosLink />}
                           href="https://github.com/heroui-inc/heroui"
-                          underline="always"
                         >
-                          Attestation d&apos;assurance.pdf
+                          Attestation d'assurance.pdf
                         </Link>
                       </div>
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <span>Certificat de navigation (si applicable)</span>
+                        <label>Certificat de navigation (si applicable)</label>
                         <Link
                           isExternal
                           showAnchorIcon
+                          underline="always"
                           anchorIcon={<IoIosLink />}
                           href="https://github.com/heroui-inc/heroui"
-                          underline="always"
                         >
                           Certificat de navigation.pdf
                         </Link>
@@ -420,36 +438,36 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Contact propriétaire</div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <span>Nom du propriétaire</span>
+                        <label>Nom du propriétaire</label>
                         <Input
                           disabled
-                          required
                           id="nom-proprietaire"
-                          placeholder="Ex : Jean Dupont"
                           type="text"
+                          placeholder="Ex : Jean Dupont"
+                          required
                         />
                       </div>
 
                       <div className="grid gap-3 mb-4">
-                        <span>Téléphone</span>
+                        <label>Téléphone</label>
                         <Input
                           disabled
-                          required
                           id="telephone-proprietaire"
-                          placeholder="+33 6 12 34 56 78"
                           type="tel"
+                          placeholder="+33 6 12 34 56 78"
+                          required
                         />
                       </div>
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <span>Email</span>
+                        <label>Email</label>
                         <Input
                           disabled
-                          required
                           id="email-proprietaire"
-                          placeholder="exemple@domaine.com"
                           type="email"
+                          placeholder="exemple@domaine.com"
+                          required
                         />
                       </div>
                     </div>

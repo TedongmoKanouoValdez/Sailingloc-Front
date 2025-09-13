@@ -7,6 +7,9 @@ import { Providers } from './providers';
 import { siteConfig } from '@/config/site';
 import { fontSans } from '@/config/fonts';
 import ClientLayout from '@/components/pages/ClientLayout';
+import { CookieConsentProvider } from '@/context/CookieConsentContext';
+import GlobalLoader from '@/components/GlobalLoader';
+import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -100,7 +103,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <ClientLayout>{children}</ClientLayout>
+          <GlobalLoader>
+            <CookieConsentProvider>
+              <ClientLayout>
+                {children}
+                <CookieBanner />
+              </ClientLayout>
+            </CookieConsentProvider>
+          </GlobalLoader>
         </Providers>
       </body>
     </html>

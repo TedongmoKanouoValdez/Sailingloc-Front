@@ -1,80 +1,7 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { useRef, useState } from 'react';
-import {
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-  type UniqueIdentifier,
-} from '@dnd-kit/core';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import {
-  SortableContext,
-  arrayMove,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  Row,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import {
-  CheckCircle2Icon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-  ColumnsIcon,
-  GripVerticalIcon,
-  LoaderIcon,
-  MoreVerticalIcon,
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-import { Button as ButtonHeroui } from '@heroui/button';
-import { Image } from '@heroui/image';
-import { Chip } from '@heroui/chip';
-
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ChartConfig } from '@/components/ui/chart';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import * as React from "react";
+import { z } from "zod";
 import {
   Table,
   TableBody,
@@ -82,586 +9,231 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+} from "@/components/ui/table";
+import { Chip } from "@heroui/chip";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { CheckCircle2, XCircle, Loader2, MoreVertical } from "lucide-react";
+import { toast } from "sonner";
+import { Spinner } from "@heroui/spinner";
 
 export const schema = z.object({
   id: z.number(),
-  header: z.string(),
-  type: z.string(),
-  status: z.string(),
-  target: z.string(),
-  limit: z.string(),
+  nomdubateau: z.string(),
+  client: z.string(),
+  dates: z.string(),
+  statutdepaiement: z.string(),
+  paiement: z.string(),
+  statusduproprietaire: z.string(),
   reviewer: z.string(),
+  contratUrl: z.string().nullable(),
+  recuUrl: z.string().nullable(),
+  userconnect: z.number(),
+  montantFinal: z.number(),
 });
 
-// Create a separate component for the drag handle
-function DragHandle({ id }: { id: number }) {
-  const { attributes, listeners } = useSortable({
-    id,
-  });
+type Reservation = z.infer<typeof schema>;
 
-  return (
-    <Button
-      {...attributes}
-      {...listeners}
-      className="size-7 text-muted-foreground hover:bg-transparent"
-      size="icon"
-      variant="ghost"
-    >
-      <GripVerticalIcon className="size-3 text-muted-foreground" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>
-  );
-}
+export function DataTable({ data }: { data: Reservation[] }) {
+  const [rows, setRows] = React.useState<Reservation[]>([]);
 
-function BateauCell({ row }: { row: Row<z.infer<typeof schema>> }) {
-  const [showReservation, setShowReservation] = React.useState(false);
+  // 🔑 Synchroniser quand "data" change
+  React.useEffect(() => {
+    setRows(data);
+  }, [data]);
 
-  return (
-    <>
-      <ButtonHeroui color="default" variant="light" onClick={() => setShowReservation(true)}>
-        {row.original.header}
-      </ButtonHeroui>
-      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-    </>
-  );
-}
+  async function updateStatus(
+    id: number,
+    newStatus: "CONFIRMEE" | "ANNULEE" | "EN_ATTENTE",
+    expediteurId: number
+  ) {
+    try {
+      toast.promise(
+        new Promise(async (resolve, reject) => {
+          const res = await fetch(
+            `http://localhost:3001/api/reservations/${id}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                statusduproprietaire: newStatus,
+                expediteurId: expediteurId,
+              }),
+            }
+          );
 
-function ActionsCell({ row }: { row: Row<z.infer<typeof schema>> }) {
-  const [showReservation, setShowReservation] = React.useState(false);
+          if (!res.ok) return reject("Erreur serveur");
+          resolve("ok");
+        }),
+        {
+          loading: "Mise à jour...",
+          success: "Statut mis à jour ✅",
+          error: "Erreur lors de la mise à jour ❌",
+        }
+      );
 
-  return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-            size="icon"
-            variant="ghost"
-          >
-            <MoreVerticalIcon />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem onClick={() => setShowReservation(true)}>Voir</DropdownMenuItem>
-          <DropdownMenuItem>Archive</DropdownMenuItem>
-          <DropdownMenuItem>Supprimer</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <AddReservationPanel open={showReservation} onClose={() => setShowReservation(false)} />
-    </>
-  );
-}
-
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    id: 'drag',
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          aria-label="Select all"
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          aria-label="Select row"
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'nomdubateau',
-    header: 'Bateau',
-    cell: ({ row }) => <BateauCell row={row} />,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'client',
-    header: 'Client',
-    cell: ({ row }) => (
-      <div className="w-32">
-        <Badge className="px-1.5 text-muted-foreground" variant="outline">
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'dates',
-    header: 'Dates',
-    cell: ({ row }) => (
-      <Badge className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3" variant="outline">
-        {row.original.status === 'Done' ? (
-          <CheckCircle2Icon className="text-green-500 dark:text-green-400" />
-        ) : (
-          <LoaderIcon />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: 'statut',
-    header: () => <div className="w-full">Statut</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: 'Done',
-            error: 'Error',
-          });
-        }}
-      >
-        <Label className="sr-only" htmlFor={`${row.original.id}-target`}>
-          Target
-        </Label>
-        <Input
-          className="h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: 'paiement',
-    header: () => <div className="w-full">Paiement</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: 'Done',
-            error: 'Error',
-          });
-        }}
-      >
-        <Label className="sr-only" htmlFor={`${row.original.id}-limit`}>
-          Limit
-        </Label>
-        <Input
-          className="h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
-    ),
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => <ActionsCell row={row} />,
-  },
-];
-
-function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
-  const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
-  });
-
-  return (
-    <TableRow
-      ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-      data-dragging={isDragging}
-      data-state={row.getIsSelected() && 'selected'}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition: transition,
-      }}
-    >
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
-}
-
-export function DataTable({ data: initialData }: { data: z.infer<typeof schema>[] }) {
-  const [data, setData] = React.useState(() => initialData);
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-  const sortableId = React.useId();
-  const sensors = useSensors(
-    useSensor(MouseSensor, {}),
-    useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
-  );
-
-  const dataIds = React.useMemo<UniqueIdentifier[]>(() => data?.map(({ id }) => id) || [], [data]);
-
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      sorting,
-      columnVisibility,
-      rowSelection,
-      columnFilters,
-      pagination,
-    },
-    getRowId: (row) => row.id.toString(),
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-  });
-
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-
-    if (active && over && active.id !== over.id) {
-      setData((data) => {
-        const oldIndex = dataIds.indexOf(active.id);
-        const newIndex = dataIds.indexOf(over.id);
-
-        return arrayMove(data, oldIndex, newIndex);
-      });
+      setRows((prev) =>
+        prev.map((r) =>
+          r.id === id ? { ...r, statusduproprietaire: newStatus } : r
+        )
+      );
+    } catch (err) {
+      console.error(err);
     }
   }
 
   return (
-    <Tabs className="flex w-full flex-col justify-start gap-6" defaultValue="outline">
-      <div className="flex items-center justify-between px-4 lg:px-6">
-        <TabsList className="@4xl/main:flex hidden">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger className="gap-1" value="past-performance">
-            Past Performance{' '}
-            <Badge
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
-              variant="secondary"
-            >
-              3
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger className="gap-1" value="key-personnel">
-            Key Personnel{' '}
-            <Badge
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30"
-              variant="secondary"
-            >
-              2
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
-        </TabsList>
-        <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="sm" variant="outline">
-                <ColumnsIcon />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
-                <ChevronDownIcon />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {table
-                .getAllColumns()
-                .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      checked={column.getIsVisible()}
-                      className="capitalize"
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+    <div className="w-full overflow-x-auto rounded-2xl border border-gray-200 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <Table>
+        <TableHeader>
+          <TableRow className="bg-gray-50 dark:bg-gray-800/50">
+            <TableHead>Bateau</TableHead>
+            <TableHead>Client</TableHead>
+            <TableHead>Dates</TableHead>
+            <TableHead>Paiement (-10%)</TableHead>
+            <TableHead>Statut Paiement</TableHead>
+            <TableHead>Status Propriétaire</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={7}
+                className="text-center py-6 text-muted-foreground"
+              >
+                Aucune réservation trouvée
+              </TableCell>
+            </TableRow>
+          ) : (
+            rows.map((r) => (
+              <TableRow
+                key={r.id}
+                className="hover:bg-gray-50 dark:hover:bg-gray-800/40"
+              >
+                <TableCell className="font-medium">{r.nomdubateau}</TableCell>
+                <TableCell>{r.client}</TableCell>
+                <TableCell>{r.dates}</TableCell>
+                <TableCell className="font-semibold">
+                  {r.montantFinal} €
+                </TableCell>
+                <TableCell>
+                  <Chip
+                    color={
+                      r.statutdepaiement === "EN_ATTENTE"
+                        ? "warning"
+                        : r.statutdepaiement === "CONFIRMEE"
+                          ? "success"
+                          : "danger"
+                    }
+                    variant="shadow"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    {r.statutdepaiement}
+                  </Chip>
+                </TableCell>
+                <TableCell>
+                  {r.statusduproprietaire === "CONFIRMEE" ? (
+                    <Chip
+                      color="success"
+                      variant="shadow"
+                      className="flex items-center gap-1"
+                      style={{ fontSize: "0.9rem" }}
                     >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <TabsContent
-        className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
-        value="outline"
-      >
-        <div className="overflow-hidden rounded-lg border">
-          <DndContext
-            collisionDetection={closestCenter}
-            id={sortableId}
-            modifiers={[restrictToVerticalAxis]}
-            sensors={sensors}
-            onDragEnd={handleDragEnd}
-          >
-            <Table>
-              <TableHeader className="sticky top-0 z-10 bg-muted">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id} colSpan={header.colSpan}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(header.column.columnDef.header, header.getContext())}
-                        </TableHead>
-                      );
-                    })}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody className="**:data-[slot=table-cell]:first:w-8">
-                {table.getRowModel().rows?.length ? (
-                  <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
-                    {table.getRowModel().rows.map((row) => (
-                      <DraggableRow key={row.id} row={row} />
-                    ))}
-                  </SortableContext>
-                ) : (
-                  <TableRow>
-                    <TableCell className="h-24 text-center" colSpan={columns.length}>
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </DndContext>
-        </div>
-        <div className="flex items-center justify-between px-4">
-          <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{' '}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </div>
-          <div className="flex w-full items-center gap-8 lg:w-fit">
-            <div className="hidden items-center gap-2 lg:flex">
-              <Label className="text-sm font-medium" htmlFor="rows-per-page">
-                Rows per page
-              </Label>
-              <Select
-                value={`${table.getState().pagination.pageSize}`}
-                onValueChange={(value) => {
-                  table.setPageSize(Number(value));
-                }}
-              >
-                <SelectTrigger className="w-20" id="rows-per-page">
-                  <SelectValue placeholder={table.getState().pagination.pageSize} />
-                </SelectTrigger>
-                <SelectContent side="top">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
-                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                      {pageSize}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-            </div>
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
-              <Button
-                className="hidden h-8 w-8 p-0 lg:flex"
-                disabled={!table.getCanPreviousPage()}
-                variant="outline"
-                onClick={() => table.setPageIndex(0)}
-              >
-                <span className="sr-only">Go to first page</span>
-                <ChevronsLeftIcon />
-              </Button>
-              <Button
-                className="size-8"
-                disabled={!table.getCanPreviousPage()}
-                size="icon"
-                variant="outline"
-                onClick={() => table.previousPage()}
-              >
-                <span className="sr-only">Go to previous page</span>
-                <ChevronLeftIcon />
-              </Button>
-              <Button
-                className="size-8"
-                disabled={!table.getCanNextPage()}
-                size="icon"
-                variant="outline"
-                onClick={() => table.nextPage()}
-              >
-                <span className="sr-only">Go to next page</span>
-                <ChevronRightIcon />
-              </Button>
-              <Button
-                className="hidden size-8 lg:flex"
-                disabled={!table.getCanNextPage()}
-                size="icon"
-                variant="outline"
-                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              >
-                <span className="sr-only">Go to last page</span>
-                <ChevronsRightIcon />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </TabsContent>
-      <TabsContent className="flex flex-col px-4 lg:px-6" value="past-performance">
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed" />
-      </TabsContent>
-      <TabsContent className="flex flex-col px-4 lg:px-6" value="key-personnel">
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed" />
-      </TabsContent>
-      <TabsContent className="flex flex-col px-4 lg:px-6" value="focus-documents">
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed" />
-      </TabsContent>
-    </Tabs>
-  );
-}
-
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
-];
-
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'var(--primary)',
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'var(--primary)',
-  },
-} satisfies ChartConfig;
-
-function AddReservationPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const inputFileRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-
-  function handleAvatarClick() {
-    inputFileRef.current?.click();
-  }
-
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-
-    setImageSrc(url);
-  }
-
-  function handleRemoveImage() {
-    setImageSrc(null);
-    // Optionnel: reset aussi l'input file pour pouvoir recharger la même image après suppression
-    if (inputFileRef.current) inputFileRef.current.value = '';
-  }
-
-  return (
-    <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className="flex flex-col" side="right">
-        <SheetHeader>
-          <SheetTitle>Détaile de la réservation</SheetTitle>
-        </SheetHeader>
-        <form className="flex flex-col gap-4 flex-1 overflow-y-auto py-4 text-sm">
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Numéro de réservation</div>
-            <div className="text-base font-bold text-black">sloc-18082025</div>
-          </div>
-          <div className="flex justify-center items-center">
-            <Image
-              alt="HeroUI hero"
-              src="https://heroui.com/images/hero-card-complete.jpeg"
-              width={300}
-            />
-          </div>
-
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Nom du bateau</div>
-            <div className="text-base font-bold text-black">SailingLoc-18082025</div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Nom du client</div>
-            <div className="text-base font-bold text-black">SailingLoc</div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Dates de location (Début)</div>
-            <div className="text-base font-bold text-black">18/08/2025</div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Dates de location (Fin)</div>
-            <div className="text-base font-bold text-black">18/08/2025</div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Statut de paiement</div>
-            <div className="text-base font-bold text-black">
-              <Chip className="text-white font-bold" color="warning" variant="shadow">
-                En attente
-              </Chip>
-            </div>
-          </div>
-          {/* Autres champs si besoin */}
-          <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Statut de réservation" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en attente">En attente</SelectItem>
-              <SelectItem value="confirmée">Confirmée</SelectItem>
-              <SelectItem value="refusée">Refusée</SelectItem>
-              <SelectItem value="annulée">Annulée</SelectItem>
-            </SelectContent>
-          </Select>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Montant total</div>
-            <div className="text-base font-bold text-black">3500.99€</div>
-          </div>
-          <div className="flex flex-row justify-between">
-            <div className="text-sm text-gray-600 font-medium">Port de départ</div>
-            <div className="text-base font-bold text-black">Port de Nice</div>
-          </div>
-          <div className="mt-auto flex gap-2">
-            <Button className="w-full" type="submit">
-              Enregistrer
-            </Button>
-            <Button className="w-full" variant="outline" onClick={onClose}>
-              Annuler
-            </Button>
-          </div>
-        </form>
-      </SheetContent>
-    </Sheet>
+                      Accepté
+                    </Chip>
+                  ) : r.statusduproprietaire === "ANNULEE" ? (
+                    <Chip
+                      color="danger"
+                      variant="shadow"
+                      className="flex items-center gap-1"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      Refusé
+                    </Chip>
+                  ) : (
+                    <Chip
+                      color="warning"
+                      variant="shadow"
+                      className="flex flex-row items-center gap-1"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      En attente
+                    </Chip>
+                  )}
+                </TableCell>
+                <TableCell className="text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <MoreVertical className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() =>
+                          updateStatus(r.id, "CONFIRMEE", Number(r.userconnect))
+                        }
+                      >
+                        <CheckCircle2 className="h-3 w-3" /> Accepter
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          updateStatus(r.id, "ANNULEE", Number(r.userconnect))
+                        }
+                      >
+                        <XCircle className="h-3 w-3" /> Refuser
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          updateStatus(
+                            r.id,
+                            "EN_ATTENTE",
+                            Number(r.userconnect)
+                          )
+                        }
+                      >
+                        <Loader2 className="h-3 w-3 animate-spin" /> Remettre en
+                        attente
+                      </DropdownMenuItem>
+                      {r.contratUrl && (
+                        <DropdownMenuItem asChild>
+                          <a
+                            href={r.contratUrl}
+                            download
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            📄 Télécharger contrat
+                          </a>
+                        </DropdownMenuItem>
+                      )}
+                      {r.recuUrl && (
+                        <DropdownMenuItem asChild>
+                          <a
+                            href={r.recuUrl}
+                            download
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            💳 Télécharger reçu
+                          </a>
+                        </DropdownMenuItem>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

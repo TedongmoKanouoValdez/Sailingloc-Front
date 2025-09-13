@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  useDisclosure,
 } from "@heroui/modal";
 import { Button, ButtonGroup } from "@heroui/button";
 import { addToast, ToastProvider } from "@heroui/toast";
@@ -18,12 +19,14 @@ import { useDateRange } from "@/context/DateRangeContext";
 
 type DisabledDateObj = { year: number; month: number; day: number };
 
-interface CalendarSingleBoatProps {
+export interface CalendarSingleBoatProps {
   datesIndisponibles: string[]; // tableau de strings ISO dates
+  typeLocation: "demi-journée" | "jour" | "week-end" | "semaine" | "mois" | null;
 }
 
 export const CalendarSingleBoat = ({
   datesIndisponibles,
+  typeLocation,
 }: CalendarSingleBoatProps) => {
   //   const disabledDates = [
   //     dayjs().date(5).startOf("day"),
@@ -43,6 +46,9 @@ export const CalendarSingleBoat = ({
     null,
     null,
   ]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [backdrop, setBackdrop] = useState<"opaque" | "blur">("opaque");
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     const [start, end] = dateRange;
@@ -54,10 +60,10 @@ export const CalendarSingleBoat = ({
         allDates.push(cursor);
         cursor = cursor.add(1, "day");
       }
-      setDates(start, end);
+      setDates(start, end, allDates);
     } else {
       // Réinitialisation
-      setDates(null, null);
+      setDates(null, null, []);
     }
   }, [dateRange, setDates]);
 
@@ -75,14 +81,21 @@ export const CalendarSingleBoat = ({
   const handleReset = () => {
     setSelectedDates([]);
     setDateRange([null, null]);
-    setDates(null, null); // remet aussi les dates du contexte à zéro
-    setCalendarKey((prev) => prev + 1);
+    setDates(null, null, []); // bien remettre le tableau vide aussi
+    setIsModalOpen(false);
+    setCalendarKey((prev) => prev + 1); // force re-render du Calendar
   };
 
   const disabledDate = (currentDate: Dayjs) => {
     const today = dayjs().startOf("day");
 
     if (currentDate.isBefore(today, "day")) return true;
+
+    if (typeLocation === "week-end") {
+      // seuls vendredi, samedi et dimanche sont activables
+      const day = currentDate.day(); // 0 = dimanche, 5 = vendredi, 6 = samedi
+      return !(day === 5 || day === 6 || day === 0); // désactiver tout le reste
+    }
 
     const isSpecificallyDisabled = disabledSpecificDates.some(
       (d) =>
@@ -130,44 +143,88 @@ export const CalendarSingleBoat = ({
   const handleSelect = (date: Dayjs) => {
     if (disabledDate(date)) return;
 
-    let [start, end] = dateRange;
+    if (!typeLocation) {
+      setBackdrop("opaque");
+      onOpen();
+      return;
+    }
 
-    if (!start || (start && end)) {
-      setDateRange([date, null]);
+    if (typeLocation === "demi-journée" || typeLocation === "jour") {
+      setDateRange([date, date]);
       setSelectedDates([date]);
-    } else if (start && !end) {
-      let newStart = start.isBefore(date) ? start : date;
-      let newEnd = start.isAfter(date) ? start : date;
+    } else if (typeLocation === "week-end") {
+      const isAlreadySelected = selectedDates.some((d) =>
+        d.isSame(date, "day")
+      );
 
-      // Vérifier les jours désactivés
-      let cursor = newStart.clone();
-      let hasDisabled = false;
-      while (cursor.isBefore(newEnd) || cursor.isSame(newEnd, "day")) {
-        if (disabledDate(cursor)) {
-          hasDisabled = true;
-          break;
-        }
-        cursor = cursor.add(1, "day");
+      let updatedDates: Dayjs[];
+      if (isAlreadySelected) {
+        updatedDates = selectedDates.filter((d) => !d.isSame(date, "day"));
+      } else {
+        updatedDates = [...selectedDates, date];
       }
 
-      if (hasDisabled) {
-        setIsModalOpen(true);
+      setSelectedDates(updatedDates);
+
+      if (updatedDates.length > 0) {
+        const sorted = [...updatedDates].sort(
+          (a, b) => a.valueOf() - b.valueOf()
+        );
+        setDateRange([sorted[0], sorted[sorted.length - 1]]);
+      } else {
+        setDateRange([null, null]);
+      }
+    } else if (typeLocation === "semaine" || typeLocation === "mois") {
+      // Si aucune date n'est encore choisie → définir comme début
+      if (!dateRange[0]) {
         setDateRange([date, null]);
         setSelectedDates([date]);
         return;
       }
 
-      // Plage valide
-      setDateRange([newStart, newEnd]);
+      // Si une date de début existe mais pas de fin → on complète le range
+      if (dateRange[0] && !dateRange[1]) {
+        const start = dateRange[0];
+        const end = date;
 
-      // Pour l’affichage visuel
-      let allDates: Dayjs[] = [];
-      cursor = newStart.clone();
-      while (cursor.isBefore(newEnd) || cursor.isSame(newEnd, "day")) {
-        allDates.push(cursor);
-        cursor = cursor.add(1, "day");
+        let rangeStart = start.isBefore(end) ? start : end;
+        let rangeEnd = start.isBefore(end) ? end : start;
+
+        const diffDays = rangeEnd.diff(rangeStart, "day") + 1;
+
+        // Vérifier la durée minimale
+        const minDays = typeLocation === "semaine" ? 7 : 30;
+        if (diffDays < minDays) {
+          setModalMessage(
+            `La durée minimale est de ${minDays} jours pour une location "${typeLocation}".`
+          );
+          setIsModalOpen(true); // affiche modal erreur
+          return;
+        }
+
+        // Générer toutes les dates entre start et end
+        let allDates: Dayjs[] = [];
+        let cursor = rangeStart.clone();
+        while (cursor.isBefore(rangeEnd) || cursor.isSame(rangeEnd, "day")) {
+          if (disabledDate(cursor)) {
+            setModalMessage(
+              "La plage sélectionnée contient au moins une date indisponible. Merci de choisir une autre période."
+            );
+            setIsModalOpen(true);
+            return;
+          }
+          allDates.push(cursor.clone());
+          cursor = cursor.add(1, "day");
+        }
+
+        setDateRange([rangeStart, rangeEnd]);
+        setSelectedDates(allDates);
       }
-      setSelectedDates(allDates);
+      // Si deux dates existent déjà → reset et recommencer
+      else {
+        setDateRange([date, null]);
+        setSelectedDates([date]);
+      }
     }
   };
 
@@ -187,11 +244,16 @@ export const CalendarSingleBoat = ({
         disabledDate={disabledDate}
         fullCellRender={fullCellRender}
         onPanelChange={handlePanelChange}
-        onSelect={handleSelect}
+        // onSelect={handleSelect}
+        onSelect={(date, { source }) => {
+          if (source === "date") {
+            handleSelect(date);
+          }
+        }}
       />
       <div className="mt-4">
         <h4>Dates sélectionnées :</h4>
-        <ul className="flex flex-row space-x-4">
+        <ul className="flex flex-wrap gap-2">
           {selectedDates.map((d, idx) => (
             <li key={`${d.format("YYYY-MM-DD")}-${idx}`} id={`${idx + 1}`}>
               Date {idx + 1} : {d.format("YYYY-MM-DD")}
@@ -216,6 +278,47 @@ export const CalendarSingleBoat = ({
                   La plage sélectionnée contient au moins un jour indisponible.
                   Merci de choisir une plage sans dates désactivées.
                 </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onPress={onClose}>
+                  Fermer
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Sélectionnez votre formule</ModalHeader>
+              <ModalBody>
+                Veuillez choisir une formule de location avant de sélectionner une
+                date.
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onPress={onClose}>
+                  Fermer
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        backdrop="blur"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Sélectionnez votre formule</ModalHeader>
+              <ModalBody>
+                <p>{modalMessage}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onPress={onClose}>

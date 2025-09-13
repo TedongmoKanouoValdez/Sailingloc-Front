@@ -194,6 +194,10 @@
   height: 16rem;
 }
 
+.formhome .typebateau button {
+  background-color: #fff;
+}
+
 .cardcategoriecontent {
   position: relative;
   display: inline-block;
@@ -203,6 +207,7 @@
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: 100%;
+  border: 2px solid #fff;
 }
 
 .cardcategoriecontent::before {
@@ -510,4 +515,31 @@ div[data-slot='content'].bg-content1 {
 .contentsingleimageboat .visuelImage {
   width: 68rem;
   height: 43rem;
+}
+
+.formhome button[aria-controls='radix-«Rb2fal7»'] {
+  background-color: #fff;
+}
+
+.degrade {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 100%;
+  height: 11rem;
+  background: linear-gradient(
+    0deg,
+    rgb(0 0 0 / 71%) 47%,
+    rgb(89 89 89 / 0%) 80%,
+    rgba(245, 245, 245, 0) 100%
+  );
+}
+
+.contentbannerdestination::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* couleur + opacité */
 }

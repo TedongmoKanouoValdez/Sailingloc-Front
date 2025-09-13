@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GrSecure } from 'react-icons/gr';
 import { IoTimeSharp } from 'react-icons/io5';
 import { FaGlobe } from 'react-icons/fa';
@@ -7,10 +7,15 @@ import { Steps } from 'antd';
 import { SlNote } from 'react-icons/sl';
 import { IoMailUnread } from 'react-icons/io5';
 import { TfiStatsUp } from 'react-icons/tfi';
-import { Checkbox } from '@heroui/checkbox';
-
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -22,19 +27,160 @@ import {
   SelectGroup,
   SelectLabel,
 } from '@/components/ui/select';
+import { Checkbox } from '@heroui/checkbox';
+import { addToast, ToastProvider } from '@heroui/toast';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+type ToastPlacement =
+  | 'top-center'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'bottom-left';
+
+type Token = {
+  userId: number;
+  email: string;
+  role: string;
+  nom: string;
+  prenom: string;
+  telephone: string | null;
+  photoProfil: string | null;
+  iat: number;
+  exp: number;
+};
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
 
 export default function DevenirPartenairePage() {
   const [isAccepted, setIsAccepted] = useState(false);
+  const [token, setToken] = useState<Token | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionData = localStorage.getItem('token');
+      if (sessionData) {
+        const decodedToken = decodeJWT(sessionData);
+        if (decodedToken) {
+          setToken(decodedToken);
+        }
+      }
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!captchaToken) {
+      addToast({
+        title: 'Erreur',
+        description: 'Veuillez valider le CAPTCHA.',
+        color: 'danger',
+      });
+      return;
+    }
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      nomComplet: formData.get('nomcomplet'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      typeBateau: formData.get('typeBateau'),
+      marqueetmodele: formData.get('marqueetmodele'),
+      anneedeconstruction: formData.get('anneedeconstruction'),
+      longueur: formData.get('longueur'),
+      largeur: formData.get('largeur'),
+      portdattacheprincipal: formData.get('portdattacheprincipal'),
+      capacitemaximale: formData.get('capacitemaximale'),
+      zonedenavigationautorisee: formData.get('zonedenavigationautorisee'),
+    };
+
+    if (!token?.userId) {
+      addToast({
+        title: 'Erreur',
+        description: 'Vous devez être connecté pour soumettre une demande.',
+        color: 'danger',
+      });
+      return;
+    }
+
+    const userId = token?.userId;
+
+    try {
+      const res = await fetch('https://sailingloc-back.vercel.app/api/demandes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, ...payload, captchaToken }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        addToast({
+          title: 'Succès',
+          description: 'Merci ! Votre demande a bien été envoyée. Un expert la traitera sous 24 h.',
+          color: 'success',
+        });
+        formRef.current?.reset();
+        setIsAccepted(false);
+        setCaptchaToken(null);
+      } else if (res.status === 401) {
+        addToast({
+          title: 'Erreur',
+          description: data.message,
+          color: 'danger',
+        });
+      } else if (res.status === 409) {
+        addToast({
+          title: 'Erreur',
+          description: data.message,
+          color: 'danger',
+        });
+      } else {
+        addToast({
+          title: 'Erreur',
+          description: 'Oups, quelque chose s est mal passé. Veuillez réessayer ou nous contacter.',
+          color: 'danger',
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Impossible de joindre le serveur. Vérifiez votre connexion ou ré-essayez plus tard.');
+    }
+  };
 
   return (
     <>
+      <ToastProvider
+        placement={placement}
+        toastOffset={placement.includes('top') ? 60 : 0}
+        toastProps={{
+          radius: 'lg',
+          color: 'primary',
+          variant: 'flat',
+          timeout: 9000,
+        }}
+      />
       <main>
         <section className="relative">
           <div
             className="absolute top-0 bannerpagedevenirpartenaire"
             style={{
               backgroundImage:
-                'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1751644473/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_sxogkd.jpg)',
+                'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757771964/photo-de-collegues-occupes-appreciant-le-processus-de-travail_1_dcc8wq.jpg)',
               height: '56vh',
               backgroundSize: '100%',
               backgroundRepeat: 'no-repeat',
@@ -74,7 +220,7 @@ export default function DevenirPartenairePage() {
                 <div className="bg-glace contentcardpourquoi px-8 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Augmentez vos revenus</div>
                   <div className="text-sm">
-                    Rentabilisez votre bateau même quand vous ne l&apos;utilisez pas.
+                    Rentabilisez votre bateau même quand vous ne l'utilisez pas.
                   </div>
                 </div>
               </div>
@@ -150,26 +296,44 @@ export default function DevenirPartenairePage() {
           <div className="contentpourquoihome mb-24 flex justify-center">
             <Card className="w-full max-w-2xl">
               <CardContent>
-                <form className="pt-8">
+                <form className="pt-8" onSubmit={handleSubmit} ref={formRef}>
                   <div className="flex flex-col gap-6">
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="nomcomplet">Nom complet</Label>
-                        <Input required id="nomcomplet" placeholder="John Doe" type="text" />
+                        <Input
+                          id="nomcomplet"
+                          name="nomcomplet"
+                          type="text"
+                          placeholder="John Doe"
+                          required
+                        />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input required id="email" placeholder="m@example.com" type="email" />
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          placeholder="m@example.com"
+                          required
+                        />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="phone">Téléphone</Label>
-                        <Input required id="phone" placeholder="+33 07 11 11 11 11" type="text" />
+                        <Input
+                          id="phone"
+                          name="telephone"
+                          type="text"
+                          placeholder="+33 07 11 11 11 11"
+                          required
+                        />
                       </div>
                       <div className="grid gap-2">
                         <Label>Type de bateau à louer</Label>
-                        <Select>
+                        <Select name="typeBateau">
                           <SelectTrigger>
                             <SelectValue placeholder="Séléctionné un type de bateau" />
                           </SelectTrigger>
@@ -202,40 +366,55 @@ export default function DevenirPartenairePage() {
                       <div className="grid gap-2">
                         <Label htmlFor="marqueetmodele">Marque et modèle</Label>
                         <Input
-                          required
                           id="marqueetmodele"
-                          placeholder="Jeanneau Sun Odyssey 45"
+                          name="marqueetmodele"
                           type="text"
+                          placeholder="Jeanneau Sun Odyssey 45"
+                          required
                         />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="anneedeconstruction">Année de construction</Label>
                         <Input
-                          required
                           id="anneedeconstruction"
-                          placeholder="18/08/2025"
+                          name="anneedeconstruction"
                           type="anneedeconstruction"
+                          placeholder="18/08/2025"
+                          required
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
                         <Label htmlFor="longueur">Longueur (en mètres)</Label>
-                        <Input required id="longueur" placeholder="12,5m" type="text" />
+                        <Input
+                          id="longueur"
+                          name="longueur"
+                          type="text"
+                          placeholder="12,5m"
+                          required
+                        />
                       </div>
                       <div className="grid gap-2">
                         <Label htmlFor="largeur">Largeur (en mètres)</Label>
-                        <Input required id="largeur" placeholder="4,2 m" type="text" />
+                        <Input
+                          id="largeur"
+                          name="largeur"
+                          type="text"
+                          placeholder="4,2 m"
+                          required
+                        />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
-                        <Label htmlFor="portdattacheprincipal">Port d&apos;attache principal</Label>
+                        <Label htmlFor="portdattacheprincipal">Port d'attache principal</Label>
                         <Input
-                          required
                           id="portdattacheprincipal"
-                          placeholder="Le port où le bateau est le plus souvent disponible."
+                          name="portdattacheprincipal"
                           type="text"
+                          placeholder="Le port où le bateau est le plus souvent disponible."
+                          required
                         />
                       </div>
                       <div className="grid gap-2">
@@ -243,10 +422,11 @@ export default function DevenirPartenairePage() {
                           Capacité maximale (nombre de passagers autorisés)
                         </Label>
                         <Input
-                          required
                           id="capacitemaximale"
-                          placeholder="8 personnes"
+                          name="capacitemaximale"
                           type="text"
+                          placeholder="8 personnes"
+                          required
                         />
                       </div>
                     </div>
@@ -256,27 +436,29 @@ export default function DevenirPartenairePage() {
                           Zones de navigation autorisées
                         </Label>
                         <Input
-                          required
                           id="zonedenavigationautorisee"
-                          placeholder="Méditerranée, Atlantique, Manche…"
+                          name="zonedenavigationautorisee"
                           type="text"
+                          placeholder="Méditerranée, Atlantique, Manche…"
+                          required
                         />
                       </div>
                     </div>
                     <div>
                       <Checkbox isSelected={isAccepted} onValueChange={setIsAccepted}>
-                        J&apos;accepte la politique de confidentialité et les conditions
-                        d&apos;utilisation.
+                        J'accepte la politique de confidentialité et les conditions d'utilisation.
                       </Checkbox>
                     </div>
                   </div>
+                  <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    onChange={setCaptchaToken}
+                  />
+                  <Button type="submit" disabled={!isAccepted} className="w-full">
+                    Devenir partenaire maintenant
+                  </Button>
                 </form>
               </CardContent>
-              <CardFooter className="flex-col gap-2">
-                <Button className="w-full" disabled={!isAccepted} type="submit">
-                  Devenir partenaire maintenant
-                </Button>
-              </CardFooter>
             </Card>
           </div>
         </section>

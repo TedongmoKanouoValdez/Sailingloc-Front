@@ -28,17 +28,17 @@ export const FooterWrapper = () => {
             {
               name: 'À propos de nous',
               Icon: () => <SiCodeblocks />,
-              href: '#features',
+              href: '/AboutUs',
             },
             {
               name: 'Partenaires',
               Icon: () => <BsFillCreditCard2FrontFill />,
-              href: '#pricing',
+              href: '/NosPartenaire',
             },
             {
               name: 'Service client',
               Icon: () => <RiWebhookFill />,
-              href: '#integrations',
+              href: '/ServiceClient',
             },
           ],
         },
@@ -48,22 +48,22 @@ export const FooterWrapper = () => {
             {
               name: 'Politique de confidentialité',
               Icon: () => <SiPlausibleanalytics />,
-              href: '/compare/plausible',
+              href: '/PolitiqueDeConfidetialite',
             },
             {
               name: 'RGPD',
               Icon: () => <SiMatomo />,
-              href: '/compare/matomo',
+              href: '/OptimisationRGPD',
             },
             {
               name: 'Conditions générales de vente',
               Icon: () => <SiGoogleanalytics />,
-              href: '/compare/google-analytics',
+              href: '/ConditionGeneralDeVente',
             },
             {
               name: 'Politique de remboursement',
               Icon: () => <SiGoogleanalytics />,
-              href: '/compare/google-analytics',
+              href: '/',
             },
           ],
         },
@@ -73,7 +73,7 @@ export const FooterWrapper = () => {
             {
               name: 'Contactez-nous',
               Icon: () => <FaBalanceScale />,
-              href: '/legal/privacy',
+              href: '/contact',
             },
           ],
         },

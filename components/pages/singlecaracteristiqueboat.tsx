@@ -28,13 +28,8 @@ export interface Modele {
 
 interface SingleCaracteristiqueBoatProps {
   detail: Details;
-  modele: Modele;
+  modele: { modele?: string }; // ou Modele
 }
-
-export interface Modele {
-  modele?: string;
-}
-
 
 const CaracteristiqueItem = ({
   Icon,

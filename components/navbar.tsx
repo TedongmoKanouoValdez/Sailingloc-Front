@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -19,7 +20,6 @@ import clsx from 'clsx';
 import { RiLoginCircleFill } from 'react-icons/ri';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { FaUser } from 'react-icons/fa';
-import { useState } from 'react';
 import {
   Modal,
   ModalContent,
@@ -30,17 +30,28 @@ import {
 } from '@heroui/modal';
 import { Checkbox } from '@heroui/checkbox';
 import { Image } from '@heroui/image';
-
+import { addToast, ToastProvider } from '@heroui/toast';
 // import { Select, SelectSection, SelectItem } from '@heroui/select';
+import Dashboard from '@/components/comp-379';
+import Notification from '@/components/comp-292';
+import Component from '@/components/comp-378';
+import { Avatar } from '@heroui/avatar';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+} from '@heroui/dropdown';
 import { Select } from 'antd';
-
+import { useRouter } from 'next/navigation';
 import { SearchIcon, Logo } from '@/components/icons';
 import { siteConfig } from '@/config/site';
+import ForgotPasswordModal from '@/components/ForgotPasswordModal';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export const Iconlang = ({ url }: { url: string }) => {
-  return (
-    <Image alt="iconeSailingTime" className="w-[1.6rem]" width={32} height={26} src={url} />
-  );
+  return <Image alt="iconeSailingTime" className="w-[1.6rem]" width={32} height={26} src={url} />;
 };
 
 const handleChange = (value: string) => {
@@ -91,8 +102,44 @@ export const LockIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
+type Token = {
+  userId: number;
+  email: string;
+  role: string;
+  nom: string;
+  prenom: string;
+  telephone: string | null;
+  photoProfil: string | null;
+  iat: number;
+  exp: number;
+};
+
+type ToastPlacement =
+  | 'top-center'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'bottom-left';
+
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
+
 export const Navbar = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenPass,
+    onOpen: onOpenPass,
+    onOpenChange: onOpenChangePass,
+  } = useDisclosure();
   const {
     isOpen: isOpenRegister,
     onOpen: onOpenRegister,
@@ -124,8 +171,37 @@ export const Navbar = () => {
   const [password, setPassword] = useState('');
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
+  const [token, setToken] = useState<Token | null>(null);
+  const [utilisateurId, setUtilisateurId] = useState<number>(0);
+  const [placement, setPlacement] = React.useState<ToastPlacement>('top-center');
+  const router = useRouter();
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaRef = useRef<ReCAPTCHA>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const sessionData = localStorage.getItem('token');
+      if (sessionData) {
+        const decodedToken = decodeJWT(sessionData);
+        if (decodedToken) {
+          setUtilisateurId(Number(decodedToken.userId));
+          setToken(decodedToken);
+          console.log(token);
+        }
+      }
+    }
+  }, []);
 
   const handleRegister = async (onClose: () => void) => {
+    if (!captchaToken) {
+      addToast({
+        title: 'Erreur',
+        description: 'Veuillez valider le CAPTCHA.',
+        color: 'danger',
+      });
+      return;
+    }
+
     try {
       const response = await fetch('https://sailingloc-back.vercel.app/api/auth/register', {
         method: 'POST',
@@ -142,18 +218,37 @@ export const Navbar = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Inscription réussie !');
+        addToast({
+          title: 'Félicitations',
+          description: 'Votre inscription a été effectuée avec succès. Bienvenue parmi nous !',
+          color: 'success',
+        });
         onClose();
       } else {
-        alert(data.message || 'Une erreur est survenue.');
+        addToast({
+          title: 'Erreur',
+          description: data.message || 'Une erreur est survenue.',
+          color: 'danger',
+        });
       }
     } catch (err) {
-      alert('Erreur lors de l&apos;inscription.');
-      console.error(err);
+      addToast({
+        title: 'Erreur',
+        description: "Erreur lors de l'inscription.",
+        color: 'danger',
+      });
     }
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!captchaToken) {
+      addToast({
+        title: 'Erreur',
+        description: 'Veuillez valider le CAPTCHA.',
+        color: 'danger',
+      });
+      return;
+    }
     e.preventDefault();
     try {
       const response = await fetch('https://sailingloc-back.vercel.app/api/auth/login', {
@@ -167,149 +262,248 @@ export const Navbar = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Connexion réussie !');
         localStorage.setItem('token', data.token);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        addToast({
+          title: 'Connexion réussie !',
+          description: 'Bienvenue, heureux de vous revoir',
+          color: 'success',
+        });
+        window.location.href = '/profil';
       } else {
-        alert(data.message || 'Erreur de connexion');
+        addToast({
+          title: 'Erreur',
+          description: data.message || 'Erreur de connexion',
+          color: 'danger',
+        });
       }
     } catch (err) {
-      alert('Erreur serveur');
-      console.error('Erreur lors de la connexion :', err);
+      addToast({
+        title: 'Erreur',
+        description: 'Erreur serveur',
+        color: 'danger',
+      });
     }
   };
 
-  return (
-    <HeroUINavbar
-      className="fixed top-0 left-0 w-full bg-black text-white shadow z-50"
-      maxWidth="xl"
-      position="sticky"
-      onMenuOpenChange={setIsMenuOpen}
-    >
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden"
-        />
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
-          </NextLink>
-        </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'data-[active=true]:text-primary data-[active=true]:font-medium text-white'
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
-      </NavbarContent>
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // supprime la clé
+    localStorage.removeItem('refreshToken'); // supprime la clé
+    addToast({
+      title: 'Déconnexion réussie !',
+      description: 'À bientôt !',
+      color: 'success',
+    });
+    setToken(null);
+    window.location.href = '/';
+  };
 
-      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
-        <NavbarItem className="space-x-3">
-          <Select
-            options={[
-              {
-                value: 'US',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/united-kingdom_1_gihox0.png" />
-                ),
-              },
-              {
-                value: 'CN',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751228300/china_1_nzkdzd.png" />
-                ),
-              },
-              {
-                value: 'IN',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/india_kwbcea.png" />
-                ),
-              },
-              {
-                value: 'ES',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_sbnixy.png" />
-                ),
-              },
-              {
-                value: 'FR',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/france_gaq5eo.png" />
-                ),
-              },
-              {
-                value: 'SA',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/flag_1_qa5odr.png" />
-                ),
-              },
-              {
-                value: 'BD',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227231/bangladesh_tae0eb.png" />
-                ),
-              },
-              {
-                value: 'RU',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/russia_dyvhrz.png" />
-                ),
-              },
-              {
-                value: 'PT',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/portugal_kwbylu.png" />
-                ),
-              },
-              {
-                value: 'ID',
-                label: (
-                  <Iconlang url="https://res.cloudinary.com/dluqkutu8/image/upload/v1751227232/indonesia_tg0x1c.png" />
-                ),
-              },
-            ]}
-            defaultValue="FR"
-            // style={{ width: 120 }}
-            onChange={handleChange}
+  return (
+    <>
+      <ToastProvider
+        placement={placement}
+        toastOffset={placement.includes('top') ? 60 : 0}
+        toastProps={{
+          radius: 'lg',
+          color: 'primary',
+          variant: 'flat',
+          timeout: 9000,
+        }}
+      />
+      <HeroUINavbar
+        className="fixed top-0 left-0 w-full bg-black text-white shadow z-50"
+        maxWidth="xl"
+        position="sticky"
+        onMenuOpenChange={setIsMenuOpen}
+      >
+        <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="sm:hidden"
           />
-        </NavbarItem>
-        <NavbarItem className="space-x-3">
-          <Button
-            // as={Link}
-            startContent={<RiLoginCircleFill />}
-            variant="flat"
-            className="text-sm font-normal text-default-600 bg-default-100"
-            // href='/login'
-            onPress={onOpen}
+          <NavbarBrand as="li" className="gap-3 max-w-fit">
+            <NextLink className="flex justify-start items-center gap-1" href="/">
+              <Logo />
+            </NextLink>
+          </NavbarBrand>
+          <ul className="hidden lg:flex gap-4 justify-start ml-2">
+            {siteConfig.navItems.map((item) => (
+              <NavbarItem key={item.href}>
+                <NextLink
+                  className={clsx(
+                    linkStyles({ color: 'foreground' }),
+                    'data-[active=true]:text-primary data-[active=true]:font-medium text-white'
+                  )}
+                  color="foreground"
+                  href={item.href}
+                >
+                  {item.label}
+                </NextLink>
+              </NavbarItem>
+            ))}
+          </ul>
+        </NavbarContent>
+
+        <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
+          <NavbarItem className="space-x-3">
+            <Select
+              options={[
+                {
+                  value: 'US',
+                  label: (
+                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757710508/united-kingdom_hlt0yw.png" />
+                  ),
+                },
+                {
+                  value: 'FR',
+                  label: (
+                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757710508/france_mug3qb.png" />
+                  ),
+                },
+              ]}
+              defaultValue="FR"
+              // style={{ width: 120 }}
+              onChange={handleChange}
+            />
+          </NavbarItem>
+          <NavbarItem
+            className={`${token?.role === 'PROPRIETAIRE' || token?.role === 'ADMIN' ? '' : 'hidden'}`}
           >
-            Connexion
-          </Button>
-          <Modal backdrop="blur" isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
-            <ModalContent>
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex flex-col gap-1">
-                    Bienvenue sur votre espace
-                  </ModalHeader>
-                  <form onSubmit={handleLogin}>
+            <Dashboard />
+          </NavbarItem>
+          <NavbarItem>
+            <Component />
+          </NavbarItem>
+          <NavbarItem className={`space-x-3 ${utilisateurId ? 'hidden' : ''}`}>
+            <Button
+              // as={Link}
+              startContent={<RiLoginCircleFill />}
+              variant="flat"
+              className="text-sm font-normal text-default-600 bg-default-100"
+              // href='/login'
+              onPress={onOpen}
+            >
+              Connexion
+            </Button>
+            <Modal
+              backdrop="blur"
+              isOpen={isOpen}
+              placement="top-center"
+              onOpenChange={onOpenChange}
+            >
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex flex-col gap-1">
+                      Bienvenue sur votre espace
+                    </ModalHeader>
+                    <form onSubmit={handleLogin}>
+                      <ModalBody>
+                        <Input
+                          endContent={
+                            <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                          }
+                          label="Email"
+                          placeholder="Enter your email"
+                          value={email}
+                          variant="bordered"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <Input
+                          endContent={
+                            <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                          }
+                          label="Password"
+                          placeholder="Enter your password"
+                          type="password"
+                          value={password}
+                          variant="bordered"
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <div className="flex py-2 px-1 justify-between">
+                          <Checkbox
+                            classNames={{
+                              label: 'text-small',
+                            }}
+                          >
+                            Souviens-toi de moi
+                          </Checkbox>
+                          <Link color="primary" href="#" size="sm" onClick={onOpenPass}>
+                            Mot de passe oublié ?
+                          </Link>
+                        </div>
+                        <ReCAPTCHA
+                          ref={captchaRef}
+                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                          onChange={setCaptchaToken}
+                        />
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button color="danger" variant="flat" onPress={onClose}>
+                          Fermer
+                        </Button>
+                        <Button color="primary" type="submit" onPress={onClose}>
+                          Se connecter
+                        </Button>
+                      </ModalFooter>
+                    </form>
+                  </>
+                )}
+              </ModalContent>
+            </Modal>
+            <ForgotPasswordModal isOpen={isOpenPass} onOpenChange={onOpenChangePass} />
+          </NavbarItem>
+          <NavbarItem className={`space-x-3 ${utilisateurId ? 'hidden' : ''}`}>
+            <Button
+              // as={Link}
+              startContent={<GiArchiveRegister />}
+              variant="flat"
+              className="text-sm font-normal text-default-600 bg-default-100"
+              // href='/register'
+              onPress={onOpenRegister}
+            >
+              Inscription
+            </Button>
+            <Modal
+              backdrop="blur"
+              isOpen={isOpenRegister}
+              placement="top-center"
+              onOpenChange={onOpenRegisterChange}
+            >
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex flex-col gap-1">Créez votre compte</ModalHeader>
                     <ModalBody>
+                      <Input
+                        endContent={
+                          <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                        }
+                        label="Nom"
+                        placeholder="Veuillez saisir votre nom"
+                        type="text"
+                        value={nom}
+                        variant="bordered"
+                        onChange={(e) => setNom(e.target.value)}
+                      />
+                      <Input
+                        endContent={
+                          <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                        }
+                        label="Prénom"
+                        placeholder="Veuillez saisir votre prénom"
+                        type="text"
+                        value={prenom}
+                        variant="bordered"
+                        onChange={(e) => setPrenom(e.target.value)}
+                      />
                       <Input
                         endContent={
                           <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
                         label="Email"
-                        placeholder="Enter your email"
+                        placeholder="Veuillez saisir votre email"
+                        type="email"
                         value={email}
                         variant="bordered"
                         onChange={(e) => setEmail(e.target.value)}
@@ -326,150 +520,88 @@ export const Navbar = () => {
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <div className="flex py-2 px-1 justify-between">
-                        <Checkbox
-                          classNames={{
-                            label: 'text-small',
-                          }}
-                        >
-                          Souviens-toi de moi
-                        </Checkbox>
-                        <Link color="primary" href="#" size="sm">
-                          Mot de passe oublié ?
-                        </Link>
+                        <div className="space-x-1">
+                          <Checkbox
+                            classNames={{
+                              label: 'text-small',
+                            }}
+                          >
+                            J&apos;accepte la
+                          </Checkbox>
+                          <Link className="text-[#00ced1]" href="/">
+                            politique de confidentialité
+                          </Link>
+                        </div>
                       </div>
+                      <ReCAPTCHA
+                        ref={captchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                        onChange={setCaptchaToken}
+                      />
                     </ModalBody>
                     <ModalFooter>
                       <Button color="danger" variant="flat" onPress={onClose}>
                         Fermer
                       </Button>
-                      <Button color="primary" type="submit" onPress={onClose}>
-                        Se connecter
+                      <Button color="primary" onPress={() => handleRegister(onClose)}>
+                        S&apos;inscrire
                       </Button>
                     </ModalFooter>
-                  </form>
-                </>
-              )}
-            </ModalContent>
-          </Modal>
-        </NavbarItem>
-        <NavbarItem className="space-x-3">
-          <Button
-            // as={Link}
-            startContent={<GiArchiveRegister />}
-            variant="flat"
-            className="text-sm font-normal text-default-600 bg-default-100"
-            // href='/register'
-            onPress={onOpenRegister}
-          >
-            Inscription
-          </Button>
-          <Modal
-            backdrop="blur"
-            isOpen={isOpenRegister}
-            placement="top-center"
-            onOpenChange={onOpenRegisterChange}
-          >
-            <ModalContent>
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex flex-col gap-1">Créez votre compte</ModalHeader>
-                  <ModalBody>
-                    <Input
-                      endContent={
-                        <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Nom"
-                      placeholder="Veuillez saisir votre nom"
-                      type="text"
-                      value={nom}
-                      variant="bordered"
-                      onChange={(e) => setNom(e.target.value)}
-                    />
-                    <Input
-                      endContent={
-                        <FaUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Prénom"
-                      placeholder="Veuillez saisir votre prénom"
-                      type="text"
-                      value={prenom}
-                      variant="bordered"
-                      onChange={(e) => setPrenom(e.target.value)}
-                    />
-                    <Input
-                      endContent={
-                        <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Email"
-                      placeholder="Veuillez saisir votre email"
-                      type="email"
-                      value={email}
-                      variant="bordered"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Input
-                      endContent={
-                        <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                      }
-                      label="Password"
-                      placeholder="Enter your password"
-                      type="password"
-                      value={password}
-                      variant="bordered"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="flex py-2 px-1 justify-between">
-                      <div className="space-x-1">
-                        <Checkbox
-                          classNames={{
-                            label: 'text-small',
-                          }}
-                        >
-                          J&apos;accepte la
-                        </Checkbox>
-                        <Link className="text-[#00ced1]" href="/">
-                          politique de confidentialité
-                        </Link>
-                      </div>
-                    </div>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                      Fermer
-                    </Button>
-                    <Button color="primary" onPress={() => handleRegister(onClose)}>
-                      S&apos;inscrire
-                    </Button>
-                  </ModalFooter>
-                </>
-              )}
-            </ModalContent>
-          </Modal>
-        </NavbarItem>
-      </NavbarContent>
+                  </>
+                )}
+              </ModalContent>
+            </Modal>
+          </NavbarItem>
+          <NavbarItem className={`${utilisateurId ? '' : 'hidden'}`}>
+            <Notification />
+          </NavbarItem>
+          <NavbarItem className={`${utilisateurId ? '' : 'hidden'}`}>
+            <div className="flex items-center gap-4">
+              <Dropdown placement="bottom-start">
+                <DropdownTrigger>
+                  <Avatar
+                    isBordered
+                    as="button"
+                    className="transition-transform"
+                    src={`${token?.photoProfil || 'https://res.cloudinary.com/dv19l9qkz/image/upload/v1757771997/3d-ship-with-sea-landscape_qutwk2.jpg'}`}
+                  />
+                </DropdownTrigger>
+                <DropdownMenu aria-label="User Actions" variant="flat">
+                  <DropdownItem key="settings">
+                    <Link href="/profil">Profil</Link>
+                  </DropdownItem>
+                  <DropdownItem onClick={handleLogout} key="logout" color="danger">
+                    Deconnexion
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </NavbarItem>
+        </NavbarContent>
 
-      <NavbarMenu>
-        {searchInput}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? 'primary'
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? 'danger'
-                      : 'foreground'
-                }
-                href="#"
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-      </NavbarMenu>
-    </HeroUINavbar>
+        <NavbarMenu>
+          {searchInput}
+          <div className="mx-4 mt-2 flex flex-col gap-2">
+            {siteConfig.navMenuItems.map((item, index) => (
+              <NavbarMenuItem key={`${item}-${index}`}>
+                <Link
+                  color={
+                    index === 2
+                      ? 'primary'
+                      : index === siteConfig.navMenuItems.length - 1
+                        ? 'danger'
+                        : 'foreground'
+                  }
+                  href="#"
+                  size="lg"
+                >
+                  {item.label}
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </div>
+        </NavbarMenu>
+      </HeroUINavbar>
+    </>
   );
 };

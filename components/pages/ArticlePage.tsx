@@ -30,12 +30,13 @@ import { FaLocationDot } from 'react-icons/fa6';
 import { SingleCarousselBoat } from '@/components/pages/singlecarousselboat';
 import { SingleCaracteristiqueBoat } from '@/components/pages/singlecaracteristiqueboat';
 import { GalerieSingleBoat } from '@/components/pages/galeriesingleboat';
-import { CalendarSingleBoat } from '@/components/pages/calendarsingleboat';
+import { CalendarSingleBoat, CalendarSingleBoatProps } from '@/components/pages/calendarsingleboat';
 import { useDateRange } from '@/context/DateRangeContext';
 import CommentsSection from '@/components/pages/CommentsSection';
 import BateauSimilaireSection from '@/components/pages/BateauSimilaire';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { GiRadioTower, GiThermometerCold, GiBunkBeds } from 'react-icons/gi';
+import { GiPaddles } from 'react-icons/gi';
 import { MdOutlineAutoMode } from 'react-icons/md';
 import {
   FaUserTie,
@@ -52,34 +53,18 @@ import {
   FaDrumstickBite,
 } from 'react-icons/fa';
 import { MdAirportShuttle } from 'react-icons/md';
-import { GiPaddles } from 'react-icons/gi';
 import { TbKayak } from 'react-icons/tb';
 import { BsDot } from 'react-icons/bs';
-import * as jwtDecode from 'jwt-decode';
 import { useAppStore } from '@/store/appStore';
 import { useRouter } from 'next/navigation';
+import { CustomModal } from '@/components/CustomModal';
+import { useDisclosure } from '@heroui/modal';
+import OptionPaiement from '@/components/pages/OptionPaiement';
+import { Radio, Affix } from 'antd';
+import { calculatePrice, ForfaitType } from '@/hooks/CalculatePriceParams';
 
 interface ArticlePageProps {
   slug: string;
-}
-
-interface Token {
-  nom: string;
-  prenom: string;
-  email: string;
-  telephone: string;
-  userId: string;
-}
-
-function decodeJWT(token: string): Token | null {
-  try {
-    const payload = token.split('.')[1];
-    const decoded = JSON.parse(atob(payload));
-    return decoded as Token;
-  } catch (e) {
-    console.error('Erreur decoding JWT :', e);
-    return null;
-  }
 }
 
 const typeToLabel: Record<string, string> = {
@@ -93,6 +78,17 @@ const typeToLabel: Record<string, string> = {
   'Par séjour (forfait global, peu importe la durée)': '/ séjour',
 };
 
+function decodeJWT(token: string): Token | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded as Token;
+  } catch (e) {
+    console.error('Erreur decoding JWT :', e);
+    return null;
+  }
+}
+
 interface Token {
   nom: string;
   prenom: string;
@@ -101,16 +97,49 @@ interface Token {
   userId: string;
 }
 
-interface Equipement {
-  value: string;
-  icon: React.ReactNode | null;
+interface DetailBateau {
+  capaciteMax?: number;
+  optionsPayantes?: string; // JSON string
+  tarifications?: string; // JSON string
+  dureeLocation?: string;
+  politiqueAnnulation?: string;
+  SupplementParPassagerSupplémentaire?: number;
+  PassagersInclusDansLePrix?: number;
+  [key: string]: any;
+}
+
+interface Bateau {
+  id: number;
+  header: string;
+  slug?: string;
+  modele?: string;
+  type: string;
+  port: string;
+  detail?: DetailBateau;
+  medias?: any[];
+  dureeLocation?: string;
+  politiqueAnnulation?: string;
+  depotgarantie?: number;
+  optionsPayantes?: any;
+  capaciteMax?: number;
+  tarif?: number;
+  proprietairename?: string;
+  [key: string]: any;
 }
 
 interface OptionPayante {
   value: string;
-  icon: React.ReactNode | null;
-  detail?: string;
+  icon: JSX.Element | null;
+  detail?: string | number;
 }
+
+const allowedFormules: CalendarSingleBoatProps['typeLocation'][] = [
+  'demi-journée',
+  'jour',
+  'week-end',
+  'semaine',
+  'mois',
+];
 
 export default function ArticlePage({ slug }: ArticlePageProps) {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -118,15 +147,77 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
   const [isAccepted, setIsAccepted] = useState(false);
   const [divTopOffset, setDivTopOffset] = useState<number | null>(null);
   const { date1, date2, fullRange } = useDateRange();
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Bateau[]>([]);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<Token | null>(null);
   const [utilisateurId, setUtilisateurId] = useState<number>(0);
   const setUserData = useAppStore((state) => state.setUserData);
   const router = useRouter();
+  const [selectedPrice, setSelectedPrice] = useState<number>(0);
+  const [selectedFormule, setSelectedFormule] = useState<string>('');
+  const [plagehoraire, setPlagehoraire] = useState<string | null>(null);
+  const [top, setTop] = React.useState<number>(100);
+
+  const handleSelectPrice = (data: { prix: number; periode: string }) => {
+    setSelectedPrice(data.prix);
+    setSelectedFormule(data.periode);
+    console.log('Prix reçu du composant enfant :', data);
+  };
+
+  const handleChange = (e: any) => {
+    setPlagehoraire(e.target.value);
+    console.log('Valeur sélectionnée :', e.target.value);
+  };
+
+  // Pour le modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [modalProps, setModalProps] = React.useState<{
+    title?: string;
+    message: string;
+    backdrop: 'opaque' | 'transparent';
+    primaryAction?: { label: string; onPress: () => void };
+    secondaryAction?: { label: string; onPress: () => void };
+  }>({
+    message: '',
+    backdrop: 'opaque',
+  });
+
+  const handleOpenModal = (message: string, title?: string) => {
+    setModalProps({
+      title: title ?? '',
+      message,
+      backdrop: 'opaque',
+      primaryAction: { label: 'OK', onPress: onClose },
+    });
+    onOpen();
+  };
 
   function handleNext() {
-    if (!date1 || !date2 || !token) return;
+    if (!token?.userId) {
+      handleOpenModal('Vous devez être connecté pour réserver.', 'Connexion requise');
+      return;
+    }
+
+    if (!date1 || !date2) {
+      handleOpenModal('Veuillez sélectionner les deux dates.', 'Dates manquantes');
+      return;
+    }
+
+    if (selectedFormule === 'demi-journée') {
+      if (!plagehoraire) {
+        handleOpenModal(
+          'Veuillez sélectionner une heures pour le démi-journée.',
+          'Horaires manquantes'
+        );
+        return;
+      }
+    }
+
+    // ensuite tu peux utiliser format en toute sécurité
+    if (!date1.isValid() || !date2.isValid()) {
+      handleOpenModal('Format de date invalide.', 'Erreur de date');
+      return;
+    }
 
     setUserData({
       DateDeReservation: [date1.format('YYYY-MM-DD'), date2.format('YYYY-MM-DD')],
@@ -138,15 +229,19 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
       nomdubateau: data[0].header,
       port: data[0].port,
       dureeLocation: data[0].dureeLocation,
-      politiqueAnnulation: data[0].politiqueAnnulation.split(':')[1]?.trim(),
-      tarifs: affichageTarifs,
+      politiqueAnnulation: (data[0].politiqueAnnulation?.split(':')[1] ?? '').trim(),
+      tarifs: prixTotal,
       SupplementParPassagerSupplémentaire: data[0].SupplementParPassagerSupplémentaire,
       PassagersInclusDansLePrix: data[0].PassagersInclusDansLePrix,
       comition: data[0].depotgarantie,
       capaciteMax: data[0].capaciteMax,
       plage: fullRange,
-      idUser: token.userId,
+      idUser: utilisateurId,
       prenom: token.prenom,
+      plagehoraire: plagehoraire,
+      selectedFormule: selectedFormule,
+      typeBateau: data[0].type,
+      proprietairename: data[0].proprietairename,
     });
     router.push('/reservation');
   }
@@ -159,8 +254,6 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
         setUtilisateurId(Number(decodedToken.userId));
         setToken(decodedToken);
       }
-      // console.log("Token JWT :", Token);
-      // console.log("ID :", Token.userId);
     }
   }, []);
 
@@ -283,11 +376,12 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
           target: json.bateau.prix ?? '0',
           detail: json.bateau.details ?? [],
           description: json.bateau.description ?? '',
-          datesIndisponibles: json.bateau.datesIndisponibles ?? [],
+          // datesIndisponibles: json.bateau.datesIndisponibles ?? [],
           proprietaireId: json.bateau.proprietaireId ?? 0,
           medias: json.bateau.medias ?? [],
           equipements: equipementsFormatted,
           optionsPayantes: optionsPayantesFormatted,
+          datesIndisponibles: datesIndispo ?? [],
           zonesNavigation,
           depotgarantie: json.bateau?.details.depotgarantie,
           locationSansPermis: json.bateau?.details.locationSansPermis,
@@ -298,6 +392,7 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
             json.bateau?.details.SupplementParPassagerSupplémentaire,
           politiqueAnnulation: json.bateau?.details.politiqueAnnulation,
           capaciteMax: json.bateau?.details.capaciteMax,
+          proprietairename: json.bateau?.proprietaire?.nom,
         };
 
         setData([bateau]); // mettre dans un tableau si ton state est un tableau
@@ -328,10 +423,35 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
     }
   })();
 
+  const mapFormule: Record<string, ForfaitType> = {
+    'demi-journée': 'demi-journée',
+    journée: 'jour',
+    'week-end': 'week-end',
+    semaine: 'semaine',
+    mois: 'mois',
+  };
+
+  const allowedFormules: CalendarSingleBoatProps['typeLocation'][] = [
+    'demi-journée',
+    'jour',
+    'week-end',
+    'semaine',
+    'mois',
+  ];
+
+  const prixTotal = selectedFormule
+    ? calculatePrice({
+        forfait: mapFormule[selectedFormule], // ForfaitType du bon module
+        selectedPrice: selectedPrice || 0,
+        fullRange: fullRange?.map((d) => d.toDate()) || [],
+      })
+    : 0;
+
   if (loading) return <p>Chargement…</p>;
 
-  console.log('data[0]');
-  console.log(data[0]);
+  console.log(fullRange?.length);
+  console.log(token);
+  console.log(date2);
 
   return (
     <>
@@ -345,16 +465,23 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
         }}
         className="pt-16"
       >
-        {data.length > 0 && <SingleCarousselBoat medias={data[0].medias.slice(0, 4)} />}
+        {data.length > 0 && <SingleCarousselBoat medias={data[0].medias?.slice(0, 4) || []} />}
         {data.length > 0 && (
-          <SingleCaracteristiqueBoat detail={data[0].detail} modele={data[0].type} />
+          <SingleCaracteristiqueBoat
+            detail={{
+              id: data[0]?.id ?? 0, // obligatoire
+              ...data[0]?.detail,
+            }}
+            modele={{
+              modele: data[0]?.type ?? '', // objet avec la propriété modele
+            }}
+          />
         )}
-
         <div>
           <div className="mx-auto max-w-6xl">
             <div className="mb-4">
               <Chip variant="dot" className="border-none contentTitleBoat">
-                <h1 className="text-4xl">{data[0].header}</h1>
+                {data?.[0]?.header && <h1 className="text-4xl">{data[0].header}</h1>}
               </Chip>
             </div>
             <div className="flex flex-row space-x-4 justify-between">
@@ -419,14 +546,16 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Équipements à bord
                   </div>
                   <div className="flex flex-wrap gap-4 mt-4">
-                    {data[0]?.equipements?.map((eq: Equipement) => (
-                      <Chip key={eq.value} variant="shadow" className="p-2.5 bgBlue text-white">
-                        <div className="flex flex-row space-x-4 items-center">
-                          <div>{eq.icon}</div>
-                          <div>{eq.value}</div>
-                        </div>
-                      </Chip>
-                    ))}
+                    {data[0]?.equipements?.map(
+                      (eq: { value: string; icon: JSX.Element | null }) => (
+                        <Chip key={eq.value} variant="shadow" className="p-2.5 bgBlue text-white">
+                          <div className="flex flex-row space-x-4 items-center">
+                            <div>{eq.icon}</div>
+                            <div>{eq.value}</div>
+                          </div>
+                        </Chip>
+                      )
+                    )}
                   </div>
                 </div>
 
@@ -453,49 +582,73 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Informations de navigation
                   </div>
                   <div className="flex flex-col space-y-4 mt-4">
-                    <div className="text-lg text-gray-700">Port de départ et d&apos;arrivée</div>
-                    <div
-                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? '' : 'hidden'}`}
-                    >
-                      <LinkPreview url={`${data[0]?.detail.portdarriver}`} className="font-bold">
-                        <Alert
-                          color="default"
-                          icon={<FaLocationDot />}
-                          // description="Port de Nice"
-                          title="Départ"
-                          variant="faded"
-                        />
-                      </LinkPreview>
-                    </div>
-                    <div
-                      className={`flex items-center justify-start w-full ${data[0]?.detail.portdarriver && data[0]?.detail.portdedepart ? '' : 'hidden'}`}
-                    >
-                      <LinkPreview url={`${data[0]?.detail.portdedepart}`} className="font-bold">
-                        <Alert
-                          color="default"
-                          icon={<FaLocationDot />}
-                          // description="Port de Cannes"
-                          title="Arrivée"
-                          variant="faded"
-                        />
-                      </LinkPreview>
-                    </div>
+                    <div className="text-lg text-gray-700">Port de départ et d'arrivée</div>
+                    {data[0]?.detail?.portdarriver && data[0]?.detail?.portdedepart && (
+                      <div className="flex items-center justify-start w-full">
+                        <LinkPreview url={data[0].detail.portdarriver} className="font-bold">
+                          <Alert
+                            color="default"
+                            icon={<FaLocationDot />}
+                            title="Départ"
+                            variant="faded"
+                          />
+                        </LinkPreview>
+                      </div>
+                    )}
+
+                    {data[0]?.detail?.portdarriver && data[0]?.detail?.portdedepart && (
+                      <div className="flex items-center justify-start w-full">
+                        <LinkPreview url={data[0].detail.portdedepart} className="font-bold">
+                          <Alert
+                            color="default"
+                            icon={<FaLocationDot />}
+                            title="Arrivée"
+                            variant="faded"
+                          />
+                        </LinkPreview>
+                      </div>
+                    )}
+
                     <div className="mt-[3rem]">
                       <div className="text-xl text-black font-bold underline underline-offset-8 mb-4">
-                        Disponibilités
+                        Sélectionnez votre formule
                       </div>
-                      <div className="flex items-center justify-center w-full mb-4">
-                        <div className="flex flex-col w-full">
-                          <div className="w-full flex items-center my-3">
-                            <Alert
-                              color="warning"
-                              title="Sélectionnez la plage de dates souhaitée pour commencer votre réservation."
-                            />
+                      <OptionPaiement tarifs={affichageTarifs} onSelectPrice={handleSelectPrice} />
+                    </div>
+
+                    <div className="mt-[3rem]">
+                      {/* <div className="text-xl text-black font-bold underline underline-offset-8 mb-4">
+                        Disponibilités
+                      </div> */}
+                      <div>
+                        <div className="flex items-center justify-center w-full mb-4">
+                          <div className="flex flex-col w-full">
+                            <div className="w-full flex items-center my-3">
+                              <Alert
+                                color="warning"
+                                title="Sélectionnez la plage de dates souhaitée pour commencer votre réservation."
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        <CalendarSingleBoat datesIndisponibles={JSON.parse(data[0].datesIndisponibles || "[]")} />
+                        {selectedFormule === 'demi-journée' && (
+                          <div className="my-4">
+                            <Radio.Group onChange={handleChange} value={plagehoraire}>
+                              <Radio value="Matin (08h-12h)">Matin (08h-12h)</Radio>
+                              <Radio value="Après-midi (13h-17h)">Après-midi (13h-17h)</Radio>
+                            </Radio.Group>
+                          </div>
+                        )}
+                        <div>
+                          <CalendarSingleBoat
+                            datesIndisponibles={data[0].datesIndisponibles}
+                            typeLocation={
+                              allowedFormules.includes(selectedFormule as any)
+                                ? (selectedFormule as CalendarSingleBoatProps['typeLocation'])
+                                : null // valeur par défaut
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="text-lg text-gray-700 mt-4">Zones de navigation autorisées</div>
@@ -513,10 +666,6 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                             ? 'Permis bateau côtier obligatoire'
                             : 'Permis bateau côtier non obligatoire'}
                         </li>
-                        <li>
-                          Politique d&apos;annulation :{' '}
-                          {data[0].politiqueAnnulation.split(':')[1]?.trim()}
-                        </li>
                         <li>Contrat de location signé avant le départ.</li>
                       </ul>
                     </div>
@@ -527,99 +676,112 @@ export default function ArticlePage({ slug }: ArticlePageProps) {
                     Galerie
                   </div>
                   <div>
-                    {data.length > 0 && <GalerieSingleBoat medias={data[0].medias.slice(4, 9)} />}
+                    {data.length > 0 && (
+                      <GalerieSingleBoat medias={data[0].medias?.slice(4, 9) || []} />
+                    )}
                   </div>
                 </div>
               </div>
               <div>
-                <div
-                  ref={divRef}
-                  style={{
-                    // background: "lightblue",
-                    // padding: "20px",
-                    // width: "100%",
-                    ...(isSticky
-                      ? {
-                          position: 'fixed',
-                          top: '6rem',
-                          left: '58rem',
-                          right: 0,
-                          zIndex: 30,
-                        }
-                      : {}),
-                  }}
-                >
-                  <Card className="w-full max-w-sm">
-                    <CardHeader>
-                      <CardTitle>Réservez votre bateau en quelques clics</CardTitle>
-                      <CardDescription>
-                        <div className="flex items-center justify-center w-full mb-4">
-                          <div className="flex flex-col w-full">
-                            <div className="w-full flex items-center my-3">
-                              <Alert
-                                color="warning"
-                                title="En cas d'annulation plus de 30 jours avant le départ, remboursement intégral. Passé ce délai, voir nos conditions d'annulation."
+                <Affix offsetTop={top}>
+                  <div ref={divRef}>
+                    <Card className="w-full max-w-sm">
+                      <CardHeader>
+                        <CardTitle>Réservez votre bateau en quelques clics</CardTitle>
+                        <CardDescription>
+                          {data[0]?.politiqueAnnulation?.split(':')[1]?.trim() && (
+                            <div className="flex items-center justify-center w-full mb-4">
+                              <div className="flex flex-col w-full">
+                                <div className="w-full flex items-center my-3">
+                                  <Alert
+                                    color="warning"
+                                    title={data[0].politiqueAnnulation.split(':')[1]?.trim()}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap justify-between items-center pb-4">
+                          <div className="text-[1.5rem] font-semibold">{data[0].header}</div>
+                          <div className="flex items-center text-lg font-semibold">
+                            {prixTotal} €{' '}
+                            <p className="text-xs font-normal">
+                              {selectedPrice ? `/ ${selectedFormule}` : ''}
+                            </p>
+                          </div>
+                        </div>
+                        <form>
+                          <div className="flex flex-col gap-6">
+                            <div className="grid gap-2">
+                              <Label htmlFor="datedebut">Date de début</Label>
+                              <Input
+                                id="datedebut"
+                                type="text"
+                                value={date1 ? date1.format('YYYY-MM-DD') : 'Non définie'}
+                                //   placeholder="m@example.com"
+                                //   required
+                                disabled
                               />
                             </div>
+                            <div className="grid gap-2">
+                              <Label htmlFor="datefin">Date de fin</Label>
+                              <Input
+                                id="datefin"
+                                type="text"
+                                value={date2 ? date2.format('YYYY-MM-DD') : 'Non définie'}
+                                disabled
+                              />
+                            </div>
+                            {/* <div className="grid gap-2">
+                              <Checkbox
+                                isSelected={isAccepted}
+                                onValueChange={setIsAccepted}
+                                radius="full"
+                              >
+                                J'accepte les conditions de location et la
+                                politique d'annulation.
+                              </Checkbox>
+                            </div> */}
                           </div>
-                        </div>
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <form>
-                        <div className="flex flex-col gap-6">
-                          <div className="grid gap-2">
-                            <Label htmlFor="datedebut">Date de début</Label>
-                            <Input
-                              id="datedebut"
-                              type="text"
-                              value={date1 ? date1.format('YYYY-MM-DD') : 'Non définie'}
-                              //   placeholder="m@example.com"
-                              //   required
-                              disabled
-                            />
-                          </div>
-                          <div className="grid gap-2">
-                            <Label htmlFor="datefin">Date de fin</Label>
-                            <Input
-                              id="datefin"
-                              type="text"
-                              value={date2 ? date2.format('YYYY-MM-DD') : 'Non définie'}
-                              disabled
-                            />
-                          </div>
-                          <div className="grid gap-2">
-                            <Checkbox
-                              isSelected={isAccepted}
-                              onValueChange={setIsAccepted}
-                              radius="full"
-                            >
-                              J&apos;accepte les conditions de location et la politique
-                              d&apos;annulation.
-                            </Checkbox>
-                          </div>
-                        </div>
-                      </form>
-                    </CardContent>
-                    <CardFooter className="flex-col gap-2">
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleNext();
-                        }}
-                      >
-                        <Button type="submit" className="w-full" disabled={!isAccepted}>
-                          Réserver maintenant
-                        </Button>
-                      </form>
-                    </CardFooter>
-                  </Card>
-                </div>
+                        </form>
+                      </CardContent>
+                      <CardFooter className="flex-col gap-2">
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            handleNext();
+                          }}
+                        >
+                          <Button
+                            type="submit"
+                            className="w-full"
+                            // disabled={!isAccepted}
+                          >
+                            Réserver maintenant
+                          </Button>
+                        </form>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </Affix>
               </div>
             </div>
           </div>
         </div>
         <CommentsSection bateauId={data[0].id} utilisateurId={utilisateurId} />
+        <CustomModal
+          isOpen={isOpen}
+          onClose={onClose}
+          title={modalProps.title}
+          message={modalProps.message}
+          backdrop={modalProps.backdrop}
+          primaryAction={modalProps.primaryAction}
+          secondaryAction={modalProps.secondaryAction}
+        />
+
         {/* <BateauSimilaireSection /> */}
       </section>
     </>
