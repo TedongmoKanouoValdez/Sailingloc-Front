@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 export default function ServiceClient() {
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
@@ -11,23 +11,21 @@ export default function ServiceClient() {
 
   const openChat = () => {
     alert(
-      "Fonctionnalité de chat en cours de développement. Utilisez le téléphone ou l'email pour le moment."
+      'Fonctionnalité de chat en cours de développement. Utilisez le téléphone ou l email pour le moment.'
     );
   };
 
   const callSupport = () => {
-    window.location.href = "tel:+33123456789";
+    window.location.href = 'tel:+33123456789';
   };
 
   const openEmailForm = () => {
-    window.location.href = "mailto:support@boatshare.fr";
+    window.location.href = 'mailto:support@boatshare.fr';
   };
 
   const submitContactForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert(
-      "Merci pour votre message ! Notre équipe vous répondra dans les plus brefs délais."
-    );
+    alert('Merci pour votre message ! Notre équipe vous répondra dans les plus brefs délais.');
     event.currentTarget.reset();
   };
 
@@ -53,13 +51,10 @@ export default function ServiceClient() {
               </svg>
             </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8">
-            Service Client
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8">Service Client</h1>
           <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Notre équipe est là pour vous accompagner 24h/24 et 7j/7. Que ce
-            soit avant, pendant ou après votre location, nous sommes à votre
-            écoute.
+            Notre équipe est là pour vous accompagner 24h/24 et 7j/7. Que ce soit avant, pendant ou
+            après votre location, nous sommes à votre écoute.
           </p>
         </div>
 
@@ -83,12 +78,8 @@ export default function ServiceClient() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Chat en direct
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Réponse immédiate de nos experts nautiques
-              </p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Chat en direct</h3>
+              <p className="text-gray-600 mb-6">Réponse immédiate de nos experts nautiques</p>
               <button
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"
                 onClick={openChat}
@@ -120,21 +111,15 @@ export default function ServiceClient() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Assistance téléphonique
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Support vocal personnalisé avec nos conseillers
-              </p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Assistance téléphonique</h3>
+              <p className="text-gray-600 mb-6">Support vocal personnalisé avec nos conseillers</p>
               <button
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"
                 onClick={callSupport}
               >
                 Appeler maintenant
               </button>
-              <div className="mt-4 text-lg font-semibold text-blue-600">
-                +33 1 23 45 67 89
-              </div>
+              <div className="mt-4 text-lg font-semibold text-blue-600">+33 1 23 45 67 89</div>
             </div>
           </div>
 
@@ -156,21 +141,15 @@ export default function ServiceClient() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Support par email
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Réponse détaillée sous 2h en moyenne
-              </p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Support par email</h3>
+              <p className="text-gray-600 mb-6">Réponse détaillée sous 2h en moyenne</p>
               <button
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"
                 onClick={openEmailForm}
               >
                 Envoyer un email
               </button>
-              <div className="mt-4 text-sm text-gray-500">
-                support@boatshare.fr
-              </div>
+              <div className="mt-4 text-sm text-gray-500">support@boatshare.fr</div>
             </div>
           </div>
         </div>
@@ -181,52 +160,45 @@ export default function ServiceClient() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
               Questions fréquentes
             </h2>
-            <p className="text-gray-600 text-lg">
-              Trouvez rapidement les réponses à vos questions
-            </p>
+            <p className="text-gray-600 text-lg">Trouvez rapidement les réponses à vos questions</p>
           </div>
 
           <div className="space-y-4">
             {[
               {
                 id: 1,
-                question: "Comment réserver un bateau ?",
+                question: 'Comment réserver un bateau ?',
                 answer:
-                  "Sélectionnez votre bateau, choisissez vos dates, remplissez vos informations et confirmez votre réservation. Le paiement est sécurisé et vous recevrez immédiatement votre confirmation par email.",
+                  'Sélectionnez votre bateau, choisissez vos dates, remplissez vos informations et confirmez votre réservation. Le paiement est sécurisé et vous recevrez immédiatement votre confirmation par email.',
               },
               {
                 id: 2,
-                question: "Que faire en cas de problème pendant la location ?",
+                question: 'Que faire en cas de problème pendant la location ?',
                 answer:
-                  "Contactez immédiatement notre assistance d'urgence au +33 1 23 45 67 89. Nous sommes disponibles 24h/24 pour vous aider et résoudre tout problème technique ou administratif.",
+                  'Contactez immédiatement notre assistance d urgence au +33 1 23 45 67 89. Nous sommes disponibles 24h/24 pour vous aider et résoudre tout problème technique ou administratif.',
               },
               {
                 id: 3,
-                question: "Puis-je annuler ma réservation ?",
+                question: 'Puis-je annuler ma réservation ?',
                 answer:
-                  "Oui, vous pouvez annuler selon nos conditions : remboursement intégral jusqu'à 48h avant, 50% jusqu'à 24h avant. Les conditions peuvent varier selon le propriétaire du bateau.",
+                  'Oui, vous pouvez annuler selon nos conditions : remboursement intégral jusqu à 48h avant, 50% jusqu à 24h avant. Les conditions peuvent varier selon le propriétaire du bateau.',
               },
               {
                 id: 4,
-                question: "L'assurance est-elle incluse ?",
+                question: 'L assurance est-elle incluse ?',
                 answer:
-                  "Oui, toutes nos locations incluent une assurance complète couvrant les dommages, le vol et la responsabilité civile. Une caution est demandée et restituée après vérification de l'état du bateau.",
+                  'Oui, toutes nos locations incluent une assurance complète couvrant les dommages, le vol et la responsabilité civile. Une caution est demandée et restituée après vérification de l état du bateau.',
               },
             ].map((faq) => (
-              <div
-                key={faq.id}
-                className="border border-gray-200 rounded-lg"
-              >
+              <div key={faq.id} className="border border-gray-200 rounded-lg">
                 <button
                   className="w-full text-left p-6 flex justify-between items-center focus:outline-none"
                   onClick={() => toggleFAQ(faq.id)}
                 >
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {faq.question}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-gray-800">{faq.question}</h3>
                   <svg
                     className={`w-5 h-5 text-gray-500 transform transition-transform ${
-                      faqOpen === faq.id ? "rotate-180" : ""
+                      faqOpen === faq.id ? 'rotate-180' : ''
                     }`}
                     fill="none"
                     stroke="currentColor"
@@ -253,9 +225,7 @@ export default function ServiceClient() {
         {/* Formulaire */}
         <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Contactez-nous
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Contactez-nous</h2>
             <p className="text-gray-600 text-lg">
               Une question spécifique ? Envoyez-nous un message
             </p>
@@ -264,7 +234,7 @@ export default function ServiceClient() {
           <form className="max-w-2xl mx-auto" onSubmit={submitContactForm}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
                   Prénom *
                 </label>
                 <input
@@ -275,10 +245,11 @@ export default function ServiceClient() {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">
+                <label htmlFor="nom" className="block text-gray-700 font-semibold mb-2">
                   Nom *
                 </label>
                 <input
+                  id="nom"
                   type="text"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -288,10 +259,11 @@ export default function ServiceClient() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
                 Email *
               </label>
               <input
+                id="email"
                 type="email"
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -300,10 +272,11 @@ export default function ServiceClient() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label htmlFor="sujet" className="block text-gray-700 font-semibold mb-2">
                 Sujet *
               </label>
               <select
+                id="sujet"
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
@@ -317,10 +290,11 @@ export default function ServiceClient() {
             </div>
 
             <div className="mb-8">
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
                 Message *
               </label>
               <textarea
+                id="message"
                 required
                 rows={5}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -340,16 +314,12 @@ export default function ServiceClient() {
         {/* Horaires */}
         <div className="mt-16 bg-gray-800 rounded-3xl p-8 md:p-12 text-white">
           <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Nos horaires de support
-            </h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">Nos horaires de support</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-blue-400 text-xl font-bold mb-2">
-                Chat & Téléphone
-              </div>
+              <div className="text-blue-400 text-xl font-bold mb-2">Chat & Téléphone</div>
               <div className="text-gray-300">24h/24 - 7j/7</div>
               <div className="text-sm text-gray-400 mt-1">Réponse immédiate</div>
             </div>
@@ -359,9 +329,7 @@ export default function ServiceClient() {
               <div className="text-sm text-gray-400 mt-1">En moyenne</div>
             </div>
             <div>
-              <div className="text-blue-400 text-xl font-bold mb-2">
-                Urgences
-              </div>
+              <div className="text-blue-400 text-xl font-bold mb-2">Urgences</div>
               <div className="text-gray-300">Assistance immédiate</div>
               <div className="text-sm text-gray-400 mt-1">24h/24 - 7j/7</div>
             </div>

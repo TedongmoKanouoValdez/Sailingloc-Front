@@ -1,4 +1,5 @@
 "use client"
+import {Link} from "@heroui/link";
 import React from "react";
 
 const PartenairesPage: React.FC = () => {
@@ -35,27 +36,10 @@ const PartenairesPage: React.FC = () => {
               <span className="text-xl font-bold text-gray-800">NaviShare</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#"
-                className="text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                Accueil
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                Bateaux
-              </a>
-              <a href="#" className="text-blue-600 font-semibold">
-                Partenaires
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                Contact
-              </a>
+              <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">Accueil</Link>
+              <Link href="/nosbateaux" className="text-gray-600 hover:text-blue-600 transition-colors">Bateaux</Link>
+              <Link href="/NosPartenaire" className="text-gray-600 hover:text-blue-600 transition-colors">Partenaires</Link>
+              <Link href="/contrat" className="text-gray-600 hover:text-blue-600 transition-colors">Contact</Link>
             </div>
           </div>
         </nav>

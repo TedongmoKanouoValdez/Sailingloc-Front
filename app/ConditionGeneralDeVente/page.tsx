@@ -15,7 +15,7 @@ export default function CGV() {
           <strong>SailingLoc</strong>, SAS au capital de 50 000 €, immatriculée
           au RCS de Paris sous le numéro B 123 456 789, dont le siège social est
           situé 12 Rue de la Mer, 75001 Paris, ci-après dénommée "SailingLoc" ou
-          "la Société",
+          &quot;la Société&quot;,
         </p>
         <p>
           ET Toute personne physique ou morale souhaitant accéder aux services
@@ -26,7 +26,7 @@ export default function CGV() {
           >
             www.sailingloc.fr
           </a>
-          , ci-après dénommée "l&apos;Utilisateur" ou "le Client".
+          , ci-après dénommée &quot;l&apos;Utilisateur&quot; ou &quot;le Client&quot;.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8">

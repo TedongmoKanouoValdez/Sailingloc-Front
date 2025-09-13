@@ -1,38 +1,38 @@
-"use client";
-import React, { useState, useRef } from "react";
-import { FlipWords } from "@/components/ui/flip-words";
-import { PiSunDimFill } from "react-icons/pi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { DatePicker } from "@heroui/date-picker";
-import { RippleButton } from "@/components/magicui/ripple-button";
-import { NumberInput } from "@heroui/number-input";
-import { BoxReveal } from "@/components/magicui/box-reveal";
-import { Input } from "@heroui/input";
-import { BiSolidBookmark } from "react-icons/bi";
-import { BsCloudSunFill } from "react-icons/bs";
-import { FaStar } from "react-icons/fa";
-import { Badge, Space } from "antd";
-import { Chip } from "@heroui/chip";
-import { BsCheckCircleFill } from "react-icons/bs";
-import { BsFillCreditCard2FrontFill } from "react-icons/bs";
-import { BsTelephoneFill } from "react-icons/bs";
-import { BsShieldFill } from "react-icons/bs";
-import { FaQuoteLeft } from "react-icons/fa";
-import { GrNext } from "react-icons/gr";
-import { GrPrevious } from "react-icons/gr";
-import { Form } from "@heroui/form";
-import { Button, ButtonGroup } from "@heroui/button";
+'use client';
+import React, { useState, useRef } from 'react';
+import { FlipWords } from '@/components/ui/flip-words';
+import { PiSunDimFill } from 'react-icons/pi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { DatePicker } from '@heroui/date-picker';
+import { RippleButton } from '@/components/magicui/ripple-button';
+import { NumberInput } from '@heroui/number-input';
+import { BoxReveal } from '@/components/magicui/box-reveal';
+import { Input } from '@heroui/input';
+import { BiSolidBookmark } from 'react-icons/bi';
+import { BsCloudSunFill } from 'react-icons/bs';
+import { FaStar } from 'react-icons/fa';
+import { Badge, Space } from 'antd';
+import { Chip } from '@heroui/chip';
+import { BsCheckCircleFill } from 'react-icons/bs';
+import { BsFillCreditCard2FrontFill } from 'react-icons/bs';
+import { BsTelephoneFill } from 'react-icons/bs';
+import { BsShieldFill } from 'react-icons/bs';
+import { FaQuoteLeft } from 'react-icons/fa';
+import { GrNext } from 'react-icons/gr';
+import { GrPrevious } from 'react-icons/gr';
+import { Form } from '@heroui/form';
+import { Button, ButtonGroup } from '@heroui/button';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { TbMailFilled } from "react-icons/tb";
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { TbMailFilled } from 'react-icons/tb';
 // import required modules
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
-import Link from "next/link";
-import { FaCode } from "react-icons/fa";
-import { useSearchParams, useRouter } from "next/navigation";
+import { FreeMode, Pagination, Navigation } from 'swiper/modules';
+import Link from 'next/link';
+import { FaCode } from 'react-icons/fa';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 type Props = {
   texte: string; // Définit que 'texte' doit être une chaîne de caractères
@@ -40,29 +40,20 @@ type Props = {
 
 export const MonTexte = ({ texte }: Props) => {
   const maxChars = 10; // Limite à 100 caractères
-  const courtTexte =
-    texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export const Descritpion = ({ texte }: Props) => {
   const maxChars = 45; // Limite à 100 caractères
-  const courtTexte =
-    texte.length > maxChars ? texte.slice(0, maxChars) + "..." : texte;
+  const courtTexte = texte.length > maxChars ? texte.slice(0, maxChars) + '...' : texte;
 
   return <p>{courtTexte}</p>;
 };
 
 export default function CategoriesPage() {
-  const words = [
-    "d’Exception",
-    "de prestige",
-    "de rêve",
-    "de charme",
-    "de beauté",
-    "magiques",
-  ];
+  const words = ['d’Exception', 'de prestige', 'de rêve', 'de charme', 'de beauté', 'magiques'];
   const router = useRouter();
   return (
     <>
@@ -73,12 +64,12 @@ export default function CategoriesPage() {
               className="contentbannerdestination"
               style={{
                 backgroundImage:
-                  "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757715726/Design_sans_titre_3_txrovk.png)",
-                width: "100%",
-                height: "65vh",
-                objectFit: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "97rem",
+                  'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757715726/Design_sans_titre_3_txrovk.png)',
+                width: '100%',
+                height: '65vh',
+                objectFit: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '97rem',
               }}
             ></div>
           </div>
@@ -86,19 +77,18 @@ export default function CategoriesPage() {
             <div className="flex flex-col items-center md:items-start md:flex-row space-x-2">
               <div>{/* <LogoSecondaire /> */}</div>
               <div className="Textheader text-white">
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <h1 className="w-[20rem] text-[2.9rem] text-center md:text-5xl font-bold md:w-[46rem] md:text-left">
                     Découvrez nos destinations
                     <FlipWords words={words} className="text-white" />
                   </h1>
                 </BoxReveal>
 
-                <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+                <BoxReveal boxColor={'#5046e6'} duration={0.5}>
                   <p className="text-lg mt-4 w-[20rem] text-center md:w-[39rem] md:text-left">
-                    Partez à l&apos;aventure en voilier ou bateau à moteur. De
-                    la Méditerranée aux îles paradisiaques, SailingLoc vous
-                    emmène vers des destinations uniques pour des escales
-                    inoubliables.
+                    Partez à l&apos;aventure en voilier ou bateau à moteur. De la Méditerranée aux
+                    îles paradisiaques, SailingLoc vous emmène vers des destinations uniques pour
+                    des escales inoubliables.
                   </p>
                 </BoxReveal>
               </div>
@@ -117,9 +107,7 @@ export default function CategoriesPage() {
         >
           <div className="flex flex-col justify-center items-center pb-20">
             <div className="px-[1rem] md:px-0 text-center">
-              <h2 className="text-5xl font-medium mb-5">
-                NAVIGUEZ VERS DE NOUVEAUX HORIZONS
-              </h2>
+              <h2 className="text-5xl font-medium mb-5">NAVIGUEZ VERS DE NOUVEAUX HORIZONS</h2>
             </div>
             <div>
               <p className="w-[20rem] md:w-[35rem] text-center">
@@ -131,34 +119,34 @@ export default function CategoriesPage() {
             <div className="grid grid-cols-3 gap-[3rem]">
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white"
+                role="button"
+                tabIndex={0}
+                onClick={() =>
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('France')}`)
+                }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773528/belle-vue-avec-des-bateaux_wxyw27.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773528/belle-vue-avec-des-bateaux_wxyw27.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative cursor-pointer flex h-[23rem] w-[24rem] object-cover justify-center items-end"
-                  onClick={() =>
-                    router.push(
-                      `/nosbateaux?destination=${encodeURIComponent("France")}`
-                    )
-                  }
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -187,10 +175,7 @@ export default function CategoriesPage() {
                       <div>Croisières le long de la Côte d Azur.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>25°C</div>
                         <div>
@@ -216,34 +201,34 @@ export default function CategoriesPage() {
               </div>
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() =>
-                  router.push(
-                    `/nosbateaux?destination=${encodeURIComponent("Espagne")}`
-                  )
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('Espagne')}`)
                 }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773534/femme-pleine-de-coups-regardant-des-bateaux_gaowbc.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773534/femme-pleine-de-coups-regardant-des-bateaux_gaowbc.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative flex h-[23rem] w-[24rem] object-cover justify-center items-end"
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -251,9 +236,7 @@ export default function CategoriesPage() {
                   <div className="absolute bottom-0 degrade"></div>
                   <div className="flex flex-col text-white mb-10 z-10">
                     <div>
-                      <div className="text-lg font-semibold">
-                        Costa Brava et Costa Blanca
-                      </div>
+                      <div className="text-lg font-semibold">Costa Brava et Costa Blanca</div>
                     </div>
                     <div className="mt-1">
                       <div className="pr-[3rem]">
@@ -272,10 +255,7 @@ export default function CategoriesPage() {
                       <div>Plongée dans les eaux cristallines.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>28°C</div>
                         <div>
@@ -301,34 +281,34 @@ export default function CategoriesPage() {
               </div>
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() =>
-                  router.push(
-                    `/nosbateaux?destination=${encodeURIComponent("Italie")}`
-                  )
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('Italie')}`)
                 }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773571/beaux-paysages-varies_1_f7107r.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773571/beaux-paysages-varies_1_f7107r.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative flex h-[23rem] w-[24rem] object-cover justify-center items-end"
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -336,9 +316,7 @@ export default function CategoriesPage() {
                   <div className="absolute bottom-0 degrade"></div>
                   <div className="flex flex-col text-white mb-10 z-10">
                     <div>
-                      <div className="text-lg font-semibold">
-                        Îles de Sardaigne et de Sicile
-                      </div>
+                      <div className="text-lg font-semibold">Îles de Sardaigne et de Sicile</div>
                     </div>
                     <div className="mt-1">
                       <div className="pr-[3rem]">
@@ -358,10 +336,7 @@ export default function CategoriesPage() {
                       <div>Croisières autour des îles volcaniques.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>30°C</div>
                         <div>
@@ -385,34 +360,34 @@ export default function CategoriesPage() {
               </div>
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() =>
-                  router.push(
-                    `/nosbateaux?destination=${encodeURIComponent("Portugal")}`
-                  )
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('Portugal')}`)
                 }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773603/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_ptz2zl.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773603/belle-vue-sur-la-cote-de-la-baie-de-gnejna-a-malte_1_ptz2zl.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative flex h-[23rem] w-[24rem] object-cover justify-center items-end"
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -438,10 +413,7 @@ export default function CategoriesPage() {
                       <div>Exploration des grottes marines.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>22°C</div>
                         <div>
@@ -465,34 +437,34 @@ export default function CategoriesPage() {
               </div>
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() =>
-                  router.push(
-                    `/nosbateaux?destination=${encodeURIComponent("Grèce")}`
-                  )
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('Grèce')}`)
                 }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773638/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_xlpncf.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773638/belle-photo-des-vieux-batiments-pres-de-la-falaise-sur-le-rivage-avec-des-bateaux-dans-l-ocean_xlpncf.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative flex h-[23rem] w-[24rem] object-cover justify-center items-end"
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -518,10 +490,7 @@ export default function CategoriesPage() {
                       <div>Découverte des sites historiques.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>28°C</div>
                         <div>
@@ -545,34 +514,34 @@ export default function CategoriesPage() {
               </div>
               <div
                 style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  width: "26rem",
-                  padding: "1rem",
-                  height: "33rem",
-                  borderRadius: "15px",
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+                  width: '26rem',
+                  padding: '1rem',
+                  height: '33rem',
+                  borderRadius: '15px',
                 }}
                 className="bg-white cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() =>
-                  router.push(
-                    `/nosbateaux?destination=${encodeURIComponent("Croatie")}`
-                  )
+                  router.push(`/nosbateaux?destination=${encodeURIComponent('Croatie')}`)
                 }
               >
                 <div
                   style={{
                     backgroundImage:
-                      "url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773681/pin-francais_1_xliv3p.jpg)",
-                    backgroundSize: "26rem",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "18px",
-                    backgroundPosition: "center",
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757773681/pin-francais_1_xliv3p.jpg)',
+                    backgroundSize: '26rem',
+                    backgroundRepeat: 'no-repeat',
+                    borderRadius: '18px',
+                    backgroundPosition: 'center',
                   }}
                   className="relative flex h-[23rem] w-[24rem] object-cover justify-center items-end"
                 >
                   <div className="absolute flex flex-row space-x-3 top-[1rem] right-[2rem]">
                     <div
                       className="cursor-pointer z-10 bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     >
                       <BiSolidBookmark className="w-8 h-8 text-white" />
                     </div>
@@ -596,10 +565,7 @@ export default function CategoriesPage() {
                       <div>Découverte des îles de Hvar et Korčula.</div>
                       <div className="my-3 bg-black w-full h-[0.1rem]"></div>
                     </div>
-                    <div
-                      className="bg-glacev2 p-[0.5rem]"
-                      style={{ borderRadius: "40px" }}
-                    >
+                    <div className="bg-glacev2 p-[0.5rem]" style={{ borderRadius: '40px' }}>
                       <div className="flex flex-row items-center">
                         <div>26°C</div>
                         <div>

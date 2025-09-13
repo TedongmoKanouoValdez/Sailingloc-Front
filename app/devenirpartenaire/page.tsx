@@ -220,7 +220,7 @@ export default function DevenirPartenairePage() {
                 <div className="bg-glace contentcardpourquoi px-8 py-4 pt-20 rounded-lg text-center space-y-2">
                   <div className="text-xl font-bold">Augmentez vos revenus</div>
                   <div className="text-sm">
-                    Rentabilisez votre bateau même quand vous ne l'utilisez pas.
+                    Rentabilisez votre bateau même quand vous ne l&quot;utilisez pas.
                   </div>
                 </div>
               </div>
@@ -408,7 +408,7 @@ export default function DevenirPartenairePage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-2">
-                        <Label htmlFor="portdattacheprincipal">Port d'attache principal</Label>
+                        <Label htmlFor="portdattacheprincipal">Port d&quot;attache principal</Label>
                         <Input
                           id="portdattacheprincipal"
                           name="portdattacheprincipal"
@@ -446,7 +446,7 @@ export default function DevenirPartenairePage() {
                     </div>
                     <div>
                       <Checkbox isSelected={isAccepted} onValueChange={setIsAccepted}>
-                        J'accepte la politique de confidentialité et les conditions d'utilisation.
+                        J&quot;accepte la politique de confidentialité et les conditions d&quot;utilisation.
                       </Checkbox>
                     </div>
                   </div>

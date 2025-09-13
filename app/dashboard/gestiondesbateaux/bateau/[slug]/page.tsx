@@ -163,7 +163,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
+                        <Label htmlFor="tirant-eau">Tirant d&quot;eau (en mètres)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.tirantEau || ''}
                         </Chip>
@@ -257,9 +257,9 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="port-attache">Port d'attache (ville, marina)</Label>
+                        <Label htmlFor="port-attache">Port d&quot;attache (ville, marina)</Label>
                         <Chip color="warning" variant="dot">
-                          {bateau?.details?.portdefault || "Aucun port d'attache défini"}
+                          {bateau?.details?.portdefault || "Aucun port d attache défini"}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
@@ -279,7 +279,7 @@ export default function GestionDesBateauxCreerPage() {
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="zones-navigation">Port d'arrivé (optionnel)</Label>
+                        <Label htmlFor="zones-navigation">Port d&quot;arrivé (optionnel)</Label>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdedepart || 'Non défini'}
                         </Chip>
@@ -331,7 +331,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
                       <div className="grid gap-3">
                         <div className="grid gap-3">
-                          <Label className="font-medium">Politique d'annulation</Label>
+                          <Label className="font-medium">Politique d&quot;annulation</Label>
                         </div>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.politiqueAnnulation || 'Non défini'}
@@ -360,7 +360,7 @@ export default function GestionDesBateauxCreerPage() {
                         <div className="w-full flex items-center my-3">
                           <Alert
                             color="warning"
-                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                            title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&quot;ajouter comme indisponible; cliquez à nouveau pour l&quot;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                           />
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export default function GestionDesBateauxCreerPage() {
                   <div>
                     <div className="text-lg font-bold mb-4">Informations administratives</div>
                     <div className="grid gap-3 mb-4">
-                      <label>Attestation d'assurance (PDF ou image)</label>
+                      <label>Attestation d&quot;assurance (PDF ou image)</label>
                       <Link
                         isExternal
                         showAnchorIcon
@@ -389,7 +389,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d'assurance</label>
+                        <label>Numéro de police d&quot;assurance</label>
                         <Input
                           disabled
                           id="numero-police"
@@ -399,7 +399,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
 
                       <div className="grid gap-3 mb-4">
-                        <label>Attestation d'assurance (PDF ou image)</label>
+                        <label>Attestation d&quot;assurance (PDF ou image)</label>
                         <Link
                           isExternal
                           underline="always"
@@ -407,7 +407,7 @@ export default function GestionDesBateauxCreerPage() {
                           anchorIcon={<IoIosLink />}
                           href="https://github.com/heroui-inc/heroui"
                         >
-                          Attestation d'assurance.pdf
+                          Attestation d&quot;assurance.pdf
                         </Link>
                       </div>
                     </div>

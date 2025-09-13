@@ -122,7 +122,7 @@ export default function GestionDesBateauxCreerPage() {
     } catch (err) {
       addToast({
         title: "Erreur",
-        description: "Échec de l'envoi des documents.",
+        description: "Échec de l envoi des documents.",
         color: "danger",
       });
     }
@@ -176,8 +176,9 @@ export default function GestionDesBateauxCreerPage() {
                       Informations administratives
                     </div>
                     <div className="grid gap-3 mb-4">
-                      <label>Attestation d'assurance (PDF ou image)</label>
+                      <label htmlFor="attestationassurance">Attestation d&quot;assurance (PDF ou image)</label>
                       <input
+                        id="attestationassurance"
                         type="file"
                         accept=".pdf"
                         onChange={(e) =>
@@ -187,9 +188,9 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d'assurance</label>
+                        <label htmlFor="numeropolicedassurance">Numéro de police d&quot;assurance</label>
                         <Input
-                          id="numero-police"
+                          id="numeropolicedassurance"
                           type="text"
                           onChange={(e) => setNumeroPolice(e.target.value)}
                           placeholder="Ex : 12345678-AB"
@@ -198,8 +199,9 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <label>Certificat de navigation (si applicable)</label>
+                        <label htmlFor="certificatnavigation">Certificat de navigation (si applicable)</label>
                         <input
+                          id="certificatnavigation"
                           type="file"
                           accept=".pdf"
                           disabled={noCertificat}

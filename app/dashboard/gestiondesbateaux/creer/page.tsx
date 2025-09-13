@@ -117,11 +117,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: "flexible",
-    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
+    label: "Flexible : remboursement complet jusqu à 24h avant le départ",
   },
   {
     id: "moderate",
-    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
+    label: "Modérée : remboursement partiel jusqu à 7 jours avant",
   },
   {
     id: "strict",
@@ -406,7 +406,7 @@ export default function GestionDesBateauxCreerPage() {
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
                             id="nom-bateau"
-                            placeholder="Ex : L'Étoile de Mer"
+                            placeholder="Ex : L Étoile de Mer"
                           />
                         </div>
                         <div className="grid gap-3">
@@ -498,7 +498,7 @@ export default function GestionDesBateauxCreerPage() {
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
                           <Label htmlFor="tirant-eau">
-                            Tirant d'eau (en mètres)
+                            Tirant d&quot;eau (en mètres)
                           </Label>
                           <Input id="tirant-eau" placeholder="Ex : 1.8" />
                         </div>
@@ -862,7 +862,7 @@ export default function GestionDesBateauxCreerPage() {
                           </Label>
                           <Input
                             id="zones-navigation"
-                            placeholder="Ex : Côte d'Azur, Méditerranée"
+                            placeholder="Ex : Côte d&quot;Azur, Méditerranée"
                           />
                         </div>
                       </div>
@@ -981,7 +981,7 @@ Laissez vide ou mettez 0 si aucun supplément n est appliqué."
                       </div>
                       <Alert
                         color="warning"
-                        title="Merci de fournir un lien d'adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d'arriver de votre bateau."
+                        title="Merci de fournir un lien d&quot;adresse Google Maps valide, tel que : https://www.google.com/maps/place/... Cela nous permettra de localiser précisément le port de départ et d&quot;arriver de votre bateau."
                       />
                       <div className="grid grid-cols-2 gap-2 mb-4 mt-2">
                         <div className="grid gap-3">
@@ -992,7 +992,7 @@ Laissez vide ou mettez 0 si aucun supplément n est appliqué."
                         </div>
                         <div className="grid gap-3">
                           <Label htmlFor="depot-garantie-2">
-                            Port d'arriver (optionnel)
+                            Port d&quot;arriver (optionnel)
                           </Label>
                           <Input id="port-arriver" placeholder="Port de Nice" />
                         </div>
@@ -1000,7 +1000,7 @@ Laissez vide ou mettez 0 si aucun supplément n est appliqué."
                       <div className="grid grid-cols-1 gap-2 mb-4">
                         <div className="grid gap-3">
                           <Label className="font-medium">
-                            Politique d'annulation
+                            Politique d&quot;annulation
                           </Label>
                           <Select
                             onValueChange={(value) => setSelectedPolicy(value)}
@@ -1051,7 +1051,7 @@ Laissez vide ou mettez 0 si aucun supplément n est appliqué."
                           <div className="w-full flex items-center my-3">
                             <Alert
                               color="warning"
-                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l'ajouter comme indisponible; cliquez à nouveau pour l'enlever. Les dates sélectionnées apparaîtront ci-dessous."
+                              title="Sélectionnez les jours où votre bateau ne sera pas disponible à la location. Cliquez sur un jour pour l&quot;ajouter comme indisponible; cliquez à nouveau pour l&quot;enlever. Les dates sélectionnées apparaîtront ci-dessous."
                             />
                           </div>
                         </div>
