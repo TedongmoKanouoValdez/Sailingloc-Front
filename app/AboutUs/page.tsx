@@ -57,7 +57,7 @@ export default function About() {
                   <p className="text-lg text-gray-600 leading-relaxed">
                     Notre équipe est composée de marins expérimentés et de
                     professionnels du nautisme qui partagent la même passion
-                    pour la mer. Nous facilitons l'accès aux plaisirs de la
+                    pour la mer. Nous facilitons l accès aux plaisirs de la
                     navigation en créant des liens de confiance entre
                     propriétaires et locataires.
                   </p>

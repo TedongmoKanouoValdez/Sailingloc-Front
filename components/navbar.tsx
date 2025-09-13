@@ -351,13 +351,13 @@ export const Navbar = () => {
                 {
                   value: 'US',
                   label: (
-                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757710508/united-kingdom_hlt0yw.png" />
+                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757676870/united-kingdom_1_clkq2k.png" />
                   ),
                 },
                 {
                   value: 'FR',
                   label: (
-                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757710508/france_mug3qb.png" />
+                    <Iconlang url="https://res.cloudinary.com/dv19l9qkz/image/upload/v1757676870/france_lyfdxk.png" />
                   ),
                 },
               ]}

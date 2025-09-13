@@ -82,7 +82,7 @@ export default function ContactPage() {
       })
       .catch((error) => {
         // console.error("Erreur lors de l'envoi :", error);
-        toast.error("Une erreur s'est produite. Veuillez réessayer.");
+        toast.error("Une erreur s est produite. Veuillez réessayer.");
       });
   };
 

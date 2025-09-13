@@ -1031,7 +1031,7 @@ export default function Home() {
                   className="cardcategoriecontent"
                   style={{
                     backgroundImage:
-                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757763416/image-de-bateau-generee-par-ai_1_u2zznt.jpg',
+                      'url(https://res.cloudinary.com/dv19l9qkz/image/upload/v1757763416/image-de-bateau-generee-par-ai_1_u2zznt.jpg)',
                   }}
                 >
                   <div className="relative contentdescriptioncategorie flex flex-col justify-center px-6 py-16 z-10 space-y-4 text-white">
