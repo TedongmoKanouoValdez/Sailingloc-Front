@@ -121,13 +121,13 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Informations générales</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label>Nom du bateau</Label>
+                        <span>Nom du bateau</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.nom || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label>Type de bateau à louer</Label>
+                        <span>Type de bateau à louer</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.typeBateau || ''}
                         </Chip>
@@ -135,13 +135,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="modele-marque">Modèle / marque</Label>
+                        <span>Modèle / marque</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.modele || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="annee-construction">Année de construction</Label>
+                        <span>Année de construction</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.anneeConstruction || ''}
                         </Chip>
@@ -149,13 +149,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="longueur">Longueur (en mètres)</Label>
+                        <span>Longueur (en mètres)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.longueur || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="largeur">Largeur (en mètres)</Label>
+                        <span>Largeur (en mètres)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.largeur || ''}
                         </Chip>
@@ -163,15 +163,15 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="tirant-eau">Tirant d&quot;eau (en mètres)</Label>
+                        <span>Tirant d&quot;eau (en mètres)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.tirantEau || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="capacite-max">
+                        <span>
                           Capacité maximale (nombre de personnes)
-                        </Label>
+                        </span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.capaciteMax || ''}
                         </Chip>
@@ -179,13 +179,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="nombre-cabines">Nombre de cabines</Label>
+                        <span>Nombre de cabines</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.nombreCabines || ''}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="nombre-couchages">Nombre de couchages</Label>
+                        <span>Nombre de couchages</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.nombreCouchages || ''}
                         </Chip>
@@ -196,7 +196,7 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Description & équipement</div>
                     <div className="grid grid-cols-1 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="description-detaillee">Description détaillée</Label>
+                        <span>Description détaillée</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.description || ''}
                         </Chip>
@@ -204,7 +204,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-1 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="equipements-inclus">Équipements inclus</Label>
+                        <span>Équipements inclus</span>
                         <Chip color="warning" variant="dot">
                           {(() => {
                             const raw = bateau?.details?.equipements;
@@ -228,9 +228,9 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-1 gap-1 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="equipements-inclus">
+                        <span>
                           Options payantes ou en supplément
-                        </Label>
+                        </span>
                         <Chip color="warning" variant="dot">
                           {(() => {
                             const raw = bateau?.details?.optionsPayantes;
@@ -257,15 +257,15 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Ports & zones de navigation</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="port-attache">Port d&quot;attache (ville, marina)</Label>
+                        <span>Port d&quot;attache (ville, marina)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdefault || "Aucun port d attache défini"}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="zones-navigation">
+                        <span>
                           Zones de navigation autorisées ou recommandées
-                        </Label>
+                        </span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.zonesNavigation || 'Non définie'}
                         </Chip>
@@ -273,13 +273,13 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="port-attache">Port de départ (optionnel)</Label>
+                        <span>Port de départ (optionnel)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdarriver || 'Non défini'}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="zones-navigation">Port d&quot;arrivé (optionnel)</Label>
+                        <span>Port d&quot;arrivé (optionnel)</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.portdedepart || 'Non défini'}
                         </Chip>
@@ -290,7 +290,7 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Conditions de location</div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="tarification">Tarif journalier, hebdomadaire, etc.</Label>
+                        <span>Tarif journalier, hebdomadaire, etc.</span>
                         <div className="grid grid-cols-2 gap-2">
                           <Chip color="warning" variant="dot">
                             {(() => {
@@ -314,7 +314,7 @@ export default function GestionDesBateauxCreerPage() {
                         </div>
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="depot-garantie">Dépôt de garantie</Label>
+                        <span>Dépôt de garantie</span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.Depotgarantie || 'Non défini'}
                         </Chip>
@@ -322,16 +322,16 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       <div className="grid gap-3">
-                        <Label htmlFor="duree-location">
+                        <span>
                           Durée minimale / maximale de location
-                        </Label>
+                        </span>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.DureeLocation || 'Non défini'}
                         </Chip>
                       </div>
                       <div className="grid gap-3">
                         <div className="grid gap-3">
-                          <Label className="font-medium">Politique d&quot;annulation</Label>
+                          <span className="font-medium">Politique d&quot;annulation</span>
                         </div>
                         <Chip color="warning" variant="dot">
                           {bateau?.details?.politiqueAnnulation || 'Non défini'}
@@ -376,7 +376,7 @@ export default function GestionDesBateauxCreerPage() {
                   <div>
                     <div className="text-lg font-bold mb-4">Informations administratives</div>
                     <div className="grid gap-3 mb-4">
-                      <label>Attestation d&quot;assurance (PDF ou image)</label>
+                      <span>Attestation d&quot;assurance (PDF ou image)</span>
                       <Link
                         isExternal
                         showAnchorIcon
@@ -389,7 +389,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d&quot;assurance</label>
+                        <span>Numéro de police d&quot;assurance</span>
                         <Input
                           disabled
                           id="numero-police"
@@ -399,7 +399,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
 
                       <div className="grid gap-3 mb-4">
-                        <label>Attestation d&quot;assurance (PDF ou image)</label>
+                        <span>Attestation d&quot;assurance (PDF ou image)</span>
                         <Link
                           isExternal
                           underline="always"
@@ -413,7 +413,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <label>Certificat de navigation (si applicable)</label>
+                        <span>Certificat de navigation (si applicable)</span>
                         <Link
                           isExternal
                           showAnchorIcon
@@ -438,7 +438,7 @@ export default function GestionDesBateauxCreerPage() {
                     <div className="text-lg font-bold mb-4">Contact propriétaire</div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Nom du propriétaire</label>
+                        <span>Nom du propriétaire</span>
                         <Input
                           disabled
                           id="nom-proprietaire"
@@ -449,7 +449,7 @@ export default function GestionDesBateauxCreerPage() {
                       </div>
 
                       <div className="grid gap-3 mb-4">
-                        <label>Téléphone</label>
+                        <span>Téléphone</span>
                         <Input
                           disabled
                           id="telephone-proprietaire"
@@ -461,7 +461,7 @@ export default function GestionDesBateauxCreerPage() {
                     </div>
                     <div>
                       <div className="grid gap-3 mb-4">
-                        <label>Email</label>
+                        <span>Email</span>
                         <Input
                           disabled
                           id="email-proprietaire"

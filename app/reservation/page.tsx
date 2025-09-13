@@ -15,6 +15,7 @@ import { Chip } from '@heroui/chip';
 import Counter from '@/components/pages/Counterreservation';
 import { Label } from '@/components/ui/label';
 import { trouverFacteurs } from '@/lib/facteurs';
+import {Link} from "@heroui/link";
 import {
   Modal,
   ModalContent,
@@ -585,10 +586,8 @@ export default function ReservationPage() {
                 onChange={() => setTermsAccepted(!termsAccepted)}
               />
               <p className="ml-2 text-sm">
-                J’ai lu et j’accepte les{' '}
-                <a href="#" className="text-blue-600 underline">
-                  conditions générales
-                </a>
+                J&quot;ai lu et j&quot;accepte les{' '}
+                <Link href="/ConditionGeneralDeVente" className="text-blue-600 underline">conditions générales</Link>
                 .
               </p>
             </div>

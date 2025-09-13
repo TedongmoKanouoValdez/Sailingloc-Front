@@ -642,7 +642,7 @@ export default function ProfilPage() {
                       <h4 className="text-medium font-medium">Paramètres du compte</h4>
                       <p className="text-small text-default-400">
                         Gérez les options liées à votre compte. Cette section vous permet de
-                        désactiver temporairement votre compte si vous ne souhaitez plus l'utiliser
+                        désactiver temporairement votre compte si vous ne souhaitez plus l&quot;utiliser
                         pour le moment, ou de le supprimer définitivement si vous ne souhaitez plus
                         bénéficier de nos services. Veuillez noter que la suppression est
                         irréversible.

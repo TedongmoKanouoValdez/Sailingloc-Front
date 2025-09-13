@@ -114,11 +114,11 @@ const fruits = [
 const cancellationPolicies = [
   {
     id: 'flexible',
-    label: "Flexible : remboursement complet jusqu'à 24h avant le départ",
+    label: "Flexible : remboursement complet jusqu à 24h avant le départ",
   },
   {
     id: 'moderate',
-    label: "Modérée : remboursement partiel jusqu'à 7 jours avant",
+    label: "Modérée : remboursement partiel jusqu à 7 jours avant",
   },
   {
     id: 'strict',
@@ -547,7 +547,7 @@ export default function EditBateauForm() {
       console.error('Erreur lors de la sauvegarde :', err);
       addToast({
         title: 'Succès',
-        description: "Erreur lors de l'enregistrement",
+        description: "Erreur lors de l enregistrement",
         color: 'danger',
       });
     } finally {
@@ -664,7 +664,7 @@ export default function EditBateauForm() {
                           <Input
                             id="nom-bateau"
                             value={formData?.nomBateau || 'non défini'}
-                            placeholder="Ex : L'Étoile de Mer"
+                            placeholder="Ex : L&quot;Étoile de Mer"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -674,7 +674,7 @@ export default function EditBateauForm() {
                           />
                         </div>
                         <div className="grid gap-3">
-                          <Label>Type de bateau à louer</Label>
+                          <span>Type de bateau à louer</span>
                           <Select
                             value={formData?.typeBateau || ''}
                             onValueChange={(value) =>
@@ -773,7 +773,7 @@ export default function EditBateauForm() {
                       </div>
                       <div className="grid grid-cols-2 gap-2 mb-4">
                         <div className="grid gap-3">
-                          <Label htmlFor="tirant-eau">Tirant d'eau (en mètres)</Label>
+                          <Label htmlFor="tirant-eau">Tirant d&quot;eau (en mètres)</Label>
                           <Input
                             id="tirant-eau"
                             placeholder="Ex : 1.8m"

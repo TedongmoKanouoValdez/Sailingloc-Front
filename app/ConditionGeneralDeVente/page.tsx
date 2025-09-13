@@ -14,7 +14,7 @@ export default function CGV() {
         <p>
           <strong>SailingLoc</strong>, SAS au capital de 50 000 €, immatriculée
           au RCS de Paris sous le numéro B 123 456 789, dont le siège social est
-          situé 12 Rue de la Mer, 75001 Paris, ci-après dénommée "SailingLoc" ou
+          situé 12 Rue de la Mer, 75001 Paris, ci-après dénommée &quot;SailingLoc&quot; ou
           &quot;la Société&quot;,
         </p>
         <p>
