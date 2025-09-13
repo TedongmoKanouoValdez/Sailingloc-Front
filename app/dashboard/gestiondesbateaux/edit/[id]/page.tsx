@@ -461,7 +461,7 @@ export default function EditBateauForm() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Vérifie qu'il n'y a rien déjà
+    // Vérifie qu il n y a rien déjà
     if (documentPdfs[index]?.file) {
       alert("Un fichier est déjà présent. Utilisez Remplacer pour le modifier.");
       return;
