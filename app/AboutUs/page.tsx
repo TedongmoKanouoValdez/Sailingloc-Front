@@ -39,7 +39,7 @@ export default function About() {
           </p>
         </div>
 
-        {/* Photo d'équipe principale */}
+        {/* Photo d équipe principale */}
         <div className="mb-20">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-r from-blue-600 to-purple-700 p-1">
             <div className="bg-white rounded-3xl p-8 md:p-12">
