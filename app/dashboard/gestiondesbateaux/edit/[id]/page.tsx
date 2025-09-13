@@ -662,8 +662,8 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="nom-bateau">Nom du bateau</Label>
                           <Input
-                            id="nom-bateau"
                             value={formData?.nomBateau || 'non défini'}
+                            id="nom-bateau"
                             placeholder="Ex : L&quot;Étoile de Mer"
                             onChange={(e) =>
                               setFormData({
@@ -715,8 +715,8 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="modele-marque">Modèle / marque</Label>
                           <Input
-                            id="modele-marque"
                             value={formData?.modeleMarque || 'non défini'}
+                            id="modele-marque"
                             placeholder="Ex : Beneteau Oceanis 38"
                             onChange={(e) =>
                               setFormData({
@@ -729,8 +729,8 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="annee-construction">Année de construction</Label>
                           <Input
-                            id="annee-construction"
                             value={formData?.anneeConstruction || 'non défini'}
+                            id="annee-construction"
                             placeholder="Ex : 2015"
                             onChange={(e) =>
                               setFormData({
@@ -745,8 +745,8 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="longueur">Longueur (en mètres)</Label>
                           <Input
-                            id="longueur"
                             placeholder="Ex : 12.5m"
+                            id="longueur"
                             value={formData?.longueur || 'non défini'}
                             onChange={(e) =>
                               setFormData({
@@ -759,9 +759,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="largeur">Largeur (en mètres)</Label>
                           <Input
-                            id="largeur"
                             placeholder="Ex : 4.2m"
                             value={formData?.largeur || 'non défini'}
+                            id="largeur"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -775,9 +775,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="tirant-eau">Tirant d&quot;eau (en mètres)</Label>
                           <Input
-                            id="tirant-eau"
                             placeholder="Ex : 1.8m"
                             value={formData?.tirantEau || 'non défini'}
+                            id="tirant-eau"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -791,9 +791,9 @@ export default function EditBateauForm() {
                             Capacité maximale (nombre de personnes)
                           </Label>
                           <Input
-                            id="capacite-max"
                             placeholder="Ex : 8"
                             value={formData?.capaciteMax || 'non défini'}
+                            id="capacite-max"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -807,9 +807,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="nombre-cabines">Nombre de cabines</Label>
                           <Input
-                            id="nombre-cabines"
                             placeholder="Ex : 3"
                             value={formData?.nombreCabines || 'non défini'}
+                            id="nombre-cabines"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -821,9 +821,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="nombre-couchages">Nombre de couchages</Label>
                           <Input
-                            id="nombre-couchages"
                             placeholder="Ex : 6"
                             value={formData?.nombreCouchages || 'non défini'}
+                            id="nombre-couchages"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -837,9 +837,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="Moteurs">Moteurs</Label>
                           <Input
-                            id="Moteurs"
                             placeholder="Torqeedo Travel 1103 C"
                             value={formData?.moteur || 'non défini'}
+                            id="Moteurs"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -851,9 +851,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="reservoirEau">réservoirs d&quot;eau</Label>
                           <Input
-                            id="reservoirEau"
                             placeholder="Vetus FTANK série (PEHD, 100 à 400 L)"
                             value={formData?.reservoirEau || 'non défini'}
+                            id="reservoirEau"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -867,9 +867,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="reservoirCarburant">réservoirs de carburant</Label>
                           <Input
-                            id="reservoirCarburant"
                             placeholder="12 L à 30 L"
                             value={formData?.reservoirCarburant || 'non défini'}
+                            id="reservoirCarburant"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -887,9 +887,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="description-detaillee">Description détaillée</Label>
                           <Textarea
-                            id="description-detaillee"
                             placeholder="Ex : Bateau confortable, idéal pour la famille."
                             value={formData?.description || 'non défini'}
+                            id="description-detaillee"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -969,9 +969,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="port-attache">Port d&quot;attache (ville, marina)</Label>
                           <Input
-                            id="port-attache"
                             placeholder="Ex : Marina de Cannes"
                             value={formData?.portdefault || 'non défini'}
+                            id="port-attache"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -985,9 +985,9 @@ export default function EditBateauForm() {
                             Zones de navigation autorisées ou recommandées
                           </Label>
                           <Input
-                            id="zones-navigation"
                             placeholder="Ex : Côte d&quot;Azur, Méditerranée"
                             value={formData?.zonesNavigation || 'non défini'}
+                            id="zones-navigation"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1030,8 +1030,8 @@ export default function EditBateauForm() {
                                     <div className="flex items-center justify-between">
                                       <span className="font-medium">{label}</span>
                                       <button
-                                        onClick={() => handleRemove(id)}
                                         className="text-red-500 text-sm"
+                                        onClick={() => handleRemove(id)}
                                       >
                                         Supprimer
                                       </button>
@@ -1055,9 +1055,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="depot-garantie">Dépôt de garantie</Label>
                           <Input
-                            id="depot-garantie"
                             placeholder="Ex : 1000 €"
                             value={formData?.depotgarantie || 'non défini'}
+                            id="depot-garantie"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1073,9 +1073,9 @@ export default function EditBateauForm() {
                             Durée minimale / maximale de location
                           </Label>
                           <Input
-                            id="duree-location"
                             placeholder="Ex : 2 jours / 1 mois"
                             value={formData?.dureeLocation || 'non défini'}
+                            id="duree-location"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1094,9 +1094,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="depot-garantie-2">Passagers inclus dans le prix</Label>
                           <Input
-                            id="PassagersInclusDansLePrix"
                             placeholder="ex : 4"
                             value={formData?.PassagersInclusDansLePrix || 'non défini'}
+                            id="PassagersInclusDansLePrix"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1111,10 +1111,10 @@ export default function EditBateauForm() {
                           </Label>
                           <Input
                             type="number"
-                            id="SupplementParPassagerSupplémentaire"
                             placeholder="ex : 20"
                             step="0.01"
                             value={formData?.SupplementParPassagerSupplémentaire || 'non défini'}
+                            id="SupplementParPassagerSupplémentaire"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1132,9 +1132,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="port-depart">Port de départ (optionnel)</Label>
                           <Input
-                            id="port-depart"
                             placeholder="Port de Nice"
                             value={formData?.portdedepart || 'non défini'}
+                            id="port-depart"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1146,9 +1146,9 @@ export default function EditBateauForm() {
                         <div className="grid gap-3">
                           <Label htmlFor="depot-garantie-2">Port d&quot;arriver (optionnel)</Label>
                           <Input
-                            id="port-arriver"
                             placeholder="Port de Nice"
                             value={formData?.portdarriver || 'non défini'}
+                            id="port-arriver"
                             onChange={(e) =>
                               setFormData({
                                 ...formData,
@@ -1222,9 +1222,9 @@ export default function EditBateauForm() {
                   <div className="ml-4 mt-4">
                     <button
                       // type="submit"
-                      onClick={handleSave}
                       className="bg-black text-white px-4 py-2 rounded shadow flex items-center justify-center gap-2"
                       disabled={isSubmitting}
+                      onClick={handleSave}
                     >
                       {isSubmitting ? (
                         <>
@@ -1401,11 +1401,11 @@ export default function EditBateauForm() {
 
                     <div className="grid grid-cols-2 gap-2">
                       <div className="grid gap-3 mb-4">
-                        <label>Numéro de police d&quot;assurance</label>
+                        <label htmlFor='numero-police'>Numéro de police d&quot;assurance</label>
                         <Input
-                          id="numero-police"
                           type="text"
                           onChange={(e) => setNumeroPolice(e.target.value)}
+                          id="numero-police"
                           placeholder="Ex : 12345678-AB"
                         />
                       </div>
@@ -1428,7 +1428,7 @@ export default function EditBateauForm() {
                           <span>Soumission...</span>
                         </>
                       ) : ( */}
-                        "Soumettre"
+                        Soumettre
                         {/* )} */}
                       </button>
                     </div>
