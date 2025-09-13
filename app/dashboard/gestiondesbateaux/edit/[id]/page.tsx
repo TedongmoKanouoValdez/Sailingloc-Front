@@ -414,7 +414,7 @@ export default function EditBateauForm() {
     updatedImages[index] = {
       ...updatedImages[index],
       url: newUrl,
-      file, // maintenant TypeScript l'accepte
+      file, // maintenant TypeScript l accepte
     };
 
     setCoverImages(updatedImages);
@@ -1087,8 +1087,8 @@ export default function EditBateauForm() {
                       </div>
                       <Alert
                         color="warning"
-                        title="Si vous souhaitez facturer un supplément au-delà d’un certain nombre de passagers, indiquez ici le prix par passager supplémentaire et par jour.
-                        Laissez vide ou mettez 0 si aucun supplément n’est appliqué."
+                        title="Si vous souhaitez facturer un supplément au-delà d un certain nombre de passagers, indiquez ici le prix par passager supplémentaire et par jour.
+                        Laissez vide ou mettez 0 si aucun supplément n est appliqué."
                       />
                       <div className="grid grid-cols-2 gap-2 mt-2 mb-4">
                         <div className="grid gap-3">
