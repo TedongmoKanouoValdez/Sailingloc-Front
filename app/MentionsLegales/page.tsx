@@ -2,7 +2,7 @@ import React from "react";
 
 const MentionsLegales: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 text-gray-800 leading-relaxed">
+    <div className="max-w-5xl mx-auto px-6 py-10 text-black mt-16 leading-relaxed">
       <h1 className="text-3xl font-bold mb-6">Mentions Légales</h1>
 
       <div className="space-y-8">

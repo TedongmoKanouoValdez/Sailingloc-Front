@@ -10,7 +10,10 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -127,8 +130,12 @@
     "@eslint/js": "9.25.1",
     "@next/eslint-plugin-next": "15.3.1",
     "@react-types/shared": "3.30.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/card-validator": "^4.1.0",
     "@types/country-telephone-data": "^0.6.3",
+    "@types/jest": "^30.0.0",
     "@types/jspdf": "^1.3.3",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "22.15.3",
@@ -137,6 +144,8 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-payment-inputs": "^1.1.4",
     "@types/react-world-flags": "^1.6.0",
+    "@types/testing-library__react": "^10.0.1",
+    "@types/testing-library__user-event": "^4.1.1",
     "@typescript-eslint/eslint-plugin": "8.31.1",
     "@typescript-eslint/parser": "8.31.1",
     "autoprefixer": "10.4.21",
@@ -152,11 +161,14 @@
     "eslint-plugin-unused-imports": "4.1.4",
     "globals": "16.0.0",
     "husky": "^9.1.7",
+    "jest": "^30.1.3",
+    "jest-environment-jsdom": "^30.1.2",
     "lint-staged": "^16.1.4",
     "postcss": "8.5.3",
     "prettier": "^3.6.2",
     "tailwind-variants": "0.3.0",
     "tailwindcss": "3.4.16",
+    "ts-jest": "^29.4.1",
     "typescript": "^5.8.3"
   }
 }

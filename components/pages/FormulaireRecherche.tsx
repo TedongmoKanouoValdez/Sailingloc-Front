@@ -48,7 +48,7 @@ export default function FormulaireRecherche() {
           <div className="w-[13rem]">
             <Selectheroui
               className="max-w-xs"
-              placeholder="Veuillez sélectionné un port"
+              placeholder="Veuillez sélectionner un port"
               variant="flat"
               value={destinationform}
               onSelectionChange={(keys) => {

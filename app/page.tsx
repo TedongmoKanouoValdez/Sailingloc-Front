@@ -944,11 +944,7 @@ export default function Home() {
                   </p>
                 </BoxReveal>
 
-                <div className="mt-6 flex justify-center md:block">
-                  <BoxReveal boxColor={'#5046e6'} duration={0.5}>
-                    <RippleButton rippleColor="#ADD8E6">Trouver mon bateau</RippleButton>
-                  </BoxReveal>
-                </div>
+        
               </div>
             </div>
           </div>

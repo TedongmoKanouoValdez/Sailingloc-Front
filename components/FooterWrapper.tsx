@@ -63,7 +63,7 @@ export const FooterWrapper = () => {
             {
               name: 'Politique de remboursement',
               Icon: () => <SiGoogleanalytics />,
-              href: '/',
+              href: '/PolitiqueDeRemboursement',
             },
           ],
         },
@@ -74,6 +74,11 @@ export const FooterWrapper = () => {
               name: 'Contactez-nous',
               Icon: () => <FaBalanceScale />,
               href: '/contact',
+            },
+            {
+              name: 'Mentions légales',
+              Icon: () => <FaBalanceScale />,
+              href: '/MentionsLegales',
             },
           ],
         },

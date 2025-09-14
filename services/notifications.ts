@@ -17,7 +17,7 @@ export const fetchMessages = async (
   type: 'recus' | 'envoyes' = 'recus'
 ) => {
   const res = await fetch(
-    `https://sailingloc-back.vercel.app/messages?userId=${userId}&type=${type}`,
+    `https://sailingloc-back.vercel.app/messages?userId=${userId}&type=all`,
     {
       headers: { Authorization: `Bearer ${token}` },
       cache: 'no-store',

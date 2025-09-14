@@ -13,7 +13,7 @@ export default function GlobalLoader({
     // Temps minimum d'affichage (ex: 2 secondes)
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 11000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);

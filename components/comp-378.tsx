@@ -50,7 +50,7 @@ export default function Component() {
           className="cursor-pointer py-1 focus:bg-transparent focus:underline"
           asChild
         >
-          <Link href="/">
+          <Link href="/PolitiqueDeRemboursement">
             <RiRefund2Line size={16} className="opacity-60" aria-hidden="true" />
             Politique de remboursement
           </Link>
