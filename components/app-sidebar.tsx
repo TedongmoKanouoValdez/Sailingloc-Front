@@ -79,7 +79,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       { title: 'Gestion des demandes', url: '/dashboard/demandepartenaire', icon: FileText, roles: ['ADMIN'] },
       { title: 'Support & messages', url: '/dashboard/support&messages', icon: MessageSquareLock, roles: ['ADMIN', 'PROPRIETAIRE'] },
       { title: 'Notifications système', url: '/dashboard', icon: Bell, roles: ['ADMIN'] },
-      { title: 'Transactions & paiements', url: '/dashboard/paiements', icon: BanknoteArrowUp, roles: ['ADMIN'] },
+      { title: 'Transactions & paiements', url: '/dashboard/paiements', icon: BanknoteArrowUp, roles: ['ADMIN', 'PROPRIETAIRE'] },
       { title: 'Paramètres plateforme', url: '/dashboard/parametres', icon: SettingsIcon, roles: ['ADMIN'] },
     ];
 

@@ -1242,18 +1242,20 @@ export default function Home() {
 
       <section>
         <div
-          className="py-24"
+          className="py-18"
           // style={{
           //   backgroundImage:
           //     'url(https://res.cloudinary.com/dluqkutu8/image/upload/v1750525392/5594016_ntbb0p.jpg)',
           // }}
         >
-          <div className="flex flex-col justify-center items-center pb-24">
-            <div>
-              <h2 className="text-5xl font-medium mb-5">TRANSFORMEZ VOTRE BATEAU EN REVENUS</h2>
+          <div className="relative z-20 pb-16 pt-12 sm:pt-20 md:pt-32 lg:pt-40 mb-12">
+            <div className="flex flex-col justify-center items-center pb-12 sm:pb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-black font-medium text-center mb-5 px-4">
+                TRANSFORMEZ VOTRE BATEAU EN REVENUS
+              </h2>
             </div>
-            <div>
-              <p className="w-[20rem] md:w-[35rem] text-center">
+            <div className='flex justify-center w-full'>
+              <p className="w-full max-w-md md:max-w-2xl text-black text-center px-4">
                 Devenez un acteur de la communauté SailingLoc
               </p>
             </div>

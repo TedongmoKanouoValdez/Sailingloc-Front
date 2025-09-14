@@ -56,7 +56,7 @@ export function DataTable({ data }: { data: Reservation[] }) {
       toast.promise(
         new Promise(async (resolve, reject) => {
           const res = await fetch(
-            `http://localhost:3001/api/reservations/${id}`,
+            `https://sailingloc-back.vercel.app/api/reservations/${id}`,
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
